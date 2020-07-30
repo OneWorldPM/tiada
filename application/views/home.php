@@ -1,0 +1,142 @@
+<!-- SECTION -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
+<style>
+    .icon-home {
+        color: #ae0201;
+        font-size: 1.5em;
+        font-weight: 700;
+        vertical-align: middle;
+    }
+
+    .box-home {
+        background-color: #444;
+        border-radius: 30px;
+        background: rgba(250, 250, 250, 0.8);
+        max-width: 270px;
+        min-width: 270px;
+        min-height: 270px;
+        max-height: 270px;
+        padding: 15px;
+    }
+    .box-home_2 {
+        background-color: #444;
+        border-radius: 30px;
+        background: rgba(250, 250, 250, 0.8);
+        max-width: 185px;
+        min-width: 120px;
+        min-height: 160px;
+        max-height: 185px;
+        padding: 15px;
+        padding: 0px !important;
+    }
+
+    .fa {
+        font-weight: 900;
+    }
+
+    @media only screen and (min-width: 1400px) and (max-width: 1600px)  {
+        #home_first_section{
+            min-height: 700px;
+        }
+    }
+
+    @media only screen and (min-width: 1600px) and (max-width: 1800px)  {
+        #home_first_section{
+            min-height: 800px;
+        }
+    }
+
+    @media only screen and (min-width: 1800px) and (max-width: 2200px)  {
+        #home_first_section{
+            min-height: 900px;
+        }
+    }
+
+    @media only screen and (min-width: 2200px) and (max-width: 2800px)  {
+        #home_first_section{
+            min-height: 1000px;
+        }
+    }
+
+</style>
+<section class="parallax" style="background-image: url(<?= base_url() ?>front_assets/images/tiada.jpeg); top: 0; padding-top: 20px;">
+    <div class="container container-fullscreen" id="home_first_section">
+        <div class="text-bottom">
+            <div class="row">
+                <!--                <div class="col-md-12">
+                                    <div class="text-center m-t-0">
+                                        <h1 style="color: orange; font-family: 'Architects Daughter', cursive; margin-bottom: 0px; font-weight: 700; font-size: 40px;">Welcome, <?= $this->session->userdata('cname') ?></h1>
+                                    </div>
+                                </div>-->
+                <div class="col-md-12" style="text-align: -webkit-center; margin-left: 45px;">
+                    <div class="col-md-1 col-sm-12">
+                        <a class="icon-home" href="#"> 
+                            <div class="col-lg box-home_2 p-0 text-center p-b-25">
+                                <img src="<?= base_url() ?>front_assets/images/info.png" alt="welcome" class="m-t-20" style="height: 80px; width: 80px;">
+                                <br>
+                                <span style="font-size: 12px;">INFORMATION</span>
+                            </div>
+                        </a>
+                    </div> 
+                    <div class="col-md-3 col-sm-12">
+                        <a class="icon-home" href="<?= base_url() ?>sessions"> 
+                            <div class="col-lg box-home p-5 text-center">
+                                <img src="<?= base_url() ?>front_assets/images/Session.png" alt="welcome" class="m-t-40" style="height: 150px; width: 160px;">
+                                <br>
+                                <br>
+                                <span>SESSIONS</span>
+                            </div>
+                        </a>
+                    </div> 
+                    <div class="col-md-3  col-sm-12">
+                        <a class="icon-home" href="<?= base_url() ?>sponsor"> 
+                            <div class="col-lg box-home ml-5 mr-5 p-5 text-center">
+                                <img src="<?= base_url() ?>front_assets/images/sponsor.png" alt="welcome" class="m-t-40" style="height: 150px; width: 160px;">
+                                <br>
+                                <br>
+                                <span>SPONSORS</span>
+                            </div>
+                        </a>
+                    </div> 
+                    <div class="col-md-3  col-sm-12">
+                        <a class="icon-home" href="#"> 
+                            <div class="col-lg box-home p-5 text-center">
+                                <img src="<?= base_url() ?>front_assets/images/lounge.png" alt="welcome" class="m-t-20" style="height: 170px; width: 170px;">
+                                <br>
+                                <br>
+                                <span>LOUNGE</span>
+                            </div>
+                        </a>
+                    </div> 
+                    <div class="col-md-1  col-sm-12">
+                        <a class="icon-home" href="#"> 
+                            <div class="col-lg box-home_2 p-0 p-b-25 text-center">
+                                <img src="<?= base_url() ?>front_assets/images/settings-gears.png" alt="welcome" class="m-t-20" style="height: 90px; width: 90px;">
+                                <br>
+                                <span style="font-size: 12px;">TECHNICAL HELP</span>
+                            </div>
+                        </a>
+                    </div> 
+                </div>
+
+            </div> 
+        </div>
+    </div>
+</div>
+</section>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var page_link = $(location).attr('href');
+        var user_id = <?= $this->session->userdata("cid") ?>;
+        var page_name = "User Dashboard";
+        $.ajax({
+            url: "<?= base_url() ?>home/add_user_activity",
+            type: "post",
+            data: {'user_id': user_id, 'page_name': page_name, 'page_link': page_link},
+            dataType: "json",
+            success: function (data) {
+            }
+        });
+    });
+</script>

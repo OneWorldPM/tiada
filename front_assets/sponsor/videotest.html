@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Video Test</title>
+</head>
+<body>
+<div id="videos-container"></div>
+</body>
+</html>
+<script src="https://meet.yourconference.live/socket.io/socket.io.js"></script>
+<script>
+
+    var socketServer = "https://meet.yourconference.live:443";
+    let socket = io(socketServer);
+    socket.on('welcome-phpapp', function(message){
+        console.log(message);
+        socket.emit('greeting-from-phpapp-sponsor', {
+            message: "Hello from php app"
+        });
+    });
+
+    socket.on('server-got-phpapp-sponsor', function(message){
+        console.log(message);
+    });
+
+    socket.on('video-call', function(socketServer){
+        console.log(socketServer);
+        var videosContainer = document.getElementById('videos-container');
+        videosContainer.appendChild(socketServer.mediaElement);
+    });
+
+
+</script>
