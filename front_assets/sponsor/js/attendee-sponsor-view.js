@@ -38,35 +38,38 @@ $(function() {
     var socketServer = "https://meet.yourconference.live:443";
     let socket = io(socketServer);
 
-    socket.emit('ready', {"chat_room": ROOM, "signal_room": SIGNAL_ROOM});
+    function callSponsor()
+    {
+        socket.emit('ready', {"chat_room": ROOM, "signal_room": SIGNAL_ROOM});
 
-    //Send a first signaling message to anyone listening
-    //This normally would be on a button click
-    socket.emit('signal',{"type":"user_here", "message":"Are you ready for a call?", "room":SIGNAL_ROOM});
+        //Send a first signaling message to anyone listening
+        //This normally would be on a button click
+        socket.emit('signal',{"type":"user_here", "message":"Are you ready for a call?", "room":SIGNAL_ROOM});
 
-    socket.on('signaling_message', function(data) {
-        displaySignalMessage("Signal received: " + data.type);
+        socket.on('signaling_message', function(data) {
+            displaySignalMessage("Signal received: " + data.type);
 
-        //Setup the RTC Peer Connection object
-        if (!rtcPeerConn)
-            startSignaling();
+            //Setup the RTC Peer Connection object
+            if (!rtcPeerConn)
+                startSignaling();
 
-        if (data.type != "user_here") {
-            var message = JSON.parse(data.message);
-            if (message.sdp) {
-                rtcPeerConn.setRemoteDescription(new RTCSessionDescription(message.sdp), function () {
-                    // if we received an offer, we need to answer
-                    if (rtcPeerConn.remoteDescription.type == 'offer') {
-                        rtcPeerConn.createAnswer(sendLocalDesc, logError);
-                    }
-                }, logError);
+            if (data.type != "user_here") {
+                var message = JSON.parse(data.message);
+                if (message.sdp) {
+                    rtcPeerConn.setRemoteDescription(new RTCSessionDescription(message.sdp), function () {
+                        // if we received an offer, we need to answer
+                        if (rtcPeerConn.remoteDescription.type == 'offer') {
+                            rtcPeerConn.createAnswer(sendLocalDesc, logError);
+                        }
+                    }, logError);
+                }
+                else {
+                    rtcPeerConn.addIceCandidate(new RTCIceCandidate(message.candidate));
+                }
             }
-            else {
-                rtcPeerConn.addIceCandidate(new RTCIceCandidate(message.candidate));
-            }
-        }
 
-    });
+        });
+    }
 
     function startSignaling() {
         displaySignalMessage("starting signaling...");
@@ -158,11 +161,12 @@ $(function() {
     });
 
     $(".video-call-btn").on( "click", function() {
+
+        callSponsor();
+
         $('#videoCallModal').modal('show');
-        connection.open('attendee-to-sponsor', function() {
-            showRoomURL(connection.sessionid);
-        });
-        toastr["warning"]("Problem connecting to sponsor!")
+
+        toastr["warning"]("Feature is still under development!")
     });
 
     $(".video-call-hangup").on( "click", function() {
