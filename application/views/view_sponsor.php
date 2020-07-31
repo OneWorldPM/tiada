@@ -276,7 +276,7 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="videoCallModalLabel">Calling sponsor</h5>
+                    <h5 class="modal-title" id="videoCallModalLabel">Calling <?=$sponsor->company_name?></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -298,14 +298,22 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
     </div>
 
 </main>
-<script src="https://meet.yourconference.live/socket.io/socket.io.js"></script>
-<script src="/SSEConnection/RTCMultiConnection.min.js"></script>
-<script src="<?= base_url() ?>front_assets/sponsor/js/SSEConnection.js"></script>
-<script src="<?= base_url() ?>front_assets/sponsor/js/attendee-sponsor-view.js"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@9.17.0/dist/sweetalert2.all.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-<script>
-    $(function() {
+<script type="text/javascript">
+    var page_link = $(location).attr('href');
+    var user_id = <?= $this->session->userdata("cid") ?>;
+    var page_name = "Sponsor View";
+    var sponsor_id = <?= $sponsor->sponsors_id ?>;
+    var company_name = "<?= str_replace(' ', '_', $sponsor->company_name) ?>";
+
+    $(document).ready(function () {
+        $.ajax({
+            url: "<?= base_url() ?>home/add_user_activity",
+            type: "post",
+            data: {'user_id': user_id, 'page_name': page_name, 'page_link': page_link},
+            dataType: "json",
+            success: function (data) {
+            }
+        });
 
         $('#grp-chat-body').scrollTop($('#grp-chat-body')[0].scrollHeight);
 
@@ -318,19 +326,10 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
             '</li>');
     });
 </script>
+<script src="https://meet.yourconference.live/socket.io/socket.io.js"></script>
+<script src="/SSEConnection/RTCMultiConnection.min.js"></script>
+<script src="<?= base_url() ?>front_assets/sponsor/js/SSEConnection.js"></script>
+<script src="<?= base_url() ?>front_assets/sponsor/js/attendee-sponsor-view.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@9.17.0/dist/sweetalert2.all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        var page_link = $(location).attr('href');
-        var user_id = <?= $this->session->userdata("cid") ?>;
-        var page_name = "Sponsor View";
-        $.ajax({
-            url: "<?= base_url() ?>home/add_user_activity",
-            type: "post",
-            data: {'user_id': user_id, 'page_name': page_name, 'page_link': page_link},
-            dataType: "json",
-            success: function (data) {
-            }
-        });
-    });
-</script>

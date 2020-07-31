@@ -16,7 +16,7 @@ $(function() {
     var myVideoArea = document.querySelector("#myVideoTag");
     var theirVideoArea = document.querySelector("#theirVideoTag");
     var ROOM = "chat";
-    var SIGNAL_ROOM = "signal_room";
+    var SIGNAL_ROOM = company_name+'_'+sponsor_id;
     var configuration = {
         'iceServers': [
             { 'urls': 'stun:stun.l.google.com:19302' },
@@ -38,8 +38,20 @@ $(function() {
     var socketServer = "https://meet.yourconference.live:443";
     let socket = io(socketServer);
 
+    socket.emit('ready', {"chat_room": ROOM, "signal_room": SIGNAL_ROOM});
+
     function callSponsor()
     {
+        // get a local stream, show it in our video tag and add it to be sent
+        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+        navigator.getUserMedia({
+            'audio': false,
+            'video': true
+        }, function (stream) {
+            myVideoArea.srcObject = stream;
+        }, logError);
+
+
         socket.emit('ready', {"chat_room": ROOM, "signal_room": SIGNAL_ROOM});
 
         //Send a first signaling message to anyone listening
@@ -96,7 +108,6 @@ $(function() {
             'video': true
         }, function (stream) {
             displaySignalMessage("going to display my stream...");
-            myVideoArea.srcObject = stream;
             rtcPeerConn.addStream(stream);
         }, logError);
 
@@ -170,6 +181,7 @@ $(function() {
     });
 
     $(".video-call-hangup").on( "click", function() {
+        socket.emit('leave', {"chat_room": ROOM, "signal_room": SIGNAL_ROOM});
         location.reload();
     });
 

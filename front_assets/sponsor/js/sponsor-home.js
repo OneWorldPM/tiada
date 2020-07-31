@@ -16,7 +16,7 @@ $(function() {
     var myVideoArea = document.querySelector("#myVideoTag");
     var theirVideoArea = document.querySelector("#theirVideoTag");
     var ROOM = "chat";
-    var SIGNAL_ROOM = "signal_room";
+    var SIGNAL_ROOM = company_name+'_'+sponsor_id;
     var configuration = {
         'iceServers': [
             { 'urls': 'stun:stun.l.google.com:19302' },
@@ -40,16 +40,24 @@ $(function() {
 
     socket.emit('ready', {"chat_room": ROOM, "signal_room": SIGNAL_ROOM});
 
-    //Send a first signaling message to anyone listening
-    //This normally would be on a button click
-    socket.emit('signal',{"type":"user_here", "message":"Are you ready for a call?", "room":SIGNAL_ROOM});
-
     socket.on('signaling_message', function(data) {
         displaySignalMessage("Signal received: " + data.type);
 
-        //Setup the RTC Peer Connection object
-        if (!rtcPeerConn)
-            startSignaling();
+        $.post("sponsor-admin/VideoChatApi/sponsorVideoEngageStatus",
+            {
+                roomId: SIGNAL_ROOM,
+                sponsorId: sponsor_id
+            },
+            function(data, status){
+                if(status == 'success' && data == 'false')
+                {
+                    //Setup the RTC Peer Connection object
+                    if (!rtcPeerConn)
+                        startSignaling();
+                }else{
+                    //alert('Sponsor is already on a call!');
+                }
+            });
 
         if (data.type != "user_here") {
             var message = JSON.parse(data.message);
@@ -69,49 +77,108 @@ $(function() {
     });
 
     function startSignaling() {
-        displaySignalMessage("starting signaling...");
 
-        if (confirm('An attendee is calling, accept?')) {
-            $('#videoCallModal').modal('show');
-        } else {
-            // Do nothing!
-            console.log('Rejected!');
-            return false;
-        }
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        })
 
-        rtcPeerConn = new RTCPeerConnection(configuration);
+        swalWithBootstrapButtons.fire({
+            title: 'An attendee is calling!',
+            text: "Accept the call?",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Accept',
+            cancelButtonText: 'Reject',
+            reverseButtons: true,
+            allowOutsideClick: false
+        }).then((result) => {
+            if (result.value) {
 
-        // send any ice candidates to the other peer
-        rtcPeerConn.onicecandidate = function (evt) {
-            if (evt.candidate)
-                socket.emit('signal',{"type":"ice candidate", "message": JSON.stringify({ 'candidate': evt.candidate }), "room":SIGNAL_ROOM});
-            displaySignalMessage("completed that ice candidate...");
-        };
+                //Send a first signaling message to anyone listening
+                //This normally would be on a button click
+                socket.emit('signal',{"type":"user_here", "message":"Are you ready for a call?", "room":SIGNAL_ROOM});
+                displaySignalMessage("starting signaling...");
+                $('#videoCallModal').modal({
+                    backdrop: 'static',
+                    keyboard: false
+                })
+                $('#videoCallModal').modal('show');
 
-        // let the 'negotiationneeded' event trigger offer generation
-        rtcPeerConn.onnegotiationneeded = function () {
-            displaySignalMessage("on negotiation called");
-            rtcPeerConn.createOffer(sendLocalDesc, logError);
-        }
+                rtcPeerConn = new RTCPeerConnection(configuration);
 
-        // once remote stream arrives, show it in the remote video element
-        rtcPeerConn.ontrack = function (evt) {
-            displaySignalMessage("going to add their stream...");
-            theirVideoArea.srcObject = evt.streams[0];
-        };
+                // send any ice candidates to the other peer
+                rtcPeerConn.onicecandidate = function (evt) {
+                    if (evt.candidate)
+                        socket.emit('signal',{"type":"ice candidate", "message": JSON.stringify({ 'candidate': evt.candidate }), "room":SIGNAL_ROOM});
+                    displaySignalMessage("completed that ice candidate...");
+                };
 
-        // get a local stream, show it in our video tag and add it to be sent
-        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-        navigator.getUserMedia({
-            'audio': false,
-            'video': true
-        }, function (stream) {
-            displaySignalMessage("going to display my stream...");
-            myVideoArea.srcObject = stream;
-            rtcPeerConn.addStream(stream);
-        }, logError);
+                // let the 'negotiationneeded' event trigger offer generation
+                rtcPeerConn.onnegotiationneeded = function () {
+                    displaySignalMessage("on negotiation called");
+                    rtcPeerConn.createOffer(sendLocalDesc, logError);
+                }
+
+                // once remote stream arrives, show it in the remote video element
+                rtcPeerConn.ontrack = function (evt) {
+                    displaySignalMessage("going to add their stream...");
+                    theirVideoArea.srcObject = evt.streams[0];
+
+                    $.post("sponsor-admin/VideoChatApi/engageSponsor",
+                        {
+                            roomId: SIGNAL_ROOM,
+                            sponsorId: sponsor_id
+                        });
+                };
+
+                // get a local stream, show it in our video tag and add it to be sent
+                navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+                navigator.getUserMedia({
+                    'audio': false,
+                    'video': true
+                }, function (stream) {
+                    displaySignalMessage("going to display my stream...");
+                    myVideoArea.srcObject = stream;
+                    rtcPeerConn.addStream(stream);
+                }, logError);
+
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Rejected',
+                    "You have rejected attendee's call",
+                    'error'
+                )
+                return false;
+            }
+        })
 
     }
+
+    $(".video-call-hangup").on( "click", function() {
+        $('#videoCallModal').modal('hide');
+    });
+
+    $('#videoCallModal').on('hidden.bs.modal', function () {
+        $.post("sponsor-admin/VideoChatApi/releaseSponsor",
+            {
+                roomId: SIGNAL_ROOM,
+                sponsorId: sponsor_id
+            },
+            function(data, status){
+                if(status == 'success')
+                {
+                    //location.reload();
+                }
+            });
+        socket.emit('leave', {"chat_room": ROOM, "signal_room": SIGNAL_ROOM});
+    });
 
     function sendLocalDesc(desc) {
         rtcPeerConn.setLocalDescription(desc, function () {
@@ -173,10 +240,6 @@ $(function() {
             showRoomURL(connection.sessionid);
         });
         toastr["warning"]("Problem connecting to sponsor!")
-    });
-
-    $(".video-call-hangup").on( "click", function() {
-        location.reload();
     });
 
 

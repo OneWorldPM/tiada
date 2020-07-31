@@ -259,9 +259,9 @@ $sponsors_logo = ($sponsors_logo == '')?'logo_placeholder.png':$sponsors_logo;
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="videoCallModalLabel">Attendee online</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+<!--                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                        <span aria-hidden="true">&times;</span>-->
+<!--                    </button>-->
                 </div>
                 <div class="modal-body text-center">
                     <div class="video-call-parent">
@@ -280,14 +280,24 @@ $sponsors_logo = ($sponsors_logo == '')?'logo_placeholder.png':$sponsors_logo;
     </div>
 
 </main>
-<script src="https://meet.yourconference.live/socket.io/socket.io.js"></script>
-<script src="/SSEConnection/RTCMultiConnection.min.js"></script>
-<script src="<?= base_url() ?>front_assets/sponsor/js/SSEConnection.js"></script>
-<script src="<?= base_url() ?>front_assets/sponsor/js/sponsor-home.js"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@9.17.0/dist/sweetalert2.all.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-<script>
-    $(function() {
+<script type="text/javascript">
+    var page_link = $(location).attr('href');
+    var user_id = <?= $this->session->userdata("sponsors_id") ?>;
+    var page_name = "Sponsor Admin";
+    var sponsor_id = <?= $sponsors_id ?>;
+    var company_name = "<?= str_replace(' ', '_', $company_name) ?>";
+
+    $(document).ready(function () {
+
+        $.ajax({
+            url: "<?= base_url() ?>home/add_user_activity",
+            type: "post",
+            data: {'user_id': user_id, 'page_name': page_name, 'page_link': page_link},
+            dataType: "json",
+            success: function (data) {
+            }
+        });
+
         $('#grp-chat-body').scrollTop($('#grp-chat-body')[0].scrollHeight);
 
         $('#mainMenuItems').append('' +
@@ -299,3 +309,10 @@ $sponsors_logo = ($sponsors_logo == '')?'logo_placeholder.png':$sponsors_logo;
             '</li>');
     });
 </script>
+<script src="https://meet.yourconference.live/socket.io/socket.io.js"></script>
+<script src="/SSEConnection/RTCMultiConnection.min.js"></script>
+<script src="<?= base_url() ?>front_assets/sponsor/js/SSEConnection.js"></script>
+<script src="<?= base_url() ?>front_assets/sponsor/js/sponsor-home.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@9.17.0/dist/sweetalert2.all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
