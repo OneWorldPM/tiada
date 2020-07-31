@@ -89,12 +89,6 @@ $(function() {
             rtcPeerConn.createOffer(sendLocalDesc, logError);
         }
 
-        // once remote stream arrives, show it in the remote video element
-        rtcPeerConn.ontrack = function (evt) {
-            displaySignalMessage("going to add their stream...");
-            theirVideoArea.srcObject = evt.streams[0];
-        };
-
         // get a local stream, show it in our video tag and add it to be sent
         navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
         navigator.getUserMedia({
@@ -105,6 +99,12 @@ $(function() {
             myVideoArea.srcObject = stream;
             rtcPeerConn.addStream(stream);
         }, logError);
+
+        // once remote stream arrives, show it in the remote video element
+        rtcPeerConn.ontrack = function (evt) {
+            displaySignalMessage("going to add their stream...");
+            theirVideoArea.srcObject = evt.streams[0];
+        };
 
     }
 
