@@ -71,6 +71,13 @@ $(function() {
     function startSignaling() {
         displaySignalMessage("starting signaling...");
 
+        if (confirm('An attendee is calling, accept?')) {
+            $('#videoCallModal').modal('show');
+        } else {
+            // Do nothing!
+            console.log('Rejected!');
+        }
+
         rtcPeerConn = new RTCPeerConnection(configuration);
 
         // send any ice candidates to the other peer

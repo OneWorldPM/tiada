@@ -246,14 +246,39 @@ $sponsors_logo = ($sponsors_logo == '')?'logo_placeholder.png':$sponsors_logo;
                         </ul>
                     </div>
                 </div>
-                <video class="myVideoTag" id="myVideoTag" autoplay></video>
-                <video class="theirVideoTag" id="theirVideoTag" autoplay></video>
             </div>
         </div>
 
         <hr>
 
     </div> <!-- /container -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="videoCallModal" tabindex="-1" role="dialog" aria-labelledby="videoCallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="videoCallModalLabel">Calling sponsor</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <div class="video-call-parent">
+                        <div id="videos-container">
+                            <video class="myVideoTag" id="myVideoTag" autoplay></video>
+                            <video class="theirVideoTag" id="theirVideoTag" autoplay></video>
+                        </div>
+                        <span>Waiting for sponsor...</span><br>
+                        <i aria-hidden="true" class="video-call-hangup fa fa-phone-square fa-4x" style="color: #ca0b0b;"></i>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
 
 </main>
 <script src="https://meet.yourconference.live/socket.io/socket.io.js"></script>
