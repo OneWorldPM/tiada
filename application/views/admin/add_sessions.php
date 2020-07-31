@@ -48,7 +48,7 @@
                                     </div>-->
                                     <div class="form-group">
                                         <label class="text-large">Session Date:</label>
-                                        <input class="form-control datepicker" name="sessions_date" id="sessions_date" type="text" value="<?= (isset($sessions_edit) && !empty($sessions_edit)) ? date('m-d-Y', strtotime($sessions_edit->sessions_date)) : "" ?>">
+                                        <input class="form-control datepicker" name="sessions_date" id="sessions_date" type="text" value="<?= (isset($sessions_edit) && !empty($sessions_edit)) ? date('m/d/Y', strtotime($sessions_edit->sessions_date)) : "" ?>">
                                     </div>
                                    <div class="row">
                                         <div class="col-md-6">
@@ -203,7 +203,7 @@
 <script type="text/javascript">
     $(document).ready(function ()
     {
-        $('.datepicker').datepicker();
+         $('.datepicker').datepicker({dateFormat: 'mm/dd/yyyy' });
         
         $("#btn_add_new_presenter").on("click", function () {
             $("#presenter_list").append("<div class='col-md-12 p-15' id='add_new_presenter_section' style='margin-bottom: 20px; padding: 10px; border: 1px solid #b2b7bb;'>\n\

@@ -223,7 +223,7 @@
                                                                         </div>-->
                                 </div>
                             </div>
-                            <p style="font-weight: 600;">CURRENT TIME : <span id="show_time"></span> EDT</p>
+                            <p style="font-weight: 600;">CURRENT TIME : <span id="show_time"></span> CT</p>
                         </div>
                     </section>
                     <!-- END: SECTION --> 
