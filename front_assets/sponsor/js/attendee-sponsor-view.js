@@ -1,75 +1,131 @@
 $(function() {
 
-    var socketServer = "https://meet.yourconference.live:443";
-    let socket = io(socketServer);
-    socket.on('welcome-phpapp', function(message){
-        console.log(message);
-        socket.emit('greeting-from-phpapp-attendee', {
-            message: "Hello from php app attendee"
-        });
-    });
-
-    socket.on('server-got-phpapp-attendee', function(message){
-        console.log(message);
-    });
-
-    socket.on('video-call', function(message){
-        console.log(message);
-    });
-
 
 // ......................................................
 // ..................RTCMultiConnection Code.............
 // ......................................................
 
-    var connection = new RTCMultiConnection();
+    function displaySignalMessage(message) {
+        console.log(message);
+    }
+    function displayMessage(message) {
+        // chatArea.innerHTML = chatArea.innerHTML + "<br/>" + message;
+        console.log(message);
+    }
 
-// Using SSE (Server Sent Events) for signaling
-    connection.socketURL = 'https://yourconference.live/SSEConnection/';
-    connection.setCustomSocketHandler(SSEConnection);
-
-    connection.session = {
-        audio: true,
-        video: true
-    };
-
-    connection.sdpConstraints.mandatory = {
-        OfferToReceiveAudio: true,
-        OfferToReceiveVideo: true
-    };
-
-// https://www.rtcmulticonnection.org/docs/iceServers/
-// use your own TURN-server here!
-    connection.iceServers = [{
-        'urls': [
-            'stun:stun.l.google.com:19302',
-            'stun:stun1.l.google.com:19302',
-            'stun:stun2.l.google.com:19302',
-            'stun:stun.l.google.com:19302?transport=udp',
+    var ROOM = "chat";
+    var SIGNAL_ROOM = "signal_room";
+    var configuration = {
+        'iceServers': [
+            { 'urls': 'stun:stun.l.google.com:19302' },
+            { 'urls': 'stun:stun1.l.google.com:19302' },
+            {
+                url: 'turn:numb.viagenie.ca',
+                credential: 'muazkh',
+                username: 'webrtc@live.com'
+            },
+            {
+                url: 'turn:192.158.29.39:3478?transport=udp',
+                credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+                username: '28224511:1379330808'
+            }
         ]
-    }];
-
-    connection.videosContainer = document.getElementById('videos-container');
-    connection.onstream = function(event) {
-        console.log(event);
-        socket.emit('video-call-request', {
-            message: event
-        });
-        event.mediaElement.id = event.streamid;
-        connection.videosContainer.appendChild(event.mediaElement);
-
-        if (event.type === 'remote') {
-            connection.socket.close(); // release SSE connection
-        }
     };
+    var rtcPeerConn;
 
-    connection.onstreamended = function(event) {
-        var mediaElement = document.getElementById(event.streamid);
-        if (mediaElement && mediaElement.parentNode) {
-            mediaElement.parentNode.removeChild(mediaElement);
+    var socketServer = "https://meet.yourconference.live:443";
+    let socket = io(socketServer);
+
+    socket.emit('ready', {"chat_room": ROOM, "signal_room": SIGNAL_ROOM});
+
+    //Send a first signaling message to anyone listening
+    //This normally would be on a button click
+    socket.emit('signal',{"type":"user_here", "message":"Are you ready for a call?", "room":SIGNAL_ROOM});
+
+    socket.on('signaling_message', function(data) {
+        displaySignalMessage("Signal received: " + data.type);
+
+        //Setup the RTC Peer Connection object
+        if (!rtcPeerConn)
+            startSignaling();
+
+        if (data.type != "user_here") {
+            var message = JSON.parse(data.message);
+            if (message.sdp) {
+                rtcPeerConn.setRemoteDescription(new RTCSessionDescription(message.sdp), function () {
+                    // if we received an offer, we need to answer
+                    if (rtcPeerConn.remoteDescription.type == 'offer') {
+                        rtcPeerConn.createAnswer(sendLocalDesc, logError);
+                    }
+                }, logError);
+            }
+            else {
+                rtcPeerConn.addIceCandidate(new RTCIceCandidate(message.candidate));
+            }
         }
-    };
 
+    });
+
+    function startSignaling() {
+        displaySignalMessage("starting signaling...");
+
+        rtcPeerConn = new RTCPeerConnection(configuration);
+
+        // send any ice candidates to the other peer
+        rtcPeerConn.onicecandidate = function (evt) {
+            if (evt.candidate)
+                socket.emit('signal',{"type":"ice candidate", "message": JSON.stringify({ 'candidate': evt.candidate }), "room":SIGNAL_ROOM});
+            displaySignalMessage("completed that ice candidate...");
+        };
+
+        // let the 'negotiationneeded' event trigger offer generation
+        rtcPeerConn.onnegotiationneeded = function () {
+            displaySignalMessage("on negotiation called");
+            rtcPeerConn.createOffer(sendLocalDesc, logError);
+        }
+
+        // once remote stream arrives, show it in the remote video element
+        rtcPeerConn.ontrack = function (evt) {
+            displaySignalMessage("going to add their stream...");
+            theirVideoArea.srcObject = evt.streams[0];
+        };
+
+        // get a local stream, show it in our video tag and add it to be sent
+        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+        navigator.getUserMedia({
+            'audio': false,
+            'video': true
+        }, function (stream) {
+            displaySignalMessage("going to display my stream...");
+            myVideoArea.srcObject = stream;
+            rtcPeerConn.addStream(stream);
+        }, logError);
+
+    }
+
+    function sendLocalDesc(desc) {
+        rtcPeerConn.setLocalDescription(desc, function () {
+            displaySignalMessage("sending local description");
+            socket.emit('signal',{"type":"SDP", "message": JSON.stringify({ 'sdp': rtcPeerConn.localDescription }), "room":SIGNAL_ROOM});
+        }, logError);
+    }
+
+    function logError(error) {
+        displaySignalMessage(error.name + ': ' + error.message);
+    }
+
+    socket.on('announce', function(data) {
+        console.log(data);
+        displayMessage(data.message.chat_room);
+        displayMessage(data.message.signal_room);
+    });
+
+    socket.on('message', function(data) {
+        displayMessage(data.author + ": " + data.message);
+    });
+// ......................................................
+// ................End of RTCMultiConnection Code........
+// ......................................................
 
 
 
