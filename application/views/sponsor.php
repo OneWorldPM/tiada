@@ -25,11 +25,11 @@
     <div class="container container-fullscreen">
         <div class="text-middle">
             <div class="row">
-                <div class="col-md-12">
+<!--                <div class="col-md-12">
                     <div class="text-center m-t-0">
                         <h1 style="color: orange; font-family: 'Architects Daughter', cursive; margin-bottom: 0px; font-weight: 700; font-size: 40px;">Welcome, <?= $this->session->userdata('cname') ?></h1>
                     </div>
-                </div>
+                </div>-->
                 <div class="col-md-12 m-t-30" style="text-align: -webkit-center; min-height: 500px;">
                     <?php
                     if (isset($all_sponsor) && !empty($all_sponsor)) {

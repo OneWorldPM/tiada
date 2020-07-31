@@ -62,7 +62,7 @@
                                         <input type="text" name="linkedin_id" id="linkedin_id" value="<?= (isset($sponsors_edit) && !empty($sponsors_edit) ) ? $sponsors_edit->linkedin_id : "" ?>" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                         <label class="text-large">Sponsors Logo</label>
+                                        <label class="text-large">Sponsors Logo</label>
                                         <input type="file" class="form-control" name="sponsors_logo" id="sponsors_logo">
                                         <?php
                                         if (isset($sponsors_edit)) {
@@ -75,22 +75,22 @@
                                         ?>
                                     </div>
                                     <div class="form-group">
-                                         <label class="text-large">Sponsor Cover</label>
+                                        <label class="text-large">Sponsor Cover</label>
                                         <input type="file" class="form-control" name="sponsor_cover" id="sponsor_cover">
                                         <?php
                                         if (isset($sponsors_edit)) {
                                             if ($sponsors_edit->sponsor_cover != "") {
                                                 ?>
-                                                <img src="<?= base_url() ?>uploads/sponsors/<?= $sponsors_edit->sponsor_cover ?>?v=<?=rand(1, 100)?>" style="height: 75px; width: 200px;">
+                                                <img src="<?= base_url() ?>uploads/sponsors/<?= $sponsors_edit->sponsor_cover ?>?v=<?= rand(1, 100) ?>" style="height: 75px; width: 200px;">
                                                 <?php
-                                            }else{
-                                                echo '<img src="'.base_url().'uploads/sponsors/tiada_default_cover.jpg" style="height: 75px; width: 200px;">';
+                                            } else {
+                                                echo '<img src="' . base_url() . 'uploads/sponsors/tiada_default_cover.jpg" style="height: 75px; width: 200px;">';
                                             }
                                         }
                                         ?>
                                     </div>
                                     <div class="row" >
-										<label class="col-md-12 text-large">Select Sponsors Category</label>
+                                        <label class="col-md-12 text-large">Select Sponsors Category</label>
                                         <?php
                                         if (isset($sponsors_category) && !empty($sponsors_category)) {
                                             foreach ($sponsors_category as $val) {
