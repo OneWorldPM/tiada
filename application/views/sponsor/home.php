@@ -254,6 +254,7 @@ $sponsors_logo = ($sponsors_logo == '')?'logo_placeholder.png':$sponsors_logo;
     </div> <!-- /container -->
 
 </main>
+<script src="https://meet.yourconference.live/socket.io/socket.io.js"></script>
 <script src="/SSEConnection/RTCMultiConnection.min.js"></script>
 <script src="<?= base_url() ?>front_assets/sponsor/js/SSEConnection.js"></script>
 <script src="<?= base_url() ?>front_assets/sponsor/js/sponsor-home.js"></script>
