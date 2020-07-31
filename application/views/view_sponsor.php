@@ -283,7 +283,10 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
                 </div>
                 <div class="modal-body text-center">
                     <div class="video-call-parent">
-                        <div id="videos-container"></div>
+                        <div id="videos-container">
+                            <video id="myVideoTag" autoplay></video>
+                            <video id="theirVideoTag" autoplay></video>
+                        </div>
                         <span>Waiting for sponsor...</span><br>
                         <i aria-hidden="true" class="video-call-hangup fa fa-phone-square fa-4x" style="color: #ca0b0b;"></i>
                     </div>

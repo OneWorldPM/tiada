@@ -246,6 +246,8 @@ $sponsors_logo = ($sponsors_logo == '')?'logo_placeholder.png':$sponsors_logo;
                         </ul>
                     </div>
                 </div>
+                <video id="myVideoTag" autoplay></video>
+                <video id="theirVideoTag" autoplay></video>
             </div>
         </div>
 

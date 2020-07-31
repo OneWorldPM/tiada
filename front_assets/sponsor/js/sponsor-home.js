@@ -13,6 +13,8 @@ $(function() {
         console.log(message);
     }
 
+    var myVideoArea = document.querySelector("#myVideoTag");
+    var theirVideoArea = document.querySelector("#theirVideoTag");
     var ROOM = "chat";
     var SIGNAL_ROOM = "signal_room";
     var configuration = {
