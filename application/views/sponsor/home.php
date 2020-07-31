@@ -258,7 +258,7 @@ $sponsors_logo = ($sponsors_logo == '')?'logo_placeholder.png':$sponsors_logo;
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="videoCallModalLabel">Calling sponsor</h5>
+                    <h5 class="modal-title" id="videoCallModalLabel">Attendee online</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -269,7 +269,6 @@ $sponsors_logo = ($sponsors_logo == '')?'logo_placeholder.png':$sponsors_logo;
                             <video class="myVideoTag" id="myVideoTag" autoplay></video>
                             <video class="theirVideoTag" id="theirVideoTag" autoplay></video>
                         </div>
-                        <span>Waiting for sponsor...</span><br>
                         <i aria-hidden="true" class="video-call-hangup fa fa-phone-square fa-4x" style="color: #ca0b0b;"></i>
                     </div>
                 </div>

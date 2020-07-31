@@ -76,6 +76,7 @@ $(function() {
         } else {
             // Do nothing!
             console.log('Rejected!');
+            return false;
         }
 
         rtcPeerConn = new RTCPeerConnection(configuration);
