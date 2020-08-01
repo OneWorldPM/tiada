@@ -65,7 +65,7 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-                            Chat with sponsor
+                            Chat with <?=$sponsor->company_name?>
                             <span class="test-edit-btn badge badge-primary pull-right">
                                 <i class="fa fa-calendar-check-o" aria-hidden="true"></i> Schedule a meet
                             </span>
@@ -154,7 +154,7 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-                            Group Chat
+                            <?=$sponsor->company_name?> Group Chat
                         </h3>
                     </div>
                     <div id="grp-chat-body" class="panel-body">
@@ -277,9 +277,6 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="videoCallModalLabel">Calling <?=$sponsor->company_name?></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
                 </div>
                 <div class="modal-body text-center">
                     <div class="video-call-parent">
@@ -304,6 +301,7 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
     var page_name = "Sponsor View";
     var sponsor_id = <?= $sponsor->sponsors_id ?>;
     var company_name = "<?= str_replace(' ', '_', $sponsor->company_name) ?>";
+    var company_name_orig = "<?= $sponsor->company_name ?>";
 
     $(document).ready(function () {
         $.ajax({

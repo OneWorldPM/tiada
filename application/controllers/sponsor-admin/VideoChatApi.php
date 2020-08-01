@@ -4,12 +4,18 @@ if (!defined('BASEPATH'))
 
 class VideoChatApi extends CI_Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('sponsor/VideoChatApi_Model', 'VideoChatApi');
+    }
+
     public function engageSponsor()
     {
         $roomId = $this->input->post('roomId');
         $sponsorId = $this->input->post('sponsorId');
 
-        $this->session->set_userdata($sponsorId.'_videoEngaged', 'true');
+        $this->VideoChatApi->engageSponsor($sponsorId);
 
         return;
     }
@@ -19,7 +25,7 @@ class VideoChatApi extends CI_Controller
         $roomId = $this->input->post('roomId');
         $sponsorId = $this->input->post('sponsorId');
 
-        $this->session->set_userdata($sponsorId.'_videoEngaged', 'false');
+        $this->VideoChatApi->releaseSponsor($sponsorId);
 
         return;
     }
@@ -29,13 +35,8 @@ class VideoChatApi extends CI_Controller
         $roomId = $this->input->post('roomId');
         $sponsorId = $this->input->post('sponsorId');
 
-        if ($this->session->has_userdata($sponsorId.'_videoEngaged'))
-        {
-            $status = $this->session->userdata($sponsorId.'_videoEngaged');
-            echo $status;
-        }else{
-            echo 'false';
-        }
+        echo $this->VideoChatApi->sponsorVideoEngageStatus($sponsorId);
         return;
+
     }
 }

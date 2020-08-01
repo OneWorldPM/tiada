@@ -52,7 +52,6 @@ $(function() {
         }, logError);
 
 
-        socket.emit('ready', {"chat_room": ROOM, "signal_room": SIGNAL_ROOM});
 
         //Send a first signaling message to anyone listening
         //This normally would be on a button click
@@ -117,6 +116,39 @@ $(function() {
             theirVideoArea.srcObject = evt.streams[0];
         };
 
+        rtcPeerConn.oniceconnectionstatechange = function() {
+            if(rtcPeerConn.iceConnectionState == 'disconnected') {
+                //Releasing previous connections on reload!
+                $.post("/tiadaannualconference/sponsor-admin/VideoChatApi/releaseSponsor",
+                    {
+                        roomId: SIGNAL_ROOM,
+                        sponsorId: sponsor_id
+                    });
+
+                $('#videoCallModal').modal('hide');
+                Swal.fire(
+                    'TIADA left the video chat!',
+                    'if this was a connection problem, please try again!',
+                    'warning'
+                ).then(function () {
+                    location.reload();
+                });
+                location.reload();
+
+                // myVideoArea.srcObject.getVideoTracks().forEach(track => {
+                //     track.stop();
+                //     myVideoArea.srcObject.removeTrack(track);
+                // });
+                //
+                // theirVideoArea.srcObject.getVideoTracks().forEach(track => {
+                //     track.stop();
+                //     theirVideoArea.srcObject.removeTrack(track);
+                // });
+                //
+                // rtcPeerConn.close();
+            }
+        }
+
     }
 
     function sendLocalDesc(desc) {
@@ -173,9 +205,29 @@ $(function() {
 
     $(".video-call-btn").on( "click", function() {
 
-        callSponsor();
-
-        $('#videoCallModal').modal('show');
+        $.post("/tiadaannualconference/sponsor-admin/VideoChatApi/sponsorVideoEngageStatus",
+            {
+                roomId: SIGNAL_ROOM,
+                sponsorId: sponsor_id
+            },
+            function(data, status){
+                if(status == 'success' && data == 'false')
+                {
+                    callSponsor();
+                    $('#videoCallModal').modal({
+                        backdrop: 'static',
+                        keyboard: false
+                    });
+                    $('#videoCallModal').modal('show');
+                }else{
+                    Swal.fire({
+                        icon: 'warning',
+                        title: company_name_orig+' is on another call!',
+                        text: 'please try again after a while',
+                        footer: '<span>Or schedule a meeting with '+company_name_orig+' now! </span>'
+                    });
+                }
+            });
 
         toastr["warning"]("Feature is still under development!")
     });
