@@ -126,8 +126,8 @@ class Common {
             return "";
         }
     }
-	
-	function do_upload($htmlFieldName, $path, $filename, $isoverwrite = TRUE) {
+
+    function do_upload($htmlFieldName, $path, $filename, $isoverwrite = TRUE) {
         $config['file_name'] = $filename;
         $config['upload_path'] = $path;
         $config['allowed_types'] = '*';
@@ -137,6 +137,45 @@ class Common {
             return array('error' => $this->_CI->upload->display_errors(), 'status' => 0);
         } else {
             return array('status' => 1, 'upload_data' => $this->_CI->upload->data());
+        }
+    }
+
+    function get_total_sign_up_sessions($sessions_id) {
+        $this->_CI->db->where('sessions_id', trim($sessions_id));
+        $result = $this->_CI->db->get('sign_up_sessions');
+        if ($result->num_rows() > 0) {
+            return $result->num_rows();
+        } else {
+            return 0;
+        }
+    }
+
+    function get_status_sign_up_sessions($sessions_id, $cust_id) {
+        $this->_CI->db->where(array('sessions_id' => trim($sessions_id), 'cust_id' => $cust_id));
+        $result = $this->_CI->db->get('sign_up_sessions');
+        if ($result->num_rows() > 0) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    function get_total_sign_up_sessions_user($cust_id) {
+        $this->_CI->db->where(array('cust_id' => $cust_id));
+        $result = $this->_CI->db->get('sign_up_sessions');
+        if ($result->num_rows() > 0) {
+            return $result->num_rows();
+        } else {
+            return 0;
+        }
+    }
+
+    function get_roundtable_setting() {
+        $result = $this->_CI->db->get('roundtable_setting');
+        if ($result->num_rows() > 0) {
+            return $result->row()->roundtable;
+        } else {
+            return 0;
         }
     }
 

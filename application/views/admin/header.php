@@ -136,7 +136,7 @@ $uri_segment1 = $this->uri->segment(3);
                                     </div>
                                 </a>
                             </li>
-                             <li class="<?= ($uri_segment == 'sponsors') ? 'active' : ''; ?>">
+                            <li class="<?= ($uri_segment == 'sponsors') ? 'active' : ''; ?>">
                                 <a href="<?= site_url() ?>admin/sponsors " id="dash">
                                     <div class="item-content">
                                         <div class="item-media">
@@ -184,7 +184,7 @@ $uri_segment1 = $this->uri->segment(3);
                                     </div>
                                 </a>
                             </li>
-                             <li class="<?= ($uri_segment == 'tracking') ? 'active' : ''; ?>">
+                            <li class="<?= ($uri_segment == 'tracking') ? 'active' : ''; ?>">
                                 <a href="<?= site_url() ?>admin/tracking" id="dash">
                                     <div class="item-content">
                                         <div class="item-media">
@@ -192,6 +192,30 @@ $uri_segment1 = $this->uri->segment(3);
                                         </div>
                                         <div class="item-inner">
                                             <span class="title">Tracking</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="<?= ($uri_segment == 'sessions_configurations') ? 'active' : ''; ?>" >
+                                <a href="<?= site_url() ?>admin/sessions_configurations" id="dash">
+                                    <div class="item-content">
+                                        <div class="item-media">
+                                            <i class="fa fa-cogs"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <span class="title">Configurations </span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="<?= ($uri_segment == 'roundtable_setting') ? 'active' : ''; ?>" >
+                                <a href="<?= site_url() ?>admin/roundtable_setting" id="dash">
+                                    <div class="item-content">
+                                        <div class="item-media">
+                                            <i class="fa fa-cog"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <span class="title">Roundtable Setting </span>
                                         </div>
                                     </div>
                                 </a>

@@ -78,17 +78,32 @@
                                 <span style="font-size: 12px;">INFORMATION</span>
                             </div>
                         </a>
-                    </div> 
-                    <div class="col-md-3 col-sm-12">
-                        <a class="icon-home" href="<?= base_url() ?>sessions"> 
-                            <div class="col-lg box-home p-5 text-center">
-                                <img src="<?= base_url() ?>front_assets/images/Session.png" alt="welcome" class="m-t-40" style="height: 150px; width: 160px;">
-                                <br>
-                                <br>
-                                <span>SESSIONS</span>
-                            </div>
-                        </a>
-                    </div> 
+                    </div>
+                    <?php
+                    $user_detias = $this->common->get_user_details($this->session->userdata("cid"));
+                    if ($user_detias->customer_type != "Associate - Full Payment" && $user_detias->customer_type != "Associate Branch" && $user_detias->customer_type != "Associate -  Monthly") {
+                        ?>
+                        <div class="col-md-3 col-sm-12">
+                            <a class="icon-home" href="<?= base_url() ?>sessions"> 
+                                <div class="col-lg box-home p-5 text-center">
+                                    <img src="<?= base_url() ?>front_assets/images/Session.png" alt="welcome" class="m-t-40" style="height: 150px; width: 160px;">
+                                    <br>
+                                    <br>
+                                    <span>SESSIONS</span>
+                                </div>
+                            </a>
+                        </div>
+                    <?php } else { ?>
+                        <div class="col-md-3 col-sm-12">
+                            <a class="icon-home"> 
+                                <div class="col-lg box-home p-5 text-center">
+                                   <img src="<?= base_url() ?>front_assets/images/Session.png" alt="welcome" class="m-t-40" style="height: 150px; width: 160px;">
+                                    <br>
+                                    <span>You are not authorized to view this</span>
+                                </div>
+                            </a>
+                        </div>
+                    <?php } ?>
                     <div class="col-md-3  col-sm-12">
                         <a class="icon-home" href="<?= base_url() ?>sponsor"> 
                             <div class="col-lg box-home ml-5 mr-5 p-5 text-center">

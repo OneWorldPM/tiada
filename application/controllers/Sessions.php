@@ -96,7 +96,7 @@ class Sessions extends CI_Controller {
         }
         echo json_encode($result_array);
     }
-    
+
     public function addresource() {
         $result_data = $this->objsessions->addresource();
         if (!empty($result_data)) {
@@ -193,6 +193,24 @@ class Sessions extends CI_Controller {
         );
         $this->db->update('view_sessions_history', $session_his_arr, array("view_sessions_history_id" => $post['view_sessions_history_id']));
         echo json_encode(array("status" => "success"));
+    }
+
+    public function sign_up_sessions() {
+        $post = $this->input->post();
+        if ($post['sessions_id'] != "") {
+            $session_his_arr = array(
+                'sessions_id' => $post['sessions_id'],
+                'cust_id' => $this->session->userdata("cid")
+            );
+            $result = $this->db->get_where("sign_up_sessions", $session_his_arr)->row();
+            if (empty($result)) {
+                $this->db->insert('sign_up_sessions', $session_his_arr);
+            }
+            $result_array = array("status" => "success");
+        } else {
+            $result_array = array("status" => "error");
+        }
+        echo json_encode($result_array);
     }
 
 }

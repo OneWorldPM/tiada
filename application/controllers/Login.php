@@ -97,6 +97,7 @@ class Login extends CI_Controller {
             if (!empty($array)) {
                 if ($array['ValidateAuthenticationTokenResult'] != "") {
                     $user_details = $this->db->get_where("customer_master", array("cust_id" => $array['ValidateAuthenticationTokenResult']))->row();
+                   
                     if (!empty($user_details)) {
                         $session = array(
                             'cid' => $user_details->cust_id,
@@ -123,6 +124,7 @@ class Login extends CI_Controller {
                         $xml_1 = simplexml_load_string($response);
                         $json_1 = json_encode($xml_1);
                         $member_array = json_decode($json_1, TRUE);
+                        
                         foreach ($member_array as $key => $value) {
                             if (empty($value)) {
                                 unset($member_array[$key]);
@@ -134,6 +136,7 @@ class Login extends CI_Controller {
                             $customer = $this->db->get('customer_master');
                             if ($customer->num_rows() > 0) {
                                 $user_details = $customer->row();
+                              
                                 $session = array(
                                     'cid' => $user_details->cust_id,
                                     'cname' => $user_details->first_name,
@@ -161,6 +164,8 @@ class Login extends CI_Controller {
                                     'city' => $member_array['City'],
                                     'state' => $member_array['State'],
                                     'country' => $member_array['Country'],
+                                    'customer_type' => $member_array['MemberType'],
+                                    'customer_type_id'=>$member_array['MemberTypeID'],
                                     'register_date' => date("Y-m-d h:i")
                                 );
                                 $this->db->insert("customer_master", $set);

@@ -58,7 +58,7 @@
     <div class="container container-fullscreen" style="min-height: 900px;">
         <div class="">
             <div class="row">
-                
+
                 <div class="col-md-12 m-t-50" style="text-align: -webkit-center;">
                     <?php
                     if (isset($all_sessions_week) && !empty($all_sessions_week)) {
@@ -74,9 +74,9 @@
                                     if ($val->sessions_date == $current_date) {
                                         ?>
                                         <div class="col-lg box_home_active text-center">
-                                            <?php } else { ?>
+                                        <?php } else { ?>
                                             <div class="col-lg box-home text-center">
-        <?php } ?>
+                                            <?php } ?>
                                             <label style="margin-bottom: 20px; margin-top: 20px;   font-size: 30px; font-weight: 700;"><?= $val->dayname ?></label><br>
                                             <label><?= date('M-d-Y', strtotime($val->sessions_date)); ?></label>
                                         </div>
@@ -109,7 +109,7 @@
                                             <div class="post-content-details col-md-9 m-t-30">
 
                                                 <div class="post-title">
-                                                    <h6 style="font-weight: 600"><?= $val->sessions_date . ' ' . date("h:i A", strtotime($val->time_slot)) .' - '. date("h:i A", strtotime($val->end_time)) ?></h6>
+                                                    <h6 style="font-weight: 600"><?= $val->sessions_date . ' ' . date("h:i A", strtotime($val->time_slot)) . ' - ' . date("h:i A", strtotime($val->end_time)) ?></h6>
                                                     <h3><a href="<?= base_url() ?>sessions/attend/<?= $val->sessions_id ?>" style="color: #ae0201; font-weight: 900;"><?= $val->session_title ?></a></h3>
                                                 </div>
                                                 <?php
@@ -121,10 +121,34 @@
                                                     }
                                                 }
                                                 ?>
-                                                <div class="post-description">
-                                                    <p style="margin-bottom: 10px;"><?= $val->sessions_description ?></p>
-                                                    <a class="button black-light button-3d rounded right" style="margin: 0px 0;" href="<?= base_url() ?>sessions/attend/<?= $val->sessions_id ?>"><span>Attend</span></a>
-                                                </div>
+                                                <?php
+                                                if ($val->sessions_type_status == "Private") {
+                                                    $session_limit = $this->common->get_roundtable_setting();
+                                                    if ($val->total_sign_up_sessions < $session_limit) {
+                                                        if ($val->status_sign_up_sessions == 0) {
+                                                            ?>
+                                                            <div class="post-description">
+                                                                <p style="margin-bottom: 10px;"><?= $val->sessions_description ?></p>
+                                                                <a class="button black-light button-3d rounded right btn_sign_up" style="margin: 0px 0;" data-sessions_id="<?= $val->sessions_id ?>" data-user_limit="<?= $val->total_sign_up_sessions_user ?>"><span>Sign up</span></a>
+                                                            </div>
+                                                        <?php } else { ?>
+                                                            <div class="post-description">
+                                                                <p style="margin-bottom: 10px;"><?= $val->sessions_description ?></p>
+                                                                <a class="button black-light button-3d rounded right" style="margin: 0px 0;"><span>Unregister</span></a>
+                                                            </div>
+                                                        <?php } ?>
+                                                    <?php } else { ?>
+                                                        <div class="post-description">
+                                                            <p style="margin-bottom: 10px;"><?= $val->sessions_description ?></p>
+                                                            <a class="button black-light button-3d rounded right" style="margin: 0px 0;"><span>Roundtable Full</span></a>
+                                                        </div>
+                                                    <?php } ?>
+                                                <?php } else { ?>
+                                                    <div class="post-description">
+                                                        <p style="margin-bottom: 10px;"><?= $val->sessions_description ?></p>
+                                                        <a class="button black-light button-3d rounded right" style="margin: 0px 0;" href="<?= base_url() ?>sessions/attend/<?= $val->sessions_id ?>"><span>Attend</span></a>
+                                                    </div>
+                                                <?php } ?>
                                             </div>
                                         </div>
                                         <?php
@@ -187,6 +211,31 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
+
+        $('.btn_sign_up').on('click', function () {
+            var sessions_id = $(this).attr("data-sessions_id");
+            var user_limit = $(this).attr("data-user_limit");
+            if (user_limit <= 6) {
+                alertify.confirm('Are you sure you want to sign up for this roundtable session?', function (e) {
+                    if (e) {
+                        $.ajax({
+                            url: "<?= base_url() ?>sessions/sign_up_sessions",
+                            type: "post",
+                            data: {'sessions_id': sessions_id},
+                            dataType: "json",
+                            success: function (data) {
+                                if (data.status == "success") {
+                                    window.location.reload();
+                                }
+                            }
+                        });
+                    }
+                });
+            } else {
+                alertify.error('You have reached your roundtable limitation');
+            }
+        });
+
         $('#social_link_div').addClass('hidden');
         $("#social_link_div_show").hover(function () {
             $('#social_link_div').removeClass('hidden');

@@ -51,7 +51,16 @@ class M_sessions extends CI_Model {
 
     function createSessions() {
         $post = $this->input->post();
-
+        if (!empty($post['sessions_type'])) {
+            $sessions_type_id = implode(",", $post['sessions_type']);
+        } else {
+            $sessions_type_id = "";
+        }
+        if (!empty($post['sessions_tracks'])) {
+            $sessions_tracks_id = implode(",", $post['sessions_tracks']);
+        } else {
+            $sessions_tracks_id = "";
+        }
         $set = array(
             'presenter_id' => implode(",", $post['select_presenter_id']),
             'session_title' => trim($post['session_title']),
@@ -61,6 +70,9 @@ class M_sessions extends CI_Model {
             'end_time' => date("H:i", strtotime($post['end_time'])),
             'embed_html_code' => trim($post['embed_html_code']),
             'embed_html_code_presenter' => trim($post['embed_html_code_presenter']),
+            'sessions_type_id' => $sessions_type_id,
+            'sessions_tracks_id' => $sessions_tracks_id,
+            'sessions_type_status' => trim($post['sessions_type_status']),
             "reg_date" => date("Y-m-d h:i")
         );
         $this->db->insert("sessions", $set);
@@ -151,6 +163,16 @@ class M_sessions extends CI_Model {
 
     function updateSessions() {
         $post = $this->input->post();
+        if (!empty($post['sessions_type'])) {
+            $sessions_type_id = implode(",", $post['sessions_type']);
+        } else {
+            $sessions_type_id = "";
+        }
+        if (!empty($post['sessions_tracks'])) {
+            $sessions_tracks_id = implode(",", $post['sessions_tracks']);
+        } else {
+            $sessions_tracks_id = "";
+        }
         $set = array(
             'presenter_id' => implode(",", $post['select_presenter_id']),
             'session_title' => trim($post['session_title']),
@@ -159,7 +181,10 @@ class M_sessions extends CI_Model {
             'time_slot' => date("H:i", strtotime($post['time_slot'])),
             'end_time' => date("H:i", strtotime($post['end_time'])),
             'embed_html_code' => trim($post['embed_html_code']),
-            'embed_html_code_presenter' => trim($post['embed_html_code_presenter'])
+            'embed_html_code_presenter' => trim($post['embed_html_code_presenter']),
+            'sessions_type_id' => $sessions_type_id,
+            'sessions_tracks_id' => $sessions_tracks_id,
+            'sessions_type_status' => trim($post['sessions_type_status'])
         );
         $this->db->update("sessions", $set, array("sessions_id" => $post['sessions_id']));
         $sessions_id = $post['sessions_id'];
@@ -720,6 +745,28 @@ class M_sessions extends CI_Model {
             }
         } else {
             return FALSE;
+        }
+    }
+    
+     function getSessionTypes() {
+        $this->db->select('*');
+        $this->db->from('sessions_type');
+        $sessions_type = $this->db->get();
+        if ($sessions_type->num_rows() > 0) {
+            return $sessions_type->result();
+        } else {
+            return '';
+        }
+    }
+
+    function getSessionTracks() {
+        $this->db->select('*');
+        $this->db->from('sessions_tracks');
+        $sessions_tracks = $this->db->get();
+        if ($sessions_tracks->num_rows() > 0) {
+            return $sessions_tracks->result();
+        } else {
+            return '';
         }
     }
 

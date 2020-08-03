@@ -72,6 +72,45 @@
                                         <label class="text-large">Embed HTML Code <b>(Presenter)</b>:</label>
                                         <textarea class="form-control" style="color: #000;" placeholder="Embed HTML Code" name="embed_html_code_presenter" id="embed_html_code_presenter"><?= (isset($sessions_edit) && !empty($sessions_edit) ) ? $sessions_edit->embed_html_code_presenter : "" ?></textarea>
                                     </div>
+                                    <div class="row" >
+                                        <label class="col-md-12 text-large">Select Session Type</label>
+                                        <?php
+                                        if (isset($sessions_type) && !empty($sessions_type)) {
+                                            foreach ($sessions_type as $val) {
+                                                if($val->sessions_type != ""){
+                                                ?>
+                                                <div class="form-group col-md-6" style="color: #000;">
+                                                    <input type="checkbox" class="col-md-1"  name="sessions_type[]" <?= (isset($sessions_edit) && !empty($sessions_edit)) ? in_array($val->sessions_type_id, explode(",", $sessions_edit->sessions_type_id)) ? 'checked' : '' : '' ?> id="sessions_type" value="<?= $val->sessions_type_id ?>"> <?= $val->sessions_type ?><br>
+                                                </div>
+                                                <?php
+                                                }
+                                            }
+                                        }
+                                        ?>
+                                    </div>
+                                    <div class="row" >
+                                        <label class="col-md-12 text-large">Select Sessions Tracks</label>
+                                        <?php
+                                        if (isset($session_tracks) && !empty($session_tracks)) {
+                                            foreach ($session_tracks as $val) {
+                                                if($val->sessions_tracks != ""){
+                                                ?>
+                                                <div class="form-group col-md-6" style="color: #000;">
+                                                    <input type="checkbox" class="col-md-1"  name="sessions_tracks[]" <?= (isset($sessions_edit) && !empty($sessions_edit)) ? in_array($val->sessions_tracks_id, explode(",", $sessions_edit->sessions_tracks_id)) ? 'checked' : '' : '' ?> id="sessions_tracks" value="<?= $val->sessions_tracks_id ?>"> <?= $val->sessions_tracks ?><br>
+                                                </div>
+                                                <?php
+                                                }
+                                            }
+                                        }
+                                        ?>
+                                    </div>
+                                     <div class="form-group">
+                                        <label class="text-large">Select Sessions Status</label>
+                                        <select class="form-control" id="sessions_type_status" name="sessions_type_status">
+                                            <option <?= (isset($sessions_edit) && !empty($sessions_edit) ) ? ($sessions_edit->sessions_type_status == "Regular") ? "selected" : "" : "selected" ?> value="Regular">Regular Session</option>
+                                            <option <?= (isset($sessions_edit) && !empty($sessions_edit) ) ? ($sessions_edit->sessions_type_status == "Private") ? "selected" : "" : "" ?> value="Private">Private Session</option> 
+                                        </select>
+                                    </div>
                                     <div class="form-group">
                                         <label>Sessions Photo</label>
                                         <input type="file" class="form-control" name="sessions_photo" id="sessions_photo">

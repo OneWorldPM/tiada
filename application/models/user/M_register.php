@@ -30,6 +30,7 @@ class M_register extends CI_Model {
                     'last_name' => trim($post['last_name']),
                     'email' => trim($post['email']),
                     'password' => base64_encode($post['password']),
+                    'customer_type' => 'Dummy users',
                     'register_date' => date("Y-m-d h:i")
                 );
                 $this->db->insert("customer_master", $set);
@@ -112,7 +113,7 @@ class M_register extends CI_Model {
             $imageDetailArray = $this->upload->data();
             $this->db->set('profile', $imageDetailArray['file_name'])->where('cust_id', $cust_id)->update('customer_master');
         }
-        
+
         if ($_FILES['upload_vcard']['size'] != 0) {
             $config = array(
                 'upload_path' => './uploads/upload_vcard/',

@@ -51,6 +51,9 @@ class M_sessions extends CI_Model {
             $return_array = array();
             foreach ($sessions->result() as $val) {
                 $val->presenter = $this->common->get_presenter($val->presenter_id, $val->sessions_id);
+                $val->total_sign_up_sessions = $this->common->get_total_sign_up_sessions($val->sessions_id);
+                $val->status_sign_up_sessions = $this->common->get_status_sign_up_sessions($val->sessions_id, $this->session->userdata("cid"));
+                $val->total_sign_up_sessions_user = $this->common->get_total_sign_up_sessions_user($this->session->userdata("cid"));
                 $return_array[] = $val;
             }
             return $return_array;
