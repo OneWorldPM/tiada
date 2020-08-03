@@ -278,8 +278,94 @@ $(function() {
         toastr["warning"]("Logo and cover editing option is under development!")
     });
 
-    $(".edit-about-btn, .save-twitter, .test-edit-btn").on( "click", function() {
-        toastr["warning"]("Under development!")
+    $(".edit-about-btn").on( "click", function() {
+
+        var about = $('.sponsor-about').val();
+        $.post("sponsor-admin/profile/updateAbout",
+            {
+                about: about
+            },
+            function(data, status){
+                if(status == 'success')
+                {
+                    toastr["success"]("About updated!")
+
+                }else{
+                    toastr["error"]("Problem updating about!")
+                }
+            });
+    });
+
+    $(".save-website").on( "click", function() {
+
+        var website = $('#website').val();
+        $.post("sponsor-admin/profile/updateWebsite",
+            {
+                website: website
+            },
+            function(data, status){
+                if(status == 'success')
+                {
+                    toastr["success"]("Website updated!")
+
+                }else{
+                    toastr["error"]("Problem updating website!")
+                }
+            });
+    });
+
+    $(".save-twitter").on( "click", function() {
+
+        var twitter = $('#twitterHandle').val();
+        $.post("sponsor-admin/profile/updateTwitter",
+            {
+                twitter: twitter
+            },
+            function(data, status){
+                if(status == 'success')
+                {
+                    toastr["success"]("Twitter handle updated!")
+
+                }else{
+                    toastr["error"]("Problem updating twitter handle!")
+                }
+            });
+    });
+
+    $(".save-facebook").on( "click", function() {
+
+        var facebook = $('#facebookHandle').val();
+        $.post("sponsor-admin/profile/updateFacebook",
+            {
+                facebook: facebook
+            },
+            function(data, status){
+                if(status == 'success')
+                {
+                    toastr["success"]("Facebook handle updated!")
+
+                }else{
+                    toastr["error"]("Problem updating facebook handle!")
+                }
+            });
+    });
+
+    $(".save-linkedin").on( "click", function() {
+
+        var linkedin = $('#linkedinHandle').val();
+        $.post("sponsor-admin/profile/updateLinkedin",
+            {
+                linkedin: linkedin
+            },
+            function(data, status){
+                if(status == 'success')
+                {
+                    toastr["success"]("LinkedIn handle updated!")
+
+                }else{
+                    toastr["error"]("Problem updating LinkedIn handle!")
+                }
+            });
     });
 
     $(".video-call-btn").on( "click", function() {
@@ -310,5 +396,72 @@ $(function() {
         $('#logreg-forms #btn-signup').click(toggleSignUp);
         $('#logreg-forms #cancel_signup').click(toggleSignUp);
     })
+
+
+
+    $(".name-edit-btn").on( "click", function() {
+
+        if ($(this).attr('saving') == 'true')
+        {
+            var name = $('.company-name').text();
+
+            $.post("sponsor-admin/profile/updateName",
+                {
+                    name: name
+                },
+                function(data, status){
+                    if(status == 'success')
+                    {
+                        $(".name-edit-btn").attr("saving", "false");
+
+                        $(".company-name").removeClass("company-name-editable");
+                        $(".company-name").attr('contentEditable', false);
+
+                        $(".name-edit-btn").addClass("small-edit-btn");
+                        $(".name-edit-btn").removeClass("name-save-btn");
+                        $(".name-edit-btn").removeClass("small-save-btn");
+
+                        $(".name-edit-btn").html('<i class="fa fa-pencil-square-o" aria-hidden="true"></i> edit name');
+                        $(".name-edit-cancel-btn").remove();
+
+                        toastr["success"]("Name updated!")
+
+                    }else{
+                        toastr["error"]("Problem updating the name!")
+                    }
+                });
+        }else{
+            $(".company-name").addClass("company-name-editable");
+            $(".company-name").attr('contentEditable', true);
+
+            $(".name-edit-btn").addClass("name-save-btn");
+            $(".name-edit-btn").addClass("small-save-btn");
+            $(".name-edit-btn").attr("saving", "true");
+
+
+            $(".name-edit-btn").html('<i class="fa fa-floppy-o" aria-hidden="true"></i> save');
+            $( ".name-edit-btn" ).after( '' +
+                '<span class="name-edit-cancel-btn small-cancel-btn badge badge-primary">' +
+                '<i class="fa fa-times" aria-hidden="true"></i> cancel' +
+                '</span>' );
+
+            $(".name-edit-btn").removeClass("small-edit-btn");
+
+            $(".name-edit-cancel-btn").on( "click", function() {
+                $(".name-edit-btn").attr("saving", "false");
+
+                $(".company-name").removeClass("company-name-editable");
+                $(".company-name").attr('contentEditable', false);
+
+                $(".name-edit-btn").addClass("small-edit-btn");
+                $(".name-edit-btn").removeClass("name-save-btn");
+                $(".name-edit-btn").removeClass("small-save-btn");
+
+                $(".name-edit-btn").html('<i class="fa fa-pencil-square-o" aria-hidden="true"></i> edit name');
+                $(".name-edit-cancel-btn").remove();
+            });
+        }
+
+    });
 
 });

@@ -172,4 +172,82 @@ class M_sponsors extends CI_Model {
         }
     }
 
+    function updateSponsorName()
+    {
+        $sponsorId = $this->session->userdata('sponsors_id');
+        $post = $this->input->post();
+        if (isset($post['name'])) {
+            $this->db->set('company_name', $post['name']);
+            $this->db->where('sponsors_id', $sponsorId);
+            $this->db->update('sponsors');
+        }
+
+        return;
+    }
+
+    function updateSponsorAbout()
+    {
+        $sponsorId = $this->session->userdata('sponsors_id');
+        $post = $this->input->post();
+        if (isset($post['about'])) {
+            $this->db->set('about', $post['about']);
+            $this->db->where('sponsors_id', $sponsorId);
+            $this->db->update('sponsors');
+        }
+
+        return;
+    }
+
+    function updateSponsorWebsite()
+    {
+        $sponsorId = $this->session->userdata('sponsors_id');
+        $post = $this->input->post();
+        if (isset($post['website'])) {
+            $this->db->set('website', $post['website']);
+            $this->db->where('sponsors_id', $sponsorId);
+            $this->db->update('sponsors');
+        }
+
+        return;
+    }
+
+    function updateSponsorTwitter()
+    {
+        $sponsorId = $this->session->userdata('sponsors_id');
+        $post = $this->input->post();
+        if (isset($post['twitter'])) {
+            $this->db->set('twitter_id', $post['twitter']);
+            $this->db->where('sponsors_id', $sponsorId);
+            $this->db->update('sponsors');
+        }
+
+        return;
+    }
+
+    function updateSponsorFacebook()
+    {
+        $sponsorId = $this->session->userdata('sponsors_id');
+        $post = $this->input->post();
+        if (isset($post['facebook'])) {
+            $this->db->set('facebook_id', $post['facebook']);
+            $this->db->where('sponsors_id', $sponsorId);
+            $this->db->update('sponsors');
+        }
+
+        return;
+    }
+
+    function updateSponsorLinkedin()
+    {
+        $sponsorId = $this->session->userdata('sponsors_id');
+        $post = $this->input->post();
+        if (isset($post['linkedin'])) {
+            $this->db->set('linkedin_id', $post['linkedin']);
+            $this->db->where('sponsors_id', $sponsorId);
+            $this->db->update('sponsors');
+        }
+
+        return;
+    }
+
 }

@@ -3,25 +3,27 @@
 
 <?php
 $sponsors_logo = ($sponsors_logo == '')?'logo_placeholder.png':$sponsors_logo;
+$sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_cover;
 
 ?>
 
 <main role="main">
 
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron" style="background-image: url(<?= base_url() ?>front_assets/sponsor/images/covers/sponsor-cover-default.jpg)">
-        <div class="container" style="height: 220px;">
-            <span class="edit-cover-btn badge badge-primary pull-right">
-                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> edit cover or logo
-            </span>
-            <img class="sponsor-main-logo" src="<?= base_url() ?>uploads/sponsors/<?=$sponsors_logo?>">
-            <h1 class="sponsor-name">
-                <?=$company_name?>
-                <span class="test-edit-btn badge badge-primary">
-                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> edit name
-            </span>
-            </h1>
+    <?php
+    if ($embed_code != '') {
+        ?>
+        <div class="vod-container">
+            <?= $embed_code ?>
         </div>
+        <?php
+    }
+    ?>
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron" style="background-image: url(<?= base_url() ?>uploads/sponsors/<?= $sponsor_cover ?>?v=<?=rand(1, 100)?>);background-size: 1930px;background-repeat: no-repeat;background-position: center;height: 600px;background-color: #272f31;">
+        <span class="edit-cover-btn badge badge-primary pull-right">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> edit cover
+        </span>
     </div>
 
     <div class="container">
@@ -29,20 +31,34 @@ $sponsors_logo = ($sponsors_logo == '')?'logo_placeholder.png':$sponsors_logo;
         <div class="row m-b-30">
 
             <div class="col-md-4">
+
+                <div class="container" style="height: 220px;">
+                    <img class="sponsor-main-logo" src="<?= base_url() ?>uploads/sponsors/<?=$sponsors_logo?>">
+                    <span class="test-edit-btn badge badge-primary">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> edit logo
+                        </span>
+                    <h1 class="sponsor-name">
+                        <span class="company-name"><?=$company_name?></span>
+                        <span class="name-edit-btn small-edit-btn badge badge-primary">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> edit name
+                        </span>
+                    </h1>
+                </div>
+
                 <h3>About Us</h3>
-                <textarea class="form-control" rows="7"><?=$about?></textarea>
+                <textarea class="sponsor-about form-control" rows="7"><?=$about?></textarea>
                 <span class="edit-about-btn badge badge-primary pull-right">
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i> save
                 </span>
                 <div class="clearfix m-b-25"></div>
                 <div class="form-group">
-                    <label class="sr-only" for="twitterHandle"></label>
+                    <label class="sr-only" for="website"></label>
                     <div class="input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-globe fa-2x" aria-hidden="true"></i>
                         </div>
-                        <input type="text" class="form-control" id="twitterHandle" placeholder="Twitter handle" value="<?=$website?>">
-                        <div class="save-twitter input-group-addon btn" type="button">
+                        <input type="text" class="form-control" id="website" placeholder="Website" value="<?=$website?>">
+                        <div class="save-website input-group-addon btn" type="button">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> save
                         </div>
                     </div>
@@ -62,26 +78,26 @@ $sponsors_logo = ($sponsors_logo == '')?'logo_placeholder.png':$sponsors_logo;
                 </div>
 
                 <div class="form-group">
-                    <label class="sr-only" for="twitterHandle"></label>
+                    <label class="sr-only" for="facebookHandle"></label>
                     <div class="input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i>
                         </div>
-                        <input type="text" class="form-control" id="twitterHandle" placeholder="Twitter handle" value="<?=$facebook_id?>">
-                        <div class="save-twitter input-group-addon btn" type="button">
+                        <input type="text" class="form-control" id="facebookHandle" placeholder="Facebook handle" value="<?=$facebook_id?>">
+                        <div class="save-facebook input-group-addon btn" type="button">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> save
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="sr-only" for="twitterHandle"></label>
+                    <label class="sr-only" for="linkedinHandle"></label>
                     <div class="input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i>
                         </div>
-                        <input type="text" class="form-control" id="twitterHandle" placeholder="Twitter handle" value="<?=$linkedin_id?>">
-                        <div class="save-twitter input-group-addon btn" type="button">
+                        <input type="text" class="form-control" id="linkedinHandle" placeholder="Twitter handle" value="<?=$linkedin_id?>">
+                        <div class="save-linkedin input-group-addon btn" type="button">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> save
                         </div>
                     </div>
