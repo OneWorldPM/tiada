@@ -244,8 +244,15 @@
     background-color: black;
 }
 
-#videos-container video{
+.myVideoTag{
+    position: absolute;
     width: 17%;
-    margin-left: 82%;
-    margin-top: 45%;
+    margin-left: 68%;
+    margin-top: 43%;
+}
+
+.theirVideoTag{
+    margin-left: 0px;
+    margin-top: 0px;
+    width: 77%;
 }

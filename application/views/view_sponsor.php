@@ -65,7 +65,7 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-                            Chat with sponsor
+                            Chat with <?=$sponsor->company_name?>
                             <span class="test-edit-btn badge badge-primary pull-right">
                                 <i class="fa fa-calendar-check-o" aria-hidden="true"></i> Schedule a meet
                             </span>
@@ -154,7 +154,7 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-                            Group Chat
+                            <?=$sponsor->company_name?> Group Chat
                         </h3>
                     </div>
                     <div id="grp-chat-body" class="panel-body">
@@ -276,15 +276,14 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="videoCallModalLabel">Calling sponsor</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h5 class="modal-title" id="videoCallModalLabel">Calling <?=$sponsor->company_name?></h5>
                 </div>
                 <div class="modal-body text-center">
                     <div class="video-call-parent">
-                        <div id="videos-container"></div>
-                        <span>Waiting for sponsor...</span><br>
+                        <div id="videos-container">
+                            <video class="myVideoTag" id="myVideoTag" autoplay></video>
+                            <video class="theirVideoTag" id="theirVideoTag" autoplay></video>
+                        </div>
                         <i aria-hidden="true" class="video-call-hangup fa fa-phone-square fa-4x" style="color: #ca0b0b;"></i>
                     </div>
                 </div>
@@ -296,14 +295,23 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
     </div>
 
 </main>
-<script src="https://meet.yourconference.live/socket.io/socket.io.js"></script>
-<script src="/SSEConnection/RTCMultiConnection.min.js"></script>
-<script src="<?= base_url() ?>front_assets/sponsor/js/SSEConnection.js"></script>
-<script src="<?= base_url() ?>front_assets/sponsor/js/attendee-sponsor-view.js"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@9.17.0/dist/sweetalert2.all.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-<script>
-    $(function() {
+<script type="text/javascript">
+    var page_link = $(location).attr('href');
+    var user_id = <?= $this->session->userdata("cid") ?>;
+    var page_name = "Sponsor View";
+    var sponsor_id = <?= $sponsor->sponsors_id ?>;
+    var company_name = "<?= str_replace(' ', '_', $sponsor->company_name) ?>";
+    var company_name_orig = "<?= $sponsor->company_name ?>";
+
+    $(document).ready(function () {
+        $.ajax({
+            url: "<?= base_url() ?>home/add_user_activity",
+            type: "post",
+            data: {'user_id': user_id, 'page_name': page_name, 'page_link': page_link},
+            dataType: "json",
+            success: function (data) {
+            }
+        });
 
         $('#grp-chat-body').scrollTop($('#grp-chat-body')[0].scrollHeight);
 
@@ -316,19 +324,10 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
             '</li>');
     });
 </script>
+<script src="https://meet.yourconference.live/socket.io/socket.io.js"></script>
+<script src="/SSEConnection/RTCMultiConnection.min.js"></script>
+<script src="<?= base_url() ?>front_assets/sponsor/js/SSEConnection.js"></script>
+<script src="<?= base_url() ?>front_assets/sponsor/js/attendee-sponsor-view.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@9.17.0/dist/sweetalert2.all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        var page_link = $(location).attr('href');
-        var user_id = <?= $this->session->userdata("cid") ?>;
-        var page_name = "Sponsor View";
-        $.ajax({
-            url: "<?= base_url() ?>home/add_user_activity",
-            type: "post",
-            data: {'user_id': user_id, 'page_name': page_name, 'page_link': page_link},
-            dataType: "json",
-            success: function (data) {
-            }
-        });
-    });
-</script>
