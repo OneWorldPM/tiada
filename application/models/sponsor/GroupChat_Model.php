@@ -24,7 +24,7 @@ class GroupChat_Model extends CI_Model
 
         $this->db->insert('sponsor_group_chat', $data);
 
-        return;
+        return $data;
     }
 
     public function clearChat()

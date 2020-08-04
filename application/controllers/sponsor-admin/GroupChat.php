@@ -18,7 +18,8 @@ class GroupChat extends CI_Controller
 
     public function newText()
     {
-        $this->groupChatModel->newText();
+        $data = $this->groupChatModel->newText();
+        echo json_encode($data);
         return;
     }
 

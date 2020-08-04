@@ -84,7 +84,7 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
                             </span>
                         </h3>
                     </div>
-                    <div id="grp-chat-body" class="panel-body">
+                    <div id="chat-body" class="panel-body">
                         <ul class="chat">
 
                             <li class="grp-chat left clearfix">
@@ -174,6 +174,7 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
                     </div>
                     <div class="panel-footer">
                         <div class="input-group">
+                            <span class="is-typing"></span>
                             <input type="text" id="groupChatText" class="form-control" placeholder="You can also press enter key to send">
                             <span class="input-group-btn">
                                 <button class="btn btn-blue send-grp-chat-btn" type="button">
@@ -224,6 +225,8 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
     var company_name_orig = "<?= $sponsor->company_name ?>";
     var base_url = "<?= base_url() ?>";
     var sponsor_logo = "<?= $sponsor->sponsors_logo ?>";
+    var user_name = "<?= $this->session->userdata('fullname') ?>";
+    var user_type = "attendee";
 
     $(document).ready(function () {
         $.ajax({

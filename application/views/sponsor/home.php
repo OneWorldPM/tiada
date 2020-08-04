@@ -128,6 +128,7 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
                     </div>
                     <div class="panel-footer">
                         <div class="input-group">
+                            <span class="is-typing"></span>
                             <input type="text" id="groupChatText" class="form-control" placeholder="You can also press enter key to send">
                             <span class="input-group-btn">
                                 <button class="btn btn-blue send-grp-chat-btn" type="button">
@@ -216,6 +217,8 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
     var company_name_orig = "<?= $company_name ?>";
     var base_url = "<?= base_url() ?>";
     var sponsor_logo = "<?= $sponsors_logo ?>";
+    var user_name = "<?= $company_name ?>";
+    var user_type = "sponsor";
 
     $(document).ready(function () {
 
