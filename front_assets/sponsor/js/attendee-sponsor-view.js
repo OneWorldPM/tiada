@@ -195,13 +195,6 @@ $(function() {
         "hideMethod": "fadeOut"
     }
 
-    $(".edit-cover-btn").on( "click", function() {
-        toastr["warning"]("Logo and cover editing option is under development!")
-    });
-
-    $(".edit-about-btn, .save-twitter, .test-edit-btn").on( "click", function() {
-        toastr["warning"]("Under development!")
-    });
 
     $(".video-call-btn").on( "click", function() {
 

@@ -1,4 +1,4 @@
-<link href="<?= base_url() ?>front_assets/sponsor/css/sponsor-home.css" rel="stylesheet">
+<link href="<?= base_url() ?>front_assets/sponsor/css/sponsor-home.css?v=<?=rand(1, 100)?>" rel="stylesheet">
 <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
 
 <?php
@@ -7,6 +7,16 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
 ?>
 
 <main role="main">
+
+    <?php
+    if ($sponsor->embed_code != '') {
+        ?>
+        <div class="vod-container">
+            <?= $sponsor->embed_code ?>
+        </div>
+        <?php
+    }
+    ?>
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron" style="background-image: url(<?= base_url() ?>uploads/sponsors/<?= $sponsor_cover ?>?v=<?=rand(1, 100)?>);background-size: 1930px;background-repeat: no-repeat;background-position: center;height: 600px;background-color: #272f31;">
