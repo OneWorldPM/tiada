@@ -70,10 +70,10 @@
                                     </div>
                                 </div>-->
                 <div class="col-md-12" style="text-align: -webkit-center; margin-left: 45px;">
-                    <div class="col-md-1 col-sm-12">
+                    <div class="col-md-1 col-sm-12 m-t-100">
                         <a class="icon-home" href="#"> 
                             <div class="col-lg box-home_2 p-0 text-center p-b-25">
-                                <img src="<?= base_url() ?>front_assets/images/info.png" alt="welcome" class="m-t-20" style="height: 80px; width: 80px;">
+                                <img src="<?= base_url() ?>front_assets/images/info.png" alt="welcome" class="m-t-30" style="height: 80px; width: 80px;">
                                 <br>
                                 <span style="font-size: 12px;">INFORMATION</span>
                             </div>
@@ -124,7 +124,7 @@
                             </div>
                         </a>
                     </div> 
-                    <div class="col-md-1  col-sm-12">
+                    <div class="col-md-1  col-sm-12 m-t-100">
                         <a class="icon-home" href="#"> 
                             <div class="col-lg box-home_2 p-0 p-b-25 text-center">
                                 <img src="<?= base_url() ?>front_assets/images/settings-gears.png" alt="welcome" class="m-t-20" style="height: 90px; width: 90px;">

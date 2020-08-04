@@ -197,18 +197,31 @@ class Sessions extends CI_Controller {
 
     public function sign_up_sessions() {
         $post = $this->input->post();
-        if ($post['sessions_id'] != "") {
-            $session_his_arr = array(
-                'sessions_id' => $post['sessions_id'],
-                'cust_id' => $this->session->userdata("cid")
-            );
-            $result = $this->db->get_where("sign_up_sessions", $session_his_arr)->row();
-            if (empty($result)) {
-                $this->db->insert('sign_up_sessions', $session_his_arr);
-            }
-            $result_array = array("status" => "success");
+        $sessions_result = $this->db->get_where("sessions", array('sessions_id' => $post['sessions_id']))->row();
+        $this->db->select("s.sessions_id");
+        $this->db->from("sign_up_sessions su");
+        $this->db->join("sessions s", "su.sessions_id=s.sessions_id");
+        $this->db->where('DATE_FORMAT(s.sessions_date, "%Y-%m-%d") =', date('Y-m-d', strtotime($sessions_result->sessions_date)));
+        $this->db->where('s.time_slot <=', $sessions_result->time_slot);
+        $this->db->where('s.end_time >=', $sessions_result->time_slot);
+        $this->db->where("cust_id", $this->session->userdata("cid"));
+        $join_sessions_result = $this->db->get();
+        if ($join_sessions_result->num_rows() > 0) {
+            $result_array = array("status" => "exist");
         } else {
-            $result_array = array("status" => "error");
+            if ($post['sessions_id'] != "") {
+                $session_his_arr = array(
+                    'sessions_id' => $post['sessions_id'],
+                    'cust_id' => $this->session->userdata("cid")
+                );
+                $result = $this->db->get_where("sign_up_sessions", $session_his_arr)->row();
+                if (empty($result)) {
+                    $this->db->insert('sign_up_sessions', $session_his_arr);
+                }
+                $result_array = array("status" => "success");
+            } else {
+                $result_array = array("status" => "error");
+            }
         }
         echo json_encode($result_array);
     }

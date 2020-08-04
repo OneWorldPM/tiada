@@ -226,6 +226,8 @@
                             success: function (data) {
                                 if (data.status == "success") {
                                     window.location.reload();
+                                } else if (data.status == "exist") {
+                                    alertify.error('Runnign at the same time');
                                 }
                             }
                         });

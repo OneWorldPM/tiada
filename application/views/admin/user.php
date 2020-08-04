@@ -30,13 +30,19 @@
                                     <thead class="th_center">
                                         <tr>
                                             <th>Date</th>
+                                            <th>User ID</th>
                                             <th>Register ID</th>
                                             <th>Profile</th>
                                             <th>Full Name</th>
+                                            <th>Phone No.</th>
                                             <th>Email</th>
                                             <th>Password</th>
                                             <th>Address</th>
+                                            <th>Address Type</th>
+                                            <th>City</th>
+                                            <th>State</th>
                                             <th>Country</th>
+                                            <th>Website</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -47,6 +53,7 @@
                                                 ?>
                                                 <tr>
                                                     <td><?= date("Y-m-d", strtotime($val->register_date)) ?></td>
+                                                    <td><?= $val->user_id ?></td>
                                                     <td><?= $val->register_id ?></td>
                                                     <td>
                                                         <?php if ($val->profile != "") { ?>
@@ -55,10 +62,15 @@
                                                             <img src="<?= base_url() ?>assets/images/Avatar.png" style="height: 40px; width: 40px;">
                                                         <?php } ?>
                                                     <td><?= $val->first_name . ' ' . $val->last_name ?></td>
+                                                     <td><?= $val->phone ?></td>
                                                     <td><?= $val->email ?></td>
                                                     <td><?= base64_decode($val->password) ?></td>
                                                     <td><?= $val->address ?></td>
+                                                    <td><?= $val->address_cont ?></td>
+                                                     <td><?= $val->city ?></td>
+                                                     <td><?= $val->state ?></td>
                                                     <td><?= $val->country ?></td>
+                                                    <td><?= $val->website ?></td>
                                                     <td> 
                                                         <a class="btn btn-danger btn-sm delete_presenter" href="<?= base_url() . 'admin/user/deleteuser/' . $val->cust_id ?>">
                                                             <i class="fa fa-trash-o"></i> Delete
