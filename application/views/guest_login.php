@@ -26,7 +26,7 @@
                                 <div class="text-left form-group">
                                     <button type="submit" id="btn_login" class="btn btn-primary">Login</button>
                                 </div>
-                                <h4 style="margin-bottom: 0px;"><a href="https://www.txiada.org/login.asp?redirectURL=https://yourconference.live/tiadaannualconference/login/authenticate">Login with TIADA</a></h4>
+                                <!--<h4 style="margin-bottom: 0px;"><a href="https://www.txiada.org/login.asp?redirectURL=https://yourconference.live/tiadaannualconference/login/authenticate">Login with TIADA</a></h4>-->
                             </form>
                         </div>
 <!--                        <div class="col-md-6">
