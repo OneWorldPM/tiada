@@ -220,6 +220,18 @@ $uri_segment1 = $this->uri->segment(3);
                                     </div>
                                 </a>
                             </li>
+                            <li class="<?= ($uri_segment == 'dummy_user') ? 'active' : ''; ?>" >
+                                <a href="<?= site_url() ?>admin/dummy_user" id="dash">
+                                    <div class="item-content">
+                                        <div class="item-media">
+                                            <i class="fa fa-users"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <span class="title">Dummy User</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
                         </ul>
                     </nav>
                 </div>

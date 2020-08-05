@@ -29,7 +29,7 @@
                                     <span id="errorlast_name" style="color:red"></span>
                                 </div>
                                 <div class="col-md-3 form-group">
-                                    <input type="email" name="email" id="email" value="<?= (isset($myprofile)) ? $myprofile->email : ''; ?>" readonly placeholder="Email" class="form-control input-lg">
+                                    <input type="email" name="email" id="email" value="<?= (isset($myprofile)) ? $myprofile->email : ''; ?>" placeholder="Email" class="form-control input-lg">
                                     <span id="erroremail" style="color:red"></span>
                                 </div>
                                 <div class="col-md-3 form-group">
