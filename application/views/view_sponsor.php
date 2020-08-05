@@ -84,7 +84,7 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
                             </span>
                         </h3>
                     </div>
-                    <div id="grp-chat-body" class="panel-body">
+                    <div id="chat-body" class="panel-body">
                         <ul class="chat">
 
                             <li class="grp-chat left clearfix">
@@ -168,105 +168,16 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
                         </h3>
                     </div>
                     <div id="grp-chat-body" class="panel-body">
-                        <ul class="chat">
-
-                            <li class="grp-chat left clearfix">
-                                <span class="chat-img pull-left">
-                                    <img src="https://placehold.it/50/ff634a/fff&text=AN" alt="User Avatar" class="img-circle" />
-                                </span>
-                                <div class="chat-body clearfix">
-                                    <div class="header">
-                                        <strong class="primary-font">Attendee Name</strong> <small class="pull-right text-muted">
-                                            <span class="glyphicon glyphicon-time"></span>13 mins ago</small>
-                                    </div>
-                                    <p>
-                                        Hey! real nice booth, where are you located?
-                                    </p>
-                                </div>
-                            </li>
-
-                            <li class="grp-chat right clearfix">
-                                <span class="chat-img pull-right">
-                                    <img src="<?= base_url() ?>uploads/sponsors/<?=$sponsors_logo?>" alt="User Avatar" class="img-circle" />
-                                </span>
-                                <div class="chat-body clearfix">
-                                    <div class="header">
-                                        <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>13 mins ago</small>
-                                        <strong class="pull-right primary-font"><?=$sponsor->company_name?></strong>
-                                    </div>
-                                    <p>
-                                        Hi, we are in Huston!
-                                    </p>
-                                </div>
-                            </li>
-
-                            <li class="grp-chat left clearfix">
-                                <span class="chat-img pull-left">
-                                    <img src="https://placehold.it/50/2472c6/fff&text=AA" alt="User Avatar" class="img-circle" />
-                                </span>
-                                <div class="chat-body clearfix">
-                                    <div class="header">
-                                        <strong class="primary-font">Another Attendee</strong> <small class="pull-right text-muted">
-                                            <span class="glyphicon glyphicon-time"></span>12 mins ago</small>
-                                    </div>
-                                    <p>
-                                        Great! This is me asking something else?
-                                    </p>
-                                </div>
-                            </li>
-
-                            <li class="grp-chat right clearfix">
-                                <span class="chat-img pull-right">
-                                    <img src="<?= base_url() ?>uploads/sponsors/<?=$sponsors_logo?>" alt="User Avatar" class="img-circle" />
-                                </span>
-                                <div class="chat-body clearfix">
-                                    <div class="header">
-                                        <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>11 mins ago</small>
-                                        <strong class="pull-right primary-font"><?=$sponsor->company_name?></strong>
-                                    </div>
-                                    <p>
-                                        This is sponsor answering something else!
-                                    </p>
-                                </div>
-                            </li>
-
-                            <li class="grp-chat left clearfix">
-                                <span class="chat-img pull-left">
-                                    <img src="https://placehold.it/50/ff634a/fff&text=AN" alt="User Avatar" class="img-circle" />
-                                </span>
-                                <div class="chat-body clearfix">
-                                    <div class="header">
-                                        <strong class="primary-font">Attendee Name</strong> <small class="pull-right text-muted">
-                                            <span class="glyphicon glyphicon-time"></span>10 mins ago</small>
-                                    </div>
-                                    <p>
-                                        Alright then see you!
-                                    </p>
-                                </div>
-                            </li>
-
-                            <li class="grp-chat right clearfix">
-                                <span class="chat-img pull-right">
-                                    <img src="<?= base_url() ?>uploads/sponsors/<?=$sponsors_logo?>" alt="User Avatar" class="img-circle" />
-                                </span>
-                                <div class="chat-body clearfix">
-                                    <div class="header">
-                                        <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>9 mins ago</small>
-                                        <strong class="pull-right primary-font"><?=$sponsor->company_name?></strong>
-                                    </div>
-                                    <p>
-                                        See you!
-                                    </p>
-                                </div>
-                            </li>
+                        <ul class="group-chat">
 
                         </ul>
                     </div>
                     <div class="panel-footer">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="You can also press enter key to send">
+                            <span class="is-typing"></span>
+                            <input type="text" id="groupChatText" class="form-control" placeholder="You can also press enter key to send">
                             <span class="input-group-btn">
-                                <button class="btn btn-blue test-edit-btn" type="button">
+                                <button class="btn btn-blue send-grp-chat-btn" type="button">
                                     <i class="fa fa-paper-plane" aria-hidden="true"></i> Send
                                 </button>
                             </span>
@@ -312,6 +223,10 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
     var sponsor_id = <?= $sponsor->sponsors_id ?>;
     var company_name = "<?= str_replace(' ', '_', $sponsor->company_name) ?>";
     var company_name_orig = "<?= $sponsor->company_name ?>";
+    var base_url = "<?= base_url() ?>";
+    var sponsor_logo = "<?= $sponsor->sponsors_logo ?>";
+    var user_name = "<?= $this->session->userdata('fullname') ?>";
+    var user_type = "attendee";
 
     $(document).ready(function () {
         $.ajax({
@@ -322,8 +237,6 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
             success: function (data) {
             }
         });
-
-        $('#grp-chat-body').scrollTop($('#grp-chat-body')[0].scrollHeight);
 
         $('#mainMenuItems').append('' +
             '<li>' +
@@ -337,7 +250,9 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
 <script src="https://meet.yourconference.live/socket.io/socket.io.js"></script>
 <script src="/SSEConnection/RTCMultiConnection.min.js"></script>
 <script src="<?= base_url() ?>front_assets/sponsor/js/SSEConnection.js"></script>
-<script src="<?= base_url() ?>front_assets/sponsor/js/attendee-sponsor-view.js"></script>
+<script src="<?= base_url() ?>front_assets/sponsor/js/attendee-sponsor-view.js?v=<?=rand(1, 100)?>"></script>
+<script src="https://blueimp.github.io/JavaScript-MD5/js/md5.js"></script>
+<script src="<?= base_url() ?>front_assets/sponsor/js/group-chat.js?v=<?=rand(1, 100)?>"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@9.17.0/dist/sweetalert2.all.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 

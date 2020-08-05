@@ -15,7 +15,7 @@ $(function() {
     var myVideoArea = document.querySelector("#myVideoTag");
     var theirVideoArea = document.querySelector("#theirVideoTag");
     var ROOM = "chat";
-    var SIGNAL_ROOM = company_name+'_'+sponsor_id;
+    var SIGNAL_ROOM = 'tiada_'+company_name+'_'+sponsor_id;
     var configuration = {
         'iceServers': [
             { 'urls': 'stun:stun.l.google.com:19302' },
@@ -177,7 +177,7 @@ $(function() {
                             // get a local stream, show it in our video tag and add it to be sent
                             navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
                             navigator.getUserMedia({
-                                'audio': false,
+                                'audio': true,
                                 'video': true
                             }, function (stream) {
                                 displaySignalMessage("going to display my stream...");
@@ -202,7 +202,9 @@ $(function() {
                     'Rejected',
                     "You have rejected attendee's call",
                     'error'
-                )
+                ).then(function () {
+                    //add reject action
+                });
                 return false;
             }
         })

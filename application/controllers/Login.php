@@ -34,6 +34,7 @@ class Login extends CI_Controller {
                 $session = array(
                     'cid' => $data['cust_id'],
                     'cname' => $data['first_name'],
+                    'fullname' => $data['first_name']." ".$data['last_name'],
                     'email' => $data['email'],
                     'userType' => 'user'
                 );
@@ -52,6 +53,7 @@ class Login extends CI_Controller {
             $session = array(
                 'cid' => $data['cust_id'],
                 'cname' => $data['first_name'],
+                'fullname' => $data['first_name']." ".$data['last_name'],
                 'email' => $data['email'],
                 'userType' => 'user'
             );
@@ -65,6 +67,7 @@ class Login extends CI_Controller {
     function logout() {
         $this->session->unset_userdata('cid');
         $this->session->unset_userdata('cname');
+        $this->session->unset_userdata('fullname');
         $this->session->unset_userdata('email');
         $this->session->unset_userdata('userType');
         header('location:' . base_url() . 'login');
@@ -127,6 +130,7 @@ class Login extends CI_Controller {
                         $session = array(
                             'cid' => $user_details->cust_id,
                             'cname' => $user_details->first_name,
+                            'fullname' => $user_details->first_name." ".$user_details->last_name,
                             'email' => $user_details->email,
                             'userType' => 'user'
                         );
@@ -166,6 +170,7 @@ class Login extends CI_Controller {
                                 $session = array(
                                     'cid' => $user_details->cust_id,
                                     'cname' => $user_details->first_name,
+                                    'fullname' => $user_details->first_name." ".$user_details->last_name,
                                     'email' => $user_details->email,
                                     'userType' => 'user'
                                 );
@@ -205,6 +210,7 @@ class Login extends CI_Controller {
                                     $session = array(
                                         'cid' => $user_details->cust_id,
                                         'cname' => $user_details->first_name,
+                                        'fullname' => $user_details->first_name." ".$user_details->last_name,
                                         'email' => $user_details->email,
                                         'userType' => 'user'
                                     );

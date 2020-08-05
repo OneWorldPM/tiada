@@ -52,4 +52,17 @@ class M_myprofile extends CI_Model {
         return $config;
     }
 
+    public function nameById($cid)
+    {
+        $this->db->select(array('first_name', 'last_name'));
+        $this->db->from('customer_master');
+        $this->db->where('cust_id', $cid);
+        $user = $this->db->get();
+        if ($user->num_rows() > 0) {
+            return $user->row();
+        } else {
+            return '';
+        }
+    }
+
 }

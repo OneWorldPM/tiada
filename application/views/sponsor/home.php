@@ -110,10 +110,10 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
                     <div class="panel-heading">
                         <h3 class="panel-title">
                             Group Chat
-                            <span class="test-edit-btn badge badge-primary pull-right">
+                            <span class="clear-group-chat-btn badge badge-primary pull-right">
                                 <i class="fa fa-trash" aria-hidden="true"></i> clear
                             </span>
-                            <span class="test-edit-btn badge badge-primary pull-right">
+                            <span class="save-group-chat-btn badge badge-primary pull-right">
                                 <i class="fa fa-floppy-o" aria-hidden="true"></i> save
                             </span>
 <!--                            <span class="test-edit-btn badge badge-primary pull-right">-->
@@ -122,105 +122,16 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
                         </h3>
                     </div>
                     <div id="grp-chat-body" class="panel-body">
-                        <ul class="chat">
-
-                            <li class="grp-chat left clearfix">
-                                <span class="chat-img pull-left">
-                                    <img src="https://placehold.it/50/ff634a/fff&text=AN" alt="User Avatar" class="img-circle" />
-                                </span>
-                                <div class="chat-body clearfix">
-                                    <div class="header">
-                                        <strong class="primary-font">Attendee Name</strong> <small class="pull-right text-muted">
-                                            <span class="glyphicon glyphicon-time"></span>13 mins ago</small>
-                                    </div>
-                                    <p>
-                                        Hey! real nice booth, where are you located?
-                                    </p>
-                                </div>
-                            </li>
-
-                            <li class="grp-chat right clearfix">
-                                <span class="chat-img pull-right">
-                                    <img src="<?= base_url() ?>front_assets/sponsor/images/logos/sample_logo.png" alt="User Avatar" class="img-circle" />
-                                </span>
-                                <div class="chat-body clearfix">
-                                    <div class="header">
-                                        <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>13 mins ago</small>
-                                        <strong class="pull-right primary-font"><?=$company_name?></strong>
-                                    </div>
-                                    <p>
-                                        Hi, we are in Huston!
-                                    </p>
-                                </div>
-                            </li>
-
-                            <li class="grp-chat left clearfix">
-                                <span class="chat-img pull-left">
-                                    <img src="https://placehold.it/50/ff634a/fff&text=AN" alt="User Avatar" class="img-circle" />
-                                </span>
-                                <div class="chat-body clearfix">
-                                    <div class="header">
-                                        <strong class="primary-font">Attendee Name</strong> <small class="pull-right text-muted">
-                                            <span class="glyphicon glyphicon-time"></span>12 mins ago</small>
-                                    </div>
-                                    <p>
-                                        Great! This is me asking something else?
-                                    </p>
-                                </div>
-                            </li>
-
-                            <li class="grp-chat right clearfix">
-                                <span class="chat-img pull-right">
-                                    <img src="<?= base_url() ?>front_assets/sponsor/images/logos/sample_logo.png" alt="User Avatar" class="img-circle" />
-                                </span>
-                                <div class="chat-body clearfix">
-                                    <div class="header">
-                                        <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>11 mins ago</small>
-                                        <strong class="pull-right primary-font"><?=$company_name?></strong>
-                                    </div>
-                                    <p>
-                                        This is sponsor answering something else!
-                                    </p>
-                                </div>
-                            </li>
-
-                            <li class="grp-chat left clearfix">
-                                <span class="chat-img pull-left">
-                                    <img src="https://placehold.it/50/ff634a/fff&text=AN" alt="User Avatar" class="img-circle" />
-                                </span>
-                                <div class="chat-body clearfix">
-                                    <div class="header">
-                                        <strong class="primary-font">Attendee Name</strong> <small class="pull-right text-muted">
-                                            <span class="glyphicon glyphicon-time"></span>10 mins ago</small>
-                                    </div>
-                                    <p>
-                                        Alright then see you!
-                                    </p>
-                                </div>
-                            </li>
-
-                            <li class="grp-chat right clearfix">
-                                <span class="chat-img pull-right">
-                                    <img src="<?= base_url() ?>front_assets/sponsor/images/logos/sample_logo.png" alt="User Avatar" class="img-circle" />
-                                </span>
-                                <div class="chat-body clearfix">
-                                    <div class="header">
-                                        <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>9 mins ago</small>
-                                        <strong class="pull-right primary-font"><?=$company_name?></strong>
-                                    </div>
-                                    <p>
-                                        See you!
-                                    </p>
-                                </div>
-                            </li>
+                        <ul class="group-chat">
 
                         </ul>
                     </div>
                     <div class="panel-footer">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="You can also press enter key to send">
+                            <span class="is-typing"></span>
+                            <input type="text" id="groupChatText" class="form-control" placeholder="You can also press enter key to send">
                             <span class="input-group-btn">
-                                <button class="btn btn-blue test-edit-btn" type="button">
+                                <button class="btn btn-blue send-grp-chat-btn" type="button">
                                     <i class="fa fa-paper-plane" aria-hidden="true"></i> Send
                                 </button>
                             </span>
@@ -296,12 +207,18 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
     </div>
 
 </main>
+
 <script type="text/javascript">
     var page_link = $(location).attr('href');
     var user_id = <?= $this->session->userdata("sponsors_id") ?>;
     var page_name = "Sponsor Admin";
     var sponsor_id = <?= $sponsors_id ?>;
     var company_name = "<?= str_replace(' ', '_', $company_name) ?>";
+    var company_name_orig = "<?= $company_name ?>";
+    var base_url = "<?= base_url() ?>";
+    var sponsor_logo = "<?= $sponsors_logo ?>";
+    var user_name = "<?= $company_name ?>";
+    var user_type = "sponsor";
 
     $(document).ready(function () {
 
@@ -314,7 +231,6 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
             }
         });
 
-        $('#grp-chat-body').scrollTop($('#grp-chat-body')[0].scrollHeight);
 
         $('#mainMenuItems').append('' +
             '<li>' +
@@ -328,7 +244,9 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
 <script src="https://meet.yourconference.live/socket.io/socket.io.js"></script>
 <script src="/SSEConnection/RTCMultiConnection.min.js"></script>
 <script src="<?= base_url() ?>front_assets/sponsor/js/SSEConnection.js"></script>
-<script src="<?= base_url() ?>front_assets/sponsor/js/sponsor-home.js"></script>
+<script src="<?= base_url() ?>front_assets/sponsor/js/sponsor-home.js?v=<?=rand(1, 100)?>"></script>
+<script src="https://blueimp.github.io/JavaScript-MD5/js/md5.js"></script>
+<script src="<?= base_url() ?>front_assets/sponsor/js/group-chat.js?v=<?=rand(1, 100)?>"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@9.17.0/dist/sweetalert2.all.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 

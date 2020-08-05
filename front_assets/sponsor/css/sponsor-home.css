@@ -31,6 +31,14 @@
     background-color: #5956b7;
 }
 
+.clear-group-chat-btn{
+    cursor: pointer;
+}
+
+.save-group-chat-btn{
+    cursor: pointer;
+}
+
 .small-save-btn{
     cursor: pointer;
     background-color: #20ac41;
@@ -90,10 +98,52 @@
 .chat li .chat-body p
 {
     margin: 0;
-    color: #777777;
+    color: #515151;
+    font-size: medium;
 }
 
-.panel .slidedown .glyphicon, .chat .glyphicon
+.chat{
+    width: 100%;
+}
+
+
+.group-chat
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.group-chat li
+{
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted #B3A9A9;
+}
+
+.group-chat li.left .chat-body
+{
+    margin-left: 60px;
+}
+
+.group-chat li.right .chat-body
+{
+    margin-right: 60px;
+}
+
+
+.group-chat li .chat-body p
+{
+    margin: 0;
+    color: #515151;
+    font-size: medium;
+}
+
+.grp-chat{
+    width: 100%;
+}
+
+.panel .slidedown .glyphicon, .group-chat .glyphicon
 {
     margin-right: 5px;
 }
@@ -120,10 +170,6 @@
 {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
     background-color: #555;
-}
-
-.grp-chat{
-    width: 100%;
 }
 
 .img-circle{
