@@ -45,17 +45,23 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
                     </h1>
                 </div>
 
+            </div>
+
+            <div class="col-md-4">
                 <h3>About Us</h3>
                 <textarea class="sponsor-about form-control" rows="7"><?=$about?></textarea>
                 <span class="edit-about-btn badge badge-primary pull-right">
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i> save
                 </span>
+            </div>
+
+            <div class="col-md-4">
                 <div class="clearfix m-b-25"></div>
                 <div class="form-group">
                     <label class="sr-only" for="website"></label>
                     <div class="input-group">
                         <div class="input-group-addon">
-                            <i class="fa fa-globe fa-2x" aria-hidden="true"></i>
+                            <i class="fa fa-globe fa-2x" style="color: #417cb0;" aria-hidden="true"></i>
                         </div>
                         <input type="text" class="form-control" id="website" placeholder="Website" value="<?=$website?>">
                         <div class="save-website input-group-addon btn" type="button">
@@ -68,7 +74,7 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
                     <label class="sr-only" for="twitterHandle"></label>
                     <div class="input-group">
                         <div class="input-group-addon">
-                            <i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i>
+                            <i class="fa fa-twitter-square fa-2x" style="color: #1da1f2;" aria-hidden="true"></i>
                         </div>
                         <input type="text" class="form-control" id="twitterHandle" placeholder="Twitter handle" value="<?=$twitter_id?>">
                         <div class="save-twitter input-group-addon btn" type="button">
@@ -81,7 +87,7 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
                     <label class="sr-only" for="facebookHandle"></label>
                     <div class="input-group">
                         <div class="input-group-addon">
-                            <i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i>
+                            <i class="fa fa-facebook-square fa-2x" style="color: #036ce4;" aria-hidden="true"></i>
                         </div>
                         <input type="text" class="form-control" id="facebookHandle" placeholder="Facebook handle" value="<?=$facebook_id?>">
                         <div class="save-facebook input-group-addon btn" type="button">
@@ -94,7 +100,7 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
                     <label class="sr-only" for="linkedinHandle"></label>
                     <div class="input-group">
                         <div class="input-group-addon">
-                            <i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i>
+                            <i class="fa fa-linkedin-square fa-2x" style="color: #0077b5;" aria-hidden="true"></i>
                         </div>
                         <input type="text" class="form-control" id="linkedinHandle" placeholder="Twitter handle" value="<?=$linkedin_id?>">
                         <div class="save-linkedin input-group-addon btn" type="button">
@@ -104,6 +110,9 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
                 </div>
             </div>
 
+        </div>
+
+        <div class="row">
             <div class="col-md-4">
                 <div class="grpchat-margin"></div>
                 <div class="panel panel-primary">
@@ -116,9 +125,9 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
                             <span class="save-group-chat-btn badge badge-primary pull-right">
                                 <i class="fa fa-floppy-o" aria-hidden="true"></i> save
                             </span>
-<!--                            <span class="test-edit-btn badge badge-primary pull-right">-->
-<!--                                <i class="fa fa-calendar" aria-hidden="true"></i> schedule-->
-<!--                            </span>-->
+                            <!--                            <span class="test-edit-btn badge badge-primary pull-right">-->
+                            <!--                                <i class="fa fa-calendar" aria-hidden="true"></i> schedule-->
+                            <!--                            </span>-->
                         </h3>
                     </div>
                     <div id="grp-chat-body" class="panel-body">
@@ -127,9 +136,9 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
                         </ul>
                     </div>
                     <div class="panel-footer">
+                        <span class="is-typing"></span><br>
                         <div class="input-group">
-                            <span class="is-typing"></span>
-                            <input type="text" id="groupChatText" class="form-control" placeholder="You can also press enter key to send">
+                            <input type="text" id="groupChatText" class="form-control" placeholder="Can press enter to send">
                             <span class="input-group-btn">
                                 <button class="btn btn-blue send-grp-chat-btn" type="button">
                                     <i class="fa fa-paper-plane" aria-hidden="true"></i> Send
@@ -140,7 +149,7 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-8">
                 <div class="grpchat-margin"></div>
                 <div class="panel panel-primary">
                     <div class="panel-heading">
@@ -148,29 +157,37 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
                             Attendees
                         </h3>
                     </div>
-                    <div class="panel-body">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                <i class="fa fa-circle" style="color:#3fdd3b;" aria-hidden="true"></i> Shannon Morton
-                                <span class="chat-now-badge badge">Chat now</span>
-                                <span class="profile-badge badge">Profile</span>
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fa fa-circle" style="color:#3fdd3b;" aria-hidden="true"></i> Mark Rosenthal
-                                <span class="chat-now-badge badge">Chat now</span>
-                                <span class="profile-badge badge">Profile</span>
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fa fa-circle" style="color:#ffa633;" aria-hidden="true"></i> John Brown
-                                <span class="chat-now-badge badge">Chat now</span>
-                                <span class="profile-badge badge">Profile</span>
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fa fa-circle" style="color:#3fdd3b;" aria-hidden="true"></i> John Doe
-                                <span class="chat-now-badge badge">Chat now</span>
-                                <span class="profile-badge badge">Profile</span>
-                            </li>
-                        </ul>
+                    <div class="one-to-one-chat-body panel-body">
+                        <div class="col-md-4">
+                            <div class="chat-users-list">
+                                <ul class="attendees-chat-list list-group list-group-flush">
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="one-to-one-chat-panel panel panel-primary">
+                                <div class="panel-heading">
+                                    <span class="selected-user-name-area" style="font-weight: bold;"></span>
+                                </div>
+                                <div class="oto-chat-body panel-body">
+                                    <ul class="oto-messages">
+
+                                    </ul>
+                                </div>
+                                <div class="panel-footer">
+                                    <span class="oto-typing"></span>
+                                    <div class="input-group">
+                                        <span class="oto-typing"></span>
+                                        <input type="text" id="one-to-one-ChatText" class="form-control" placeholder="Can press enter to send">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-blue send-oto-chat-btn" type="button">
+                                                <i class="fa fa-paper-plane" aria-hidden="true"></i> Send
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -247,6 +264,7 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
 <script src="<?= base_url() ?>front_assets/sponsor/js/sponsor-home.js?v=<?=rand(1, 100)?>"></script>
 <script src="https://blueimp.github.io/JavaScript-MD5/js/md5.js"></script>
 <script src="<?= base_url() ?>front_assets/sponsor/js/group-chat.js?v=<?=rand(1, 100)?>"></script>
+<script src="<?= base_url() ?>front_assets/sponsor/js/one-to-one-chat.js?v=<?=rand(1, 100)?>"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@9.17.0/dist/sweetalert2.all.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 

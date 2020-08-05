@@ -22,7 +22,7 @@ $(function() {
                 '       <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>'+data.datetime+'</small>\n' +
                 '       <strong class="pull-right primary-font">'+company_name_orig+'</strong>\n' +
                 '     </div>\n' +
-                '     <p>\n' +
+                '     <p class="pull-right">\n' +
                 '      '+data.chat_text+'\n' +
                 '     </p>\n' +
                 '   </div>\n' +
@@ -75,7 +75,7 @@ $(function() {
                     '       <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>'+chat.datetime+'</small>\n' +
                     '       <strong class="pull-right primary-font">'+company_name_orig+'</strong>\n' +
                     '     </div>\n' +
-                    '     <p>\n' +
+                    '     <p class="pull-right">\n' +
                     '      '+chat.chat_text+'\n' +
                     '     </p>\n' +
                     '   </div>\n' +

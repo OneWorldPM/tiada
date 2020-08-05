@@ -65,4 +65,18 @@ class M_myprofile extends CI_Model {
         }
     }
 
+    public function getAllUsers()
+    {
+        $query = $this->db->get('customer_master');
+
+        if($query->num_rows() != 0)
+        {
+            return $query->result_array();
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 }

@@ -2,7 +2,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class UserDetails extends CI_Controller
+class OtoChat extends CI_Controller
 {
     public function __construct()
     {
@@ -13,21 +13,20 @@ class UserDetails extends CI_Controller
             redirect('/tiadaannualconference');
         }
 
-        $this->load->model('user/M_myprofile', 'user');
+        $this->load->model('sponsor/OtoChat_Model', 'otoChatModel');
     }
 
-    public function nameById($cid)
+    public function newText()
     {
-        $name = $this->user->nameById($cid);
-        echo "{$name->first_name} {$name->last_name}";
+        $data = $this->otoChatModel->newText();
+        echo json_encode($data);
         return;
     }
 
-    public function getAllUsers()
+    public function getChatsUserToSponsor($cid)
     {
-        $allUsers = $this->user->getAllUsers();
-
-        echo json_encode($allUsers);
+        $data = $this->otoChatModel->getChatsUserToSponsor($cid);
+        echo json_encode($data);
         return;
     }
 }

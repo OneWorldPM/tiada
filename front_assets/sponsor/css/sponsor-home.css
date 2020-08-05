@@ -141,6 +141,8 @@
 
 .grp-chat{
     width: 100%;
+    border-bottom: 1px solid #e1e1e1;
+    margin-bottom: 6px;
 }
 
 .panel .slidedown .glyphicon, .group-chat .glyphicon
@@ -151,7 +153,7 @@
 .panel-body
 {
     overflow-y: scroll;
-    height: 250px;
+    height: 372px;
 }
 
 ::-webkit-scrollbar-track
@@ -461,4 +463,48 @@
         margin-left: 45.5%;
         margin-top: 12px;
     }
+}
+
+.one-to-one-chat-body{
+    height: 525px !important;
+}
+
+.one-to-one-chat-panel{
+    height: 490px !important
+}
+
+.oto-chat-body{
+    height: 350px !important;
+}
+
+.chat-users-list{
+    overflow-y: scroll;
+    height: 485px;
+}
+
+.attendees-chat-list-item{
+    cursor: pointer;
+}
+
+.attendees-chat-list-item:hover{
+    cursor: pointer;
+    background-color: #f0f0f0 !important;
+}
+
+.attendees-chat-list-item.selected{
+    background-color: #d2d2d2 !important;
+    border: 1px solid !important;
+}
+
+.oto-messages{
+    list-style: none;
+    padding-left: 0px !important;
+}
+
+.chat-img.pull-right{
+    margin-left: 5px;
+}
+
+.chat-img.pull-left{
+    margin-right: 5px;
 }

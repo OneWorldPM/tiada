@@ -87,43 +87,14 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
                     <div id="chat-body" class="panel-body">
                         <ul class="chat">
 
-                            <li class="grp-chat left clearfix">
-                                <span class="chat-img pull-left">
-                                    <img src="https://placehold.it/50/0caa25/fff&text=YN" alt="User Avatar" class="img-circle" />
-                                </span>
-                                <div class="chat-body clearfix">
-                                    <div class="header">
-                                        <strong class="primary-font">Your Name</strong> <small class="pull-right text-muted">
-                                            <span class="glyphicon glyphicon-time"></span>13 mins ago</small>
-                                    </div>
-                                    <p>
-                                        Hello?
-                                    </p>
-                                </div>
-                            </li>
-
-                            <li class="grp-chat right clearfix">
-                                <span class="chat-img pull-right">
-                                    <img src="<?= base_url() ?>uploads/sponsors/<?=$sponsors_logo?>" alt="User Avatar" class="img-circle" />
-                                </span>
-                                <div class="chat-body clearfix">
-                                    <div class="header">
-                                        <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>13 mins ago</small>
-                                        <strong class="pull-right primary-font"><?=$sponsor->company_name?></strong>
-                                    </div>
-                                    <p>
-                                        Hi, welcome!
-                                    </p>
-                                </div>
-                            </li>
-
                         </ul>
                     </div>
                     <div class="panel-footer">
+                        <span class="oto-typing"></span>
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="You can also press enter key to send">
+                            <input type="text" id="one-to-one-ChatText" class="form-control" placeholder="You can also press enter key to send">
                             <span class="input-group-btn">
-                                <button class="btn btn-blue test-edit-btn" type="button">
+                                <button class="btn btn-blue send-oto-chat-btn" type="button">
                                     <i class="fa fa-paper-plane" aria-hidden="true"></i> Send
                                 </button>
                             </span>
@@ -173,8 +144,8 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
                         </ul>
                     </div>
                     <div class="panel-footer">
+                        <span class="is-typing"></span><br>
                         <div class="input-group">
-                            <span class="is-typing"></span>
                             <input type="text" id="groupChatText" class="form-control" placeholder="You can also press enter key to send">
                             <span class="input-group-btn">
                                 <button class="btn btn-blue send-grp-chat-btn" type="button">
@@ -253,6 +224,7 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
 <script src="<?= base_url() ?>front_assets/sponsor/js/attendee-sponsor-view.js?v=<?=rand(1, 100)?>"></script>
 <script src="https://blueimp.github.io/JavaScript-MD5/js/md5.js"></script>
 <script src="<?= base_url() ?>front_assets/sponsor/js/group-chat.js?v=<?=rand(1, 100)?>"></script>
+<script src="<?= base_url() ?>front_assets/sponsor/js/one-to-one-chat-attendee.js?v=<?=rand(1, 100)?>"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@9.17.0/dist/sweetalert2.all.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
