@@ -8,11 +8,18 @@ $(function() {
 
     $.get( "/tiadaannualconference/sponsor-admin/UserDetails/getAllUsers", function(allUsers) {
         var users = JSON.parse(allUsers);
-        //console.log(users);
+        console.log(users);
 
         $.each( users, function( number, user ) {
 
+            var OTO_CHAT_ROOM = 'TIADA_'+company_name+sponsor_id+'_'+user.cust_id+'_Oto_Chat';
+            socket.emit('joinSponsorOtoChat', {"room":OTO_CHAT_ROOM, "name":user_name, "userId":user_id});
+
             var fullname = user.first_name+' '+user.last_name;
+            if(fullname == ' ')
+            {
+                fullname = 'No Name';
+            }
             var nameAcronym = fullname.match(/\b(\w)/g).join('');
             var color = md5(nameAcronym+user.cust_id).slice(0, 6);
 
@@ -35,10 +42,6 @@ $(function() {
             var nameAcronym = fullname.match(/\b(\w)/g).join('');
             var color = md5(nameAcronym+userId).slice(0, 6);
 
-            var OTO_CHAT_ROOM = 'TIADA_'+company_name+sponsor_id+'_'+userId+'_Oto_Chat';
-
-            socket.emit('joinSponsorOtoChat', {"room":OTO_CHAT_ROOM, "name":user_name, "userId":user_id});
-
             $('.send-oto-chat-btn').attr('send-to', userId);
 
             $('.selected-user-name-area').html(
@@ -46,6 +49,8 @@ $(function() {
                 fullname +
                 ' <i class="fa fa-circle" style="color: #ff9a41;" aria-hidden="true"></i>'
             );
+
+            var OTO_CHAT_ROOM = 'TIADA_'+company_name+sponsor_id+'_'+userId+'_Oto_Chat';
 
             $('.selected-user-name-area').attr('userId', userId);
             $('.selected-user-name-area').attr('room', OTO_CHAT_ROOM);
@@ -210,6 +215,20 @@ $(function() {
                 );
                 $('.oto-chat-body').scrollTop($('.oto-chat-body')[0].scrollHeight);
             }
+        }
+    });
+
+    socket.on('otoTyping', function(data) {
+        var selectedUser = $('.selected-user-name-area').attr('userId');
+        console.log(data);
+        console.log(selectedUser);
+        if (selectedUser == data.from)
+        {
+            $('.oto-typing').html(data.someone+' is typing...');
+            setTimeout(
+                function() {
+                    $('.oto-typing').html('');
+                }, 1000);
         }
     });
 });

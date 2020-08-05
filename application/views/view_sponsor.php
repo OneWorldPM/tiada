@@ -90,7 +90,7 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
                         </ul>
                     </div>
                     <div class="panel-footer">
-                        <span class="oto-typing"></span>
+                        <span class="oto-typing"></span><br>
                         <div class="input-group">
                             <input type="text" id="one-to-one-ChatText" class="form-control" placeholder="You can also press enter key to send">
                             <span class="input-group-btn">

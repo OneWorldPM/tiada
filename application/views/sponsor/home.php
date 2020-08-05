@@ -175,9 +175,8 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
                                     </ul>
                                 </div>
                                 <div class="panel-footer">
-                                    <span class="oto-typing"></span>
+                                    <span class="oto-typing"></span><br>
                                     <div class="input-group">
-                                        <span class="oto-typing"></span>
                                         <input type="text" id="one-to-one-ChatText" class="form-control" placeholder="Can press enter to send">
                                         <span class="input-group-btn">
                                             <button class="btn btn-blue send-oto-chat-btn" type="button">

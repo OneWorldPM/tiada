@@ -78,7 +78,8 @@ $(function() {
         if(e.which == 13){//Enter key pressed
             $('.send-oto-chat-btn').click();//Trigger search button click event
         }else{
-            //socket.emit('isTyping', {"room":GROUP_CHAT_ROOM, "someone":user_name});
+
+            socket.emit('otoTyping', {"room":OTO_CHAT_ROOM, "someone":user_name, "from":user_id, "typingTo":sponsor_id});
         }
     });
 
