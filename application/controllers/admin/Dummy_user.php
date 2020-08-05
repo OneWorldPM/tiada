@@ -27,7 +27,7 @@ class Dummy_user extends CI_Controller {
         if (!empty($post)) {
             $res = $this->mdummyuser->add_dummy_user($post);
             if ($res == "exist") {
-                header('Location: ' . base_url() . 'admin/dummy_user?msg=E');
+                header('Location: ' . base_url() . 'admin/dummy_user?msg=EX');
             } else if ($res == "error") {
                 header('Location: ' . base_url() . 'admin/dummy_user?msg=E');
             } else {
