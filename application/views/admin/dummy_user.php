@@ -109,6 +109,10 @@ switch ($msg) {
         $m = "Dummy Users Delete Successfully...!!!";
         $t = "success";
         break;
+     case "EX":
+        $m = "Username already exists";
+        $t = "error";
+        break;
     case "E":
         $m = "Something went wrong, Please try again!!!";
         $t = "error";
