@@ -17,6 +17,7 @@ class M_sessions extends CI_Model {
             $return_array = array();
             foreach ($sessions->result() as $val) {
                 $val->presenter = $this->common->get_presenter($val->presenter_id, $val->sessions_id);
+                $val->session_type_details = $this->common->get_session_type($val->sessions_type_id);
                 $return_array[] = $val;
             }
             return $return_array;
@@ -414,7 +415,7 @@ class M_sessions extends CI_Model {
             return '';
         }
     }
-    
+
     function importSessionsPoll() {
         $this->load->library('csvimport');
         if ($_FILES['sessions_poll_file']['error'] != 4) {
@@ -459,6 +460,19 @@ class M_sessions extends CI_Model {
             }
         } else {
             return FALSE;
+        }
+    }
+
+    function get_user_sign_up($sessions_id) {
+        $this->db->select('*');
+        $this->db->from('sign_up_sessions s');
+        $this->db->join('customer_master c', 's.cust_id=c.cust_id');
+        $this->db->where("s.sessions_id", $sessions_id);
+        $result = $this->db->get();
+        if ($result->num_rows() > 0) {
+            return $result->result();
+        } else {
+            return '';
         }
     }
 

@@ -52,6 +52,13 @@
         background-color: #ae0201;
         color: #fff !important;
     }
+    .presenter_open_modul:hover{
+        color: #ae0201 !important; 
+    }
+    
+    .alertify {
+        top: 200px;
+    }
 </style>
 <section class="parallax" style="background-image: url(<?= base_url() ?>front_assets/images/bubble_bg_1920.jpg); top: 0; padding-top: 0px;">
 <!--<section class="parallax" style="background-image: url(<?= base_url() ?>front_assets/images/Sessions_BG_screened.jpg); top: 0; padding-top: 0px;">-->
@@ -64,7 +71,7 @@
                     if (isset($all_sessions_week) && !empty($all_sessions_week)) {
                         foreach ($all_sessions_week as $val) {
                             ?>
-                            <div class="col-md-4 col-sm-12" style="margin-bottom:30px;">
+                            <div class="col-md-3 col-sm-12" style="margin-bottom:30px;">
                                 <a class="icon-home" href="<?= base_url() ?>sessions/getsessions_data/<?= $val->sessions_date ?>"> 
                                     <?php
                                     $current_date = $this->uri->segment(3);
@@ -116,7 +123,8 @@
                                                 if (isset($val->presenter) && !empty($val->presenter)) {
                                                     foreach ($val->presenter as $value) {
                                                         ?>
-                                                        <div class="post-info"> <span class="post-autor"><a href="#" data-presenter_photo="<?= $value->presenter_photo ?>" data-presenter_name="<?= $value->presenter_name ?>" data-designation="<?= $value->designation ?>" data-email="<?= $value->email ?>" data-company_name="<?= $value->company_name ?>" data-twitter_link="<?= $value->twitter ?>" data-facebook_link="<?= $value->facebook ?>" data-linkedin_link="<?= $value->linkin ?>" class="presenter_open_modul" style="color: #A9A9A9; font-weight: 600;"><?= $value->presenter_name ?>, </a></span> <span class="post-category"> <?= $value->designation ?></span> </div>
+                                                        <div class="post-info" style="color: #000 !important; font-size: larger; font-weight: 700;"><span class="post-autor"><a href="#" data-presenter_photo="<?= $value->presenter_photo ?>" data-presenter_name="<?= $value->presenter_name ?>" data-designation="<?= $value->designation ?>" data-email="<?= $value->email ?>" data-company_name="<?= $value->company_name ?>" data-twitter_link="<?= $value->twitter ?>" data-facebook_link="<?= $value->facebook ?>" data-linkedin_link="<?= $value->linkin ?>" class="presenter_open_modul"><?= $value->presenter_name ?>, </a></span> <span class="post-category"> <?= $value->title ?></span> </div>
+                                                        <div class="post-info" style="color: #000 !important; font-size: larger; font-weight: 700;"><span class="post-category"> <?= $value->company_name ?></span> </div>
                                                         <?php
                                                     }
                                                 }
@@ -126,26 +134,34 @@
                                                     $session_limit = $this->common->get_roundtable_setting();
                                                     if ($val->total_sign_up_sessions < $session_limit) {
                                                         if ($val->status_sign_up_sessions == 0) {
-                                                            ?>
-                                                            <div class="post-description">
-                                                                <p style="margin-bottom: 10px;"><?= $val->sessions_description ?></p>
-                                                                <a class="button black-light button-3d rounded right btn_sign_up" style="margin: 0px 0;" data-sessions_id="<?= $val->sessions_id ?>" data-user_limit="<?= $val->total_sign_up_sessions_user ?>"><span>Sign up</span></a>
-                                                            </div>
+                                                            $user_detias = $this->common->get_user_details($this->session->userdata("cid"));
+                                                            if ($user_detias->customer_type == "Dummy users") {
+                                                                ?>
+                                                                <div class="post-description">
+                                                                    <p style="margin-bottom: 10px; color: black;"><?= $val->sessions_description ?></p>
+                                                                    <a class="button black-light button-3d rounded right" style="margin: 0px 0;"><span>You can't Sign up</span></a>
+                                                                </div>
+                                                            <?php } else { ?>
+                                                                <div class="post-description">
+                                                                    <p style="margin-bottom: 10px; color: black;"><?= $val->sessions_description ?></p>
+                                                                    <a class="button black-light button-3d rounded right btn_sign_up" style="margin: 0px 0;" data-sessions_id="<?= $val->sessions_id ?>" data-user_limit="<?= $val->total_sign_up_sessions_user ?>"><span>Sign up</span></a>
+                                                                </div>
+                                                            <?php } ?>
                                                         <?php } else { ?>
                                                             <div class="post-description">
-                                                                <p style="margin-bottom: 10px;"><?= $val->sessions_description ?></p>
+                                                                <p style="margin-bottom: 10px; color: black;"><?= $val->sessions_description ?></p>
                                                                 <a class="button black-light button-3d rounded right" style="margin: 0px 0;"><span>Unregister</span></a>
                                                             </div>
                                                         <?php } ?>
                                                     <?php } else { ?>
                                                         <div class="post-description">
-                                                            <p style="margin-bottom: 10px;"><?= $val->sessions_description ?></p>
+                                                            <p style="margin-bottom: 10px; color: black;"><?= $val->sessions_description ?></p>
                                                             <a class="button black-light button-3d rounded right" style="margin: 0px 0;"><span>Roundtable Full</span></a>
                                                         </div>
                                                     <?php } ?>
                                                 <?php } else { ?>
                                                     <div class="post-description">
-                                                        <p style="margin-bottom: 10px;"><?= $val->sessions_description ?></p>
+                                                        <p style="margin-bottom: 10px; color: black;"><?= $val->sessions_description ?></p>
                                                         <a class="button black-light button-3d rounded right" style="margin: 0px 0;" href="<?= base_url() ?>sessions/attend/<?= $val->sessions_id ?>"><span>Attend</span></a>
                                                     </div>
                                                 <?php } ?>

@@ -300,5 +300,12 @@ class Sessions extends CI_Controller {
             header('location:' . base_url() . 'presenter/sessions?msg=E');
         }
     }
+    
+    function user_sign_up($sessions_id) {
+        $data['user'] = $this->msessions->get_user_sign_up($sessions_id);
+        $this->load->view('presenter/header');
+        $this->load->view('presenter/user_sign_up', $data);
+        $this->load->view('presenter/footer');
+    }
 
 }

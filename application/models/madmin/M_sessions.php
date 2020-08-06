@@ -16,6 +16,7 @@ class M_sessions extends CI_Model {
             $return_array = array();
             foreach ($sessions->result() as $val) {
                 $val->presenter = $this->common->get_presenter($val->presenter_id, $val->sessions_id);
+                $val->session_type_details = $this->common->get_session_type($val->sessions_type_id);
                 $return_array[] = $val;
             }
             return $return_array;
@@ -747,8 +748,8 @@ class M_sessions extends CI_Model {
             return FALSE;
         }
     }
-    
-     function getSessionTypes() {
+
+    function getSessionTypes() {
         $this->db->select('*');
         $this->db->from('sessions_type');
         $sessions_type = $this->db->get();
@@ -765,6 +766,19 @@ class M_sessions extends CI_Model {
         $sessions_tracks = $this->db->get();
         if ($sessions_tracks->num_rows() > 0) {
             return $sessions_tracks->result();
+        } else {
+            return '';
+        }
+    }
+
+    function get_user_sign_up($sessions_id) {
+        $this->db->select('*');
+        $this->db->from('sign_up_sessions s');
+        $this->db->join('customer_master c','s.cust_id=c.cust_id');
+        $this->db->where("s.sessions_id",$sessions_id);
+        $result = $this->db->get();
+        if ($result->num_rows() > 0) {
+            return $result->result();
         } else {
             return '';
         }

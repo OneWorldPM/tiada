@@ -178,5 +178,14 @@ class Common {
             return 0;
         }
     }
+    
+      function get_session_type($sessions_type_id) {
+        $where_in = explode(",", $sessions_type_id);
+        $this->_CI->db->select('*');
+        $this->_CI->db->from('sessions_type');
+        $this->_CI->db->where_in('sessions_type_id', $where_in);
+        $result = $this->_CI->db->get();
+        return ($result->num_rows() > 0) ? $result->result() : '';
+    }
 
 }

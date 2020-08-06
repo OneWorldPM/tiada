@@ -387,4 +387,11 @@ class Sessions extends CI_Controller {
         }
     }
 
+    function user_sign_up($sessions_id) {
+        $data['user'] = $this->msessions->get_user_sign_up($sessions_id);
+        $this->load->view('admin/header');
+        $this->load->view('admin/user_sign_up', $data);
+        $this->load->view('admin/footer');
+    }
+
 }
