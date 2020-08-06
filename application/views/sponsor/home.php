@@ -159,13 +159,13 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
                     </div>
                     <div class="one-to-one-chat-body panel-body">
                         <div class="col-md-4">
+                            <div class="input-group">
+                                <input type="text" class="oto-attendee-search form-control" placeholder="Search by name" aria-describedby="search-icon">
+                                <span class="input-group-addon" id="search-icon">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </span>
+                            </div>
                             <div class="chat-users-list">
-                                <div class="input-group">
-                                    <input type="text" class="oto-attendee-search form-control" placeholder="Search by name" aria-describedby="search-icon">
-                                    <span class="input-group-addon" id="search-icon">
-                                        <i class="fa fa-search" aria-hidden="true"></i>
-                                    </span>
-                                </div>
                                 <ul class="attendees-chat-list list-group list-group-flush">
                                 </ul>
                             </div>
@@ -174,7 +174,7 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
                             <div class="one-to-one-chat-panel panel panel-primary">
                                 <div class="one-to-one-chat-heading panel-heading">
                                     <span class="selected-user-name-area" style="font-weight: bold;"></span>
-                                    <h3 id="open-attendee-prof" class="attendee-profile-btn pull-right">
+                                    <h3 class="attendee-profile-btn pull-right">
                                         <span class="label label-info">
                                             <i class="fa fa-user" aria-hidden="true"></i> Profile
                                         </span>
@@ -289,6 +289,59 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
             '</a>' +
             '</li>');
     });
+
+    function userProfileModal(userId) {
+        $.get( "/tiadaannualconference/sponsor-admin/UserDetails/userDataById/"+userId, function(profile) {
+
+            profile = JSON.parse(profile);
+
+            var fullname = profile.first_name+' '+profile.last_name;
+            if (fullname == ' ')
+            {
+                var fullname = 'Name Unavailable';
+            }
+            var nameAcronym = fullname.match(/\b(\w)/g).join('');
+            var color = md5(nameAcronym+profile.cust_id).slice(0, 6);
+            var userAvatarSrc = (profile.profile != '' && profile.profile != null)?'/tiadaannualconference/uploads/customer_profile/'+profile.profile:'https://placehold.it/50/'+color+'/fff&amp;text='+nameAcronym;
+            var userAvatarAlt = 'https://placehold.it/50/'+color+'/fff&amp;text='+nameAcronym;
+
+            console.log(profile);
+
+
+            $('.attendeeProfileModal-name').html(
+                '<img src="'+userAvatarSrc+'" alt="User Avatar" onerror=this.src="'+userAvatarAlt+'" class="img-circle"> ' +
+                fullname
+            );
+
+            $('.attendeeProfileModalSMIcons').html('');
+            if (profile.facebook_id != '' && profile.facebook_id != null)
+            {
+                $('.attendeeProfileModalSMIcons').append('<a href="https://facebook.com/'+profile.facebook_id+'" target="_blank"><i class="fa fa-facebook fa-2x m-l-10" aria-hidden="true" style="color: #036ce4;"></i></a>');
+            }
+            if (profile.instagram_id != '' && profile.instagram_id != null)
+            {
+                $('.attendeeProfileModalSMIcons').append('<a href="https://instagram.com/'+profile.instagram_id+'" target="_blank"><i class="fa fa-instagram fa-2x m-l-10" aria-hidden="true" style="color: #c414a0;"></i></a>');
+            }
+            if (profile.twitter_id != '' && profile.twitter_id != null)
+            {
+                $('.attendeeProfileModalSMIcons').append('<a href="https://instagram.com/'+profile.twitter_id+'" target="_blank"><i class="fa fa-twitter fa-2x m-l-10" aria-hidden="true" style="color: #1da1f2;"></i></a>');
+            }
+
+            $('.attendeeProfileModalEmail').html('');
+            if(profile.email != '' && profile.email != null)
+            {
+                $('.attendeeProfileModalEmail').html('<i class="fa fa-envelope" aria-hidden="true"></i> '+profile.email);
+            }
+
+            $('.attendeeProfileModalPhone').html('');
+            if(profile.phone != '' && profile.phone != null){
+                $('.attendeeProfileModalPhone').html('<i class="fa fa-phone-square" aria-hidden="true"></i> '+profile.phone);
+            }
+
+            $('.modal-profile-contents').text(' ');
+            $('#attendeeProfileModal').modal('show');
+        });
+    }
 </script>
 <script src="https://meet.yourconference.live/socket.io/socket.io.js"></script>
 <script src="/SSEConnection/RTCMultiConnection.min.js"></script>

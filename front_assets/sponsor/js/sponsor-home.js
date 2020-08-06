@@ -466,59 +466,5 @@ $(function() {
 
     });
 
-    $("#open-attendee-prof").on( "click", function() {
-        var userId = $(this).attr('userId');
-
-        $.get( "/tiadaannualconference/sponsor-admin/UserDetails/userDataById/"+userId, function(profile) {
-
-            profile = JSON.parse(profile);
-
-            var fullname = profile.first_name+' '+profile.last_name;
-            if (fullname == ' ')
-            {
-                var fullname = 'Name Unavailable';
-            }
-            var nameAcronym = fullname.match(/\b(\w)/g).join('');
-            var color = md5(nameAcronym+profile.cust_id).slice(0, 6);
-            var userAvatarSrc = (profile.profile != '' && profile.profile != null)?'/tiadaannualconference/uploads/customer_profile/'+profile.profile:'https://placehold.it/50/'+color+'/fff&amp;text='+nameAcronym;
-            var userAvatarAlt = 'https://placehold.it/50/'+color+'/fff&amp;text='+nameAcronym;
-
-            console.log(profile);
-
-
-            $('.attendeeProfileModal-name').html(
-                '<img src="'+userAvatarSrc+'" alt="User Avatar" onerror=this.src="'+userAvatarAlt+'" class="img-circle"> ' +
-                fullname
-            );
-
-            $('.attendeeProfileModalSMIcons').html('');
-            if (profile.facebook_id != '')
-            {
-                $('.attendeeProfileModalSMIcons').append('<a href="https://facebook.com/'+profile.facebook_id+'" target="_blank"><i class="fa fa-facebook fa-2x m-l-10" aria-hidden="true" style="color: #036ce4;"></i></a>');
-            }
-            if (profile.instagram_id != '')
-            {
-                $('.attendeeProfileModalSMIcons').append('<a href="https://instagram.com/'+profile.instagram_id+'" target="_blank"><i class="fa fa-instagram fa-2x m-l-10" aria-hidden="true" style="color: #c414a0;"></i></a>');
-            }
-            if (profile.twitter_id != '')
-            {
-                $('.attendeeProfileModalSMIcons').append('<a href="https://instagram.com/'+profile.twitter_id+'" target="_blank"><i class="fa fa-twitter fa-2x m-l-10" aria-hidden="true" style="color: #1da1f2;"></i></a>');
-            }
-
-            $('.attendeeProfileModalEmail').html('');
-            if(profile.email != '')
-            {
-                $('.attendeeProfileModalEmail').html('<i class="fa fa-envelope" aria-hidden="true"></i> '+profile.email);
-            }
-
-            $('.attendeeProfileModalPhone').html('');
-            if(profile.phone != ''){
-                $('.attendeeProfileModalPhone').html('<i class="fa-phone-square" aria-hidden="true"></i> '+profile.phone);
-            }
-
-            $('.modal-profile-contents').text(' ');
-            $('#attendeeProfileModal').modal('show');
-        });
-    });
 
 });

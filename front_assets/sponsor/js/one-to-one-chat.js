@@ -31,6 +31,11 @@ $(function() {
                 '<img src="'+userAvatarSrc+'" alt="User Avatar" onerror=this.src="'+userAvatarAlt+'" class="img-circle"> \n' +
                 '<span class="oto-chat-user-list-name" style="font-weight: bold;"> '+fullname+' </span> \n' +
                 '<i class="active-icon fa fa-circle" style="color: #454543;" aria-hidden="true" userId="'+user.cust_id+'"></i> \n' +
+                '<h5 class="attendee-profile-btn pull-right" userId="'+user.cust_id+'" onclick="userProfileModal('+user.cust_id+')">\n' +
+                '   <span class="label label-info">\n' +
+                '      <i class="fa fa-user" aria-hidden="true"></i>\n' +
+                '   </span>\n' +
+                '</h5>' +
                 '</li>\n'
             );
         });
@@ -284,5 +289,10 @@ $(function() {
         function dec_sort(a, b){
             return ($(b).attr('status')) > ($(a).attr('status')) ? 1 : -1;
         }
+    });
+
+    $(".attendee-profile-btn").on( "click", function() {
+        var userId = $(this).attr('userId');
+        userProfileModal(userId);
     });
 });
