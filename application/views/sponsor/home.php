@@ -1,6 +1,10 @@
 <link href="<?= base_url() ?>front_assets/sponsor/css/sponsor-home.css?v=<?=rand(1, 100)?>" rel="stylesheet">
 <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
 
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
 <?php
 $sponsors_logo = ($sponsors_logo == '')?'logo_placeholder.png':$sponsors_logo;
 $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_cover;
@@ -20,8 +24,9 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
     ?>
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron" style="background-image: url(<?= base_url() ?>uploads/sponsors/<?= $sponsor_cover ?>?v=<?=rand(1, 100)?>);background-size: 1930px;background-repeat: no-repeat;background-position: center;height: 600px;background-color: #272f31;">
-        <span class="edit-cover-btn badge badge-primary pull-right">
+    <div class="jumbotron" id="sponsorCover" style="background-image: url(<?= base_url() ?>uploads/sponsors/<?= $sponsor_cover ?>?v=<?=rand(1, 100)?>);background-size: 1930px;background-repeat: no-repeat;background-position: center;height: 600px;background-color: #272f31;">
+        <input type="file" id="coverupload" accept=".jpg,.jpeg,.png" style="display:none"/>
+        <span class="cover-upload-btn small-edit-btn  badge badge-primary pull-right">
             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> edit cover
         </span>
     </div>
@@ -34,7 +39,8 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
 
                 <div class="container" style="height: 220px;">
                     <img class="sponsor-main-logo" src="<?= base_url() ?>uploads/sponsors/<?=$sponsors_logo?>">
-                    <span class="test-edit-btn badge badge-primary">
+                    <input type="file" id="logoupload" accept=".jpg,.jpeg,.png" style="display:none"/>
+                    <span class="logo-upload-btn small-edit-btn badge badge-primary">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> edit logo
                         </span>
                     <h1 class="sponsor-name">
@@ -199,6 +205,58 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div id="availability-panel" class="panel panel-info">
+                <div class="panel-heading">
+                    <h2 class="panel-title">
+                        <i class="fa fa-calendar" aria-hidden="true"></i> Set Availability of
+                        <div class="dropdown" style="display: inline;">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <span class="current-person-name">Select Person</span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <li class="agent-list-item disabled-li" person="0"><a href="javascript:void(0);">Agent 1</a></li>
+                                <li class="agent-list-item disabled-li" person="0" ><a href="javascript:void(0);">Agent 2</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li person="tiada" class="agent-list-item"><a href="javascript:void(0);">TIADA</a></li>
+                            </ul>
+                            <input type="hidden" class="selected-agent">
+                        </div>
+                    </h2>
+                </div>
+                <div id="availability-body" class="panel-body collapse">
+
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="availablity-label">
+                                    <i class="fa fa-calendar-plus-o" aria-hidden="true"></i> Add another availability
+                                </span>
+                                <input type="text" class="form-control" id="availability-selector" name="availability-selector" aria-describedby="availablity-label">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="current-availability-panel panel panel-success">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Current Availability</h3>
+                                </div>
+                                <div class="current-availability-body panel-body">
+                                    <ul class="current-availability-list list-group">
+                                        <li class="current-availability-list-item list-group-item">empty</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
         </div>

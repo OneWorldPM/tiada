@@ -513,3 +513,21 @@
 .attendee-profile-btn{
     cursor: pointer;
 }
+
+#ui-datepicker-div{
+    top: 1795px !important;
+}
+
+.disabled-li {
+    pointer-events:none;
+    opacity:0.6;
+}
+
+.current-availability-panel{
+    height: 300px;
+}
+
+.current-availability-body{
+    height: 250px;
+    overflow: scroll;
+}

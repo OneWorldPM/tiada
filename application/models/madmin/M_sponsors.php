@@ -94,7 +94,7 @@ class M_sponsors extends CI_Model {
         $config = array();
         $config['upload_path'] = './uploads/sponsors/';
         $config['allowed_types'] = 'jpg|png';
-        $config['overwrite'] = FALSE;
+        $config['overwrite'] = TRUE;
         $config['file_name'] = "sponsors_" . $randname;
         return $config;
     }
@@ -247,6 +247,56 @@ class M_sponsors extends CI_Model {
             $this->db->update('sponsors');
         }
 
+        return;
+    }
+
+    function updateSponsorLogo($id)
+    {
+        if ($_FILES['logo'])
+        {
+            $fileExt = pathinfo($_FILES["logo"]["name"], PATHINFO_EXTENSION);
+            if(file_exists("sponsor_logo_{$id}.{$fileExt}")) {
+                chmod("sponsor_logo_{$id}.{$fileExt}",0755); //Change the file permissions if allowed
+                unlink("sponsor_logo_{$id}.{$fileExt}"); //remove the file
+            }
+            if (move_uploaded_file($_FILES["logo"]["tmp_name"], FCPATH . "uploads/sponsors/sponsor_logo_{$id}.{$fileExt}")) {
+                $this->db->update('sponsors', array('sponsors_logo' => "sponsor_logo_{$id}.{$fileExt}"), array('sponsors_id' => $id));
+                return "sponsor_logo_{$id}.{$fileExt}";
+            }else{
+                return false;
+            }
+        }
+    }
+
+    function updateCover($id)
+    {
+        if ($_FILES['cover'])
+        {
+            $fileExt = pathinfo($_FILES["cover"]["name"], PATHINFO_EXTENSION);
+            if(file_exists("sponsor_cover_{$id}.{$fileExt}")) {
+                chmod("sponsor_cover_{$id}.{$fileExt}",0755); //Change the file permissions if allowed
+                unlink("sponsor_cover_{$id}.{$fileExt}"); //remove the file
+            }
+            if (move_uploaded_file($_FILES["cover"]["tmp_name"], FCPATH . "uploads/sponsors/sponsor_cover_{$id}.{$fileExt}")) {
+                $this->db->update('sponsors', array('sponsor_cover' => "sponsor_cover_{$id}.{$fileExt}"), array('sponsors_id' => $id));
+                return "sponsor_cover_{$id}.{$fileExt}";
+            }else{
+                return false;
+            }
+        }
+    }
+
+    function getSponsorLogo($id)
+    {
+        $this->db->select('sponsors_logo');
+        $this->db->from('sponsors');
+        $this->db->where('sponsors_id', $id);
+        $sessions = $this->db->get();
+        if ($sessions->num_rows() > 0) {
+            return $sessions->result()[0]->sponsors_logo;
+        } else {
+            return '';
+        }
         return;
     }
 

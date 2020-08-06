@@ -51,5 +51,23 @@ class Profile extends CI_Controller
         return;
     }
 
+    public function updateLogo($id)
+    {
+        echo $this->sponsor->updateSponsorLogo($id);
+        return;
+    }
+
+    public function updateCover($id)
+    {
+        echo $this->sponsor->updateCover($id);
+        return;
+    }
+
+    public function getSponsorLogo($id)
+    {
+        echo $this->sponsor->getSponsorLogo($id);
+        return;
+    }
+
 
 }

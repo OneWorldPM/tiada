@@ -184,12 +184,12 @@ $(function() {
             }, 1000);
     });
 
-    // If theres no activity for 1 minute set inactive
-    var activityTimeout = setTimeout(inActive, 60000);
+    // If theres no activity for 30 seconds set inactive
+    var activityTimeout = setTimeout(inActive, 30 * 1000);
     function resetActive(){
         socket.emit('userActiveChange', {"name":user_name, "userId":user_id, "status":true});
         clearTimeout(activityTimeout);
-        activityTimeout = setTimeout(inActive, 60000);
+        activityTimeout = setTimeout(inActive, 30 * 1000);
     }
     // No activity let everyone know
     function inActive(){

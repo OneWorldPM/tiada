@@ -466,5 +466,156 @@ $(function() {
 
     });
 
+    $(".logo-upload-btn").on( "click", function() {
+        $('#logoupload').trigger('click');
+    });
+
+    $("#logoupload").change(function (){
+        var file_data = $("#logoupload").prop("files")[0];
+        var form_data = new FormData();
+        form_data.append("logo", file_data);
+
+        $.ajax({
+            url: "/tiadaannualconference/sponsor-admin/profile/updateLogo/"+user_id,
+            dataType: 'text',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: 'post',
+            success: function(logo){
+                var version = Math.floor(Math.random() * 10000) + 1;
+                $('.sponsor-main-logo').attr('src', '/tiadaannualconference/uploads/sponsors/'+logo+'?v='+version);
+                toastr["success"]("Logo updated!")
+            },
+            error: function(){
+                toastr["error"]("Unable to update the logo!")
+            }
+        });
+    });
+
+    $(".cover-upload-btn").on( "click", function() {
+        $('#coverupload').trigger('click');
+    });
+
+    $("#coverupload").change(function (){
+        var file_data = $("#coverupload").prop("files")[0];
+        var form_data = new FormData();
+        form_data.append("cover", file_data);
+
+        $.ajax({
+            url: "/tiadaannualconference/sponsor-admin/profile/updateCover/"+user_id,
+            dataType: 'text',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: 'post',
+            success: function(cover){
+                var version = Math.floor(Math.random() * 10000) + 1;
+                $('#sponsorCover').css('background-image', '');
+                $('#sponsorCover').css('background-image', 'url(/tiadaannualconference/uploads/sponsors/'+cover+'?v='+version+')');
+                toastr["success"]("Cover updated!")
+            },
+            error: function(){
+                toastr["error"]("Unable to update the cover!")
+            }
+        });
+    });
+
+    $('input[name="availability-selector"]').daterangepicker({
+        timePicker: true,
+        timePicker24Hour: true,
+        startDate: moment().startOf('hour'),
+        endDate: moment().startOf('hour').add(32, 'hour'),
+        applyButtonClasses: "btn-info",
+        locale: {
+            format: 'DD/MM hh:mm A'
+        }
+    }, function(start, end, label) {
+        if($('.selected-agent').val() == 0){
+            alert('Contact support to add more people!');
+            return false;
+        }
+
+        var sponsorId = user_id;
+        var contactPerson = $('.selected-agent').val();
+        var availableFrom = start.format('YYYY-MM-DD hh:mm');
+        var availableTo = end.format('YYYY-MM-DD hh:mm');
+
+        $.post("/tiadaannualconference/sponsor-admin/Schedules/addAvailability",
+            {
+                'sponsor_id' : sponsorId,
+                'contact_person' : contactPerson,
+                'available_from' : availableFrom,
+                'available_to' : availableTo
+            },
+            function(data, status){
+                if(status == 'success')
+                {
+                    var response = JSON.parse(data);
+
+                    if (response.status == 'failed')
+                    {
+                        toastr["error"](response.message);
+                    }else{
+                        fillCurrentAvailabilityList(response.data);
+                        toastr["success"](response.message);
+                    }
+
+                }else{
+                    toastr["error"]("Problem adding availability!");
+                }
+            });
+    });
+
+    $('.agent-list-item').on('click', function () {
+        var selectedAgent = $('.selected-agent').val($(this).attr('person'));
+
+        if($(this).attr('person') == 0){
+            toastr["error"]("Just "+user_name+" is available for now. Contact support to add more people!");
+            return false;
+        }
+        var selectedAgent = $(this).attr('person');
+        var selectedAgentName = $(this).children('a').text();
+        $('.current-person-name').html(selectedAgentName);
+
+        $.post("/tiadaannualconference/sponsor-admin/Schedules/getCurrentAvailabilityList",
+            {
+                'sponsor_id' : user_id,
+                'contact_person' : selectedAgent
+            },
+            function(data, status){
+                if(status == 'success')
+                {
+                    if (JSON.parse(data).length != 0){
+                        fillCurrentAvailabilityList(JSON.parse(data));
+                    }
+
+                    $('#availability-body').collapse('show');
+                    var y = $(window).scrollTop();  //current y position on the page
+                    $(window).scrollTop(y+200);
+
+                }else{
+                    toastr["error"]("Network problem!");
+                    return;
+                }
+            });
+
+    });
+
+    function fillCurrentAvailabilityList(json) {
+        $('.current-availability-list').html('');
+
+        $.each( json, function( number, details ) {
+            $('.current-availability-list').append('' +
+                '<li class="current-availability-list-item list-group-item">' +
+                '<h4>' +
+                '<i class="fa fa-clock-o" aria-hidden="true" style="color: #1fbd1f;"></i> ' +
+                '<span style="color: #2e7fff;">'+details.available_from+'</span> TO <span style="color: #5656ff;">'+details.available_to+'</span>' +
+                '</h4>' +
+                '</li>');
+        });
+    }
 
 });
