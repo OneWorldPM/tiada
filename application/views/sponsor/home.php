@@ -219,11 +219,10 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
                                 <span class="current-person-name">Select Person</span>
                                 <span class="caret"></span>
                             </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <ul class="agent-list dropdown-menu" aria-labelledby="dropdownMenu1">
                                 <li class="agent-list-item disabled-li" person="0"><a href="javascript:void(0);">Agent 1</a></li>
                                 <li class="agent-list-item disabled-li" person="0" ><a href="javascript:void(0);">Agent 2</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li person="tiada" class="agent-list-item"><a href="javascript:void(0);">TIADA</a></li>
                             </ul>
                             <input type="hidden" class="selected-agent">
                         </div>
@@ -325,6 +324,7 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
     var base_url = "<?= base_url() ?>";
     var sponsor_logo = "<?= $sponsors_logo ?>";
     var user_name = "<?= $company_name ?>";
+    var user_name_lower = "<?= strtolower($company_name) ?>";
     var user_type = "sponsor";
 
     $(document).ready(function () {
@@ -346,6 +346,8 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
             'Logout' +
             '</a>' +
             '</li>');
+
+        $('.agent-list').append('<li person="'+user_name_lower+'" class="agent-list-item"><a href="javascript:void(0);">'+user_name+'</a></li>');
     });
 
     function userProfileModal(userId) {
@@ -362,8 +364,6 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
             var color = md5(nameAcronym+profile.cust_id).slice(0, 6);
             var userAvatarSrc = (profile.profile != '' && profile.profile != null)?'/tiadaannualconference/uploads/customer_profile/'+profile.profile:'https://placehold.it/50/'+color+'/fff&amp;text='+nameAcronym;
             var userAvatarAlt = 'https://placehold.it/50/'+color+'/fff&amp;text='+nameAcronym;
-
-            console.log(profile);
 
 
             $('.attendeeProfileModal-name').html(
