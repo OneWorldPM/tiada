@@ -1,4 +1,4 @@
-<link href="<?= base_url() ?>front_assets/sponsor/css/sponsor-home.css" rel="stylesheet">
+<link href="<?= base_url() ?>front_assets/sponsor/css/sponsor-home.css?v=<?=rand(1, 100)?>" rel="stylesheet">
 <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
 
 <?php
@@ -160,14 +160,25 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
                     <div class="one-to-one-chat-body panel-body">
                         <div class="col-md-4">
                             <div class="chat-users-list">
+                                <div class="input-group">
+                                    <input type="text" class="oto-attendee-search form-control" placeholder="Search by name" aria-describedby="search-icon">
+                                    <span class="input-group-addon" id="search-icon">
+                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                    </span>
+                                </div>
                                 <ul class="attendees-chat-list list-group list-group-flush">
                                 </ul>
                             </div>
                         </div>
                         <div class="col-md-8">
                             <div class="one-to-one-chat-panel panel panel-primary">
-                                <div class="panel-heading">
+                                <div class="one-to-one-chat-heading panel-heading">
                                     <span class="selected-user-name-area" style="font-weight: bold;"></span>
+                                    <h3 id="open-attendee-prof" class="attendee-profile-btn pull-right">
+                                        <span class="label label-info">
+                                            <i class="fa fa-user" aria-hidden="true"></i> Profile
+                                        </span>
+                                    </h3>
                                 </div>
                                 <div class="oto-chat-body panel-body">
                                     <ul class="oto-messages">
@@ -217,6 +228,28 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
                 </div>
                 <div class="modal-footer">
                     <!--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Attendee profile-->
+    <div id="attendeeProfileModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span class="attendeeProfileModal-name"></span>
+                        <span class="attendeeProfileModalSMIcons pull-right"></span><br>
+                        <small class="attendeeProfileModalEmail pull-right"></small><br>
+                        <small class="attendeeProfileModalPhone pull-right"></small>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <p class="modal-profile-contents"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

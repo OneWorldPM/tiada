@@ -38,15 +38,15 @@ class OtoChat_Model extends CI_Model
             "
             soc.*, 
             CONCAT(cm.first_name, ' ', cm.last_name) AS to_name,
-            CONCAT(cm2.first_name, ' ', cm2.last_name) AS from_name
+            CONCAT(cm2.first_name, ' ', cm2.last_name) AS from_name,
+            cm2.profile
             "
         );
         $this->db->from('sponsor_oto_chat soc');
         $this->db->join('customer_master cm', 'cm.cust_id = soc.to_id', 'left');
         $this->db->join('customer_master cm2', 'cm2.cust_id = soc.from_id', 'left');
         $this->db->where('soc.sponsor_id', $sponsorId);
-        $this->db->where('soc.to_id', $cid);
-        $this->db->or_where('soc.from_id', $cid);
+        $this->db->where('(soc.to_id= '.$cid.' OR soc.from_id = '.$cid.')');
         $this->db->order_by('soc.datetime','asc');
         $query = $this->db->get();
         if($query->num_rows() != 0)

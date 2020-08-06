@@ -33,10 +33,13 @@ $(function() {
             var nameAcronym = data.name.match(/\b(\w)/g).join('');
             var color = md5(nameAcronym+data.user_id).slice(0, 6);
 
+            var userAvatarSrc = (data.profile != '' && data.profile != null)?'/tiadaannualconference/uploads/customer_profile/'+data.profile:'https://placehold.it/50/'+color+'/fff&amp;text='+nameAcronym;
+            var userAvatarAlt = 'https://placehold.it/50/'+color+'/fff&amp;text='+nameAcronym;
+
             $('.group-chat').append(
                 '<li class="grp-chat left clearfix">\n' +
                 '   <span class="chat-img pull-left">\n' +
-                '     <img src="https://placehold.it/50/'+color+'/fff&text='+nameAcronym+'" alt="User Avatar" class="img-circle" />\n' +
+                '     <img src="'+userAvatarSrc+'" alt="User Avatar" onerror=this.src="'+userAvatarAlt+'" class="img-circle">\n' +
                 '   </span>\n' +
                 '   <div class="chat-body clearfix">\n' +
                 '      <div class="header">\n' +
@@ -85,10 +88,13 @@ $(function() {
                 var nameAcronym = chat.from_name.match(/\b(\w)/g).join('');
                 var color = md5(nameAcronym+chat.chat_from).slice(0, 6);
 
+                var userAvatarSrc = (chat.profile != '' && chat.profile != null)?'/tiadaannualconference/uploads/customer_profile/'+chat.profile:'https://placehold.it/50/'+color+'/fff&amp;text='+nameAcronym;
+                var userAvatarAlt = 'https://placehold.it/50/'+color+'/fff&amp;text='+nameAcronym;
+
                 $('.group-chat').append(
                     '<li class="grp-chat left clearfix">\n' +
                     '   <span class="chat-img pull-left">\n' +
-                    '     <img src="https://placehold.it/50/'+color+'/fff&text='+nameAcronym+'" alt="User Avatar" class="img-circle" />\n' +
+                    '     <img src="'+userAvatarSrc+'" alt="User Avatar" onerror=this.src="'+userAvatarAlt+'" class="img-circle" />\n' +
                     '   </span>\n' +
                     '   <div class="chat-body clearfix">\n' +
                     '      <div class="header">\n' +
@@ -142,15 +148,19 @@ $(function() {
 
                     $('#groupChatText').val('');
 
-                    socket.emit('newGroupText',
-                        {
-                            "room":GROUP_CHAT_ROOM,
-                            "name":user_name,
-                            "userType":user_type,
-                            "chat_text":text,
-                            "user_id":user_id,
-                            "datetime":dataFromDb.datetime
-                        });
+                    $.get( "/tiadaannualconference/sponsor-admin/UserDetails/getProfileById/"+user_id, function(profile) {
+
+                        socket.emit('newGroupText',
+                            {
+                                "room":GROUP_CHAT_ROOM,
+                                "name":user_name,
+                                "userType":user_type,
+                                "chat_text":text,
+                                "user_id":user_id,
+                                "datetime":dataFromDb.datetime,
+                                "profile":profile
+                            });
+                    });
 
                 }else{
                     toastr["error"]("Network problem!");

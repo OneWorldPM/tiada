@@ -8,26 +8,29 @@ $(function() {
 
     $.get( "/tiadaannualconference/sponsor-admin/UserDetails/getAllUsers", function(allUsers) {
         var users = JSON.parse(allUsers);
-        console.log(users);
 
         $.each( users, function( number, user ) {
 
             var OTO_CHAT_ROOM = 'TIADA_'+company_name+sponsor_id+'_'+user.cust_id+'_Oto_Chat';
-            socket.emit('joinSponsorOtoChat', {"room":OTO_CHAT_ROOM, "name":user_name, "userId":user_id});
+            socket.emit('joinSponsorOtoChat', {"room":OTO_CHAT_ROOM, "name":user_name, "userId":user_id, "userType":user_type});
 
             var fullname = user.first_name+' '+user.last_name;
-            if(fullname == ' ')
+            if (fullname == ' ')
             {
-                fullname = 'No Name';
+                var fullname = 'Name Unavailable';
             }
+
             var nameAcronym = fullname.match(/\b(\w)/g).join('');
             var color = md5(nameAcronym+user.cust_id).slice(0, 6);
 
+            var userAvatarSrc = (user.profile != '' && user.profile != null)?'/tiadaannualconference/uploads/customer_profile/'+user.profile:'https://placehold.it/50/'+color+'/fff&amp;text='+nameAcronym;
+            var userAvatarAlt = 'https://placehold.it/50/'+color+'/fff&amp;text='+nameAcronym;
+
             $('.attendees-chat-list').append(
-                '<li class="attendees-chat-list-item list-group-item" userName="'+fullname+'" userId="'+user.cust_id+'">\n' +
-                '<img src="https://placehold.it/50/'+color+'/fff&amp;text='+nameAcronym+'" alt="User Avatar" class="img-circle"> \n' +
-                '<span class="oto-chat-user-list-name" style="font-weight: bold;"> '+user.first_name+' '+user.last_name+' </span> \n' +
-                '<i class="fa fa-circle" style="color: #ff9a41;" aria-hidden="true"></i> \n' +
+                '<li class="attendees-chat-list-item list-group-item" userName="'+fullname+'" userId="'+user.cust_id+'" status="offline">\n' +
+                '<img src="'+userAvatarSrc+'" alt="User Avatar" onerror=this.src="'+userAvatarAlt+'" class="img-circle"> \n' +
+                '<span class="oto-chat-user-list-name" style="font-weight: bold;"> '+fullname+' </span> \n' +
+                '<i class="active-icon fa fa-circle" style="color: #454543;" aria-hidden="true" userId="'+user.cust_id+'"></i> \n' +
                 '</li>\n'
             );
         });
@@ -41,13 +44,19 @@ $(function() {
             var userId = $(this).attr('userId');
             var nameAcronym = fullname.match(/\b(\w)/g).join('');
             var color = md5(nameAcronym+userId).slice(0, 6);
+            var activeStatus = $(this).attr('status');
+            var statusColour = (activeStatus == 'active')?'#26ff49':(activeStatus == 'inactive')?'#ff9a41':'#454543';
+
+            var userAvatar = $(this).children('img').attr('src');
+            var userAvatarAlt = 'https://placehold.it/50/'+color+'/fff&amp;text='+nameAcronym;
 
             $('.send-oto-chat-btn').attr('send-to', userId);
+            $('.one-to-one-chat-heading > .attendee-profile-btn').attr('userId', userId);
 
             $('.selected-user-name-area').html(
-                '<img src="https://placehold.it/50/'+color+'/fff&amp;text='+nameAcronym+'" alt="User Avatar" class="img-circle"> '+
+                '<img src="'+userAvatar+'" alt="User Avatar" onerror=this.src="'+userAvatarAlt+'" class="img-circle"> '+
                 fullname +
-                ' <i class="fa fa-circle" style="color: #ff9a41;" aria-hidden="true"></i>'
+                ' <i class="active-icon fa fa-circle" style="color: '+statusColour+';" aria-hidden="true" userId="'+userId+'"></i>'
             );
 
             var OTO_CHAT_ROOM = 'TIADA_'+company_name+sponsor_id+'_'+userId+'_Oto_Chat';
@@ -93,7 +102,7 @@ $(function() {
                                 $('.oto-messages').append(
                                     '<li class="grp-chat left clearfix">\n' +
                                     '   <span class="chat-img pull-left">\n' +
-                                    '     <img src="https://placehold.it/50/'+color+'/fff&text='+nameAcronym+'" alt="User Avatar" class="img-circle" />\n' +
+                                    '     <img src="'+userAvatar+'" alt="User Avatar" onerror=this.src="'+userAvatarAlt+'" class="img-circle">\n' +
                                     '   </span>\n' +
                                     '   <div class="chat-body clearfix">\n' +
                                     '      <div class="header">\n' +
@@ -160,7 +169,8 @@ $(function() {
                             "userType":user_type,
                             "chat_text":text,
                             "user_id":chat_to,
-                            "datetime":dataFromDb.datetime
+                            "datetime":dataFromDb.datetime,
+                            "profile":''
                         });
 
                 }else{
@@ -197,10 +207,13 @@ $(function() {
                 var nameAcronym = data.name.match(/\b(\w)/g).join('');
                 var color = md5(nameAcronym+data.from_id).slice(0, 6);
 
+                var userAvatarSrc = (data.profile != '' && data.profile != null)?'/tiadaannualconference/uploads/customer_profile/'+data.profile:'https://placehold.it/50/'+color+'/fff&amp;text='+nameAcronym;
+                var userAvatarAlt = 'https://placehold.it/50/'+color+'/fff&amp;text='+nameAcronym;
+
                 $('.oto-messages').append(
                     '<li class="grp-chat left clearfix">\n' +
                     '   <span class="chat-img pull-left">\n' +
-                    '     <img src="https://placehold.it/50/'+color+'/fff&text='+nameAcronym+'" alt="User Avatar" class="img-circle" />\n' +
+                    '     <img src="'+userAvatarSrc+'" alt="User Avatar" onerror=this.src="'+userAvatarAlt+'" class="img-circle" />\n' +
                     '   </span>\n' +
                     '   <div class="chat-body clearfix">\n' +
                     '      <div class="header">\n' +
@@ -220,8 +233,6 @@ $(function() {
 
     socket.on('otoTyping', function(data) {
         var selectedUser = $('.selected-user-name-area').attr('userId');
-        console.log(data);
-        console.log(selectedUser);
         if (selectedUser == data.from)
         {
             $('.oto-typing').html(data.someone+' is typing...');
@@ -229,6 +240,49 @@ $(function() {
                 function() {
                     $('.oto-typing').html('');
                 }, 1000);
+        }
+    });
+
+    socket.on('userActiveChange', function(data) {
+        if (data.status == true)
+        {
+            var color = '#26ff49';
+            var status = 'active';
+        }else{
+            var color = '#ffc500';
+            var status = 'inactive';
+        }
+
+        $('.active-icon[userId="'+data.userId+'"]').css('color', color);
+        $('.attendees-chat-list-item[userId="'+data.userId+'"]').attr('status', status);
+    });
+
+    $(".oto-attendee-search").keyup(function () {
+        var filter = $(this).val();
+        $(".attendees-chat-list li").each(function () {
+            if ($(this).text().search(new RegExp(filter, "i")) < 0) {
+                $(this).hide();
+            } else {
+                $(this).show()
+            }
+        });
+    });
+
+    setInterval(function() {
+        socket.emit('getActiveUserList');
+    }, 60 * 1000); // 60 * 1000 milsec
+    socket.emit('getActiveUserList');
+    socket.on('activeUserList', function(data) {
+        $.each(data, function( socketId, userId ) {
+            $('.active-icon[userId="'+userId+'"]').css('color', '#26ff49');
+            $('.attendees-chat-list-item[userId="'+userId+'"]').attr('status', 'active');
+        });
+        $(".attendees-chat-list li").sort(asc_sort).appendTo('.attendees-chat-list');
+        function asc_sort(a, b){
+            return ($(b).attr('status')) < ($(a).attr('status')) ? 1 : -1;
+        }
+        function dec_sort(a, b){
+            return ($(b).attr('status')) > ($(a).attr('status')) ? 1 : -1;
         }
     });
 });

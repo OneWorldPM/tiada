@@ -30,4 +30,16 @@ class UserDetails extends CI_Controller
         echo json_encode($allUsers);
         return;
     }
+
+    public function getProfileById($id)
+    {
+        echo $this->user->getProfileById($id);
+        return;
+    }
+
+    public function userDataById($id)
+    {
+        echo json_encode($this->user->userDataById($id));
+        return;
+    }
 }

@@ -79,4 +79,34 @@ class M_myprofile extends CI_Model {
         }
     }
 
+    public function getProfileById($id)
+    {
+        $this->db->select('profile');
+        $this->db->where('cust_id', $id);
+        $query = $this->db->get('customer_master');
+        if($query->num_rows() != 0)
+        {
+            return $query->result()[0]->profile;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public function userDataById($id)
+    {
+        $this->db->select('*');
+        $this->db->where('cust_id', $id);
+        $query = $this->db->get('customer_master');
+        if($query->num_rows() != 0)
+        {
+            return $query->result()[0];
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 }

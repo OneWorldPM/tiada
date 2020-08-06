@@ -45,7 +45,8 @@ class GroupChat_Model extends CI_Model
         $this->db->select(
             "
             sgc.*, 
-            CONCAT(cm.first_name, ' ', cm.last_name) AS from_name
+            CONCAT(cm.first_name, ' ', cm.last_name) AS from_name,
+            cm.profile
             "
         );
         $this->db->from('sponsor_group_chat sgc');

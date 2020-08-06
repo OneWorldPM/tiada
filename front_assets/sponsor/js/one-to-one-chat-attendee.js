@@ -3,17 +3,18 @@ $(function() {
     var socketServer = "https://socket.yourconference.live:443";
     let socket = io(socketServer);
     socket.on('serverStatus', function(data) {
-        //console.log(data);
+        socket.emit('addMeToActiveList', user_id);
     });
 
     var OTO_CHAT_ROOM = 'TIADA_'+company_name+sponsor_id+'_'+user_id+'_Oto_Chat';
 
-    socket.emit('joinSponsorOtoChat', {"room":OTO_CHAT_ROOM, "name":user_name, "userId":user_id});
+    socket.emit('joinSponsorOtoChat', {"room":OTO_CHAT_ROOM, "name":user_name, "userId":user_id, "userType":user_type});
 
     socket.on('sponsorOtoNewJoin', function(data) {
         console.log(data);
     });
 
+    socket.emit('userActiveChange', {"name":user_name, "userId":user_id, "status":true});
 
     $.post("/tiadaannualconference/sponsor-admin/OtoChat/getChatsUserToSponsor/"+user_id,
         {
@@ -48,10 +49,13 @@ $(function() {
                         var nameAcronym = text.from_name.match(/\b(\w)/g).join('');
                         var color = md5(nameAcronym+text.from_id).slice(0, 6);
 
+                        var userAvatarSrc = (text.profile != '' && text.profile != null)?'/tiadaannualconference/uploads/customer_profile/'+text.profile:'https://placehold.it/50/'+color+'/fff&amp;text='+nameAcronym;
+                        var userAvatarAlt = 'https://placehold.it/50/'+color+'/fff&amp;text='+nameAcronym;
+
                         $('.chat').append(
                             '<li class="grp-chat left clearfix">\n' +
                             '   <span class="chat-img pull-left">\n' +
-                            '     <img src="https://placehold.it/50/'+color+'/fff&text='+nameAcronym+'" alt="User Avatar" class="img-circle" />\n' +
+                            '     <img src="'+userAvatarSrc+'" alt="User Avatar" onerror=this.src="'+userAvatarAlt+'" class="img-circle" />\n' +
                             '   </span>\n' +
                             '   <div class="chat-body clearfix">\n' +
                             '      <div class="header">\n' +
@@ -103,16 +107,21 @@ $(function() {
 
                     $('#one-to-one-ChatText').val('');
 
-                    socket.emit('newSponsorOtoText',
-                        {
-                            "room":OTO_CHAT_ROOM,
-                            "name":user_name,
-                            "from_id": user_id,
-                            "userType":user_type,
-                            "chat_text":text,
-                            "user_id":user_id,
-                            "datetime":dataFromDb.datetime
-                        });
+                    $.get( "/tiadaannualconference/sponsor-admin/UserDetails/getProfileById/"+user_id, function(profile){
+                        var user_profile = profile;
+
+                        socket.emit('newSponsorOtoText',
+                            {
+                                "room":OTO_CHAT_ROOM,
+                                "name":user_name,
+                                "from_id": user_id,
+                                "userType":user_type,
+                                "chat_text":text,
+                                "user_id":user_id,
+                                "datetime":dataFromDb.datetime,
+                                "profile":user_profile
+                            });
+                    });
 
                 }else{
                     toastr["error"]("Network problem!");
@@ -144,10 +153,13 @@ $(function() {
             var nameAcronym = data.name.match(/\b(\w)/g).join('');
             var color = md5(nameAcronym+data.from_id).slice(0, 6);
 
+            var userAvatarSrc = (data.profile != '' && data.profile != null)?'/tiadaannualconference/uploads/customer_profile/'+data.profile:'https://placehold.it/50/'+color+'/fff&amp;text='+nameAcronym;
+            var userAvatarAlt = 'https://placehold.it/50/'+color+'/fff&amp;text='+nameAcronym;
+
             $('.chat').append(
                 '<li class="grp-chat left clearfix">\n' +
                 '   <span class="chat-img pull-left">\n' +
-                '     <img src="https://placehold.it/50/'+color+'/fff&text='+nameAcronym+'" alt="User Avatar" class="img-circle" />\n' +
+                '     <img src="'+userAvatarSrc+'" alt="User Avatar" onerror=this.src="'+userAvatarAlt+'" class="img-circle">\n' +
                 '   </span>\n' +
                 '   <div class="chat-body clearfix">\n' +
                 '      <div class="header">\n' +
@@ -171,4 +183,19 @@ $(function() {
                 $('.oto-typing').html('');
             }, 1000);
     });
+
+    // If theres no activity for 1 minute set inactive
+    var activityTimeout = setTimeout(inActive, 60000);
+    function resetActive(){
+        socket.emit('userActiveChange', {"name":user_name, "userId":user_id, "status":true});
+        clearTimeout(activityTimeout);
+        activityTimeout = setTimeout(inActive, 60000);
+    }
+    // No activity let everyone know
+    function inActive(){
+        socket.emit('userActiveChange', {"name":user_name, "userId":user_id, "status":false});
+    }
+    // Check for mousemove, could add other events here such as checking for key presses ect.
+    $(document).bind('mousemove', function(){resetActive()});
+
 });
