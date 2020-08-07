@@ -531,3 +531,11 @@
     height: 250px;
     overflow: scroll;
 }
+
+#current-bookings-body{
+    height: 1225px !important;
+}
+
+.event-item-btn{
+    cursor: pointer;
+}

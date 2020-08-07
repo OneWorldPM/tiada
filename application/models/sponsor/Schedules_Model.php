@@ -74,4 +74,32 @@ class Schedules_Model extends CI_Model
             return true;
         }
     }
+
+    function getAllScheduledMeetings($sponsor_id, $user_name_lower)
+    {
+//        $sponsorId = $this->input->post()['sponsor_id'];
+//        $contactPerson = $this->input->post()['contact_person'];
+
+        $query = $this->db->query("SELECT REPLACE( smb.meeting_from, ' ', 'T' ) as start,
+                                          REPLACE( smb.meeting_to, ' ', 'T' ) as end,
+                                          cm.cust_id as attendeeId,
+                                          CONCAT(cm.first_name, ' ', cm.last_name) as attendeeName,
+                                          CONCAT('Meeting with ', CONCAT(cm.first_name, ' ', cm.last_name)) as title,
+                                          CONCAT('event-item-btn') as className
+                                    FROM `sponsor_meeting_bookings` as smb
+                                    LEFT JOIN `customer_master` as cm ON cm.cust_id = smb.attendee_id
+                                    WHERE 
+                                          smb.sponsor_id = '".$sponsor_id."' AND
+                                          smb.contact_person = '".$user_name_lower."'
+                                    ");
+        if($query->num_rows() != 0)
+        {
+            return $query->result_array();
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 }

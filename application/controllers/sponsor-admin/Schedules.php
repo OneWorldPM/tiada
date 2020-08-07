@@ -34,4 +34,16 @@ class Schedules extends CI_Controller
         echo json_encode($this->schedules->getCurrentAvailabilityList());
         return;
     }
+
+    public function getAllScheduledMeetings($sponsor_id, $user_name_lower)
+    {
+        $meetings = json_encode(array());
+        $meetingsList = $this->schedules->getAllScheduledMeetings($sponsor_id, $user_name_lower);
+        if ($meetingsList){
+            echo json_encode($meetingsList);
+            return;
+        }
+        echo $meetings;
+        return;
+    }
 }

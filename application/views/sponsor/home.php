@@ -5,6 +5,9 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
+<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.2.0/main.min.css' rel='stylesheet' />
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.2.0/main.min.js'></script>
+
 <?php
 $sponsors_logo = ($sponsors_logo == '')?'logo_placeholder.png':$sponsors_logo;
 $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_cover;
@@ -213,7 +216,8 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
             <div id="availability-panel" class="panel panel-info">
                 <div class="panel-heading">
                     <h2 class="panel-title">
-                        <i class="fa fa-calendar" aria-hidden="true"></i> Set Availability of
+                        <i class="fa fa-calendar fa-2x" aria-hidden="true"></i>
+                        <span style="font-size: 20px;"> Set Availability of &nbsp; </span>
                         <div class="dropdown" style="display: inline;">
                             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 <span class="current-person-name">Select Person</span>
@@ -256,6 +260,32 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
 
                     </div>
 
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div id="current-bookings-panel" class="panel panel-success">
+                <div class="panel-heading">
+                    <h2 class="panel-title">
+                        <i class="fa fa-calendar-check-o fa-2x" aria-hidden="true"></i>
+                        <span style="font-size: 20px;"> Current Bookings of &nbsp; </span>
+                        <div class="dropdown" style="display: inline;">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <span class="current-booking-person-name">Select Person</span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="booking-agent-list dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <li class="booking-agent-list-item disabled-li" person="0"><a href="javascript:void(0);">Agent 1</a></li>
+                                <li class="booking-agent-list-item disabled-li" person="0" ><a href="javascript:void(0);">Agent 2</a></li>
+                                <li role="separator" class="divider"></li>
+                            </ul>
+                            <input type="hidden" class="selected-booking-agent">
+                        </div>
+                    </h2>
+                </div>
+                <div id="current-bookings-body" class="panel-body">
+                    <div id='calendar'></div>
                 </div>
             </div>
         </div>
@@ -348,6 +378,31 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
             '</li>');
 
         $('.agent-list').append('<li person="'+user_name_lower+'" class="agent-list-item"><a href="javascript:void(0);">'+user_name+'</a></li>');
+        $('.booking-agent-list').append('<li person="'+user_name_lower+'" class="agent-list-item"><a href="javascript:void(0);">'+user_name+'</a></li>');
+        $('.current-booking-person-name').text(user_name);
+
+
+        $.get( "/tiadaannualconference/sponsor-admin/Schedules/getAllScheduledMeetings/"+sponsor_id+"/"+user_name_lower, function(events){
+            events = JSON.parse(events);
+
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                initialDate: '2020-08-07',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                eventClick: function(info) {
+                    userProfileModal(info.event.extendedProps.attendeeId);
+                },
+                events: events
+            });
+
+            calendar.render();
+        });
+
     });
 
     function userProfileModal(userId) {
