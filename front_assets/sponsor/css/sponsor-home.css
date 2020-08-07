@@ -539,3 +539,7 @@
 .event-item-btn{
     cursor: pointer;
 }
+
+.datetimepicker{
+    height: 55px;
+}

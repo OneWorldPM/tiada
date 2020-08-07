@@ -1,6 +1,9 @@
 <link href="<?= base_url() ?>front_assets/sponsor/css/sponsor-home.css?v=<?=rand(1, 100)?>" rel="stylesheet">
 <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.16/jquery.datetimepicker.full.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.16/jquery.datetimepicker.css">
+
 <?php
 $sponsors_logo = ($sponsor->sponsors_logo == '')?'logo_placeholder.png':$sponsor->sponsors_logo;
 $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$sponsor->sponsor_cover;
@@ -76,7 +79,7 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
                     <div class="panel-heading">
                         <h3 class="panel-title">
                             Chat with <?=$sponsor->company_name?>
-                            <span class="test-edit-btn badge badge-primary pull-right">
+                            <span class="schedule-meet-btn small-edit-btn badge badge-primary pull-right">
                                 <i class="fa fa-calendar-check-o" aria-hidden="true"></i> Schedule a meet
                             </span>
                             <span class="video-call-btn badge badge-primary pull-right">
@@ -181,6 +184,31 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
                 </div>
                 <div class="modal-footer">
 <!--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="scheduleModal" tabindex="-1" role="dialog" aria-labelledby="scheduleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="scheduleModalLabel">Schedule a meeting with <?= $sponsor->company_name ?></h5>
+                </div>
+                <div class="modal-body">
+                    <h4> 30 minutes, starting from:</h4>
+                    <div class="input-group">
+                        <input type="text" class="form-control datetimepicker" placeholder="Choose your time slot">
+                        <span class="input-group-btn">
+                            <button class="btn btn-success" type="button">
+                                <i class="fa fa-calendar-plus-o fa-2x" aria-hidden="true"></i> Book
+                            </button>
+                        </span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
