@@ -22,6 +22,10 @@
                                     <label>Maximum number of attendees per roundtable session</label>
                                     <input  name="roundtable_setting" id="roundtable_setting" value="<?= isset($roundtable_setting->roundtable) ? $roundtable_setting->roundtable : '' ?>" type="text" class="form-control"  placeholder="Value" required="" autocomplete="off">
                                 </div>
+                                <div class="form-group">
+                                    <label>Max Roundtable session per attendee</label>
+                                    <input  name="per_attendee" id="per_attendee" value="<?= isset($roundtable_setting->per_attendee) ? $roundtable_setting->per_attendee : '' ?>" type="text" class="form-control"  placeholder="Value" required="" autocomplete="off">
+                                </div>
                                 <div class="form-group" style="text-align:center;">
                                    <button type="submit" class="btn btn-primary">Save</button>
                                 </div>

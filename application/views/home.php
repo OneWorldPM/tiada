@@ -58,6 +58,11 @@
             min-height: 1000px;
         }
     }
+    @media only screen and (min-width: 2800px)  {
+        #home_first_section{
+            min-height: 1450px;
+        }
+    }
 
 </style>
 <section class="parallax" style="background-image: url(<?= base_url() ?>front_assets/images/tiada.jpeg); top: 0; padding-top: 20px;">
@@ -88,8 +93,7 @@
                                 <div class="col-lg box-home p-5 text-center">
                                     <img src="<?= base_url() ?>front_assets/images/Session.png" alt="welcome" class="m-t-40" style="height: 150px; width: 160px;">
                                     <br>
-                                    <br>
-                                    <span>SESSIONS</span>
+                                    <span>SESSIONS & ROUNDTABLES</span>
                                 </div>
                             </a>
                         </div>
@@ -110,7 +114,7 @@
                                 <img src="<?= base_url() ?>front_assets/images/sponsor.png" alt="welcome" class="m-t-40" style="height: 150px; width: 160px;">
                                 <br>
                                 <br>
-                                <span>SPONSORS</span>
+                                <span>EXPO</span>
                             </div>
                         </a>
                     </div> 

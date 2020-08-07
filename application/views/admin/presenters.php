@@ -27,31 +27,31 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="form-group">
-                                                <label class="text-large">Affiliation:</label>
-                                                <input type="text" name="designation" id="designation" placeholder="Designation" class="form-control">
+                                                <label class="text-large">Cell Phone :</label>
+                                                <input type="text" name="phone" id="phone" placeholder="Cell Phone" class="form-control">
                                                 <input type="hidden" name="presenter_id" id="presenter_id" value="0">
                                                 <input type="hidden" name="cr_type" id="cr_type" value="save">
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="text-large">Title:</label>
                                                     <input type="text" name="title" id="title" placeholder="Title" class="form-control">
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="text-large">Degree:</label>
                                                     <input type="text" name="degree" id="degree" placeholder="Degree" class="form-control">
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+<!--                                            <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label class="text-large">Specialty:</label>
                                                     <input type="text" name="specialty" id="specialty" placeholder="Specialty" class="form-control">
                                                 </div>
-                                            </div>
+                                            </div>-->
                                         </div>
 
                                         <div class="form-group">
@@ -121,7 +121,7 @@
                                             <tr>
                                                 <th>Photo</th>
                                                 <th>Presenter Name</th> 
-                                                <th>Designation</th>
+                                                <th>Title</th>
                                                 <th>Company Name</th>
                                                 <th>Email</th>
                                                 <th>Password</th>
@@ -140,7 +140,7 @@
                                                             <?php } ?>
                                                         </td>
                                                         <td><?= $val->first_name . ' ' . $val->last_name ?></td>
-                                                        <td><?= $val->designation ?></td>
+                                                        <td><?= $val->title ?></td>
                                                         <td><?= $val->company_name ?></td>
                                                         <td><?= $val->email ?></td>
                                                         <td><?= $val->password ?></td>
@@ -244,10 +244,9 @@ switch ($msg) {
                         {
                             $('#first_name').val(cr_data.data.first_name);
                             $('#last_name').val(cr_data.data.last_name);
-                            $('#designation').val(cr_data.data.designation);
+                            $('#phone').val(cr_data.data.phone);
                             $('#title').val(cr_data.data.title);
                             $('#degree').val(cr_data.data.degree);
-                            $('#specialty').val(cr_data.data.specialty);
                             $('#facebook').val(cr_data.data.facebook);
                             $('#linkin').val(cr_data.data.linkin);
                             $('#twitter').val(cr_data.data.twitter);

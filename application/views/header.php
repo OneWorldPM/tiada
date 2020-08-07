@@ -176,7 +176,7 @@
                                                     </li>
                                                     <li>
                                                         <a href="<?= base_url() ?>home/notes">
-                                                            My Briefcase
+                                                            My Swag Bag
                                                         </a>
                                                     </li>
                                                     <li>

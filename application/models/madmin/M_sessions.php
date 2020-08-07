@@ -52,18 +52,20 @@ class M_sessions extends CI_Model {
 
     function createSessions() {
         $post = $this->input->post();
-        if (!empty($post['sessions_type'])) {
-            $sessions_type_id = implode(",", $post['sessions_type']);
+
+        if (isset($post['sessions_type'])) {
+            $sessions_type_id = $post['sessions_type'];
         } else {
             $sessions_type_id = "";
         }
+
         if (!empty($post['sessions_tracks'])) {
             $sessions_tracks_id = implode(",", $post['sessions_tracks']);
         } else {
             $sessions_tracks_id = "";
         }
         $set = array(
-            'presenter_id' => implode(",", $post['select_presenter_id']),
+            'presenter_id' => (isset($post['select_presenter_id'])) ? implode(",", $post['select_presenter_id']) : '',
             'session_title' => trim($post['session_title']),
             'sessions_description' => trim($post['sessions_description']),
             'sessions_date' => date("Y-m-d", strtotime($post['sessions_date'])),
@@ -164,8 +166,8 @@ class M_sessions extends CI_Model {
 
     function updateSessions() {
         $post = $this->input->post();
-        if (!empty($post['sessions_type'])) {
-            $sessions_type_id = implode(",", $post['sessions_type']);
+        if (isset($post['sessions_type'])) {
+            $sessions_type_id = $post['sessions_type'];
         } else {
             $sessions_type_id = "";
         }
@@ -175,7 +177,7 @@ class M_sessions extends CI_Model {
             $sessions_tracks_id = "";
         }
         $set = array(
-            'presenter_id' => implode(",", $post['select_presenter_id']),
+            'presenter_id' => (isset($post['select_presenter_id'])) ? implode(",", $post['select_presenter_id']) : '',
             'session_title' => trim($post['session_title']),
             'sessions_description' => trim($post['sessions_description']),
             'sessions_date' => date("Y-m-d", strtotime($post['sessions_date'])),
@@ -774,8 +776,8 @@ class M_sessions extends CI_Model {
     function get_user_sign_up($sessions_id) {
         $this->db->select('*');
         $this->db->from('sign_up_sessions s');
-        $this->db->join('customer_master c','s.cust_id=c.cust_id');
-        $this->db->where("s.sessions_id",$sessions_id);
+        $this->db->join('customer_master c', 's.cust_id=c.cust_id');
+        $this->db->where("s.sessions_id", $sessions_id);
         $result = $this->db->get();
         if ($result->num_rows() > 0) {
             return $result->result();

@@ -173,7 +173,7 @@ class Common {
     function get_roundtable_setting() {
         $result = $this->_CI->db->get('roundtable_setting');
         if ($result->num_rows() > 0) {
-            return $result->row()->roundtable;
+            return $result->row();
         } else {
             return 0;
         }

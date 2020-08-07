@@ -52,7 +52,7 @@
                     if ((isset($sessions) && !empty($sessions))) {
                         $time = $sessions->time_slot;
                         $datetime = $sessions->sessions_date . ' ' . $time;
-                        $datetime = date("Y-m-d h:i", strtotime($datetime));
+                        $datetime = date("Y-m-d H:i", strtotime($datetime));
                         $datetime = new DateTime($datetime);
                         $datetime1 = new DateTime();
                         $diff = $datetime->getTimestamp() - $datetime1->getTimestamp();
@@ -64,6 +64,7 @@
                     }
                     ?>
                     <input type="hidden" id="time_second" value="<?= $diff ?>">
+                    <input type="hidden" id="sessions_type_status" value="<?= $sessions->sessions_type_status ?>">
                     <section class="content">
                         <div class="container" style=" background: rgb(223 223 223 / 60%);"> 
                             <div class="row p-b-40">
@@ -81,35 +82,53 @@
                                         </div>  
                                         <div class="col-md-8">
                                             <h2 style="margin-bottom: 0px;"><?= (isset($sessions) && !empty($sessions)) ? $sessions->session_title : "" ?></h2>
-                                            <small><i class="fa fa-calendar" aria-hidden="true"></i> <?= date("M-d-Y", strtotime($sessions->sessions_date)) . ' ' . date("h:i A", strtotime($sessions->time_slot)).' - '.date("h:i A", strtotime($sessions->end_time)) ?></small>
+                                            <small><i class="fa fa-calendar" aria-hidden="true"></i> <?= date("M-d-Y", strtotime($sessions->sessions_date)) . ' ' . date("H:i", strtotime($sessions->time_slot)) . ' - ' . date("H:i", strtotime($sessions->end_time)) ?></small>
                                             <p class="m-t-20"><?= (isset($sessions) && !empty($sessions)) ? $sessions->sessions_description : "" ?></p>
                                         </div>    
                                     </div>
                                 </div>
-                                <div class="col-md-5" style="text-align: center;">
+                                <div class="col-md-5" style="text-align: center">
                                     <?php
+                                    $size = 0;
                                     if (isset($sessions->presenter) && !empty($sessions->presenter)) {
-                                        foreach ($sessions->presenter as $value) {
-                                            ?>
-                                            <h3 style="margin-bottom: 0px;  cursor: pointer;" data-presenter_photo="<?= $value->presenter_photo ?>" data-presenter_name="<?= $value->presenter_name ?>" data-designation="<?= $value->designation ?>" data-email="<?= $value->email ?>" data-company_name="<?= $value->company_name ?>" class="presenter_open_modul" ><?= $value->presenter_name ?>, <?= $value->designation ?></h3>
-                                            <!--<p class="m-t-20"><?= (isset($sessions) && !empty($sessions)) ? $sessions->bio : "" ?></p>-->
-                                            <!--<img alt="" src="<?= base_url() ?>uploads/presenter_photo/<?= (isset($sessions) && !empty($sessions)) ? $sessions->presenter_photo : "" ?>" class="img-circle" height="100" width="100">-->
-                                            <?php
+                                        $size = sizeof($sessions->presenter);
+                                    }
+                                    ?>
+                                    <?php if($size <= 2) { ?>
+                                    <br>
+                                    <br>
+                                    <?php } ?>
+                                    <?php
+                                    if ($sessions->sessions_type_status != "Private") {
+                                        if (isset($sessions->presenter) && !empty($sessions->presenter)) {
+                                            foreach ($sessions->presenter as $value) {
+                                                ?>
+                                                <h3 style="margin-bottom: 0px;  cursor: pointer;" data-presenter_photo="<?= $value->presenter_photo ?>" data-presenter_name="<?= $value->presenter_name ?>" data-designation="<?= $value->designation ?>" data-email="<?= $value->email ?>" data-company_name="<?= $value->company_name ?>" class="presenter_open_modul" ><?= $value->presenter_name ?>, <?= $value->title ?></h3>
+                                                <h3 style="margin-bottom: 0px;  cursor: pointer;"> <?= $value->company_name ?></h3>
+                                                <!--<p class="m-t-20"><?= (isset($sessions) && !empty($sessions)) ? $sessions->bio : "" ?></p>-->
+                                                <!--<img alt="" src="<?= base_url() ?>uploads/presenter_photo/<?= (isset($sessions) && !empty($sessions)) ? $sessions->presenter_photo : "" ?>" class="img-circle" height="100" width="100">-->
+                                                <?php
+                                            }
                                         }
                                     }
                                     ?>
-                            <!--<p class="m-t-20"><?= (isset($sessions) && !empty($sessions)) ? $sessions->bio : "" ?></p>-->
-                            <!--<img alt="" src="<?= base_url() ?>uploads/presenter_photo/<?= (isset($sessions) && !empty($sessions)) ? $sessions->presenter_photo : "" ?>" class="img-circle" height="100" width="100">-->
+<!--<p class="m-t-20"><?= (isset($sessions) && !empty($sessions)) ? $sessions->bio : "" ?></p>-->
+<!--<img alt="" src="<?= base_url() ?>uploads/presenter_photo/<?= (isset($sessions) && !empty($sessions)) ? $sessions->presenter_photo : "" ?>" class="img-circle" height="100" width="100">-->
+
                                 </div>
                                 <div class="col-md-12 m-t-40">
                                     <div class="col-md-4 col-md-offset-4" style="text-align: center; text-align: center; padding: 10px; background-color: #fff; border: 1px solid;">
                                         <p><i class="fa fa-info-circle" aria-hidden="true" style="font-size: 20px;"></i></p>
                                         <p>You will automatically enter the session 15 minutes before it is due to begin.</p>
-                                        <p>Entry will be enabled in <span id="id_day_time" ></span> minutes </p>
+                                        <p>Entry will be enabled in <span id="id_day_time" ></span> second </p>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <a class="button black-light button-3d rounded right" style="margin: 0px 0;" href="<?= base_url() ?>sessions/view/<?= (isset($sessions) && !empty($sessions)) ? $sessions->sessions_id : "" ?>"><span>Take me there</span></a>
+                                    <?php if ($sessions->sessions_type_status == "Private") { ?>
+                                        <a class="button black-light button-3d rounded right" style="margin: 0px 0;" href="<?= base_url() ?>private_sessions/view/<?= (isset($sessions) && !empty($sessions)) ? $sessions->sessions_id : "" ?>"><span>Take me there</span></a>
+                                    <?php } else { ?>
+                                        <a class="button black-light button-3d rounded right" style="margin: 0px 0;" href="<?= base_url() ?>sessions/view/<?= (isset($sessions) && !empty($sessions)) ? $sessions->sessions_id : "" ?>"><span>Take me there</span></a>
+                                    <?php } ?>
                                 </div>
                             </div>
                         </div>
@@ -172,13 +191,17 @@
         function pad(n) {
             return (n < 10 ? "0" + n : n);
         }
-        document.getElementById('id_day_time').innerHTML = pad(days) + ":" + pad(hours) + ":" + pad(minutes) + ":" + pad(remainingSeconds);
+        document.getElementById('id_day_time').innerHTML = pad(days) + " days, " + pad(hours) + " hours, " + pad(minutes) + " minutes, " + pad(remainingSeconds);
         if (seconds <= 0) {
-            window.location.replace("<?= site_url() ?>sessions/view/<?= (isset($sessions) && !empty($sessions)) ? $sessions->sessions_id : "" ?>");
-                    } else {
-                        seconds--;
-                    }
-                }
+            if ($("#sessions_type_status").val() == "Private") {
+                window.location.replace("<?= site_url() ?>private_sessions/view/<?= (isset($sessions) && !empty($sessions)) ? $sessions->sessions_id : "" ?>");
+                            } else {
+                                window.location.replace("<?= site_url() ?>sessions/view/<?= (isset($sessions) && !empty($sessions)) ? $sessions->sessions_id : "" ?>");
+                                            }
+                                        } else {
+                                            seconds--;
+                                        }
+                                    }
 </script>
 <script type="text/javascript">
     $(document).ready(function () {

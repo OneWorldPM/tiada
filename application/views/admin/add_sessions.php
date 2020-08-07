@@ -80,7 +80,7 @@
                                                 if($val->sessions_type != ""){
                                                 ?>
                                                 <div class="form-group col-md-6" style="color: #000;">
-                                                    <input type="checkbox" class="col-md-1"  name="sessions_type[]" <?= (isset($sessions_edit) && !empty($sessions_edit)) ? in_array($val->sessions_type_id, explode(",", $sessions_edit->sessions_type_id)) ? 'checked' : '' : '' ?> id="sessions_type" value="<?= $val->sessions_type_id ?>"> <?= $val->sessions_type ?><br>
+                                                    <input type="radio" class="col-md-1"  name="sessions_type" <?= (isset($sessions_edit) && !empty($sessions_edit)) ? in_array($val->sessions_type_id, explode(",", $sessions_edit->sessions_type_id)) ? 'checked' : '' : '' ?> id="sessions_type" value="<?= $val->sessions_type_id ?>"> <?= $val->sessions_type ?><br>
                                                 </div>
                                                 <?php
                                                 }
@@ -308,9 +308,9 @@
             } else if ($("#embed_html_code").val() == "") {
                 alertify.error("Enter Embed HTML Code");
                 return false;
-            }else if(sum == 0){
-                alertify.error("Please Add presenter");
-                return false;
+//            }else if(sum == 0){
+//                alertify.error("Please Add presenter");
+//                return false;
             }else if(sum > 15){
                 alertify.error("Maximum add 15 Presenter");
                 return false;    
@@ -333,6 +333,14 @@
                                                                     }
                                                                 }
                                                             });
+                                                        });
+                                                        
+                                                        $(document).on("change", "#sessions_type_status", function () {
+                                                           if($(this).val() == "Private"){
+                                                            $("#btn_add_new_presenter").hide();
+                                                            }else{
+                                                            $("#btn_add_new_presenter").show();
+                                                            }
                                                         });
     });
 </script>

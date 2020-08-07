@@ -20,7 +20,8 @@ class Roundtable_setting extends CI_Controller {
 
     function update_roundtable_setting() {
         $roundtable_setting = $this->input->post('roundtable_setting');
-        $result = $this->mroundtablesetting->update_roundtable_setting($roundtable_setting);
+        $per_attendee = $this->input->post('per_attendee');
+        $result = $this->mroundtablesetting->update_roundtable_setting($roundtable_setting, $per_attendee);
         if ($result) {
             header('location:' . site_url() . 'admin/roundtable_setting?msg=U');
         }

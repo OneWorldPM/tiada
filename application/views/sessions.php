@@ -55,7 +55,7 @@
     .presenter_open_modul:hover{
         color: #ae0201 !important; 
     }
-    
+
     .alertify {
         top: 200px;
     }
@@ -103,71 +103,122 @@
 
                             <!-- Blog post-->
                             <div class="post-content post-single"> 
-
+                                <?php
+                                $session_limit = $this->common->get_roundtable_setting();
+                                ?>
+                                <input type="hidden" value="<?= $session_limit->per_attendee ?>" id="per_attendee">
                                 <!-- Blog image post-->
                                 <?php
                                 if (isset($all_sessions) && !empty($all_sessions)) {
                                     foreach ($all_sessions as $val) {
                                         ?>
-                                        <div class="post-item">
-                                            <div class="post-image col-md-3 m-t-20"> 
-                                                <a href="<?= base_url() ?>sessions/attend/<?= $val->sessions_id ?>"> <?php if ($val->sessions_photo != "") { ?> <img alt="" src="<?= base_url() ?>uploads/sessions/<?= $val->sessions_photo ?>"> <?php } else { ?>  <img alt="" src="<?= base_url() ?>front_assets/images/session_avtar.jpg"> <?php } ?>  </a> 
-                                            </div>
-                                            <div class="post-content-details col-md-9 m-t-30">
 
-                                                <div class="post-title">
-                                                    <h6 style="font-weight: 600"><?= $val->sessions_date . ' ' . date("h:i A", strtotime($val->time_slot)) . ' - ' . date("h:i A", strtotime($val->end_time)) ?></h6>
-                                                    <h3><a href="<?= base_url() ?>sessions/attend/<?= $val->sessions_id ?>" style="color: #ae0201; font-weight: 900;"><?= $val->session_title ?></a></h3>
-                                                </div>
-                                                <?php
-                                                if (isset($val->presenter) && !empty($val->presenter)) {
-                                                    foreach ($val->presenter as $value) {
+                                        <?php
+                                        if ($val->sessions_type_status == "Private") {
+
+                                            if ($val->total_sign_up_sessions < $session_limit->roundtable) {
+                                                if ($val->status_sign_up_sessions == 0) {
+                                                    $user_detias = $this->common->get_user_details($this->session->userdata("cid"));
+                                                    if ($user_detias->customer_type == "Dummy users") {
                                                         ?>
-                                                        <div class="post-info" style="color: #000 !important; font-size: larger; font-weight: 700;"><span class="post-autor"><a href="#" data-presenter_photo="<?= $value->presenter_photo ?>" data-presenter_name="<?= $value->presenter_name ?>" data-designation="<?= $value->designation ?>" data-email="<?= $value->email ?>" data-company_name="<?= $value->company_name ?>" data-twitter_link="<?= $value->twitter ?>" data-facebook_link="<?= $value->facebook ?>" data-linkedin_link="<?= $value->linkin ?>" class="presenter_open_modul"><?= $value->presenter_name ?>, </a></span> <span class="post-category"> <?= $value->title ?></span> </div>
-                                                        <div class="post-info" style="color: #000 !important; font-size: larger; font-weight: 700;"><span class="post-category"> <?= $value->company_name ?></span> </div>
-                                                        <?php
-                                                    }
-                                                }
-                                                ?>
-                                                <?php
-                                                if ($val->sessions_type_status == "Private") {
-                                                    $session_limit = $this->common->get_roundtable_setting();
-                                                    if ($val->total_sign_up_sessions < $session_limit) {
-                                                        if ($val->status_sign_up_sessions == 0) {
-                                                            $user_detias = $this->common->get_user_details($this->session->userdata("cid"));
-                                                            if ($user_detias->customer_type == "Dummy users") {
-                                                                ?>
+                                                        <div class="post-item">
+                                                            <div class="post-image col-md-3 m-t-20"> 
+                                                                <a><?php if ($val->sessions_photo != "") { ?> <img alt="" src="<?= base_url() ?>uploads/sessions/<?= $val->sessions_photo ?>"> <?php } else { ?>  <img alt="" src="<?= base_url() ?>front_assets/images/session_avtar.jpg"> <?php } ?>  </a> 
+                                                            </div>
+                                                            <div class="post-content-details col-md-9 m-t-30">
+                                                                <div class="post-title">
+                                                                    <h6 style="font-weight: 600"><?= $val->sessions_date . ' ' . date("h:i A", strtotime($val->time_slot)) . ' - ' . date("h:i A", strtotime($val->end_time)) ?></h6>
+                                                                    <h3><a  style="color: #ae0201; font-weight: 900;"><?= $val->session_title ?></a></h3>
+                                                                </div>
                                                                 <div class="post-description">
                                                                     <p style="margin-bottom: 10px; color: black;"><?= $val->sessions_description ?></p>
                                                                     <a class="button black-light button-3d rounded right" style="margin: 0px 0;"><span>You can't Sign up</span></a>
                                                                 </div>
-                                                            <?php } else { ?>
+                                                            </div>
+                                                        </div>
+                                                    <?php } else { ?>
+                                                        <div class="post-item">
+                                                            <div class="post-image col-md-3 m-t-20"> 
+                                                                <a> <?php if ($val->sessions_photo != "") { ?> <img alt="" src="<?= base_url() ?>uploads/sessions/<?= $val->sessions_photo ?>"> <?php } else { ?>  <img alt="" src="<?= base_url() ?>front_assets/images/session_avtar.jpg"> <?php } ?>  </a> 
+                                                            </div>
+                                                            <div class="post-content-details col-md-9 m-t-30">
+
+                                                                <div class="post-title">
+                                                                    <h6 style="font-weight: 600"><?= $val->sessions_date . ' ' . date("h:i A", strtotime($val->time_slot)) . ' - ' . date("h:i A", strtotime($val->end_time)) ?></h6>
+                                                                    <h3><a style="color: #ae0201; font-weight: 900;"><?= $val->session_title ?></a></h3>
+                                                                </div>
                                                                 <div class="post-description">
                                                                     <p style="margin-bottom: 10px; color: black;"><?= $val->sessions_description ?></p>
                                                                     <a class="button black-light button-3d rounded right btn_sign_up" style="margin: 0px 0;" data-sessions_id="<?= $val->sessions_id ?>" data-user_limit="<?= $val->total_sign_up_sessions_user ?>"><span>Sign up</span></a>
                                                                 </div>
-                                                            <?php } ?>
-                                                        <?php } else { ?>
+                                                            </div>
+                                                        </div>
+                                                    <?php } ?>
+                                                <?php } else { ?>
+                                                    <div class="post-item">
+                                                        <div class="post-image col-md-3 m-t-20"> 
+                                                            <a href="<?= base_url() ?>sessions/attend/<?= $val->sessions_id ?>"> <?php if ($val->sessions_photo != "") { ?> <img alt="" src="<?= base_url() ?>uploads/sessions/<?= $val->sessions_photo ?>"> <?php } else { ?>  <img alt="" src="<?= base_url() ?>front_assets/images/session_avtar.jpg"> <?php } ?>  </a> 
+                                                        </div>
+                                                        <div class="post-content-details col-md-9 m-t-30">
+
+                                                            <div class="post-title">
+                                                                <h6 style="font-weight: 600"><?= $val->sessions_date . ' ' . date("h:i A", strtotime($val->time_slot)) . ' - ' . date("h:i A", strtotime($val->end_time)) ?></h6>
+                                                                <h3><a href="<?= base_url() ?>sessions/attend/<?= $val->sessions_id ?>" style="color: #ae0201; font-weight: 900;"><?= $val->session_title ?></a></h3>
+                                                            </div>
                                                             <div class="post-description">
                                                                 <p style="margin-bottom: 10px; color: black;"><?= $val->sessions_description ?></p>
                                                                 <a class="button black-light button-3d rounded right" style="margin: 0px 0;"><span>Unregister</span></a>
                                                             </div>
-                                                        <?php } ?>
-                                                    <?php } else { ?>
+                                                        </div>
+                                                    </div>
+                                                <?php } ?>
+                                            <?php } else { ?>
+                                                <div class="post-item">
+                                                    <div class="post-image col-md-3 m-t-20"> 
+                                                        <a> <?php if ($val->sessions_photo != "") { ?> <img alt="" src="<?= base_url() ?>uploads/sessions/<?= $val->sessions_photo ?>"> <?php } else { ?>  <img alt="" src="<?= base_url() ?>front_assets/images/session_avtar.jpg"> <?php } ?>  </a> 
+                                                    </div>
+                                                    <div class="post-content-details col-md-9 m-t-30">
+
+                                                        <div class="post-title">
+                                                            <h6 style="font-weight: 600"><?= $val->sessions_date . ' ' . date("h:i A", strtotime($val->time_slot)) . ' - ' . date("h:i A", strtotime($val->end_time)) ?></h6>
+                                                            <h3><a style="color: #ae0201; font-weight: 900;"><?= $val->session_title ?></a></h3>
+                                                        </div>
                                                         <div class="post-description">
                                                             <p style="margin-bottom: 10px; color: black;"><?= $val->sessions_description ?></p>
                                                             <a class="button black-light button-3d rounded right" style="margin: 0px 0;"><span>Roundtable Full</span></a>
                                                         </div>
-                                                    <?php } ?>
-                                                <?php } else { ?>
+                                                    </div>
+                                                </div>
+                                            <?php } ?>
+                                        <?php } else { ?>
+                                            <div class="post-item">
+                                                <div class="post-image col-md-3 m-t-20"> 
+                                                    <a href="<?= base_url() ?>sessions/attend/<?= $val->sessions_id ?>"> <?php if ($val->sessions_photo != "") { ?> <img alt="" src="<?= base_url() ?>uploads/sessions/<?= $val->sessions_photo ?>"> <?php } else { ?>  <img alt="" src="<?= base_url() ?>front_assets/images/session_avtar.jpg"> <?php } ?>  </a> 
+                                                </div>
+                                                <div class="post-content-details col-md-9 m-t-30">
+
+                                                    <div class="post-title">
+                                                        <h6 style="font-weight: 600"><?= $val->sessions_date . ' ' . date("h:i A", strtotime($val->time_slot)) . ' - ' . date("h:i A", strtotime($val->end_time)) ?></h6>
+                                                        <h3><a href="<?= base_url() ?>sessions/attend/<?= $val->sessions_id ?>" style="color: #ae0201; font-weight: 900;"><?= $val->session_title ?></a></h3>
+                                                    </div>
+                                                    <?php
+                                                    if (isset($val->presenter) && !empty($val->presenter)) {
+                                                        foreach ($val->presenter as $value) {
+                                                            ?>
+                                                            <div class="post-info" style="color: #000 !important; font-size: larger; font-weight: 700;"><span class="post-autor"><a href="#" data-presenter_photo="<?= $value->presenter_photo ?>" data-presenter_name="<?= $value->presenter_name ?>" data-designation="<?= $value->designation ?>" data-email="<?= $value->email ?>" data-company_name="<?= $value->company_name ?>" data-twitter_link="<?= $value->twitter ?>" data-facebook_link="<?= $value->facebook ?>" data-linkedin_link="<?= $value->linkin ?>" class="presenter_open_modul"><?= $value->presenter_name ?>, </a></span> <span class="post-category"> <?= $value->title ?></span> </div>
+                                                            <div class="post-info" style="color: #000 !important; font-size: larger; font-weight: 700;"><span class="post-category"> <?= $value->company_name ?></span> </div>
+                                                            <?php
+                                                        }
+                                                    }
+                                                    ?>
                                                     <div class="post-description">
                                                         <p style="margin-bottom: 10px; color: black;"><?= $val->sessions_description ?></p>
                                                         <a class="button black-light button-3d rounded right" style="margin: 0px 0;" href="<?= base_url() ?>sessions/attend/<?= $val->sessions_id ?>"><span>Attend</span></a>
                                                     </div>
-                                                <?php } ?>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <?php
+                                            <?php
+                                        }
                                     }
                                 }
                                 ?>
@@ -231,7 +282,8 @@
         $('.btn_sign_up').on('click', function () {
             var sessions_id = $(this).attr("data-sessions_id");
             var user_limit = $(this).attr("data-user_limit");
-            if (user_limit <= 6) {
+            var total_user_limit = $("#per_attendee").val();
+            if (user_limit < total_user_limit) {
                 alertify.confirm('Are you sure you want to sign up for this roundtable session?', function (e) {
                     if (e) {
                         $.ajax({
@@ -243,14 +295,14 @@
                                 if (data.status == "success") {
                                     window.location.reload();
                                 } else if (data.status == "exist") {
-                                    alertify.error('Runnign at the same time');
+                                    alertify.alert('This is not available. Registration is limited to one concurrent roundtable per registrant.');
                                 }
                             }
                         });
                     }
                 });
             } else {
-                alertify.error('You have reached your roundtable limitation');
+                alertify.alert('You have reached your roundtable limitation');
             }
         });
 
