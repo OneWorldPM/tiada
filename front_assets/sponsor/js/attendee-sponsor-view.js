@@ -259,8 +259,10 @@ $(function() {
 
             if (typeof(enableDays[0]) == 'undefined' || enableDays[0] == ''){
                 $(".datetimepicker").val('No dates available!');
-                return;
+                $(".datetimepicker").prop('disabled', true);
+                return false;
             }
+            $(".datetimepicker").prop('disabled', false);
 
             $.get( "/tiadaannualconference/sponsor-admin/schedules/getTimeSlotByDateOf/"+sponsor_id+"/"+company_name+"/"+enableDays[0], function(times){
 
@@ -288,6 +290,7 @@ $(function() {
 
                         $.get( "/tiadaannualconference/sponsor-admin/schedules/getTimeSlotByDateOf/"+sponsor_id+"/"+company_name+"/"+sdate, function(times){
                             var enableTimes = JSON.parse(times);
+                            console.log(enableTimes);
                             $('.datetimepicker').datetimepicker('setOptions', {allowTimes:enableTimes});
                         });
                     }
@@ -302,11 +305,11 @@ $(function() {
             return;
 
         let from = new Date(Date.parse(meetingDateTime));
-        var sfdate = (from.getFullYear() + '/' + ('0' + (from.getMonth()+1)).slice(-2) + '/' + ('0' + from.getDate()).slice(-2) +' '+ from.getHours()+':'+from.getMinutes());
+        var sfdate = (from.getFullYear() + '/' + ('0' + (from.getMonth()+1)).slice(-2) + '/' + ('0' + from.getDate()).slice(-2) +' '+ from.getHours()+':'+(from.getMinutes()<10?'0':'') + from.getMinutes());
         var to = from;
         to.setMinutes(from.getMinutes()+30);
         var stdate = (to.getFullYear() + '/' + ('0' + (to.getMonth()+1)).slice(-2) + '/' + ('0' + to.getDate()).slice(-2) +' '+ to.getHours()+':'+to.getMinutes());
-        var sttime = to.getHours()+':'+to.getMinutes();
+        var sttime = to.getHours()+':'+ (to.getMinutes()<10?'0':'') + to.getMinutes();
 
         Swal.fire({
             title: 'Are you sure?',
@@ -322,20 +325,40 @@ $(function() {
         }).then((result) => {
             if (result.value) {
 
-                $.post("/tiadaannualconference/sponsor-admin/OtoChat/newText",
+                $.post("/tiadaannualconference/sponsor-admin/Schedules/makeBooking",
                     {
-                        'chat_text': text,
                         'sponsor_id': sponsor_id,
-                        'chat_to': chat_to
+                        'contact_person': company_name,
+                        'attendee_id': user_id,
+                        'meet_from': sfdate,
+                        'meet_to': stdate
                     },
                     function(data, status){
                         if(status == 'success')
                         {
-                            Swal.fire(
-                                'Booked!',
-                                'Your meeting has been scheduled.',
-                                'success'
-                            )
+                            data = JSON.parse(data);
+
+                            if (data.status == 'success')
+                            {
+                                Swal.fire(
+                                    'Booked!',
+                                    data.message,
+                                    'success'
+                                );
+                                $('#scheduleModal').modal('hide');
+                            }else if(data.status == 'error'){
+                                Swal.fire(
+                                    'Sorry!',
+                                    data.message,
+                                    'warning'
+                                )
+                            }else{
+                                Swal.fire(
+                                    'Oh no!',
+                                    data.message,
+                                    'error'
+                                )
+                            }
 
                         }else{
                             toastr["error"]("Network problem!");

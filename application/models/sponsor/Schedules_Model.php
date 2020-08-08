@@ -134,4 +134,74 @@ class Schedules_Model extends CI_Model
         }
     }
 
+    function makeBooking()
+    {
+        $sponsorId = $this->input->post()['sponsor_id'];
+        $contactPerson = $this->input->post()['contact_person'];
+        $attendeeId = $this->input->post()['attendee_id'];
+        $meetFrom = $this->input->post()['meet_from'];
+        $meetTo = $this->input->post()['meet_to'];
+
+        $data = array(
+            'sponsor_id' => $sponsorId,
+            'contact_person ' => $contactPerson,
+            'attendee_id ' => $attendeeId,
+            'meeting_from' => $meetFrom,
+            'meeting_to' => $meetTo
+        );
+
+        if ($this->existingBookingCheck() != true)
+        {
+            $this->db->insert('sponsor_meeting_bookings', $data);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    function existingBookingCheck()
+    {
+        $sponsorId = $this->input->post()['sponsor_id'];
+        $contactPerson = $this->input->post()['contact_person'];
+        $meetFrom = $this->input->post()['meet_from'];
+        $meetTo = $this->input->post()['meet_to'];
+
+        $data = array(
+            'sponsor_id' => $sponsorId,
+            'contact_person ' => $contactPerson,
+            'meeting_from' => $meetFrom,
+            'meeting_to' => $meetTo
+        );
+
+        $this->db->select('*');
+        $this->db->from('sponsor_meeting_bookings');
+        $this->db->where($data);
+        $query = $this->db->get();
+        if($query->num_rows() != 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    function getExistingBookings($sponsor_id, $contact_person, $date){
+        $query = $this->db->query("SELECT 
+                                    (`meeting_from`) meeting_from
+                                    FROM `sponsor_meeting_bookings` 
+                                    WHERE sponsor_id = '".$sponsor_id."' AND contact_person = '".$contact_person."'
+                                    AND DATE(`meeting_from`) = '".$date."'
+                                    ");
+        if($query->num_rows() != 0)
+        {
+            return $query->result_array();
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 }

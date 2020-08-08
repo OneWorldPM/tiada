@@ -90,18 +90,49 @@ class Schedules extends CI_Controller
 
         foreach ($dates as $times)
         {
-            $start_time = strtotime($times['from_time']);
-            $end_time = strtotime($times['to_time']);
+            $start_time = strtotime(substr($dates[0]['from_time'], strrpos($dates[0]['from_time'], ' ') + 1));
+            $end_time = strtotime(substr($dates[0]['to_time'], strrpos($dates[0]['to_time'], ' ') + 1));
             while ($start_time <= $end_time)
             {
                 $timeSlots[] = date ("H:i", $start_time);
                 $start_time += $meetingDuration;
             }
         }
+
+        $existingBookings = $this->schedules->getExistingBookings($sponsor_id, $contact_person, $date);
+        $existingTimeSlots = array();
+        if ($existingBookings != false){
+            foreach ($existingBookings as $existingTimes)
+            {
+                $existingStart_time = strtotime($existingTimes['meeting_from']);
+                $existingTimeSlots[] = date ("H:i", $existingStart_time);
+            }
+        }
+
         array_pop($timeSlots);
 
-        echo json_encode($timeSlots);
+        $finalAvailableTimes = array_diff($timeSlots, $existingTimeSlots);
+
+        echo json_encode(array_values($finalAvailableTimes));
         return;
+    }
+
+    public function makeBooking()
+    {
+        $status = $this->schedules->makeBooking();
+
+        if ($status == true){
+            echo json_encode(array('status'=>'success', 'message'=>'Your meeting has been scheduled.'));
+            return;
+        }elseif ($status == false)
+        {
+            echo json_encode(array('status'=>'error', 'message'=>'Someone else booked that time slot while you were planning!'));
+            return;
+        }
+
+        echo json_encode(array('status'=>'failed', 'message'=>'Unable to schedule the meeting.'));
+        return;
+
     }
     
 }
