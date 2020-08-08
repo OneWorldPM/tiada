@@ -199,15 +199,17 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
                 <div class="modal-body">
                     <h4> 30 minutes, starting from:</h4>
                     <div class="input-group">
-                        <input type="text" class="form-control datetimepicker" placeholder="Choose your time slot">
+                        <input id="selectedMeetingDateTime" type="text" class="form-control datetimepicker" placeholder="Choose your time slot from available date and times" readonly="readonly">
                         <span class="input-group-btn">
-                            <button class="btn btn-success" type="button">
+                            <button class="book-meet-btn btn btn-success" type="button">
                                 <i class="fa fa-calendar-plus-o fa-2x" aria-hidden="true"></i> Book
                             </button>
                         </span>
                     </div>
+                    <small>Available dates are highlighted in green</small>
                 </div>
                 <div class="modal-footer">
+                    <small class="pull-left">All dates and times are in The North American Central Time Zone (CT)</small>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -222,6 +224,7 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
     var sponsor_id = <?= $sponsor->sponsors_id ?>;
     var company_name = "<?= str_replace(' ', '_', $sponsor->company_name) ?>";
     var company_name_orig = "<?= $sponsor->company_name ?>";
+    var company_name_lower = "<?= strtolower($sponsor->company_name) ?>";
     var base_url = "<?= base_url() ?>";
     var sponsor_logo = "<?= $sponsor->sponsors_logo ?>";
     var user_name = "<?= $this->session->userdata('fullname') ?>";

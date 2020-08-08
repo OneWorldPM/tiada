@@ -77,9 +77,6 @@ class Schedules_Model extends CI_Model
 
     function getAllScheduledMeetings($sponsor_id, $user_name_lower)
     {
-//        $sponsorId = $this->input->post()['sponsor_id'];
-//        $contactPerson = $this->input->post()['contact_person'];
-
         $query = $this->db->query("SELECT REPLACE( smb.meeting_from, ' ', 'T' ) as start,
                                           REPLACE( smb.meeting_to, ' ', 'T' ) as end,
                                           cm.cust_id as attendeeId,
@@ -91,6 +88,41 @@ class Schedules_Model extends CI_Model
                                     WHERE 
                                           smb.sponsor_id = '".$sponsor_id."' AND
                                           smb.contact_person = '".$user_name_lower."'
+                                    ");
+        if($query->num_rows() != 0)
+        {
+            return $query->result_array();
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    function getAvailableDatesOf($sponsor_id, $contact_person)
+    {
+        $query = $this->db->query("SELECT 
+                                    DATE(`available_from`) from_date, DATE(`available_to`) to_date
+                                    FROM `sponsor_meeting_availability` 
+                                    WHERE sponsor_id = '".$sponsor_id."' AND contact_person = '".$contact_person."'
+                                    ");
+        if($query->num_rows() != 0)
+        {
+            return $query->result_array();
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    function getTimeSlotByDateOf($sponsor_id, $contact_person, $date)
+    {
+        $query = $this->db->query("SELECT 
+                                    (`available_from`) from_time, (`available_to`) to_time
+                                    FROM `sponsor_meeting_availability` 
+                                    WHERE sponsor_id = '".$sponsor_id."' AND contact_person = '".$contact_person."'
+                                    AND (DATE(`available_from`) = '".$date."' OR DATE(`available_to`) = '".$date."')
                                     ");
         if($query->num_rows() != 0)
         {

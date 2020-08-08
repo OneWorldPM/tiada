@@ -543,3 +543,8 @@
 .datetimepicker{
     height: 55px;
 }
+
+.xdsoft_date.true{
+    background-color: #04ce04 !important;
+    color: white !important;
+}

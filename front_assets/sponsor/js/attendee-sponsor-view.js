@@ -252,14 +252,98 @@ $(function() {
     })
 
     $('.schedule-meet-btn').on('click', function () {
-        $(".datetimepicker").datetimepicker({
-            timepicker: true,
-            allowTimes: [
-                '12:00', '12:30', '13:00','13:30','14:00',
-                '14:30', '15:00', '15:30', '16:00',   ]
-        });
 
-        $('#scheduleModal').modal('show');
+        $.get( "/tiadaannualconference/sponsor-admin/schedules/getAvailableDatesOf/"+sponsor_id+"/"+company_name, function(dates){
+            var enableDays = JSON.parse(dates);
+            $('#scheduleModal').modal('show');
+
+            if (typeof(enableDays[0]) == 'undefined' || enableDays[0] == ''){
+                $(".datetimepicker").val('No dates available!');
+                return;
+            }
+
+            $.get( "/tiadaannualconference/sponsor-admin/schedules/getTimeSlotByDateOf/"+sponsor_id+"/"+company_name+"/"+enableDays[0], function(times){
+
+                var enableTimes = JSON.parse(times);
+
+                $(".datetimepicker").val(enableDays[0]+' '+enableTimes[0]);
+
+                function enableAllTheseDays(date) {
+                    let d = new Date(Date.parse(date));
+                    var sdate = (d.getFullYear() + '-' + ('0' + (d.getMonth()+1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2));
+                    //var sdate = date.format( 'yy/mm/dd');
+                    if($.inArray(sdate, enableDays) != -1) {
+                        return [true];
+                    }
+                    return [false];
+                }
+
+                $(".datetimepicker").datetimepicker({
+                    timepicker: true,
+                    beforeShowDay: enableAllTheseDays,
+                    allowTimes: enableTimes,
+                    onSelectDate:function(date,$i){
+                        let d = new Date(Date.parse(date));
+                        var sdate = (d.getFullYear() + '-' + ('0' + (d.getMonth()+1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2));
+
+                        $.get( "/tiadaannualconference/sponsor-admin/schedules/getTimeSlotByDateOf/"+sponsor_id+"/"+company_name+"/"+sdate, function(times){
+                            var enableTimes = JSON.parse(times);
+                            $('.datetimepicker').datetimepicker('setOptions', {allowTimes:enableTimes});
+                        });
+                    }
+                });
+            });
+        });
+    });
+
+    $('.book-meet-btn').on('click', function () {
+        var meetingDateTime = $('#selectedMeetingDateTime').val();
+        if (meetingDateTime == 'No dates available!')
+            return;
+
+        let from = new Date(Date.parse(meetingDateTime));
+        var sfdate = (from.getFullYear() + '/' + ('0' + (from.getMonth()+1)).slice(-2) + '/' + ('0' + from.getDate()).slice(-2) +' '+ from.getHours()+':'+from.getMinutes());
+        var to = from;
+        to.setMinutes(from.getMinutes()+30);
+        var stdate = (to.getFullYear() + '/' + ('0' + (to.getMonth()+1)).slice(-2) + '/' + ('0' + to.getDate()).slice(-2) +' '+ to.getHours()+':'+to.getMinutes());
+        var sttime = to.getHours()+':'+to.getMinutes();
+
+        Swal.fire({
+            title: 'Are you sure?',
+            html: "<h5>You are about to book a meeting with " +
+                   "<span style='color: #047d20'>"+company_name_orig+"</span><br>" +
+                   "On <span style='color: #0f3e68'>"+sfdate+"</span> To <span style='color: #00a5b3'>"+sttime+"</span></h5>",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, book it!',
+            cancelButtonText: 'No, go back!'
+        }).then((result) => {
+            if (result.value) {
+
+                $.post("/tiadaannualconference/sponsor-admin/OtoChat/newText",
+                    {
+                        'chat_text': text,
+                        'sponsor_id': sponsor_id,
+                        'chat_to': chat_to
+                    },
+                    function(data, status){
+                        if(status == 'success')
+                        {
+                            Swal.fire(
+                                'Booked!',
+                                'Your meeting has been scheduled.',
+                                'success'
+                            )
+
+                        }else{
+                            toastr["error"]("Network problem!");
+                        }
+                    });
+
+            }
+        })
     });
 
 });

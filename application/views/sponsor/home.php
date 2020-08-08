@@ -248,7 +248,7 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
                         <div class="col-md-6">
                             <div class="current-availability-panel panel panel-success">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title">Current Availability</h3>
+                                    <h3 class="panel-title">Current Availabilities List</h3>
                                 </div>
                                 <div class="current-availability-body panel-body">
                                     <ul class="current-availability-list list-group">
@@ -377,18 +377,17 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
             '</a>' +
             '</li>');
 
-        $('.agent-list').append('<li person="'+user_name_lower+'" class="agent-list-item"><a href="javascript:void(0);">'+user_name+'</a></li>');
-        $('.booking-agent-list').append('<li person="'+user_name_lower+'" class="agent-list-item"><a href="javascript:void(0);">'+user_name+'</a></li>');
+        $('.agent-list').append('<li person="'+company_name+'" class="agent-list-item"><a href="javascript:void(0);">'+user_name+'</a></li>');
+        $('.booking-agent-list').append('<li person="'+company_name+'" class="agent-list-item"><a href="javascript:void(0);">'+user_name+'</a></li>');
         $('.current-booking-person-name').text(user_name);
 
 
-        $.get( "/tiadaannualconference/sponsor-admin/Schedules/getAllScheduledMeetings/"+sponsor_id+"/"+user_name_lower, function(events){
+        $.get( "/tiadaannualconference/sponsor-admin/Schedules/getAllScheduledMeetings/"+sponsor_id+"/"+company_name, function(events){
             events = JSON.parse(events);
 
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
-                initialDate: '2020-08-07',
                 headerToolbar: {
                     left: 'prev,next today',
                     center: 'title',

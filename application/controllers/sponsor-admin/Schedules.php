@@ -35,10 +35,10 @@ class Schedules extends CI_Controller
         return;
     }
 
-    public function getAllScheduledMeetings($sponsor_id, $user_name_lower)
+    public function getAllScheduledMeetings($sponsor_id, $contact_person)
     {
         $meetings = json_encode(array());
-        $meetingsList = $this->schedules->getAllScheduledMeetings($sponsor_id, $user_name_lower);
+        $meetingsList = $this->schedules->getAllScheduledMeetings($sponsor_id, $contact_person);
         if ($meetingsList){
             echo json_encode($meetingsList);
             return;
@@ -46,4 +46,62 @@ class Schedules extends CI_Controller
         echo $meetings;
         return;
     }
+
+    public function getAvailableDatesOf($sponsor_id, $contact_person)
+    {
+        $dates = $this->schedules->getAvailableDatesOf($sponsor_id, $contact_person);
+
+        if ($dates == false){
+            echo json_encode(array());
+            return;
+        }
+
+        $dateSlots = array();
+
+        foreach ($dates as $dateSlotsData)
+        {
+            $period = new DatePeriod(
+                new DateTime($dateSlotsData['from_date'].' 00:00:01'),
+                new DateInterval('P1D'),
+                new DateTime($dateSlotsData['to_date'].' 23:59:59')
+            );
+
+            foreach ($period as $key => $value) {
+                $dateSlots[] = $value->format('Y-m-d');
+            }
+        }
+
+        $dates = array_unique($dateSlots);
+        echo json_encode($dates);
+        return;
+    }
+
+    public function getTimeSlotByDateOf($sponsor_id, $contact_person, $date)
+    {
+        $dates = $this->schedules->getTimeSlotByDateOf($sponsor_id, $contact_person, $date);
+
+        if ($dates == false){
+            echo json_encode(array());
+            return;
+        }
+
+        $timeSlots = array();
+        $meetingDuration  = 30 * 60; //15 minutes
+
+        foreach ($dates as $times)
+        {
+            $start_time = strtotime($times['from_time']);
+            $end_time = strtotime($times['to_time']);
+            while ($start_time <= $end_time)
+            {
+                $timeSlots[] = date ("H:i", $start_time);
+                $start_time += $meetingDuration;
+            }
+        }
+        array_pop($timeSlots);
+
+        echo json_encode($timeSlots);
+        return;
+    }
+    
 }

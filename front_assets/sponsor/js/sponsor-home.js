@@ -524,6 +524,7 @@ $(function() {
     });
 
     $('input[name="availability-selector"]').daterangepicker({
+        minDate: new Date(),
         timePicker: true,
         timePicker24Hour: true,
         startDate: moment().startOf('hour'),
@@ -540,8 +541,23 @@ $(function() {
 
         var sponsorId = user_id;
         var contactPerson = $('.selected-agent').val();
-        var availableFrom = start.format('YYYY-MM-DD hh:mm');
-        var availableTo = end.format('YYYY-MM-DD hh:mm');
+        var availableFrom = start.format('YYYY-MM-DD HH:mm');
+        var availableTo = end.format('YYYY-MM-DD HH:mm');
+
+        var availableFromD = new Date(Date.parse(availableFrom));
+        var availableToD = new Date(Date.parse(availableTo));
+        var difference = Math.abs(availableToD-availableFromD);
+        var minMeetingDuration = 30;
+
+        if (difference/60000 < minMeetingDuration)
+        {
+            console.log(availableToD);
+            console.log(availableFromD);
+            console.log(difference);
+            console.log(difference/60000);
+            toastr["warning"]('Availability duration must be at least '+minMeetingDuration+' minutes!');
+            return;
+        }
 
         $.post("/tiadaannualconference/sponsor-admin/Schedules/addAvailability",
             {
@@ -558,6 +574,8 @@ $(function() {
                     if (response.status == 'failed')
                     {
                         toastr["error"](response.message);
+                    }else if(response.status == 'error'){
+                        toastr["warning"](response.message);
                     }else{
                         fillCurrentAvailabilityList(response.data);
                         toastr["success"](response.message);
@@ -573,7 +591,7 @@ $(function() {
         var selectedAgent = $('.selected-agent').val($(this).attr('person'));
 
         if($(this).attr('person') == 0){
-            toastr["error"]("Just "+user_name+" is available for now. Contact support to add more people!");
+            toastr["error"]("Just "+company_name+" is available for now. Contact support to add more people!");
             return false;
         }
         var selectedAgent = $(this).attr('person');
@@ -588,7 +606,7 @@ $(function() {
             function(data, status){
                 if(status == 'success')
                 {
-                    if (JSON.parse(data).length != 0){
+                    if (data != 'false'){
                         fillCurrentAvailabilityList(JSON.parse(data));
                     }
 
