@@ -34,7 +34,7 @@ class Login extends CI_Controller {
                 $session = array(
                     'cid' => $data['cust_id'],
                     'cname' => $data['first_name'],
-                    'fullname' => $data['first_name']." ".$data['last_name'],
+                    'fullname' => $data['first_name'] . " " . $data['last_name'],
                     'email' => $data['email'],
                     'userType' => 'user'
                 );
@@ -53,7 +53,7 @@ class Login extends CI_Controller {
             $session = array(
                 'cid' => $data['cust_id'],
                 'cname' => $data['first_name'],
-                'fullname' => $data['first_name']." ".$data['last_name'],
+                'fullname' => $data['first_name'] . " " . $data['last_name'],
                 'email' => $data['email'],
                 'userType' => 'user'
             );
@@ -124,13 +124,28 @@ class Login extends CI_Controller {
                                 unset($member_array[$key]);
                             }
                         }
-                        
-                        $this->db->update("customer_master",array("customer_type"=>$member_array['MemberType'],"customer_type_id"=>$member_array['MemberTypeID']),array("cust_id"=>$user_details->cust_id));
-
+                        if (!empty($member_array)) {
+                            $set_update_array = array(
+                                "user_id" => $array['ValidateAuthenticationTokenResult'],
+                                'first_name' => $member_array['FirstName'],
+                                'last_name' => $member_array['LastName'],
+                                'email' => $member_array['EmailAddress'],
+                                'address' => $member_array['Addresses']['MemberAddress']['AddressLine1'],
+                                'address_cont' => $member_array['Addresses']['MemberAddress']['AddressType'],
+                                'city' => $member_array['Addresses']['MemberAddress']['City'],
+                                'state' => $member_array['Addresses']['MemberAddress']['StateProvince'],
+                                'country' => $member_array['Addresses']['MemberAddress']['Country'],
+                                'phone' => $member_array['Phones']['MemberPhone'][0]['PhoneNumber'],
+                                'website' => isset($member_array['WebsiteURL']) ? $member_array['WebsiteURL'] : '',
+                                'customer_type' => $member_array['MemberType'],
+                                'customer_type_id' => $member_array['SecurityGroups']['MemberGroup']['GroupKey']
+                            );
+                            $this->db->update("customer_master", $set_update_array, array("cust_id" => $user_details->cust_id));
+                        }
                         $session = array(
                             'cid' => $user_details->cust_id,
                             'cname' => $user_details->first_name,
-                            'fullname' => $user_details->first_name." ".$user_details->last_name,
+                            'fullname' => $user_details->first_name . " " . $user_details->last_name,
                             'email' => $user_details->email,
                             'userType' => 'user'
                         );
@@ -166,11 +181,27 @@ class Login extends CI_Controller {
                             $customer = $this->db->get('customer_master');
                             if ($customer->num_rows() > 0) {
                                 $user_details = $customer->row();
-                                $this->db->update("customer_master",array("customer_type"=>$member_array['MemberType'],"customer_type_id"=>$member_array['SecurityGroups']['MemberGroup']['GroupKey']),array("cust_id"=>$user_details->cust_id));
+                                $set_update_array = array(
+                                    "user_id" => $array['ValidateAuthenticationTokenResult'],
+                                    'first_name' => $member_array['FirstName'],
+                                    'last_name' => $member_array['LastName'],
+                                    'email' => $member_array['EmailAddress'],
+                                    'address' => $member_array['Addresses']['MemberAddress']['AddressLine1'],
+                                    'address_cont' => $member_array['Addresses']['MemberAddress']['AddressType'],
+                                    'city' => $member_array['Addresses']['MemberAddress']['City'],
+                                    'state' => $member_array['Addresses']['MemberAddress']['StateProvince'],
+                                    'country' => $member_array['Addresses']['MemberAddress']['Country'],
+                                    'phone' => $member_array['Phones']['MemberPhone'][0]['PhoneNumber'],
+                                    'website' => isset($member_array['WebsiteURL']) ? $member_array['WebsiteURL'] : '',
+                                    'customer_type' => $member_array['MemberType'],
+                                    'customer_type_id' => $member_array['SecurityGroups']['MemberGroup']['GroupKey']
+                                );
+                                $this->db->update("customer_master", $set_update_array, array("cust_id" => $user_details->cust_id));
+
                                 $session = array(
                                     'cid' => $user_details->cust_id,
                                     'cname' => $user_details->first_name,
-                                    'fullname' => $user_details->first_name." ".$user_details->last_name,
+                                    'fullname' => $user_details->first_name . " " . $user_details->last_name,
                                     'email' => $user_details->email,
                                     'userType' => 'user'
                                 );
@@ -210,7 +241,7 @@ class Login extends CI_Controller {
                                     $session = array(
                                         'cid' => $user_details->cust_id,
                                         'cname' => $user_details->first_name,
-                                        'fullname' => $user_details->first_name." ".$user_details->last_name,
+                                        'fullname' => $user_details->first_name . " " . $user_details->last_name,
                                         'email' => $user_details->email,
                                         'userType' => 'user'
                                     );

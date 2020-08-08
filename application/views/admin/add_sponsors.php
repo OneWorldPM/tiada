@@ -33,6 +33,12 @@
                                         <label class="text-large">Company Name</label><i class="red-star">*</i>
                                         <input type="text" name="company_name" id="company_name" value="<?= (isset($sponsors_edit) && !empty($sponsors_edit) ) ? $sponsors_edit->company_name : "" ?>" class="form-control">
                                     </div>
+                                    <div class="row">
+                                        <label class="col-md-12 text-large">Sponsors Type</label>
+                                        <div class="form-group" style="color: #000;">
+                                            <input type="radio" style="margin: 5px 0 0" class="col-md-1"  name="sponsors_type" <?= (isset($sponsors_edit) && !empty($sponsors_edit)) ? ($sponsors_edit->sponsors_type == "platinum") ? 'checked' : '' : '' ?> id="sponsors_type" value="platinum"><label class="text-large">Platinum</label><br>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label class="text-large">Email</label><i class="red-star">*</i>
                                         <input type="text" name="email" id="email" value="<?= (isset($sponsors_edit) && !empty($sponsors_edit) ) ? $sponsors_edit->email : "" ?>" class="form-control">

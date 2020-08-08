@@ -34,36 +34,59 @@
     .fa {
         font-weight: 900;
     }
-
-    @media only screen and (min-width: 1400px) and (max-width: 1600px)  {
+    
+    @media (min-width: 768px) and (max-width: 1000px)  {
         #home_first_section{
-            min-height: 700px;
+            height: 550px;
         }
     }
 
-    @media only screen and (min-width: 1600px) and (max-width: 1800px)  {
+    @media (min-width: 1000px) and (max-width: 1400px)  {
         #home_first_section{
-            min-height: 800px;
+            height: 590px;
         }
     }
 
-    @media only screen and (min-width: 1800px) and (max-width: 2200px)  {
+    @media (min-width: 1400px) and (max-width: 1600px)  {
         #home_first_section{
-            min-height: 900px;
+            height: 700px;
         }
     }
 
-    @media only screen and (min-width: 2200px) and (max-width: 2800px)  {
+    @media (min-width: 1600px) and (max-width: 1800px)  {
         #home_first_section{
-            min-height: 1000px;
-        }
-    }
-    @media only screen and (min-width: 2800px)  {
-        #home_first_section{
-            min-height: 1450px;
+            height: 800px;
         }
     }
 
+    @media (min-width: 1800px) and (max-width: 2200px)  {
+        #home_first_section{
+            height: 900px;
+        }
+    }
+
+    @media (min-width: 2200px) and (max-width: 2800px)  {
+        #home_first_section{
+            height: 1100px;
+        }
+    }
+    @media (min-width: 2800px) and (max-width: 3200px)  {
+        #home_first_section{
+            height: 1450px;
+        }
+    }
+
+    @media (min-width: 3200px) and (max-width: 4200px)  {
+        #home_first_section{
+            height: 1950px;
+        }
+    }
+
+    @media (min-width: 4200px) and (max-width: 6000px)  {
+        #home_first_section{
+            height: 2150px;
+        }
+    }
 </style>
 <section class="parallax" style="background-image: url(<?= base_url() ?>front_assets/images/tiada.jpeg); top: 0; padding-top: 20px;">
     <div class="container container-fullscreen" id="home_first_section">
@@ -74,7 +97,7 @@
                                         <h1 style="color: orange; font-family: 'Architects Daughter', cursive; margin-bottom: 0px; font-weight: 700; font-size: 40px;">Welcome, <?= $this->session->userdata('cname') ?></h1>
                                     </div>
                                 </div>-->
-                <div class="col-md-12" style="text-align: -webkit-center; margin-left: 45px;">
+                <div class="col-md-12" style="text-align: -webkit-center; text-align: -moz-center; margin-left: 45px;">
                     <div class="col-md-1 col-sm-12 m-t-100">
                         <a class="icon-home" href="#"> 
                             <div class="col-lg box-home_2 p-0 text-center p-b-25">
@@ -101,7 +124,7 @@
                         <div class="col-md-3 col-sm-12">
                             <a class="icon-home"> 
                                 <div class="col-lg box-home p-5 text-center">
-                                   <img src="<?= base_url() ?>front_assets/images/Session.png" alt="welcome" class="m-t-40" style="height: 150px; width: 160px;">
+                                    <img src="<?= base_url() ?>front_assets/images/Session.png" alt="welcome" class="m-t-40" style="height: 150px; width: 160px;">
                                     <br>
                                     <span>You are not authorized to view this</span>
                                 </div>

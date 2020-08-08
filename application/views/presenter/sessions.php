@@ -26,6 +26,7 @@
                                             <th>Title</th>
                                             <th>Session Type</th>
                                             <th>Type</th>
+                                            <th>Registrants</th>
                                             <th>Presenter</th>
                                             <th>Time Slot</th>
                                             <th>Action</th>
@@ -55,6 +56,11 @@
                                                         ?>
                                                     </td>
                                                     <td><?= $val->sessions_type_status ?></td>
+                                                    <td>
+                                                        <?php if ($val->sessions_type_status == "Private") { ?>
+                                                            <?= $val->total_sign_up_sessions ?>/<?= $val->sissions_limit ?>
+                                                        <?php } ?>
+                                                    </td>
                                                     <td style="text-align: left;">
                                                         <?php
                                                         if (isset($val->presenter) && !empty($val->presenter)) {

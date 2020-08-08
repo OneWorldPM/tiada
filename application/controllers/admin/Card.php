@@ -37,10 +37,16 @@ class Card extends CI_Controller {
         $datavcarddata['last_name'] = $result->last_name;
         $datavcarddata['company'] = $result->specialty;
         $datavcarddata['email'] = $result->email;
+        $datavcarddata['cell_tel'] = $result->phone;
+        $datavcarddata['address'] = $result->address;
+        $datavcarddata['city'] = $result->city;
+        $datavcarddata['state'] = $result->state;
+        $datavcarddata['country'] = $result->country;
         $datavcarddata['twitter'] = "https://twitter.com/" . $result->twitter_id;
         $datavcarddata['facebook'] = "https://facebook.com/" . $result->facebook_id;
         $datavcarddata['instagram'] = "https://instagram.com/" . $result->instagram_id;
         $datavcarddata['photo'] = base_url() . "uploads/customer_profile/" . $result->profile;
+        $datavcarddata['website'] = $result->website;
         return $datavcarddata;
     }
 

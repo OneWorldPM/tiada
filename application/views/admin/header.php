@@ -227,7 +227,7 @@ $uri_segment1 = $this->uri->segment(3);
                                             <i class="fa fa-users"></i>
                                         </div>
                                         <div class="item-inner">
-                                            <span class="title">Dummy User</span>
+                                            <span class="title">Guest User</span>
                                         </div>
                                     </div>
                                 </a>

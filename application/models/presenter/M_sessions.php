@@ -18,6 +18,8 @@ class M_sessions extends CI_Model {
             foreach ($sessions->result() as $val) {
                 $val->presenter = $this->common->get_presenter($val->presenter_id, $val->sessions_id);
                 $val->session_type_details = $this->common->get_session_type($val->sessions_type_id);
+                $val->total_sign_up_sessions = $this->common->get_total_sign_up_sessions($val->sessions_id);
+                $val->sissions_limit = $this->common->get_roundtable_setting()->roundtable;
                 $return_array[] = $val;
             }
             return $return_array;

@@ -30,7 +30,9 @@
                                         <tr>
                                             <th>Logo</th>
                                             <th>Company Name</th>
+                                            <th>Sponsors Type</th>
                                             <th>Email</th>
+                                            <th>Booth Tracking</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -46,7 +48,9 @@
                                                         <?php } ?>
                                                     </td>
                                                     <td><?= $val->company_name ?></td>
+                                                    <td><?= $val->sponsors_type ?></td>
                                                     <td><?= $val->email ?></td>
+                                                    <td><a href="<?= base_url() ?>admin/sponsors/booth_tracking/<?= $val->sponsors_id ?>" class="btn btn-success btn-sm">Tracking</a></td>
                                                     <td>
                                                         <a href="<?= base_url() ?>admin/sponsors/edit_sponsors/<?= $val->sponsors_id ?>" class="btn btn-green btn-sm">Edit</a>
                                                         <a href="<?= base_url() ?>admin/sponsors/delete_sponsors/<?= $val->sponsors_id ?>" class="btn btn-danger btn-sm">Delete</a>

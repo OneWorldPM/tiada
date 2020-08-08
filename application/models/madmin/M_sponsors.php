@@ -38,9 +38,16 @@ class M_sponsors extends CI_Model {
             $sponsors_category_id = "";
         }
 
+        if (isset($post['sponsors_type'])) {
+            $sponsors_type = $post['sponsors_type'];
+        } else {
+            $sponsors_type = "";
+        }
+
         $set = array(
             'email' => trim($post['email']),
             'password' => trim($post['password']),
+            'sponsors_type' => $sponsors_type,
             'sponsors_category_id' => $sponsors_category_id,
             'website' => trim($post['website']),
             'twitter_id' => trim($post['twitter_id']),
@@ -115,7 +122,15 @@ class M_sponsors extends CI_Model {
         } else {
             $sponsors_category_id = "";
         }
+
+        if (isset($post['sponsors_type'])) {
+            $sponsors_type = $post['sponsors_type'];
+        } else {
+            $sponsors_type = "";
+        }
+
         $set = array(
+            'sponsors_type' => $sponsors_type,
             'sponsors_category_id' => $sponsors_category_id,
             'twitter_id' => trim($post['twitter_id']),
             'company_name' => trim($post['company_name']),
@@ -172,8 +187,7 @@ class M_sponsors extends CI_Model {
         }
     }
 
-    function updateSponsorName()
-    {
+    function updateSponsorName() {
         $sponsorId = $this->session->userdata('sponsors_id');
         $post = $this->input->post();
         if (isset($post['name'])) {
@@ -185,8 +199,7 @@ class M_sponsors extends CI_Model {
         return;
     }
 
-    function updateSponsorAbout()
-    {
+    function updateSponsorAbout() {
         $sponsorId = $this->session->userdata('sponsors_id');
         $post = $this->input->post();
         if (isset($post['about'])) {
@@ -198,8 +211,7 @@ class M_sponsors extends CI_Model {
         return;
     }
 
-    function updateSponsorWebsite()
-    {
+    function updateSponsorWebsite() {
         $sponsorId = $this->session->userdata('sponsors_id');
         $post = $this->input->post();
         if (isset($post['website'])) {
@@ -211,8 +223,7 @@ class M_sponsors extends CI_Model {
         return;
     }
 
-    function updateSponsorTwitter()
-    {
+    function updateSponsorTwitter() {
         $sponsorId = $this->session->userdata('sponsors_id');
         $post = $this->input->post();
         if (isset($post['twitter'])) {
@@ -224,8 +235,7 @@ class M_sponsors extends CI_Model {
         return;
     }
 
-    function updateSponsorFacebook()
-    {
+    function updateSponsorFacebook() {
         $sponsorId = $this->session->userdata('sponsors_id');
         $post = $this->input->post();
         if (isset($post['facebook'])) {
@@ -237,8 +247,7 @@ class M_sponsors extends CI_Model {
         return;
     }
 
-    function updateSponsorLinkedin()
-    {
+    function updateSponsorLinkedin() {
         $sponsorId = $this->session->userdata('sponsors_id');
         $post = $this->input->post();
         if (isset($post['linkedin'])) {
@@ -250,44 +259,39 @@ class M_sponsors extends CI_Model {
         return;
     }
 
-    function updateSponsorLogo($id)
-    {
-        if ($_FILES['logo'])
-        {
+    function updateSponsorLogo($id) {
+        if ($_FILES['logo']) {
             $fileExt = pathinfo($_FILES["logo"]["name"], PATHINFO_EXTENSION);
-            if(file_exists("sponsor_logo_{$id}.{$fileExt}")) {
-                chmod("sponsor_logo_{$id}.{$fileExt}",0755); //Change the file permissions if allowed
+            if (file_exists("sponsor_logo_{$id}.{$fileExt}")) {
+                chmod("sponsor_logo_{$id}.{$fileExt}", 0755); //Change the file permissions if allowed
                 unlink("sponsor_logo_{$id}.{$fileExt}"); //remove the file
             }
             if (move_uploaded_file($_FILES["logo"]["tmp_name"], FCPATH . "uploads/sponsors/sponsor_logo_{$id}.{$fileExt}")) {
                 $this->db->update('sponsors', array('sponsors_logo' => "sponsor_logo_{$id}.{$fileExt}"), array('sponsors_id' => $id));
                 return "sponsor_logo_{$id}.{$fileExt}";
-            }else{
+            } else {
                 return false;
             }
         }
     }
 
-    function updateCover($id)
-    {
-        if ($_FILES['cover'])
-        {
+    function updateCover($id) {
+        if ($_FILES['cover']) {
             $fileExt = pathinfo($_FILES["cover"]["name"], PATHINFO_EXTENSION);
-            if(file_exists("sponsor_cover_{$id}.{$fileExt}")) {
-                chmod("sponsor_cover_{$id}.{$fileExt}",0755); //Change the file permissions if allowed
+            if (file_exists("sponsor_cover_{$id}.{$fileExt}")) {
+                chmod("sponsor_cover_{$id}.{$fileExt}", 0755); //Change the file permissions if allowed
                 unlink("sponsor_cover_{$id}.{$fileExt}"); //remove the file
             }
             if (move_uploaded_file($_FILES["cover"]["tmp_name"], FCPATH . "uploads/sponsors/sponsor_cover_{$id}.{$fileExt}")) {
                 $this->db->update('sponsors', array('sponsor_cover' => "sponsor_cover_{$id}.{$fileExt}"), array('sponsors_id' => $id));
                 return "sponsor_cover_{$id}.{$fileExt}";
-            }else{
+            } else {
                 return false;
             }
         }
     }
 
-    function getSponsorLogo($id)
-    {
+    function getSponsorLogo($id) {
         $this->db->select('sponsors_logo');
         $this->db->from('sponsors');
         $this->db->where('sponsors_id', $id);
@@ -298,6 +302,19 @@ class M_sponsors extends CI_Model {
             return '';
         }
         return;
+    }
+
+    function booth_tracking($sponsor_id) {
+        $this->db->select('*');
+        $this->db->from('view_sponsor_history s');
+        $this->db->join('customer_master c', 's.cust_id=c.cust_id');
+        $this->db->where('s.sponsor_id', $sponsor_id);
+        $sessions = $this->db->get();
+        if ($sessions->num_rows() > 0) {
+            return $sessions->result();
+        } else {
+            return '';
+        }
     }
 
 }

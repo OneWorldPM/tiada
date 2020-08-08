@@ -63,5 +63,13 @@ class Sponsors extends CI_Controller {
             header('location:' . base_url() . 'admin/sponsors?msg=E');
         }
     }
+    
+    public function booth_tracking($sponsor_id) {
+        $data["booth_tracking"] = $this->msponsors->booth_tracking($sponsor_id);
+        $this->load->view('admin/header');
+        $this->load->view('admin/booth_tracking', $data);
+        $this->load->view('admin/footer');
+    }
+
 
 }
