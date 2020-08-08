@@ -28,7 +28,7 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
     <div class="container">
         <!-- Example row of columns -->
         <div class="row m-b-30">
-
+<input type="hidden" id="view_sponsor_history_id" value="">
             <div class="col-md-4">
                 <div class="container" style="height: 220px;">
                     <img class="sponsor-main-logo" src="<?= base_url() ?>uploads/sponsors/<?=$sponsors_logo?>">
@@ -228,6 +228,37 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
     var user_type = "attendee";
 
     $(document).ready(function () {
+        
+        var url = $(location).attr('href');
+        var segments = url.split('/');
+        var segments_id = segments[6];
+        if (window.history && window.history.pushState) {
+            window.history.pushState(segments_id, null, './' + segments_id);
+            $(window).on('popstate', function () {
+                $.ajax({
+                    url: "<?= base_url() ?>sponsor/update_viewsessions_history_open",
+                    type: "post",
+                    data: {'view_sponsor_history_id': $("#view_sponsor_history_id").val()},
+                    dataType: "json",
+                    success: function (data) {
+                    }
+                });
+
+            });
+        }
+
+        var resolution = screen.width + "x " + screen.height + "y";
+        $.ajax({
+            url: "<?= base_url() ?>sponsor/add_viewsessions_history_open",
+            type: "post",
+            data: {'sponsor_id': sponsor_id, 'resolution': resolution},
+            dataType: "json",
+            success: function (data) {
+                $("#view_sponsor_history_id").val(data.view_sponsor_history_id);
+            }
+        });
+
+        
         $.ajax({
             url: "<?= base_url() ?>home/add_user_activity",
             type: "post",
