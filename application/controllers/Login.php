@@ -104,7 +104,7 @@ class Login extends CI_Controller {
                     if (!empty($user_details)) {
                         $curl = curl_init();
                         curl_setopt_array($curl, array(
-                            CURLOPT_URL => "https://secure.membershipsoftware.org/tiadasecure/api/GetBasicMemberInfo/?securityKey=4A17DC6DF22F45B7AAF5A0554FD447&ContactID=" . $array['ValidateAuthenticationTokenResult'],
+                            CURLOPT_URL => "https://secure.membershipsoftware.org/tiadasecure/api/GetMemberInfo/?securityKey=4A17DC6DF22F45B7AAF5A0554FD447&memberkey=" . $array['ValidateAuthenticationTokenResult'],
                             CURLOPT_RETURNTRANSFER => true,
                             CURLOPT_ENCODING => "",
                             CURLOPT_MAXREDIRS => 10,
@@ -124,6 +124,7 @@ class Login extends CI_Controller {
                                 unset($member_array[$key]);
                             }
                         }
+                      
                         if (!empty($member_array)) {
                             $set_update_array = array(
                                 "user_id" => $array['ValidateAuthenticationTokenResult'],
