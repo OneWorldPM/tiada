@@ -21,7 +21,7 @@
     }
 
 </style>
-<section class="parallax" style="background-image: url(<?= base_url() ?>front_assets/images/bubble_bg_1920.jpg); top: 0; padding-top: 0px;">
+<section class="parallax" style="background-image: url(<?= base_url() ?>front_assets/images/new_expo_background.jpg); top: 0; padding-top: 0px;">
     <div class="container container-fullscreen">
         <div class="text-middle">
             <div class="row">
