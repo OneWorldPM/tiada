@@ -30,17 +30,17 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
         <div class="row m-b-30">
 <input type="hidden" id="view_sponsor_history_id" value="">
             <div class="col-md-4">
-                <div class="container" style="height: 220px;">
                     <img class="sponsor-main-logo" src="<?= base_url() ?>uploads/sponsors/<?=$sponsors_logo?>">
                     <h1 class="sponsor-name">
                         <?=$sponsor->company_name?>
                     </h1>
-                </div>
                 <?php
                 if ($sponsor->about != '')
                 {
+                    echo '<div class="about-us-div">';
                     echo '<h3>About Us</h3>';
                     echo $sponsor->about;
+                    echo '</div>';
                 }
                 ?>
                 <div class="clearfix m-b-25"></div>
