@@ -51,5 +51,18 @@ class M_sponsor extends CI_Model {
             return false;
         }
     }
+    
+    function get_booth_tracking($sponsor_id) {
+        $this->db->select('*');
+        $this->db->from('view_sponsor_history s');
+         $this->db->join('customer_master c', 's.cust_id=c.cust_id');
+        $this->db->where('s.sponsor_id', $sponsor_id);
+        $sessions = $this->db->get();
+        if ($sessions->num_rows() > 0) {
+            return $sessions->result();
+        } else {
+            return '';
+        }
+    }
 
 }

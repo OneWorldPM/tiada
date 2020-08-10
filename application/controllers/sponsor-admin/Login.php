@@ -16,9 +16,9 @@ class Login extends CI_Controller
 
     public function index()
     {
-        $this->load->view('header');
-        $this->load->view('/sponsor/login');
-        $this->load->view('footer');
+        $this->load->view('sponsor/header');
+        $this->load->view('sponsor/login');
+        $this->load->view('sponsor/footer');
     }
 
     public function validate()

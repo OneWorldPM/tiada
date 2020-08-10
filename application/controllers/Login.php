@@ -20,7 +20,7 @@ class Login extends CI_Controller {
     public function authentication() {
         $username = $this->input->post('email');
         $password = $this->input->post('password');
-
+        
         if (strlen(trim(preg_replace('/\xb2\xa0/', '', $username))) == 0 || strlen(trim(preg_replace('/\xb2\xa0/', '', $password))) == 0) {
             $this->session->set_flashdata('msg', '<div class="col-md-12 text-red" style="padding: 0 0 10px 0;">Please enter Username or Password</div><br>');
             redirect('login');

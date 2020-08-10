@@ -12,6 +12,7 @@ class Home extends CI_Controller {
         if ($login_type != 'user') {
             redirect('https://www.txiada.org/login.asp?redirectURL=https://yourconference.live/tiadaannualconference/login/authenticate');
         }
+        $this->load->model('user/m_home', 'objhome');
     }
 
     public function index() {
@@ -22,9 +23,9 @@ class Home extends CI_Controller {
 
     public function notes() {
         $data["briefcase_list"] = $this->getNote();
-    
+        $data["all_sessions"] = $this->objhome->getsessions_data();
         $this->load->view('header');
-        $this->load->view('notes',$data);
+        $this->load->view('notes', $data);
         $this->load->view('footer');
     }
 
@@ -52,11 +53,10 @@ class Home extends CI_Controller {
         $this->db->insert("user_activity", $int_array);
         return TRUE;
     }
-    
-    function delete_note($sessions_cust_briefcase_id){
-        $this->db->delete("sessions_cust_briefcase",array("sessions_cust_briefcase_id"=>$sessions_cust_briefcase_id));
-         header('location:' . base_url() . 'home/notes');
-        
+
+    function delete_note($sessions_cust_briefcase_id) {
+        $this->db->delete("sessions_cust_briefcase", array("sessions_cust_briefcase_id" => $sessions_cust_briefcase_id));
+        header('location:' . base_url() . 'home/notes');
     }
 
 }

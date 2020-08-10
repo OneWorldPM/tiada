@@ -54,6 +54,35 @@ class M_sessions extends CI_Model {
                 $val->total_sign_up_sessions = $this->common->get_total_sign_up_sessions($val->sessions_id);
                 $val->status_sign_up_sessions = $this->common->get_status_sign_up_sessions($val->sessions_id, $this->session->userdata("cid"));
                 $val->total_sign_up_sessions_user = $this->common->get_total_sign_up_sessions_user($this->session->userdata("cid"));
+                $val->sessions_tracks_data = $this->common->get_sessions_tracks($val->sessions_tracks_id);
+                $val->status_my_swag_bag = $this->common->get_my_swag_bag_status($val->sessions_id, $this->session->userdata("cid"));
+                $return_array[] = $val;
+            }
+            return $return_array;
+        } else {
+            return '';
+        }
+    }
+
+    function getsessions_data_filter_search($post) {
+        $this->db->select('*');
+        $this->db->from('sessions s');
+        $this->db->where("DATE_FORMAT(s.sessions_date,'%Y-%m-%d') =", date('Y-m-d', strtotime($post['selectd_date'])));
+        if ($post['sessions_tracks'] != "") {
+            $this->db->like("s.sessions_tracks_id", $post['sessions_tracks']);
+        }
+        $this->db->order_by("s.sessions_date", "asc");
+        $this->db->order_by("s.time_slot", "asc");
+        $sessions = $this->db->get();
+        if ($sessions->num_rows() > 0) {
+            $return_array = array();
+            foreach ($sessions->result() as $val) {
+                $val->presenter = $this->common->get_presenter($val->presenter_id, $val->sessions_id);
+                $val->total_sign_up_sessions = $this->common->get_total_sign_up_sessions($val->sessions_id);
+                $val->status_sign_up_sessions = $this->common->get_status_sign_up_sessions($val->sessions_id, $this->session->userdata("cid"));
+                $val->total_sign_up_sessions_user = $this->common->get_total_sign_up_sessions_user($this->session->userdata("cid"));
+                $val->sessions_tracks_data = $this->common->get_sessions_tracks($val->sessions_tracks_id);
+                $val->status_my_swag_bag = $this->common->get_my_swag_bag_status($val->sessions_id, $this->session->userdata("cid"));
                 $return_array[] = $val;
             }
             return $return_array;
@@ -376,6 +405,34 @@ class M_sessions extends CI_Model {
             return $session_resource->result();
         } else {
             return '';
+        }
+    }
+
+    function get_sessions_tracks() {
+        $this->db->select('*');
+        $this->db->from('sessions_tracks');
+        $this->db->where('sessions_tracks <>', "");
+        $session_resource = $this->db->get();
+        if ($session_resource->num_rows() > 0) {
+            return $session_resource->result();
+        } else {
+            return '';
+        }
+    }
+
+    function save_to_swag_bag() {
+        $post = $this->input->post();
+        $insert_array = array(
+            'cust_id' => $this->session->userdata("cid"),
+            'sessions_id' => $post['sessions_id']
+        );
+        $result_data = $this->db->get_where("sessions_my_swag_bag", array("cust_id" => $this->session->userdata("cid"), 'sessions_id' => $post['sessions_id']))->row();
+        if (empty($result_data)) {
+            $this->db->insert("sessions_my_swag_bag", $insert_array);
+            return "save";
+        } else {
+            $this->db->delete("sessions_my_swag_bag", array("sessions_my_swag_bag_id" => $result_data->sessions_my_swag_bag_id));
+            return "remove";
         }
     }
 

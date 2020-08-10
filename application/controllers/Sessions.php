@@ -20,6 +20,8 @@ class Sessions extends CI_Controller {
         if (!empty($data["all_sessions_week"])) {
             $data["all_sessions"] = $this->objsessions->getsessions_data($data["all_sessions_week"][0]->sessions_date);
         }
+        
+        $data['sessions_tracks'] = $this->objsessions->get_sessions_tracks();
         $this->load->view('header');
         $this->load->view('sessions', $data);
         $this->load->view('footer');
@@ -28,6 +30,18 @@ class Sessions extends CI_Controller {
     public function getsessions_data($date) {
         $data["all_sessions_week"] = $this->objsessions->getSessionsWeekData();
         $data["all_sessions"] = $this->objsessions->getsessions_data($date);
+      
+        $data['sessions_tracks'] = $this->objsessions->get_sessions_tracks();
+        $this->load->view('header');
+        $this->load->view('sessions', $data);
+        $this->load->view('footer');
+    }
+
+    public function filter_search() {
+        $post = $this->input->post();
+        $data["all_sessions_week"] = $this->objsessions->getSessionsWeekData();
+        $data["all_sessions"] = $this->objsessions->getsessions_data_filter_search($post);
+        $data['sessions_tracks'] = $this->objsessions->get_sessions_tracks();
         $this->load->view('header');
         $this->load->view('sessions', $data);
         $this->load->view('footer');
@@ -222,6 +236,18 @@ class Sessions extends CI_Controller {
             } else {
                 $result_array = array("status" => "error");
             }
+        }
+        echo json_encode($result_array);
+    }
+
+    public function save_to_swag_bag() {
+        $result_data = $this->objsessions->save_to_swag_bag();
+        if ($result_data == "save") {
+            $result_array = array("status" => "save");
+        } else if ($result_data == "remove") {
+            $result_array = array("status" => "remove");
+        } else {
+            $result_array = array("status" => "error");
         }
         echo json_encode($result_array);
     }

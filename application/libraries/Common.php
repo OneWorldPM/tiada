@@ -178,14 +178,33 @@ class Common {
             return 0;
         }
     }
-    
-      function get_session_type($sessions_type_id) {
+
+    function get_session_type($sessions_type_id) {
         $where_in = explode(",", $sessions_type_id);
         $this->_CI->db->select('*');
         $this->_CI->db->from('sessions_type');
         $this->_CI->db->where_in('sessions_type_id', $where_in);
         $result = $this->_CI->db->get();
         return ($result->num_rows() > 0) ? $result->result() : '';
+    }
+
+    function get_sessions_tracks($sessions_tracks_id) {
+        $where_in = explode(",", $sessions_tracks_id);
+        $this->_CI->db->select('*');
+        $this->_CI->db->from('sessions_tracks');
+        $this->_CI->db->where_in('sessions_tracks_id', $where_in);
+        $result = $this->_CI->db->get();
+        return ($result->num_rows() > 0) ? $result->result() : '';
+    }
+
+    function get_my_swag_bag_status($sessions_id, $cust_id) {
+        $this->_CI->db->where(array('sessions_id' => trim($sessions_id), 'cust_id' => $cust_id));
+        $result = $this->_CI->db->get('sessions_my_swag_bag');
+        if ($result->num_rows() > 0) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
 }

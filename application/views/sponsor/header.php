@@ -142,12 +142,11 @@
                         <div class="navbar-collapse collapse main-menu-collapse navigation-wrap">
                             <div class="container">
                                 <nav id="mainMenu" class="main-menu mega-menu">
-                                    <ul class="main-menu nav nav-pills navbar-left" id="main_menu_top_bar" style="margin-right: 50px;">
-                                        <li><a href="<?= base_url() ?>home" style="color: #ae0201">MAIN HALL</a></li>
-                                        <li><a href="<?= base_url() ?>sessions" style="color: #ae0201">SESSIONS & ROUNDTABLES</a></li>
-                                        <li><a href="<?= base_url() ?>sponsor" style="color: #ae0201">EXPO</a></li>
-                                        <li><a href="#" style="color: #ae0201">LOUNGE</a></li>
-                                    </ul>
+                                    <?php if ($this->session->userdata('sponsors_id') != "") { ?>
+                                        <ul class="main-menu nav nav-pills navbar-left" id="main_menu_top_bar" style="margin-right: 50px;">
+                                            <li><a href="<?= base_url() ?>sponsor-admin/booth_tracking" style="color: #ae0201">BOOTH TRACKING</a></li>
+                                        </ul>
+                                    <?php } ?>
                                     <ul id="mainMenuItems" class="main-menu nav nav-pills navbar-left">
                                         <li><a href="https://yourconference.live/support" style="color:#A9A9A9; font-size: 18px;" target="_blank"><i class="fa fa-question-circle" style="color:#A9A9A9; font-size: 18px;"></i>HELP DESK</a></li>
                                     </ul>
