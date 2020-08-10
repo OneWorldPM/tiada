@@ -1,97 +1,52 @@
-<link href="<?= base_url() ?>assets/css/attendee-session-view.css" rel="stylesheet">
-<style>
-    .progress-bar {
-        height: 100%;
-        padding: 3px;
-        background: rgb(200, 201, 202);
-        box-shadow: none;
-    }
-    .progress-bar_1 {
-        height: 100%;
-        padding: 3px;
-        background: rgb(108, 108, 108);
-        box-shadow: none; 
-        color: #fff;
-        padding-top: 0px;
-    }
-    .progress_bar_new {
-        height: 100%;
-        padding: 3px;
-        background: #99d9ea;
-        box-shadow: none;
-        text-align: center;
-        color: #fff;
-        padding-top: 0px;
-    }
+<link href="<?= base_url() ?>assets/css/private-sessions.css?v=<?=rand(1, 100)?>" rel="stylesheet">
 
-    .progress_bar_new_1 {
-        height: 100%;
-        padding: 3px;
-        background: #5c915b;
-        box-shadow: none;
-        text-align: center;
-        color: #fff;
-        padding-top: 0px;
-    }
 
-    .option_section_css{
-        background-color: #f1f1f1;
-        padding-top: 4px;
-        padding-left: 6px;
-        border-radius: 9px;
-        margin-bottom: 10px;
-    }
-    .option_section_css_selected{
-        background-color: #e1f6ff;
-        padding-top: 4px;
-        padding-left: 6px;
-        border-radius: 9px;
-        margin-bottom: 10px;
-    }
-    .progress {
-        height: 26px;
-        margin-bottom: 10px;
-        overflow: hidden;
-        background-color: #e6edf3;
-        border-radius: 5px;
-        -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
-        box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
-    }
+<?php
+//echo "<pre>";
+//print_r($sessions);
+//echo"</pre>";
 
-    .progress_1 {
-        height: 26px;
-        margin-bottom: 10px;
-        overflow: hidden;
-        background-color: #55c4534f;
-        border-radius: 5px;
-        -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
-        box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
-    }
+?>
 
-    section{
-        padding: 25px 0px;
-    }
-</style>
-<section class="parallax" style="background-image: url(<?= base_url() ?>front_assets/images/bubble_bg_1920.jpg); top: 0; padding-top: 0px;">
-<!--<section class="parallax" style="background-image: url(<?= base_url() ?>front_assets/images/Sessions_BG_screened.jpg); top: 0; padding-top: 0px;">-->
-    <div class="container container-fullscreen" style="min-height: 900px;">
-        <div class="">
-            <div class="row">
-                <div class="col-md-12">
-                    <!-- CONTENT -->
-                    <section class="content">
-                        <div class="container" style=" background: rgb(223 223 223 / 60%);"> 
-                        </div>
-                    </section>
-                    <!-- END: SECTION --> 
-                </div>
-            </div> 
+<main role="main" class="container text-center">
+    <div>
+        <h1>
+            <?=$sessions->session_title?>
+        </h1>
+        <small class="lead"><?=$sessions->sessions_description?></small>
+    </div>
+</main>
+
+<div class="row m-t-20 camera-feeds">
+
+
+
+    <div class="col-md-3">
+        <video id="localVideo" autoplay muted playsinline width="100%"></video>
+         <!-- <div class="soundbar"><span class="currentVolume"></span></div> -->
+    </div>
+
+    <div class="col-md-12">
+        <div class="feed-control-icons m-t-15 m-b-15">
+            <div class="mute-mic-btn m-b-20">
+                <i class="fa fa-microphone-slash fa-3x mute-mic-btn-icon" aria-hidden="true" style="color:#ff422b;"></i>
+                <small>Mute</small>
+            </div>
+            <div class="share-screen-btn">
+                <i class="fa fa-desktop fa-3x share-screen-btn-icon" aria-hidden="true" style="color:#6f8de3;"></i>
+                <small>Share Screen</small>
+            </div>
         </div>
     </div>
-</section>
-<script type="text/javascript">
-    $(document).ready(function () {
+</div>
 
-    });
+
+<script>
+    var round_table_id = <?=$sessions->sessions_id?>;
+    var atttendee_name = "<?= $this->session->userdata('fullname') ?>";
 </script>
-<script src="<?= base_url() ?>assets/js/attendee-session-view.js?"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+<script src="<?= base_url() ?>assets/js/private-sessions.js?v=<?=rand(1, 100)?>"></script>
+<script type="text/javascript">
+    pageReady();
+</script>
