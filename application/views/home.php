@@ -88,7 +88,7 @@
         }
     }
 </style>
-<section class="parallax" style="background-image: url(<?= base_url() ?>front_assets/images/tiada.jpeg); top: 0; padding-top: 20px;">
+<section class="parallax" style="background-image: url(<?= base_url() ?>front_assets/images/tiada_new.jpeg); top: 0; padding-top: 20px;">
     <div class="container container-fullscreen" id="home_first_section">
         <div class="text-bottom">
             <div class="row">
