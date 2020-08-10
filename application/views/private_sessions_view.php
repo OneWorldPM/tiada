@@ -23,27 +23,29 @@
 
     <div class="col-md-3">
         <video id="localVideo" autoplay muted playsinline width="100%"></video>
+        <span class="name-tag">You</span>
          <!-- <div class="soundbar"><span class="currentVolume"></span></div> -->
     </div>
 
-    <div class="col-md-12">
-        <div class="feed-control-icons m-t-15 m-b-15">
-            <div class="mute-mic-btn m-b-20">
-                <i class="fa fa-microphone-slash fa-3x mute-mic-btn-icon" aria-hidden="true" style="color:#ff422b;"></i>
-                <small>Mute</small>
-            </div>
-            <div class="share-screen-btn">
-                <i class="fa fa-desktop fa-3x share-screen-btn-icon" aria-hidden="true" style="color:#6f8de3;"></i>
-                <small>Share Screen</small>
-            </div>
-        </div>
-    </div>
+<!--    <div class="col-md-12">-->
+<!--        <div class="feed-control-icons m-t-15 m-b-15">-->
+<!--            <div class="mute-mic-btn m-b-20">-->
+<!--                <i class="fa fa-microphone-slash fa-3x mute-mic-btn-icon" aria-hidden="true" style="color:#ff422b;"></i>-->
+<!--                <small>Mute</small>-->
+<!--            </div>-->
+<!--            <div class="share-screen-btn">-->
+<!--                <i class="fa fa-desktop fa-3x share-screen-btn-icon" aria-hidden="true" style="color:#6f8de3;"></i>-->
+<!--                <small>Share Screen</small>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 </div>
 
 
 <script>
     var round_table_id = <?=$sessions->sessions_id?>;
     var atttendee_name = "<?= $this->session->userdata('fullname') ?>";
+    var attendee_id = "<?= $this->session->userdata('cid') ?>";
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
 <script src="<?= base_url() ?>assets/js/private-sessions.js?v=<?=rand(1, 100)?>"></script>

@@ -26,9 +26,30 @@ h1{
     height: 53px;
 }
 
-.person-name{
+.name-tag{
     position: absolute;
-    margin-left: 36%;
-    margin-top: 64%;
-    background-color: #ffffffa3;
+    margin-left: -98%;
+    margin-top: 0%;
+    background-color: #ffffff6e;
+    font-weight: bold;
+    padding: 1px 10px 1px 32px;
+}
+
+.fullscreen-btn{
+    position: absolute;
+    margin-left: -9%;
+    background-color: #ffffff63;
+    padding: 0px 10px 0px 10px;
+    cursor: pointer;
+}
+
+.nametag-fullscreen{
+    margin-top: 59%;
+    font-size: 35px;
+    padding: 10px;
+}
+
+.fullscreen-btn-fullscreen{
+    padding: 7px 15px 7px 15px;
+    margin-left: -4%;
 }

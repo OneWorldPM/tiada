@@ -41,7 +41,7 @@ function pageReady() {
             .then(function(){
 
                 socket = io.connect(config.host, {secure: true});
-                socket.emit('joinRoundTable', ROUND_TABLE, atttendee_name);
+                socket.emit('joinRoundTable', ROUND_TABLE, atttendee_name, attendee_id);
                 socket.on('signal', gotMessageFromServer);
 
                 socket.on('joinRoundTable', function(){
@@ -58,7 +58,7 @@ function pageReady() {
                     });
 
 
-                    socket.on('user-joined-roundtable', function(id, count, clients, table, atttendee_name){
+                    socket.on('user-joined-roundtable', function(id, count, clients, table, attendees_list){
                         if (table != ROUND_TABLE)
                             return;
                         clients.forEach(function(socketListId) {
@@ -74,7 +74,7 @@ function pageReady() {
 
                                 //Wait for their video stream
                                 connections[socketListId].onaddstream = function(event){
-                                    gotRemoteStream(event, socketListId, atttendee_name)
+                                    gotRemoteStream(event, socketListId, attendees_list[socketListId])
                                 }
 
                                 //Add the local video stream
@@ -113,16 +113,24 @@ function getUserMediaSuccess(stream) {
     }, logError);
 }
 
-function gotRemoteStream(event, id) {
+function gotRemoteStream(event, id, attendee) {
 
     if(id == socketId)
         return;
 
+    console.log(attendee['name']);
+
     var videos = document.querySelectorAll('camera-feeds'),
         video  = document.createElement('video'),
-        div    = document.createElement('div');
+        div    = document.createElement('div'),
+        nameTag = document.createElement('span'),
+        fullscreenBtn = document.createElement('span');
 
     div.setAttribute('class', 'col-md-3');
+    nameTag.setAttribute('class', 'name-tag');
+    nameTag.innerHTML = attendee['name'];
+    fullscreenBtn.setAttribute('class', 'fullscreen-btn');
+    fullscreenBtn.innerHTML = '<i class="fa fa-arrows" aria-hidden="true" style="border: 1px solid;"></i>';
     video.setAttribute('data-socket', id);
     video.setAttribute('width', '100%');
     video.srcObject   = event.stream;
@@ -131,6 +139,8 @@ function gotRemoteStream(event, id) {
     video.playsinline = true;
 
     div.appendChild(video);
+    div.appendChild(nameTag);
+    div.appendChild(fullscreenBtn);
     document.querySelector('.camera-feeds').prepend(div);
 }
 
@@ -163,3 +173,60 @@ function gotMessageFromServer(fromId, message) {
 function logError(error) {
     displaySignalMessage(error.name + ': ' + error.message);
 }
+
+$('.camera-feeds').on('click', 'span.fullscreen-btn', function () {
+
+    // if already full screen; exit
+    // else go fullscreen
+    if (
+        document.fullscreenElement ||
+        document.webkitFullscreenElement ||
+        document.mozFullScreenElement ||
+        document.msFullscreenElement
+    ) {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+        }
+
+        $(this).parent().children('.fullscreen-btn-fullscreen').eq(0).html('<i class="fa fa-arrows" aria-hidden="true" style="border: 1px solid;"></i>');
+        $(this).parent().children('.fullscreen-btn-fullscreen').eq(0).removeClass('nametag-fullscreen');
+
+    } else {
+        element = $(this).parent().get(0);
+        if (element.requestFullscreen) {
+            element.requestFullscreen();
+        } else if (element.mozRequestFullScreen) {
+            element.mozRequestFullScreen();
+        } else if (element.webkitRequestFullscreen) {
+            element.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+        } else if (element.msRequestFullscreen) {
+            element.msRequestFullscreen();
+        }
+
+        $(this).parent().children('.name-tag').eq(0).addClass('nametag-fullscreen');
+
+        $(this).parent().children('.fullscreen-btn').eq(0).addClass('fullscreen-btn-fullscreen');
+        $(this).parent().children('.fullscreen-btn').eq(0).html('<i class="fa fa-compress fa-2x" aria-hidden="true" style="border: 1px solid;"></i>');
+
+    }
+});
+
+$(document).bind('fullscreenchange webkitfullscreenchange mozfullscreenchange msfullscreenchange', function (e) {
+    var fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullscreenElement || document.msFullscreenElement;
+
+    if (!fullscreenElement) {
+        //console.log('Leaving full-screen mode...');
+        $('.nametag-fullscreen').removeClass('nametag-fullscreen');
+
+        $('.fullscreen-btn-fullscreen').html('<i class="fa fa-arrows" aria-hidden="true" style="border: 1px solid;"></i>');
+        $('.fullscreen-btn-fullscreen').removeClass('fullscreen-btn-fullscreen');
+    } else {
+        //console.log('Entering full-screen mode...');
+    }
+});
