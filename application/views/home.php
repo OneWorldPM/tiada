@@ -98,7 +98,7 @@
                                     </div>
                                 </div>-->
                 <div class="col-md-12" style="text-align: -webkit-center; text-align: -moz-center; margin-left: 45px;">
-                    <div class="col-md-1 col-sm-12 m-t-100">
+                    <div class="support-chat col-md-1 col-sm-12 m-t-100">
                         <a class="icon-home" href="#"> 
                             <div class="col-lg box-home_2 p-0 text-center p-b-25">
                                 <img src="<?= base_url() ?>front_assets/images/info.png" alt="welcome" class="m-t-30" style="height: 80px; width: 80px;">
@@ -171,12 +171,31 @@
         </div>
     </div>
 </div>
+    <div class="chat-popup" id="supportChat">
+        <form action="#" class="form-container">
+            <h3>Support Chat</h3>
+
+            <label for="msg"><b>Admin</b></label>
+            <div class="support-chat-body">
+                <ul class="support-chat-list">
+                </ul>
+            </div>
+            <input type="text" class="form-control support-chat-message" placeholder="Enter your message here...">
+            <button id="send-support-message-btn" type="button" class="btn">Send</button>
+            <button id="close-support-request" type="button" class="btn cancel">Close</button>
+        </form>
+    </div>
 </section>
+
+<script>
+    var page_link = $(location).attr('href');
+    var user_id = <?= $this->session->userdata("cid") ?>;
+    var page_name = "User Dashboard";
+    var user_name = "<?= $this->session->userdata('fullname') ?>";
+</script>
+
 <script type="text/javascript">
     $(document).ready(function () {
-        var page_link = $(location).attr('href');
-        var user_id = <?= $this->session->userdata("cid") ?>;
-        var page_name = "User Dashboard";
         $.ajax({
             url: "<?= base_url() ?>home/add_user_activity",
             type: "post",
@@ -187,3 +206,7 @@
         });
     });
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@9.17.0/dist/sweetalert2.all.min.js"></script>
+<link href="<?= base_url() ?>assets/support-chat/support-chat.css?v=<?=rand(1, 100)?>" rel="stylesheet">
+<script src="<?= base_url() ?>assets/support-chat/support-chat.js?v=<?=rand(1, 100)?>"></script>

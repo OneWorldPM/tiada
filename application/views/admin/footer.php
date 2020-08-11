@@ -1,3 +1,48 @@
+<!-- Support Chat -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@9.17.0/dist/sweetalert2.all.min.js"></script>
+<link href="<?= base_url() ?>assets/support-chat/support-chat-admin.css?v=<?=rand(1, 100)?>" rel="stylesheet">
+<script src="<?= base_url() ?>assets/support-chat/support-chat-admin.js?v=<?=rand(1, 100)?>"></script>
+
+
+<div class="support-chat-boxes" style="position: absolute;right: 5px;bottom: 35px;">
+    <div class="chat-popup" id="myForm">
+        <form action="#" class="form-container">
+            <h3>Support Chat</h3>
+
+            <label for="msg"><b class="person-name">Person Name</b></label>
+            <div class="support-chat-body">
+                <ul class="support-chat-list">
+
+                </ul>
+            </div>
+
+            <input type="text" class="form-control support-chat-message" placeholder="Enter your message here...">
+            <button type="submit" class="btn">Send</button>
+            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+        </form>
+    </div>
+    <div class="chat-popup" id="myForm2">
+        <form action="#" class="form-container">
+            <h3>Support Chat</h3>
+
+            <label for="msg"><b class="person-name">Person Name</b></label>
+            <div class="support-chat-body">
+                <ul class="support-chat-list">
+
+                </ul>
+            </div>
+
+            <input type="text" class="form-control support-chat-message" placeholder="Enter your message here...">
+            <button type="submit" class="btn">Send</button>
+            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+        </form>
+    </div>
+</div>
+
+<!-- End of Support Chat -->
+
+
 <!-- start: FOOTER -->
 <footer>
     <div class="footer-inner">
