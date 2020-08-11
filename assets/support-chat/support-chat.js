@@ -34,6 +34,8 @@ $(function() {
                     }
                 });
 
+                $('.support-chat-body').scrollTop($('.support-chat-body')[0].scrollHeight);
+
                 openForm();
             });
         });
@@ -50,13 +52,18 @@ $(function() {
     socket.on('newSupportText', function(data) {
         if (data.message_from == 'admin')
         {
-
+            $('.support-chat-list').append('' +
+                '<li class="support-chat-item admin clearfix">\n' +
+                '  '+data.message+' <span class="support-chat-name">Admin</span>\n' +
+                '</li>');
         }else{
             $('.support-chat-list').append('' +
                 '<li class="support-chat-item left clearfix">\n' +
                 '  <span class="support-chat-name">'+data.attendee_name+'</span> '+data.message+'\n' +
                 '</li>');
         }
+
+        $('.support-chat-body').scrollTop($('.support-chat-body')[0].scrollHeight);
     });
 
     $('#close-support-request').on('click', function () {
@@ -97,6 +104,18 @@ $(function() {
                     toastr["error"]("Network problem!");
                 }
             });
+    });
+
+    socket.on('admin-closed-support-chat', function() {
+        console.log('Admin closed chat!');
+    });
+
+    socket.on('already-chatting', function() {
+        Swal.fire({
+            icon: 'error',
+            title: 'One place at a time!',
+            text: 'You are already chatting from another tab or browser, please either close that tab or continue chatting there!'
+        });
     });
 
 

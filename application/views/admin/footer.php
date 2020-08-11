@@ -6,38 +6,7 @@
 
 
 <div class="support-chat-boxes" style="position: absolute;right: 5px;bottom: 35px;">
-    <div class="chat-popup" id="myForm">
-        <form action="#" class="form-container">
-            <h3>Support Chat</h3>
 
-            <label for="msg"><b class="person-name">Person Name</b></label>
-            <div class="support-chat-body">
-                <ul class="support-chat-list">
-
-                </ul>
-            </div>
-
-            <input type="text" class="form-control support-chat-message" placeholder="Enter your message here...">
-            <button type="submit" class="btn">Send</button>
-            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-        </form>
-    </div>
-    <div class="chat-popup" id="myForm2">
-        <form action="#" class="form-container">
-            <h3>Support Chat</h3>
-
-            <label for="msg"><b class="person-name">Person Name</b></label>
-            <div class="support-chat-body">
-                <ul class="support-chat-list">
-
-                </ul>
-            </div>
-
-            <input type="text" class="form-control support-chat-message" placeholder="Enter your message here...">
-            <button type="submit" class="btn">Send</button>
-            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-        </form>
-    </div>
 </div>
 
 <!-- End of Support Chat -->
