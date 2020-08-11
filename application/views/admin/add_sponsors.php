@@ -21,7 +21,8 @@
                 <div class="col-md-6 col-md-offset-3">
                     <div class="panel panel-primary" id="panel5">
                         <div class="panel-heading">
-                            <h4 class="panel-title text-white">Add New Sponsors</h4>
+                            <h4 class="panel-title text-white pull-left">Add New Sponsors</h4>
+                            <button class="add-new-admin-btn btn btn-info pull-right"><i class="fa fa-user-plus" aria-hidden="true"></i> Add New Admin</button>
                         </div>
                         <div class="panel-body bg-white" style="border: 1px solid #b2b7bb!important;">
                             <div class="col-md-12">
@@ -123,6 +124,39 @@
 </div>
 </div>
 
+<div id="addNewAdminModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add New Admin</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group" style="margin-bottom: 10px;">
+                    <span class="input-group-addon" id="newAdminName">Name</span>
+                    <input type="text" class="form-control new-admin-name" aria-describedby="newAdminName">
+                </div>
+                <div class="clearfix"></div>
+                <div class="input-group" style="margin-bottom: 10px;">
+                    <span class="input-group-addon" id="newAdminEmail">Email</span>
+                    <input type="text" class="form-control new-admin-email" aria-describedby="newAdminEmail">
+                </div>
+                <div class="clearfix"></div>
+                <div class="input-group">
+                    <span class="input-group-addon" id="newAdminPassword">Password</span>
+                    <input type="text" class="form-control new-admin-password" aria-describedby="newAdminPassword">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary add-admin-btn">Add</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
     $(document).ready(function ()
     {
@@ -143,5 +177,45 @@
             }
             return false;
         });
+
+
+        $('.add-new-admin-btn').on('click', function () {
+            $('#addNewAdminModal').modal('show');
+        });
+
+        $('.add-admin-btn').on('click', function () {
+            var email = $('.new-admin-email').val();
+            var password = $('.new-admin-password').val();
+            var name = $('.new-admin-name').val();
+            var sponsor_id = '<?= $sponsors_edit->sponsors_id ?>';
+
+            if (email != '' || password != '' || name != '')
+            {
+                $.post("/tiadaannualconference/admin/Sponsors/addNewSponsorAdminUser",
+                    {
+                        'name': name,
+                        'email': email,
+                        'password': password,
+                        'sponsor_id': sponsor_id
+                    },
+                    function(data, status){
+                        if(status == 'success')
+                        {
+                            if (data == true){
+                                $('#addNewAdminModal').modal('hide');
+                                alertify.success("New admin added!");
+                            }else{
+                                alertify.error("Network problem!");
+                            }
+
+                        }else{
+                            alertify.error("Network problem!");
+                        }
+                    });
+            }else{
+                alertify.error("All the fields are mandatory!");
+            }
+        });
+
     });
 </script>

@@ -44,9 +44,15 @@ class M_sponsor extends CI_Model {
     }
 
     public function validateLogin($login_data) {
-        $result = $this->db->select('*')->get_where('sponsors', $login_data);
-        if ($result->num_rows() > 0) {
-            return $result->row_array();
+        $query = $this->db->query("
+        SELECT s.* 
+        FROM sponsors s 
+        LEFT JOIN sponsor_extra_admin sea ON s.sponsors_id = sea.sponsor_id
+        WHERE ((s.email = '".$login_data['email']."' AND s.password = '".$login_data['password']."') OR
+               (sea.email = '".$login_data['email']."' AND sea.password = '".$login_data['password']."'))
+        ");
+        if ($query->num_rows() > 0) {
+            return $query->row_array();
         } else {
             return false;
         }

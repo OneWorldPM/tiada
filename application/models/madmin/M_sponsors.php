@@ -317,4 +317,28 @@ class M_sponsors extends CI_Model {
         }
     }
 
+    function addNewSponsorAdminUser()
+    {
+        $sponsor_id = $this->input->post()['sponsor_id'];
+        $name = $this->input->post()['name'];
+        $email = $this->input->post()['email'];
+        $password = $this->input->post()['password'];
+
+        $data = array(
+            'sponsor_id' => $sponsor_id,
+            'name' => $name,
+            'email' => $email,
+            'password' => $password
+            );
+
+        $this->db->insert("sponsor_extra_admin", $data);
+        $id = $this->db->insert_id();
+        if ($id > 0)
+        {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }

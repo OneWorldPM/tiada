@@ -71,5 +71,11 @@ class Sponsors extends CI_Controller {
         $this->load->view('admin/footer');
     }
 
+    public function addNewSponsorAdminUser()
+    {
+        echo $this->msponsors->addNewSponsorAdminUser();
+        return;
+    }
+
 
 }
