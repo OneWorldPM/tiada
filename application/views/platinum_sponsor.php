@@ -13,46 +13,66 @@
         background-color: #444;
         border-radius: 30px;
         background: rgba(250, 250, 250, 0.8);
-        max-width: 250px;
-        min-width: 250px;
-        min-height: 150px;
-        max-height: 150px;
+        width: 235px;
+        height: 107px;
         padding: 15px;
     }
 
 </style>
-<section class="parallax" style="background-image: url(<?= base_url() ?>front_assets/images/new_expo_background.jpg); top: 0; padding-top: 0px;">
-    <div class="container container-fullscreen">
-        <div class="text-middle">
-            <div class="row">
-                <!--                <div class="col-md-12">
+<div style="background-image: url(<?= base_url() ?>front_assets/images/new_expo_background.jpg); background-attachment: fixed; background-size: cover !important; background-position: center center !important; height: 4000px">
+    <section class="parallax" style="position: fixed !important;">
+        <div class="container container-fullscreen">
+            <div class="text-middle" style="vertical-align: top !important;">
+                <div class="row">
+                    <!--                <div class="col-md-12">
                                     <div class="text-center m-t-0">
                                         <h1 style="color: orange; font-family: 'Architects Daughter', cursive; margin-bottom: 0px; font-weight: 700; font-size: 40px;">Welcome, <?= $this->session->userdata('cname') ?></h1>
                                     </div>
                                 </div>-->
-                <div class="col-md-12 m-t-30" style="text-align: -webkit-center; min-height: 500px;">
-                    <?php
-                    if (isset($all_sponsor) && !empty($all_sponsor)) {
-                        foreach ($all_sponsor as $val) {
-                            ?>
-                            <div class="col-md-3 col-sm-12" style="margin-bottom:40px;">
-                                <a class="icon-home" href="<?= base_url() ?>sponsor/view/<?= $val->sponsors_id ?>"> 
-                                    <div class="col-lg box-home text-center">
-                                        <img src="<?= base_url() ?>uploads/sponsors/<?= $val->sponsors_logo ?>" alt="welcome" style="max-width: 100px">
-                                        <h4><?= $val->company_name ?></h4>
+                    <div class="row">
+                        <?php
+                        if (isset($all_sponsor) && !empty($all_sponsor)) {
+                            $i = 1;
+
+                            foreach ($all_sponsor as $val) {
+                                if ($i % 2 == 1){
+                                ?>
+                                <div class="col-md-6 m-b-10 p-l-35">
+                                    <a class="icon-home" href="<?= base_url() ?>sponsor/view/<?= $val->sponsors_id ?>">
+                                        <div class="col-lg box-home text-center">
+                                            <img src="<?= base_url() ?>uploads/sponsors/<?= $val->sponsors_logo ?>" alt="welcome" style="max-width: 65px">
+                                            <h4><?= $val->company_name ?></h4>
+                                        </div>
+                                    </a>
+                                </div>
+                                <?php
+                                $i++;
+                                }else{
+                                    ?>
+
+                                    <div class="col-md-6 m-b-10 p-r-35" style="text-align: -webkit-right; text-align: -moz-right; text-align: -o-right; text-align: -ms-right;">
+                                        <a class="icon-home" href="<?= base_url() ?>sponsor/view/<?= $val->sponsors_id ?>">
+                                            <div class="col-lg box-home text-center">
+                                                <img src="<?= base_url() ?>uploads/sponsors/<?= $val->sponsors_logo ?>" alt="welcome" style="max-width: 65px">
+                                                <h4><?= $val->company_name ?></h4>
+                                            </div>
+                                        </a>
                                     </div>
-                                </a>
-                            </div>
-                            <?php
+
+                                    <?php
+                                    $i++;
+                                }
+                            }
                         }
-                    }
-                    ?>
+                        ?>
+                    </div>
+                    <a href="<?= base_url() ?>sponsor/other_sponsor"><h1 style="text-align: center; color: #fffef0; font-weight: 900;">Check out more exhibitors!</h1></a>
                 </div>
-                <a href="<?= base_url() ?>sponsor/other_sponsor"><h1 style="text-align: center; color: #ae0201; font-weight: 900;">Check out more Exhibitors</h1></a>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+</div>
+
 <script type="text/javascript">
     $(document).ready(function () {
         var page_link = $(location).attr('href');
