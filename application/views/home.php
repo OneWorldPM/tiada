@@ -34,7 +34,7 @@
     .fa {
         font-weight: 900;
     }
-    
+
     @media (min-width: 768px) and (max-width: 1000px)  {
         #home_first_section{
             height: 550px;
@@ -109,14 +109,19 @@
                     </div>
                     <?php
                     $user_detias = $this->common->get_user_details($this->session->userdata("cid"));
-                    if ($user_detias->customer_type != "Associate - Full Payment" && $user_detias->customer_type != "Associate Branch" && $user_detias->customer_type != "Associate -  Monthly") {
+                    if ($user_detias->customer_type != "Associate - Full Payment" && $user_detias->customer_type != "Associate Branch" && $user_detias->customer_type != "Associate -  Monthly" && $user_detias->customer_type != "expo_only") {
                         ?>
                         <div class="col-md-3 col-sm-12">
                             <a class="icon-home" href="<?= base_url() ?>sessions"> 
                                 <div class="col-lg box-home p-5 text-center">
                                     <img src="<?= base_url() ?>front_assets/images/Session.png" alt="welcome" class="m-t-40" style="height: 150px; width: 160px;">
                                     <br>
-                                    <span>SESSIONS & ROUNDTABLES</span>
+                                    <?php if ($user_detias->customer_type == "Dummy users" || $user_detias->customer_type == "full_conference_no_roundtables") { ?>
+                                    <br>
+                                        <span>SESSIONS</span>
+                                    <?php } else { ?>
+                                        <span>SESSIONS & ROUNDTABLES</span>
+                                    <?php } ?>
                                 </div>
                             </a>
                         </div>

@@ -20,26 +20,144 @@ class Login extends CI_Controller {
     public function authentication() {
         $username = $this->input->post('email');
         $password = $this->input->post('password');
-        
+
         if (strlen(trim(preg_replace('/\xb2\xa0/', '', $username))) == 0 || strlen(trim(preg_replace('/\xb2\xa0/', '', $password))) == 0) {
             $this->session->set_flashdata('msg', '<div class="col-md-12 text-red" style="padding: 0 0 10px 0;">Please enter Username or Password</div><br>');
             redirect('login');
         } else {
             $arr = array(
-                'email' => $username,
+                'username' => $username,
                 'password' => base64_encode($password)
             );
             $data = $this->objlogin->user_login($arr);
             if ($data) {
-                $session = array(
-                    'cid' => $data['cust_id'],
-                    'cname' => $data['first_name'],
-                    'fullname' => $data['first_name'] . " " . $data['last_name'],
-                    'email' => $data['email'],
-                    'userType' => 'user'
-                );
-                $this->session->set_userdata($session);
-                redirect('home');
+                if ($data['customer_type'] == "Dummy users") {
+                    if ($data['email'] != "" && $data['first_name'] != "") {
+                        $session = array(
+                            'cid' => $data['cust_id'],
+                            'cname' => $data['first_name'],
+                            'fullname' => $data['first_name'] . " " . $data['last_name'],
+                            'email' => $data['email'],
+                            'userType' => 'user'
+                        );
+                        $this->session->set_userdata($session);
+                        redirect('home');
+                    } else {
+                        $session = array(
+                            'cid' => $data['cust_id'],
+                            'cname' => $data['first_name'],
+                            'email' => $data['email'],
+                            'userType' => 'user'
+                        );
+                        $this->session->set_userdata($session);
+                        redirect('register/user_profile/' . $data['cust_id']);
+                    }
+                } else if ($data['customer_type'] == "full_conference_with_roundtables" || $data['customer_type'] == "full_conference_no_roundtables" || $data['customer_type'] == "expo_only") {
+                    $curl = curl_init();
+                    curl_setopt_array($curl, array(
+                        CURLOPT_URL => "https://secure.membershipsoftware.org/tiadasecure/api/GetMemberKeyUsingEmail/?securityKey=4A17DC6DF22F45B7AAF5A0554FD447&emailAddress=" . $data['email'],
+                        CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_ENCODING => "",
+                        CURLOPT_MAXREDIRS => 10,
+                        CURLOPT_TIMEOUT => 0,
+                        CURLOPT_FOLLOWLOCATION => true,
+                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                        CURLOPT_CUSTOMREQUEST => "GET"
+                    ));
+                    $response = curl_exec($curl);
+                    curl_close($curl);
+                    $xml = simplexml_load_string($response);
+                    $json = json_encode($xml);
+                    $array = json_decode($json, TRUE);
+                    foreach ($array as $key => $value) {
+                        if (empty($value)) {
+                            unset($array[$key]);
+                        }
+                    }
+
+                    if (!empty($array)) {
+                        if ($array['GetMemberKeyUsingEmailResult'] != "") {
+                            $curl = curl_init();
+                            curl_setopt_array($curl, array(
+                                CURLOPT_URL => "https://secure.membershipsoftware.org/tiadasecure/api/GetMemberInfo/?securityKey=4A17DC6DF22F45B7AAF5A0554FD447&memberkey=" . $array['GetMemberKeyUsingEmailResult'],
+                                CURLOPT_RETURNTRANSFER => true,
+                                CURLOPT_ENCODING => "",
+                                CURLOPT_MAXREDIRS => 10,
+                                CURLOPT_TIMEOUT => 0,
+                                CURLOPT_FOLLOWLOCATION => true,
+                                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                                CURLOPT_CUSTOMREQUEST => "GET"
+                            ));
+                            $response = curl_exec($curl);
+                            curl_close($curl);
+                            $xml_1 = simplexml_load_string($response);
+                            $json_1 = json_encode($xml_1);
+                            $member_array = json_decode($json_1, TRUE);
+
+                            foreach ($member_array as $key => $value) {
+                                if (empty($value)) {
+                                    unset($member_array[$key]);
+                                }
+                            }
+
+                            if (!empty($member_array)) {
+                                $set_update_array = array(
+                                    "user_id" => $array['GetMemberKeyUsingEmailResult'],
+                                    'first_name' => $member_array['FirstName'],
+                                    'last_name' => $member_array['LastName'],
+                                    'email' => $member_array['EmailAddress'],
+                                    'address' => $member_array['Addresses']['MemberAddress']['AddressLine1'],
+                                    'address_cont' => $member_array['Addresses']['MemberAddress']['AddressType'],
+                                    'city' => $member_array['Addresses']['MemberAddress']['City'],
+                                    'state' => $member_array['Addresses']['MemberAddress']['StateProvince'],
+                                    'country' => $member_array['Addresses']['MemberAddress']['Country'],
+                                    'phone' => $member_array['Phones']['MemberPhone'][0]['PhoneNumber'],
+                                    'website' => isset($member_array['WebsiteURL']) ? $member_array['WebsiteURL'] : ''
+                                );
+                                $this->db->update("customer_master", $set_update_array, array("cust_id" => $data['cust_id']));
+                            }
+                            $session = array(
+                                'cid' => $data['cust_id'],
+                                'cname' => $data['first_name'],
+                                'fullname' => $data['first_name'] . " " . $data['last_name'],
+                                'email' => $data['email'],
+                                'userType' => 'user'
+                            );
+                            $this->session->set_userdata($session);
+                            redirect('home');
+                        } else {
+                            $session = array(
+                                'cid' => $data['cust_id'],
+                                'cname' => $data['first_name'],
+                                'fullname' => $data['first_name'] . " " . $data['last_name'],
+                                'email' => $data['email'],
+                                'userType' => 'user'
+                            );
+                            $this->session->set_userdata($session);
+                            redirect('home');
+                        }
+                    } else {
+                        $session = array(
+                            'cid' => $data['cust_id'],
+                            'cname' => $data['first_name'],
+                            'fullname' => $data['first_name'] . " " . $data['last_name'],
+                            'email' => $data['email'],
+                            'userType' => 'user'
+                        );
+                        $this->session->set_userdata($session);
+                        redirect('home');
+                    }
+                } else {
+                    $session = array(
+                        'cid' => $data['cust_id'],
+                        'cname' => $data['first_name'],
+                        'fullname' => $data['first_name'] . " " . $data['last_name'],
+                        'email' => $data['email'],
+                        'userType' => 'user'
+                    );
+                    $this->session->set_userdata($session);
+                    redirect('home');
+                }
             } else {
                 $this->session->set_flashdata('msg', '<div class="col-md-12 text-red" style="padding: 0 0 10px 0;">Username or Password is Wrong.</div><br>');
                 redirect('login');
@@ -124,7 +242,7 @@ class Login extends CI_Controller {
                                 unset($member_array[$key]);
                             }
                         }
-                      
+
                         if (!empty($member_array)) {
                             $set_update_array = array(
                                 "user_id" => $array['ValidateAuthenticationTokenResult'],
@@ -139,7 +257,8 @@ class Login extends CI_Controller {
                                 'phone' => $member_array['Phones']['MemberPhone'][0]['PhoneNumber'],
                                 'website' => isset($member_array['WebsiteURL']) ? $member_array['WebsiteURL'] : '',
                                 'customer_type' => $member_array['MemberType'],
-                                'customer_type_id' => $member_array['SecurityGroups']['MemberGroup']['GroupKey']
+                                'customer_type_id' => $member_array['SecurityGroups']['MemberGroup']['GroupKey'],
+                                'member_status' => "Tiada-Member",
                             );
                             $this->db->update("customer_master", $set_update_array, array("cust_id" => $user_details->cust_id));
                         }
@@ -195,7 +314,8 @@ class Login extends CI_Controller {
                                     'phone' => $member_array['Phones']['MemberPhone'][0]['PhoneNumber'],
                                     'website' => isset($member_array['WebsiteURL']) ? $member_array['WebsiteURL'] : '',
                                     'customer_type' => $member_array['MemberType'],
-                                    'customer_type_id' => $member_array['SecurityGroups']['MemberGroup']['GroupKey']
+                                    'customer_type_id' => $member_array['SecurityGroups']['MemberGroup']['GroupKey'],
+                                    'member_status' => "Tiada-Member"
                                 );
                                 $this->db->update("customer_master", $set_update_array, array("cust_id" => $user_details->cust_id));
 
@@ -233,6 +353,7 @@ class Login extends CI_Controller {
                                     'website' => isset($member_array['WebsiteURL']) ? $member_array['WebsiteURL'] : '',
                                     'customer_type' => $member_array['MemberType'],
                                     'customer_type_id' => $member_array['SecurityGroups']['MemberGroup']['GroupKey'],
+                                    'member_status' => "Tiada-Member",
                                     'register_date' => date("Y-m-d h:i")
                                 );
                                 $this->db->insert("customer_master", $set);

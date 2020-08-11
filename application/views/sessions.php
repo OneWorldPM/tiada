@@ -134,42 +134,13 @@
                             if (isset($all_sessions) && !empty($all_sessions)) {
                                 foreach ($all_sessions as $val) {
                                     ?>
-
                                     <?php
                                     if ($val->sessions_type_status == "Private") {
-
-                                        if ($val->total_sign_up_sessions < $session_limit->roundtable) {
-                                            if ($val->status_sign_up_sessions == 0) {
-                                                $user_detias = $this->common->get_user_details($this->session->userdata("cid"));
-                                                if ($user_detias->customer_type == "Dummy users") {
+                                        $user_detias = $this->common->get_user_details($this->session->userdata("cid"));
+                                        if ($user_detias->customer_type != "Dummy users" && $user_detias->customer_type != "full_conference_no_roundtables") {
+                                            if ($val->total_sign_up_sessions < $session_limit->roundtable) {
+                                                if ($val->status_sign_up_sessions == 0) {
                                                     ?>
-                                                    <div class="post-item">
-                                                        <div class="post-image col-md-3 m-t-20"> 
-                                                            <a><?php if ($val->sessions_photo != "") { ?> <img alt="" src="<?= base_url() ?>uploads/sessions/<?= $val->sessions_photo ?>"> <?php } else { ?>  <img alt="" src="<?= base_url() ?>front_assets/images/session_avtar.jpg"> <?php } ?>  </a> 
-                                                        </div>
-                                                        <div class="post-content-details col-md-9 m-t-30">
-                                                            <div class="post-title">
-                                                                <h6 style="font-weight: 600; font-size: 15px;"><?= $val->sessions_date . ' ' . date("h:i A", strtotime($val->time_slot)) . ' - ' . date("h:i A", strtotime($val->end_time)) ?></h6>
-                                                                <h3>
-                                                                    <a  style="color: #ae0201; font-weight: 900;"><?= $val->session_title ?></a> 
-                                                                    <span style="float: right; font-size: 15px; font-weight: 700;">Track: <?php
-                                                                        if (isset($val->sessions_tracks_data) && !empty($val->sessions_tracks_data)) {
-                                                                            foreach ($val->sessions_tracks_data as $value) {
-                                                                                ?> <?= $value->sessions_tracks ?> <?php
-                                                                            }
-                                                                        }
-                                                                        ?>
-                                                                    </span>
-                                                                </h3>
-                                                            </div>
-                                                            <div class="post-description">
-                                                                <p style="margin-bottom: 10px; color: black;"><?= $val->sessions_description ?></p>
-                                                                <a class="button black-light button-3d rounded right" style="margin: 0px 0;"><span>You can't Sign up</span></a>
-                                                                <a class="button black-light button-3d rounded right save_to_swag_bag" data-sessions_id="<?= $val->sessions_id ?>" data-swag_bag_btn_status="0"   style="margin: 0px 5px 0px 0px"><?= ($val->status_my_swag_bag == 0) ? "Save to Swag Bag" : "Remove to Swag Bag" ?> </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                <?php } else { ?>
                                                     <div class="post-item">
                                                         <div class="post-image col-md-3 m-t-20"> 
                                                             <a> <?php if ($val->sessions_photo != "") { ?> <img alt="" src="<?= base_url() ?>uploads/sessions/<?= $val->sessions_photo ?>"> <?php } else { ?>  <img alt="" src="<?= base_url() ?>front_assets/images/session_avtar.jpg"> <?php } ?>  </a> 
@@ -191,7 +162,33 @@
                                                             <div class="post-description">
                                                                 <p style="margin-bottom: 10px; color: black;"><?= $val->sessions_description ?></p>
                                                                 <a class="button black-light button-3d rounded right btn_sign_up" style="margin: 0px 0;" data-sessions_id="<?= $val->sessions_id ?>" data-user_limit="<?= $val->total_sign_up_sessions_user ?>"><span>Sign up</span></a>
-                                                                <a class="button black-light button-3d rounded right save_to_swag_bag" data-sessions_id="<?= $val->sessions_id ?>" data-swag_bag_btn_status="0"   style="margin: 0px 5px 0px 0px"><?= ($val->status_my_swag_bag == 0) ? "Save to Swag Bag" : "Remove to Swag Bag" ?> </a>
+                                                                <a class="button black-light button-3d rounded right save_to_swag_bag" data-sessions_id="<?= $val->sessions_id ?>" data-swag_bag_btn_status="0"   style="margin: 0px 5px 0px 0px"><?= ($val->status_my_swag_bag == 0) ? "Save to Swag Bag" : "Remove from Swag Bag" ?> </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <?php } else { ?>
+                                                    <div class="post-item">
+                                                        <div class="post-image col-md-3 m-t-20"> 
+                                                            <a href="<?= base_url() ?>sessions/attend/<?= $val->sessions_id ?>"> <?php if ($val->sessions_photo != "") { ?> <img alt="" src="<?= base_url() ?>uploads/sessions/<?= $val->sessions_photo ?>"> <?php } else { ?>  <img alt="" src="<?= base_url() ?>front_assets/images/session_avtar.jpg"> <?php } ?>  </a> 
+                                                        </div>
+                                                        <div class="post-content-details col-md-9 m-t-30">
+                                                            <div class="post-title">
+                                                                <h6 style="font-weight: 600; font-size: 15px;"><?= $val->sessions_date . ' ' . date("h:i A", strtotime($val->time_slot)) . ' - ' . date("h:i A", strtotime($val->end_time)) ?></h6>
+                                                                <h3><a href="<?= base_url() ?>sessions/attend/<?= $val->sessions_id ?>" style="color: #ae0201; font-weight: 900;"><?= $val->session_title ?></a>
+                                                                    <span style="float: right; font-size: 15px; font-weight: 700;">Track: <?php
+                                                                        if (isset($val->sessions_tracks_data) && !empty($val->sessions_tracks_data)) {
+                                                                            foreach ($val->sessions_tracks_data as $value) {
+                                                                                ?> <?= $value->sessions_tracks ?> <?php
+                                                                            }
+                                                                        }
+                                                                        ?>
+                                                                    </span>
+                                                                </h3>
+                                                            </div>
+                                                            <div class="post-description">
+                                                                <p style="margin-bottom: 10px; color: black;"><?= $val->sessions_description ?></p>
+                                                                <a class="button black-light button-3d rounded right" style="margin: 0px 0;"><span>Unregister</span></a>
+                                                                <a class="button black-light button-3d rounded right save_to_swag_bag" data-sessions_id="<?= $val->sessions_id ?>" data-swag_bag_btn_status="0"   style="margin: 0px 5px 0px 0px"><?= ($val->status_my_swag_bag == 0) ? "Save to Swag Bag" : "Remove from Swag Bag" ?> </a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -199,12 +196,12 @@
                                             <?php } else { ?>
                                                 <div class="post-item">
                                                     <div class="post-image col-md-3 m-t-20"> 
-                                                        <a href="<?= base_url() ?>sessions/attend/<?= $val->sessions_id ?>"> <?php if ($val->sessions_photo != "") { ?> <img alt="" src="<?= base_url() ?>uploads/sessions/<?= $val->sessions_photo ?>"> <?php } else { ?>  <img alt="" src="<?= base_url() ?>front_assets/images/session_avtar.jpg"> <?php } ?>  </a> 
+                                                        <a> <?php if ($val->sessions_photo != "") { ?> <img alt="" src="<?= base_url() ?>uploads/sessions/<?= $val->sessions_photo ?>"> <?php } else { ?>  <img alt="" src="<?= base_url() ?>front_assets/images/session_avtar.jpg"> <?php } ?>  </a> 
                                                     </div>
                                                     <div class="post-content-details col-md-9 m-t-30">
                                                         <div class="post-title">
                                                             <h6 style="font-weight: 600; font-size: 15px;"><?= $val->sessions_date . ' ' . date("h:i A", strtotime($val->time_slot)) . ' - ' . date("h:i A", strtotime($val->end_time)) ?></h6>
-                                                            <h3><a href="<?= base_url() ?>sessions/attend/<?= $val->sessions_id ?>" style="color: #ae0201; font-weight: 900;"><?= $val->session_title ?></a>
+                                                            <h3><a style="color: #ae0201; font-weight: 900;"><?= $val->session_title ?></a>
                                                                 <span style="float: right; font-size: 15px; font-weight: 700;">Track: <?php
                                                                     if (isset($val->sessions_tracks_data) && !empty($val->sessions_tracks_data)) {
                                                                         foreach ($val->sessions_tracks_data as $value) {
@@ -217,39 +214,15 @@
                                                         </div>
                                                         <div class="post-description">
                                                             <p style="margin-bottom: 10px; color: black;"><?= $val->sessions_description ?></p>
-                                                            <a class="button black-light button-3d rounded right" style="margin: 0px 0;"><span>Unregister</span></a>
-                                                            <a class="button black-light button-3d rounded right save_to_swag_bag" data-sessions_id="<?= $val->sessions_id ?>" data-swag_bag_btn_status="0"   style="margin: 0px 5px 0px 0px"><?= ($val->status_my_swag_bag == 0) ? "Save to Swag Bag" : "Remove to Swag Bag" ?> </a>
+                                                            <a class="button black-light button-3d rounded right" style="margin: 0px 0;"><span>Roundtable Full</span></a>
+                                                            <a class="button black-light button-3d rounded right save_to_swag_bag" data-sessions_id="<?= $val->sessions_id ?>" data-swag_bag_btn_status="0"   style="margin: 0px 5px 0px 0px"><?= ($val->status_my_swag_bag == 0) ? "Save to Swag Bag" : "Remove from Swag Bag" ?> </a>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            <?php } ?>
-                                        <?php } else { ?>
-                                            <div class="post-item">
-                                                <div class="post-image col-md-3 m-t-20"> 
-                                                    <a> <?php if ($val->sessions_photo != "") { ?> <img alt="" src="<?= base_url() ?>uploads/sessions/<?= $val->sessions_photo ?>"> <?php } else { ?>  <img alt="" src="<?= base_url() ?>front_assets/images/session_avtar.jpg"> <?php } ?>  </a> 
-                                                </div>
-                                                <div class="post-content-details col-md-9 m-t-30">
-                                                    <div class="post-title">
-                                                        <h6 style="font-weight: 600; font-size: 15px;"><?= $val->sessions_date . ' ' . date("h:i A", strtotime($val->time_slot)) . ' - ' . date("h:i A", strtotime($val->end_time)) ?></h6>
-                                                        <h3><a style="color: #ae0201; font-weight: 900;"><?= $val->session_title ?></a>
-                                                            <span style="float: right; font-size: 15px; font-weight: 700;">Track: <?php
-                                                                if (isset($val->sessions_tracks_data) && !empty($val->sessions_tracks_data)) {
-                                                                    foreach ($val->sessions_tracks_data as $value) {
-                                                                        ?> <?= $value->sessions_tracks ?> <?php
-                                                                    }
-                                                                }
-                                                                ?>
-                                                            </span>
-                                                        </h3>
-                                                    </div>
-                                                    <div class="post-description">
-                                                        <p style="margin-bottom: 10px; color: black;"><?= $val->sessions_description ?></p>
-                                                        <a class="button black-light button-3d rounded right" style="margin: 0px 0;"><span>Roundtable Full</span></a>
-                                                        <a class="button black-light button-3d rounded right save_to_swag_bag" data-sessions_id="<?= $val->sessions_id ?>" data-swag_bag_btn_status="0"   style="margin: 0px 5px 0px 0px"><?= ($val->status_my_swag_bag == 0) ? "Save to Swag Bag" : "Remove to Swag Bag" ?> </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        <?php } ?>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
                                     <?php } else { ?>
                                         <div class="post-item">
                                             <div class="post-image col-md-3 m-t-20"> 
@@ -283,7 +256,7 @@
                                                 <div class="post-description">
                                                     <p style="margin-bottom: 10px; color: black;"><?= $val->sessions_description ?></p>
                                                     <a class="button black-light button-3d rounded right" style="margin: 0px 0;" href="<?= base_url() ?>sessions/attend/<?= $val->sessions_id ?>"><span>Attend</span></a>
-                                                    <a class="button black-light button-3d rounded right save_to_swag_bag" data-sessions_id="<?= $val->sessions_id ?>" data-swag_bag_btn_status="0"   style="margin: 0px 5px 0px 0px"><?= ($val->status_my_swag_bag == 0) ? "Save to Swag Bag" : "Remove to Swag Bag" ?> </a>
+                                                    <a class="button black-light button-3d rounded right save_to_swag_bag" data-sessions_id="<?= $val->sessions_id ?>" data-swag_bag_btn_status="0"   style="margin: 0px 5px 0px 0px"><?= ($val->status_my_swag_bag == 0) ? "Save to Swag Bag" : "Remove from Swag Bag" ?> </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -361,8 +334,7 @@
                             url: "<?= base_url() ?>sessions/sign_up_sessions",
                             type: "post",
                             data: {'sessions_id': sessions_id},
-                            dataType: "json",
-                            success: function (data) {
+                            dataType: "json", success: function (data) {
                                 if (data.status == "success") {
                                     window.location.reload();
                                 } else if (data.status == "exist") {
@@ -388,7 +360,7 @@
                 dataType: "json",
                 success: function (data) {
                     if (data.status == "save") {
-                        $this.text("Remove to Swag Bag");
+                        $this.text("Remove from Swag Bag");
                     } else if (data.status == "remove") {
                         $this.text("Save to Swag Bag");
                     }

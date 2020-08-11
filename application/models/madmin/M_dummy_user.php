@@ -10,7 +10,7 @@ class M_dummy_user extends CI_Model {
         $this->db->select('*');
         $this->db->from('customer_master');
         $this->db->where("customer_type", "Dummy users");
-         $this->db->order_by("cust_id", "DESC");
+        $this->db->order_by("cust_id", "DESC");
         $result = $this->db->get();
         if ($result->num_rows() > 0) {
             return $result->result();
@@ -44,6 +44,7 @@ class M_dummy_user extends CI_Model {
                         'username' => $post['username'],
                         'password' => base64_encode($post['password']),
                         'customer_type' => 'Dummy users',
+                        'member_status' => "guest-member",
                         'register_date' => date("Y-m-d h:i")
                     );
                     $this->db->insert("customer_master", $set);

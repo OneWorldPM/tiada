@@ -16,7 +16,7 @@
                         </div>
                         <div class="col-md-12">
                             <h5 style="padding-bottom: 4px; border-bottom: 2px solid #ebebeb">Registrant Profile</h5>
-                            <small>Please fill in your registrant details:</small>
+<!--                            <small>Please fill in your registrant details:</small>-->
                         </div>
                         <div class="row">
                             <div class="col-md-12">
@@ -32,10 +32,10 @@
                                     <input type="email" name="email" id="email" value="<?= (isset($myprofile)) ? $myprofile->email : ''; ?>" placeholder="Email" class="form-control input-lg">
                                     <span id="erroremail" style="color:red"></span>
                                 </div>
-                                <div class="col-md-3 form-group">
-                                    <input type="text" name="specialty" id="specialty" value="" placeholder="Specialty" class="form-control input-lg">
-                                    <span id="errorspecialty" style="color:red"></span>
-                                </div>
+                                <!--                                <div class="col-md-3 form-group">
+                                                                    <input type="text" name="specialty" id="specialty" value="" placeholder="Specialty" class="form-control input-lg">
+                                                                    <span id="errorspecialty" style="color:red"></span>
+                                                                </div>-->
                             </div>
                         </div>
                         <div class="col-md-12 m-t-20">
@@ -51,6 +51,10 @@
                                     <input type="text" value="" placeholder="Address 2" name="address_2" id="address_2" class="form-control input-lg">
                                     <span id="erroraddress_2" style="color:red"></span>
                                 </div>
+                                <div class="col-md-3 form-group">
+                                    <input type="text" value="" placeholder="Company Name" name="company_name" id="company_name" class="form-control input-lg">
+                                    <span id="errorcompany_name" style="color:red"></span>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
@@ -62,6 +66,10 @@
                                 <div class="col-md-3 form-group">
                                     <input type="text" value="" placeholder="State" name="state" id="state" class="form-control input-lg">
                                     <span id="errorstate" style="color:red"></span>
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <input type="text" value="" placeholder="Title" name="title" id="title" class="form-control input-lg">
+                                    <span id="errortitle" style="color:red"></span>
                                 </div>
                             </div>
                         </div>
@@ -310,10 +318,14 @@
                                     </select>
                                     <span id="errorcountry" style="color:red"></span>
                                 </div>
+                                <div class="col-md-3 form-group">
+                                    <input type="text" value="" placeholder="Cell Phone" name="cell_phone" id="cell_phone" class="form-control input-lg">
+                                    <span id="errorcell_phone" style="color:red"></span>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-12  m-t-20">
-                            <h5 style="padding-bottom: 4px; border-bottom: 2px solid #ebebeb">Profile</h5>
+                            <h5 style="padding-bottom: 4px; border-bottom: 2px solid #ebebeb">Profile Picture - <small class="form-text text-muted">This Image will be seen by all attendees, sponsors and staff.</small></h5>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
@@ -372,18 +384,18 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12  m-t-20">
-                            <h5 style="padding-bottom: 4px; border-bottom: 2px solid #ebebeb">Membership Details</h5>
-                        </div>
+                        <!--                        <div class="col-md-12  m-t-20">
+                                                    <h5 style="padding-bottom: 4px; border-bottom: 2px solid #ebebeb">Membership Details</h5>
+                                                </div>-->
                         <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group col-md-12">
-                                    <label class="custom-control custom-checkbox m-0">
-                                        <input type="checkbox" name="terms" id="terms" class="custom-control-input">
-                                        <span class="form-text text-muted">I am currently a member of this organization</span>
-                                    </label>
-                                </div>
-                            </div>
+                            <!--                            <div class="col-md-12">
+                                                            <div class="form-group col-md-12">
+                                                                <label class="custom-control custom-checkbox m-0">
+                                                                    <input type="checkbox" name="terms" id="terms" class="custom-control-input">
+                                                                    <span class="form-text text-muted">I am currently a member of this organization</span>
+                                                                </label>
+                                                            </div>
+                                                        </div>-->
                             <div class="col-md-12 m-t-20">
                                 <div class="form-group col-md-12">
                                     <small class="form-text text-muted"><?php
@@ -409,9 +421,27 @@
         </div>
     </div>
 </section>
+<?php
+$msg = $this->input->get("msg");
+switch ($msg) {
+    case "AE":
+        $m = "Email Alredy Exist!!!";
+        $t = "error";
+        break;
+    case "E":
+        $m = "Something went wrong, Please try again!!!";
+        $t = "error";
+        break;
+    default:
+        $m = 0;
+        break;
+}
+?>
 <script type="text/javascript">
     $(document).ready(function () {
-
+<?php if ($msg): ?>
+            alertify.<?= $t ?>("<?= $m ?>");
+<?php endif; ?>
 //        $('#terms').click(function () {
 //            if ($(this).is(':checked')) {
 //                $('#update_user').removeAttr('disabled');

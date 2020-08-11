@@ -60,4 +60,40 @@ class User extends CI_Controller {
         $this->load->view('admin/footer');
     }
 
+    function import_user() {
+        $result = $this->muser->import_user();
+        if ($result) {
+            header('location:' . base_url() . 'admin/user');
+        } else {
+            header('location:' . base_url() . 'admin/user');
+        }
+    }
+
+    public function add_user_with_type() {
+        $post = $this->input->post();
+        if (!empty($post)) {
+            $res = $this->muser->add_user_with_type($post);
+            if ($res == "exist") {
+                header('Location: ' . base_url() . 'admin/user');
+            } else if ($res == "error") {
+                header('Location: ' . base_url() . 'admin/user');
+            } else {
+                header('Location: ' . base_url() . 'admin/user');
+            }
+        }
+    }
+
+    public function getUserById($cust_id) {
+        $q = $this->db->get_where('customer_master', array('cust_id' => $cust_id));
+        if ($q->num_rows() > 0) {
+            $plan = $q->row();
+            $data['msg'] = 'success';
+            $data['data'] = $plan;
+        } else {
+            $data['msg'] = 'error';
+            $data['data'] = 'Record not found please try again later!';
+        }
+        echo json_encode($data);
+    }
+
 }

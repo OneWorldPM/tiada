@@ -13,8 +13,8 @@
                             ?> 
                             <form id="login-form" name="frm_login" method="post" action="<?= base_url() ?>login/authentication">
                                 <div class="form-group">
-                                    <label class="sr-only">Email Address</label>
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                                    <label class="sr-only">Username</label>
+                                    <input type="text" class="form-control" id="email" name="email" placeholder="Username">
                                     <span id="erroremail" style="color:red"></span>
                                 </div>
                                 <div class="form-group m-b-5">
@@ -31,10 +31,10 @@
                             </form>
                             <h4 style="margin-bottom: 0px;"><a href="https://www.txiada.org/login.asp?redirectURL=https://yourconference.live/tiadaannualconference/login/authenticate">Login with TIADA</a></h4>
                         </div>
-<!--                        <div class="col-md-6">
-                            <h4>Register Now!</h4>
-                            <p class="text-left"><a href="<?= base_url() ?>register">Click here to start your registration</a> </p>
-                        </div>-->
+                        <!--                        <div class="col-md-6">
+                                                    <h4>Register Now!</h4>
+                                                    <p class="text-left"><a href="<?= base_url() ?>register">Click here to start your registration</a> </p>
+                                                </div>-->
                     </div>
 
                 </div>
@@ -47,8 +47,7 @@
     $(document).ready(function () {
         $("#btn_login").on("click", function () {
             if ($("#email").val().trim() == "") {
-                $("#erroremail").text("Please Enter Email").fadeIn('slow').fadeOut(5000);
-
+                $("#erroremail").text("Please Enter Username").fadeIn('slow').fadeOut(5000);
                 return false;
             } else if ($("#password").val() == "") {
                 $("#errorpassword").text("Please Enter Password").fadeIn('slow').fadeOut(5000);

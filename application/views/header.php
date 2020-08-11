@@ -134,9 +134,6 @@
                             </button>
                         </div>
                         <!--END: MOBILE MENU -->
-                        <!--SHOPPING CART -->
-
-                        <!--END: SHOPPING CART -->
 
                         <!--NAVIGATION-->
                         <div class="navbar-collapse collapse main-menu-collapse navigation-wrap">
@@ -144,9 +141,28 @@
                                 <nav id="mainMenu" class="main-menu mega-menu">
                                     <ul class="main-menu nav nav-pills navbar-left" id="main_menu_top_bar" style="margin-right: 50px;">
                                         <li><a href="<?= base_url() ?>home" style="color: #ae0201">MAIN HALL</a></li>
-                                        <li><a href="<?= base_url() ?>sessions" style="color: #ae0201">SESSIONS & ROUNDTABLES</a></li>
-                                        <li><a href="<?= base_url() ?>sponsor" style="color: #ae0201">EXPO</a></li>
-                                        <li><a href="#" style="color: #ae0201">LOUNGE</a></li>
+                                        <?php
+                                        if ($this->session->userdata('cid') != "") {
+                                            $user_detias = $this->common->get_user_details($this->session->userdata("cid"));
+                                            if ($user_detias->customer_type == "Dummy users" || $user_detias->customer_type == "full_conference_no_roundtables") {
+                                                ?>
+                                                <li><a href="<?= base_url() ?>sessions" style="color: #ae0201">SESSIONS</a></li>
+                                                <li><a href="<?= base_url() ?>sponsor" style="color: #ae0201">EXPO</a></li>
+                                                <li><a href="#" style="color: #ae0201">LOUNGE</a></li>
+                                            <?php } else if ($user_detias->customer_type == "expo_only") { ?> 
+                                                <li><a href="<?= base_url() ?>sponsor" style="color: #ae0201">EXPO</a></li>
+                                            <?php } else { ?>
+                                                <li><a href="<?= base_url() ?>sessions" style="color: #ae0201">SESSIONS & ROUNDTABLES</a></li>
+                                                <li><a href="<?= base_url() ?>sponsor" style="color: #ae0201">EXPO</a></li>
+                                                <li><a href="#" style="color: #ae0201">LOUNGE</a></li>
+                                                <?php
+                                            }
+                                        } else {
+                                            ?>
+                                            <li><a href="<?= base_url() ?>sessions" style="color: #ae0201">SESSIONS & ROUNDTABLES</a></li>
+                                            <li><a href="<?= base_url() ?>sponsor" style="color: #ae0201">EXPO</a></li>
+                                            <li><a href="#" style="color: #ae0201">LOUNGE</a></li>
+                                        <?php } ?>        
                                     </ul>
                                     <ul id="mainMenuItems" class="main-menu nav nav-pills navbar-left">
                                         <li><a href="https://yourconference.live/support" style="color:#A9A9A9; font-size: 18px;" target="_blank"><i class="fa fa-question-circle" style="color:#A9A9A9; font-size: 18px;"></i>HELP DESK</a></li>

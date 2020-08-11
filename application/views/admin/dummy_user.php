@@ -40,7 +40,7 @@
                             </div>
                             <div class="panel-body bg-white" style="border: 1px solid #b2b7bb;">
                                 <span id="errortxtsendemail" style="color:red;"></span>
-                                <h5 class="over-title margin-bottom-15 margin-top-5">Guest User Login : <span class="text-bold"><a href="<?= base_url() ?>guestlogin"><?= base_url() ?>guestlogin</a> </h5>
+                                <h5 class="over-title margin-bottom-15 margin-top-5">Guest User Login : <span class="text-bold"><a href="<?= base_url() ?>"><?= base_url() ?></a> </h5>
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered table-hover table-full-width" id="plan_table">
                                         <thead>

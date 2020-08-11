@@ -41,7 +41,7 @@ class Register extends CI_Controller {
         if ($cust_id == "exist") {
             $post = $this->input->post();
             $cust_id = $post['cust_id'];
-            header('location:' . base_url() . 'register/user_profile/' . $cust_id);
+            header('location:' . base_url() . 'register/user_profile/' . $cust_id.'?msg=AE');
         } else {
             $post = $this->input->post();
             $cust_id = $post['cust_id'];
