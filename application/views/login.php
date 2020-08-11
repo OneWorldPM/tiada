@@ -3,7 +3,7 @@
     <div class="container container-fullscreen">
         <div class="text-middle">
             <div class="row">
-                <div class="col-md-4 col-md-offset-2 p-40 background-white" style="border-radius: 10px; margin-top: 60px;">
+                <div class="col-md-3 col-md-offset-2 p-40 background-white" style="border-radius: 10px; margin-top: 60px;">
                     <div class="row">
                         <div class="col-md-12"> 
                             <h4>TIADA Members</h4>
@@ -18,6 +18,7 @@
                                     <input type="password" id="tiada_password" name="tiada_password" class="form-control" placeholder="Password">
                                     <span id="errortiada_password" style="color:red"></span>
                                 </div>
+                                <div class="clearfix m-b-10"></div>
                                 <div class="text-left form-group">
                                     <button type="submit" id="tiada_btn_login" class="btn btn-primary">Login</button>
                                 </div>
@@ -25,7 +26,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4  p-40 background-white" style="border-radius: 10px; margin-top: 60px; margin-left: 10px;">
+                <div class="col-md-3  p-40 background-white" style="border-radius: 10px; margin-top: 60px; margin-left: 10px;">
                     <div class="row">
                         <div class="col-md-12"> 
                             <h4>Non Members</h4>
