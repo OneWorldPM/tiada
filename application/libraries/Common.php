@@ -26,7 +26,8 @@ class Common {
             'smtp_pass' => 'yc_email123#',
             'mailtype' => 'html',
             'charset' => 'iso-8859-1',
-            'wordwrap' => TRUE
+            'wordwrap' => TRUE,
+            'smtp_crypto' => ''
         );
 
         $this->_CI->load->library('email', $config);
