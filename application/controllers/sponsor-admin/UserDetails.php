@@ -14,6 +14,7 @@ class UserDetails extends CI_Controller
         }
 
         $this->load->model('user/M_myprofile', 'user');
+        $this->load->model('madmin/m_sponsors', 'sponsor');
     }
 
     public function nameById($cid)
@@ -40,6 +41,12 @@ class UserDetails extends CI_Controller
     public function userDataById($id)
     {
         echo json_encode($this->user->userDataById($id));
+        return;
+    }
+
+    public function getAllResources($sponsor)
+    {
+        echo json_encode($this->sponsor->getAllResources($sponsor));
         return;
     }
 }

@@ -112,22 +112,8 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
                         </h3>
                     </div>
                     <div class="panel-body">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                File 1
-                                <span class="chat-now-badge badge">Download</span>
-                                <span class="profile-badge badge">Add to case</span>
-                            </li>
-                            <li class="list-group-item">
-                                File 2
-                                <span class="chat-now-badge badge">Download</span>
-                                <span class="profile-badge badge">Add to case</span>
-                            </li>
-                            <li class="list-group-item">
-                                File 3
-                                <span class="chat-now-badge badge">Download</span>
-                                <span class="profile-badge badge">Add to case</span>
-                            </li>
+                        <ul class="list-group list-group-flush resources-list">
+
                         </ul>
                     </div>
                 </div>

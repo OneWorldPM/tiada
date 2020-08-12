@@ -1,5 +1,7 @@
 $(function() {
 
+    fillResources();
+
 
 // ......................................................
 // ..................RTCMultiConnection Code.............
@@ -370,3 +372,19 @@ $(function() {
     });
 
 });
+
+function fillResources() {
+    $.get( "/tiadaannualconference/sponsor-admin/UserDetails/getAllResources/"+sponsor_id, function(resources) {
+        resources = JSON.parse(resources);
+        $('.resources-list').html('');
+        $.each( resources, function( number, resource ) {
+            $('.resources-list').append('' +
+                '<li class="list-group-item">\n' +
+                '   '+resource.item_name+'\n' +
+                '  <a class="open-resource-badge badge" href="/tiadaannualconference/front_assets/sponsor/resources/'+resource.file_name+'" target="_blank">Open</a>\n' +
+                '  <span class="profile-badge badge">Add to SwagBag</span>\n' +
+                '</li>');
+        });
+    });
+
+}

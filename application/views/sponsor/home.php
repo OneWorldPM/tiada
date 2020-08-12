@@ -212,53 +212,46 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
             </div>
         </div>
 
-        <?php
-        if(isset($_GET['testing']))
-        { ?>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="panel panel-warning">
-                        <div class="panel-heading">
-                            <h2 class="panel-title">
-                                <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
-                                <span style="font-size: 20px;"> Resources Management </span>
-                                <button class="resources-new-btn btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Add New File</button>
-                            </h2>
-                        </div>
-                        <div class="panel-body">
-                            <ul class="list-group resources-list">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">
+                            <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
+                            <span style="font-size: 20px;"> Resources Management </span>
+                            <button class="resources-new-btn btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Add New File</button>
+                        </h2>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-group resources-list">
 
-                            </ul>
-                        </div>
+                        </ul>
                     </div>
                 </div>
+            </div>
 
-                <!-- Resources Upload Modal -->
-                <div class="modal fade" id="resourcesModal" tabindex="-1" role="dialog" aria-labelledby="resourcesModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="resourcesModalLabel">Upload new resource file</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <input class="form-control" type="text" name="resourcesItemName" id="resourcesItemName" placeholder="Enter the resource name">
-                                <input class="form-control" type="file" name="resourcesupload" id="resourcesupload" accept=".pdf"/>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="resources-upload-btn btn btn-success">Upload</button>
-                            </div>
+            <!-- Resources Upload Modal -->
+            <div class="modal fade" id="resourcesModal" tabindex="-1" role="dialog" aria-labelledby="resourcesModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="resourcesModalLabel">Upload new resource file</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input class="form-control" type="text" name="resourcesItemName" id="resourcesItemName" placeholder="Enter the resource name">
+                            <input class="form-control" type="file" name="resourcesupload" id="resourcesupload" accept=".pdf"/>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="resources-upload-btn btn btn-success">Upload</button>
                         </div>
                     </div>
                 </div>
             </div>
-        <?php }
-
-        ?>
-
+        </div>
 
         <div class="row">
             <div id="availability-panel" class="panel panel-info">
