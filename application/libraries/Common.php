@@ -17,8 +17,13 @@ class Common {
     }
 
     function sendEmail($from, $to, $subject, $message, $name = NULL) {
-        $from = "admin@yourconference.live";
+        $from = "no-reply@yourconference.live";
         $config = Array(
+           'protocol' => 'smtp',
+            'smtp_host' => 'yourconference.live',
+            'smtp_port' => 25,
+            'smtp_user' => 'no-reply@yourconference.live', 
+            'smtp_pass' => 'yc_email123#',
             'mailtype' => 'html',
             'charset' => 'iso-8859-1',
             'wordwrap' => TRUE
