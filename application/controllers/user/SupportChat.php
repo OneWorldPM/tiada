@@ -8,11 +8,6 @@ class SupportChat extends CI_Controller
     {
         parent::__construct();
         $this->common->set_timezone();
-        $login_type = $this->session->userdata('userType');
-        if ($login_type != 'user')
-        {
-            redirect('https://www.txiada.org/login.asp?redirectURL=https://yourconference.live/tiadaannualconference/login/authenticate');
-        }
         $this->load->model('user/SupportChat_Model', 'chat');
     }
 
