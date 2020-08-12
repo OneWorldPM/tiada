@@ -19,7 +19,7 @@
                                     <span id="errortiada_password" style="color:red"></span>
                                 </div>
                                  <div class="form-group form-inline text-left ">
-                                    <a href="https://www.txiada.org/assoc_forgot.asp" class="right"><small>Forgot Password?</small></a>
+                                    <a target="_blank" href="https://www.txiada.org/assoc_forgot.asp" class="right"><small>Forgot Password?</small></a>
                                 </div>
                                 <div class="text-left form-group">
                                     <button type="submit" id="tiada_btn_login" class="btn btn-primary">Login</button>
