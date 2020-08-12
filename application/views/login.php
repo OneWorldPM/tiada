@@ -1,9 +1,9 @@
 <!-- SECTION -->
 <section class="parallax fullscreen" style="background-image: url(<?= base_url() ?>front_assets/images/tiada_new.jpeg); top: 0; padding-top: 0px;">
-    <div class="container container-fullscreen">
+    <div class="container container-fullscreen" style="margin-top: 205px;">
         <div class="text-middle">
             <div class="row">
-                <div class="col-md-3 col-md-offset-2 p-40 background-white" style="border-radius: 10px; margin-top: 60px;">
+                <div class="col-md-3 col-md-offset-2 p-40 background-white" style="border-radius: 10px; margin-top: 60px; margin-left: 327px;">
                     <div class="row">
                         <div class="col-md-12"> 
                             <h4>TIADA Members</h4>
@@ -28,7 +28,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3  p-40 background-white" style="border-radius: 10px; margin-top: 60px; margin-left: 10px;">
+                <div class="col-md-3  p-40 background-white" style="border-radius: 10px; margin-top: 60px; margin-left: 28px;">
                     <div class="row">
                         <div class="col-md-12"> 
                             <h4>Non Members</h4>
