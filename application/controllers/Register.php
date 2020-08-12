@@ -41,11 +41,21 @@ class Register extends CI_Controller {
         if ($cust_id == "exist") {
             $post = $this->input->post();
             $cust_id = $post['cust_id'];
-            header('location:' . base_url() . 'register/user_profile/' . $cust_id.'?msg=AE');
+            header('location:' . base_url() . 'register/user_profile/' . $cust_id . '?msg=AE');
         } else {
             $post = $this->input->post();
             $cust_id = $post['cust_id'];
-            header('location:' . base_url() . 'register/plan_pricing/' . $cust_id);
+            $user_details = $this->db->get_where("customer_master", array("cust_id" => $cust_id))->row();
+            $session = array(
+                'cid' => $user_details->cust_id,
+                'cname' => $user_details->first_name,
+                'fullname' => $user_details->first_name . " " . $user_details->last_name,
+                'email' => $user_details->email,
+                'userType' => 'user'
+            );
+            $this->session->set_userdata($session);
+            redirect('home');
+            //   header('location:' . base_url() . 'register/plan_pricing/' . $cust_id);
         }
     }
 
