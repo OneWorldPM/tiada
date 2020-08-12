@@ -341,4 +341,46 @@ class M_sponsors extends CI_Model {
         }
     }
 
+    function newResource($sponsor)
+    {
+        $unique_str = md5(uniqid(rand(), true));
+        $itemName = $this->input->post()['name'];
+        if ($_FILES['resource']) {
+            $fileExt = pathinfo($_FILES["resource"]["name"], PATHINFO_EXTENSION);
+            //if (file_exists("sponsor_cover_{$id}.{$fileExt}")) {
+                //chmod("sponsor_cover_{$id}.{$fileExt}", 0755); //Change the file permissions if allowed
+                //unlink("sponsor_cover_{$id}.{$fileExt}"); //remove the file
+            //}
+            if (move_uploaded_file($_FILES["resource"]["tmp_name"], FCPATH . "front_assets/sponsor/resources/resource_{$sponsor}_{$unique_str}.{$fileExt}")) {
+                $data = array(
+                    'sponsor_id' => $sponsor,
+                    'item_name' => $itemName,
+                    'file_name' => "resource_{$sponsor}_{$unique_str}.{$fileExt}"
+                );
+                $this->db->insert('sponsor_resources', $data);
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    function getAllResources($sponsor)
+    {
+        $this->db->select('*');
+        $this->db->from('sponsor_resources');
+        $this->db->where('sponsor_id', $sponsor);
+        $resources = $this->db->get();
+        if ($resources->num_rows() > 0) {
+            return $resources->result_array();
+        } else {
+            return array();
+        }
+    }
+
+    function deleteResource($resourceId)
+    {
+        return $this->db->delete('sponsor_resources', array('id' => $resourceId));
+    }
+
 }

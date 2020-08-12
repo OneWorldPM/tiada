@@ -69,5 +69,23 @@ class Profile extends CI_Controller
         return;
     }
 
+    public function newResource($sponsor)
+    {
+        echo $this->sponsor->newResource($sponsor);
+        return;
+    }
+
+    public function getAllResources($sponsor)
+    {
+        echo json_encode($this->sponsor->getAllResources($sponsor));
+        return;
+    }
+
+    public function deleteResource($resourceId)
+    {
+        echo $this->sponsor->deleteResource($resourceId);
+        return;
+    }
+
 
 }

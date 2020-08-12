@@ -1,5 +1,6 @@
 $(function() {
 
+    fillResources();
 
 // ......................................................
 // ..................RTCMultiConnection Code.............
@@ -636,4 +637,81 @@ $(function() {
         });
     }
 
+
+    $(".resources-new-btn").on( "click", function() {
+        $('#resourcesModal').modal('show');
+
+        $('.resources-upload-btn').on('click', function () {
+            var resource_file = $("#resourcesupload").prop("files")[0];
+            var resource_name = $('#resourcesItemName').val();
+
+            if (resource_file == '' || resource_name == '')
+            {
+                return;
+            }
+
+            var form_data = new FormData();
+            form_data.append("name", resource_name);
+            form_data.append("resource", resource_file);
+
+            console.log(form_data);
+
+            $.ajax({
+                url: "/tiadaannualconference/sponsor-admin/profile/newResource/"+user_id,
+                dataType: 'text',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: form_data,
+                mimeType: "multipart/form-data",
+                type: 'post',
+                success: function(status){
+                    if (status == 1){
+                        fillResources();
+                        $('#resourcesModal').modal('hide');
+                        $("#resourcesupload").val('');
+                        $('#resourcesItemName').val('');
+                        toastr["success"]("Resource uploaded!")
+                    }else{
+                        toastr["error"]("Unable to upload the resource!")
+                    }
+
+                },
+                error: function(){
+                    toastr["error"]("Unable to upload the resource!")
+                }
+            });
+
+        });
+    });
+
 });
+
+function fillResources() {
+    $.get( "/tiadaannualconference/sponsor-admin/profile/getAllResources/"+user_id, function(resources) {
+        resources = JSON.parse(resources);
+        $('.resources-list').html('');
+        $.each( resources, function( number, resource ) {
+            $('.resources-list').append('' +
+                '<div class="col-md-6 m-b-10 resource-item-div" resource-id="'+resource.id+'">\n' +
+                '   <li class="list-group-item">\n' +
+                '      <h3><i class="fa fa-file-pdf-o " aria-hidden="true"></i> '+resource.item_name+'</h3>\n' +
+                '      <a class="btn btn-sm btn-success" href="/tiadaannualconference/front_assets/sponsor/resources/'+resource.file_name+'" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> Open</a>\n' +
+                '      <button resource-id="'+resource.id+'" class="delete-resources-btn btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Remove</button>\n' +
+                '   </li>\n' +
+                '</div>');
+        });
+
+        $('.delete-resources-btn').on('click', function () {
+            var resourceId = $(this).attr('resource-id');
+            $.get( "/tiadaannualconference/sponsor-admin/profile/deleteResource/"+resourceId, function(status) {
+                if (status == 1){
+                    $('.resource-item-div[resource-id='+resourceId+']').remove();
+                }else{
+                    toastr["error"]("Unable to remove the resource!")
+                }
+            });
+        });
+    });
+
+}
