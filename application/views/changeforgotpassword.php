@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-md-3 center p-40 background-white" style="border-radius: 10px;">
                     <div class="row">
-                        <h4>Forgot Password</h4>
+                        <h4>Set New Password</h4>
                         <?php
                         echo ($this->session->flashdata('msg')) ? $this->session->flashdata('msg') : '';
                         ?> 
