@@ -112,7 +112,9 @@ class Login extends CI_Controller {
                                     'state' => $member_array['Addresses']['MemberAddress']['StateProvince'],
                                     'country' => $member_array['Addresses']['MemberAddress']['Country'],
                                     'phone' => $member_array['Phones']['MemberPhone'][0]['PhoneNumber'],
-                                    'website' => isset($member_array['WebsiteURL']) ? $member_array['WebsiteURL'] : ''
+                                    'website' => isset($member_array['WebsiteURL']) ? $member_array['WebsiteURL'] : '',
+                                    'title' => isset($member_array['Title']) ? $member_array['Title'] : '',
+                                    'company_name' => isset($member_array['OrganizationName']) ? $member_array['OrganizationName'] : ''
                                 );
                                 $this->db->update("customer_master", $set_update_array, array("cust_id" => $data['cust_id']));
                             }
@@ -259,6 +261,8 @@ class Login extends CI_Controller {
                                 'customer_type' => $member_array['MemberType'],
                                 'customer_type_id' => $member_array['SecurityGroups']['MemberGroup']['GroupKey'],
                                 'member_status' => "Tiada-Member",
+                                'title' => isset($member_array['Title']) ? $member_array['Title'] : '',
+                                'company_name' => isset($member_array['OrganizationName']) ? $member_array['OrganizationName'] : ''
                             );
                             $this->db->update("customer_master", $set_update_array, array("cust_id" => $user_details->cust_id));
                         }
@@ -315,7 +319,9 @@ class Login extends CI_Controller {
                                     'website' => isset($member_array['WebsiteURL']) ? $member_array['WebsiteURL'] : '',
                                     'customer_type' => $member_array['MemberType'],
                                     'customer_type_id' => $member_array['SecurityGroups']['MemberGroup']['GroupKey'],
-                                    'member_status' => "Tiada-Member"
+                                    'member_status' => "Tiada-Member",
+                                    'title' => isset($member_array['Title']) ? $member_array['Title'] : '',
+                                    'company_name' => isset($member_array['OrganizationName']) ? $member_array['OrganizationName'] : ''
                                 );
                                 $this->db->update("customer_master", $set_update_array, array("cust_id" => $user_details->cust_id));
 
@@ -354,6 +360,8 @@ class Login extends CI_Controller {
                                     'customer_type' => $member_array['MemberType'],
                                     'customer_type_id' => $member_array['SecurityGroups']['MemberGroup']['GroupKey'],
                                     'member_status' => "Tiada-Member",
+                                    'title' => isset($member_array['Title']) ? $member_array['Title'] : '',
+                                    'company_name' => isset($member_array['OrganizationName']) ? $member_array['OrganizationName'] : '',
                                     'register_date' => date("Y-m-d h:i")
                                 );
                                 $this->db->insert("customer_master", $set);
@@ -453,6 +461,8 @@ class Login extends CI_Controller {
                                 'website' => isset($member_array['WebsiteURL']) ? $member_array['WebsiteURL'] : '',
                                 'customer_type' => $member_array['MemberType'],
                                 'customer_type_id' => $member_array['SecurityGroups']['MemberGroup']['GroupKey'],
+                                'title' => isset($member_array['Title']) ? $member_array['Title'] : '',
+                                'company_name' => isset($member_array['OrganizationName']) ? $member_array['OrganizationName'] : '',
                                 'member_status' => "Tiada-Member",
                             );
                             $this->db->update("customer_master", $set_update_array, array("cust_id" => $user_details->cust_id));
@@ -510,6 +520,8 @@ class Login extends CI_Controller {
                                     'website' => isset($member_array['WebsiteURL']) ? $member_array['WebsiteURL'] : '',
                                     'customer_type' => $member_array['MemberType'],
                                     'customer_type_id' => $member_array['SecurityGroups']['MemberGroup']['GroupKey'],
+                                    'title' => isset($member_array['Title']) ? $member_array['Title'] : '',
+                                    'company_name' => isset($member_array['OrganizationName']) ? $member_array['OrganizationName'] : '',
                                     'member_status' => "Tiada-Member"
                                 );
                                 $this->db->update("customer_master", $set_update_array, array("cust_id" => $user_details->cust_id));
@@ -549,6 +561,8 @@ class Login extends CI_Controller {
                                     'customer_type' => $member_array['MemberType'],
                                     'customer_type_id' => $member_array['SecurityGroups']['MemberGroup']['GroupKey'],
                                     'member_status' => "Tiada-Member",
+                                    'title' => isset($member_array['Title']) ? $member_array['Title'] : '',
+                                    'company_name' => isset($member_array['OrganizationName']) ? $member_array['OrganizationName'] : '',
                                     'register_date' => date("Y-m-d h:i")
                                 );
                                 $this->db->insert("customer_master", $set);

@@ -36,11 +36,11 @@ class Forgotpassword extends CI_Controller {
         $customer = $this->db->get('customer_master');
         if ($customer->num_rows() > 0) { //Check Email or Phone exist with new Use
             $cust_data = $customer->row();
-            $from = 'support@devtesting.club';
+            $from = 'ow_admin@owpm.com';
             $subject = 'Forgot Password';
             $link = base_url() . 'forgotpassword/changePassword?id=' . base64_encode($cust_data->cust_id);
 
-            $message = "<p>Hello,<br><br>Please use below link to reset your account Password</p><br><br>" . $link . "<br><br>Best Regards,<br>Conference Team";
+            $message = "<p>Hello,<br><br>Please use below link to reset your account Password</p><br><br>" . $link . "<br><br>Best Regards,<br>Tiada Team";
             $this->common->sendEmail($from, trim($cust_data->email), $subject, $message);
             $result['msg'] = 'sendemail';
             echo json_encode($result);
