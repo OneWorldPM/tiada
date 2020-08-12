@@ -35,11 +35,17 @@
                             $i = 1;
 
                             foreach ($all_sponsor as $val) {
+                                if ($val->sponsors_id == 18 || $val->sponsors_id == 22){
+                                    $backgroundRemover = 'style="background: none !important;"';
+                                }else{
+                                    $backgroundRemover = '';
+                                }
                                 if ($i % 2 == 1){
+
                                 ?>
                                 <div class="col-md-6 m-b-10 p-l-35">
                                     <a class="icon-home" href="<?= base_url() ?>sponsor/view/<?= $val->sponsors_id ?>">
-                                        <div class="col-lg box-home text-center">
+                                        <div class="col-lg box-home text-center" <?=$backgroundRemover?>>
                                             <img src="<?= base_url() ?>uploads/sponsors/<?= $val->sponsors_logo ?>" alt="welcome" style="max-width: 65px">
                                             <h4><?= $val->company_name ?></h4>
                                         </div>
@@ -52,7 +58,7 @@
 
                                     <div class="col-md-6 m-b-10 p-r-35" style="text-align: -webkit-right; text-align: -moz-right; text-align: -o-right; text-align: -ms-right;">
                                         <a class="icon-home" href="<?= base_url() ?>sponsor/view/<?= $val->sponsors_id ?>">
-                                            <div class="col-lg box-home text-center">
+                                            <div class="col-lg box-home text-center <?=$backgroundRemover?>">
                                                 <img src="<?= base_url() ?>uploads/sponsors/<?= $val->sponsors_logo ?>" alt="welcome" style="max-width: 65px">
                                                 <h4><?= $val->company_name ?></h4>
                                             </div>
