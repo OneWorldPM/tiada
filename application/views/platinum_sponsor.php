@@ -10,17 +10,17 @@
     }
 
     .box-home {
-        background-color: #444;
-        border-radius: 30px;
-        background: rgba(250, 250, 250, 0.8);
+        background-color: #fff;
+        /*border-radius: 30px*/;
+        /*background: rgba(250, 250, 250, 0.8);*/
         width: 240px;
-        height: 130px;
-        padding: 15px;
+        height: 190px;
         cursor: pointer;
     }
 
 </style>
-<div style="background-image: url(<?= base_url() ?>front_assets/images/new_expo_background.jpg); background-attachment: fixed; background-size: cover !important; background-position: center center !important; height: 4000px">
+<a href="<?= base_url() ?>sponsor/other_sponsor" style="text-align: center; color: #fffef0; font-weight: 900;position: absolute;margin-left:37.2%;margin-top: 30%;z-index: 10; font-size: 31px;">Check out the exhibits!</a>
+<div style="background-image: url(<?= base_url() ?>front_assets/images/tiada_new_platinum_cover.png); background-attachment: fixed; background-size: cover !important; background-position: center center !important; height: 4000px">
     <section class="parallax" style="position: fixed !important;">
         <div class="container container-fullscreen">
             <div class="text-middle" style="vertical-align: top !important;">
@@ -30,49 +30,48 @@
                                         <h1 style="color: orange; font-family: 'Architects Daughter', cursive; margin-bottom: 0px; font-weight: 700; font-size: 40px;">Welcome, <?= $this->session->userdata('cname') ?></h1>
                                     </div>
                                 </div>-->
-                    <div class="row">
-                        <?php
-                        if (isset($all_sponsor) && !empty($all_sponsor)) {
-                            $i = 1;
-
-                            foreach ($all_sponsor as $val) {
-                                if ($val->sponsors_id == 18 || $val->sponsors_id == 22){
-//                                    $backgroundRemover = 'style="background: none !important;"';
-                                    $backgroundRemover = '';
-                                }else{
-                                    $backgroundRemover = '';
-                                }
-                                if ($i % 2 == 1){
-
-                                ?>
-                                <div class="col-md-6 m-b-10 p-l-35">
-                                    <span class="icon-home">
-                                        <div class="col-lg box-home text-center" <?=$backgroundRemover?> onclick="window.location='<?= base_url() ?>sponsor/view/<?= $val->sponsors_id ?>';">
-                                            <img src="<?= base_url() ?>uploads/sponsors/<?= $val->sponsors_logo ?>" alt="welcome" style="max-width: 90px">
-                                        </div>
-                                    </span>
-                                </div>
-                                <?php
-                                $i++;
-                                }else{
-                                    ?>
-
-                                    <div class="col-md-6 m-b-10 p-r-35" style="text-align: -webkit-right; text-align: -moz-right; text-align: -o-right; text-align: -ms-right;">
-                                        <span class="icon-home">
-                                            <div class="col-lg box-home text-center" <?=$backgroundRemover?>  onclick="window.location='<?= base_url() ?>sponsor/view/<?= $val->sponsors_id ?>';">
-                                                <img src="<?= base_url() ?>uploads/sponsors/<?= $val->sponsors_logo ?>" alt="welcome" style="max-width: 90px">
-                                            </div>
-                                        </span>
-                                    </div>
-
-                                    <?php
-                                    $i++;
-                                }
-                            }
-                        }
-                        ?>
-                    </div>
-                    <a href="<?= base_url() ?>sponsor/other_sponsor"><h1 style="text-align: center; color: #fffef0; font-weight: 900;">Check out more exhibitors!</h1></a>
+<!--                    <div class="row">-->
+<!--                        --><?php
+//                        if (isset($all_sponsor) && !empty($all_sponsor)) {
+//                            $i = 1;
+//
+//                            foreach ($all_sponsor as $val) {
+//                                if ($val->sponsors_id == 18 || $val->sponsors_id == 22){
+////                                    $backgroundRemover = 'style="background: none !important;"';
+//                                    $backgroundRemover = '';
+//                                }else{
+//                                    $backgroundRemover = '';
+//                                }
+//                                if ($i % 2 == 1){
+//
+//                                ?>
+<!--                                <div class="col-md-6 p-l-35">-->
+<!--                                    <span class="icon-home">-->
+<!--                                        <div class="col-lg box-home text-center" --><?//=$backgroundRemover?><!-- onclick="window.location='--><?//= base_url() ?><!--sponsor/view/<?//= $val->sponsors_id ?>';">
+                                           <!-- <img src="<?//= base_url() ?> uploads/sponsors/<?//= $val->sponsors_logo ?>" alt="welcome" style="max-width: 160px">-->
+<!--                                        </div>-->
+<!--                                    </span>-->
+<!--                                </div>-->
+<!--                                --><?php
+//                                $i++;
+//                                }else{
+//                                    ?>
+<!---->
+<!--                                    <div class="col-md-6 p-r-35" style="text-align: -webkit-right; text-align: -moz-right; text-align: -o-right; text-align: -ms-right;">-->
+<!--                                        <span class="icon-home">-->
+<!--                                            <div class="col-lg box-home text-center" --><?//=$backgroundRemover?><!--  onclick="window.location='--><?//= base_url() ?><!--sponsor/view/<?//= $val->sponsors_id ?>';">
+                                                <!-- <img src="<?//= base_url() ?>uploads/sponsors/<?//= $val->sponsors_logo ?>" alt="welcome" style="max-width: 160px">-->
+<!--                                            </div>-->
+<!--                                        </span>-->
+<!--                                    </div>-->
+<!---->
+<!--                                    --><?php
+//                                    $i++;
+//                                }
+//                            }
+//                        }
+//                        ?>
+<!--                    </div>-->
                 </div>
             </div>
         </div>

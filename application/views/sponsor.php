@@ -10,9 +10,9 @@
     }
 
     .box-home {
-        background-color: #444;
+        /*background-color: #444;*/
         border-radius: 30px;
-        background: rgba(250, 250, 250, 0.8);
+        /*background: rgba(250, 250, 250, 0.8);*/
         max-width: 250px;
         min-width: 250px;
         min-height: 150px;
@@ -20,8 +20,22 @@
         padding: 15px;
     }
 
+    .glow{
+        border: 2px solid #f0f02b;;
+        -webkit-transition: border 0.1s linear, box-shadow 0.1s linear;
+        -moz-transition: border 0.1s linear, box-shadow 0.1s linear;
+        transition: border 0.1s linear, box-shadow 0.1s linear;
+    }
+
+    .glow.active {
+        border-color: #fdff44;
+        -webkit-box-shadow: #fdff44;
+        -moz-box-shadow: #fdff44;
+        box-shadow: #fdff44;
+    }
+
 </style>
-<section class="parallax" style="background-image: url(<?= base_url() ?>front_assets/images/new_expo_background.jpg); top: 0; padding-top: 0px;">
+<section class="parallax" style="background-image: url(<?= base_url() ?>front_assets/images/Other_Expo_Background.jpg); top: 0; padding-top: 0px;">
     <div class="container container-fullscreen">
         <div class="text-middle">
             <div class="row">
@@ -31,6 +45,23 @@
                     </div>
                 </div>-->
                 <div class="col-md-12 m-t-30" style="text-align: -webkit-center; min-height: 600px;">
+                    <div class="row glow">
+                    <?php
+                    if (isset($platinum_sponsors) && !empty($platinum_sponsors)) {
+                        foreach ($platinum_sponsors as $val) {
+                            ?>
+                            <div class="col-md-3 col-sm-12" style="margin-bottom:40px;">
+                                <a class="icon-home" href="<?= base_url() ?>sponsor/view/<?= $val->sponsors_id ?>">
+                                    <div class="col-lg box-home text-center">
+                                        <img src="<?= base_url() ?>uploads/sponsors/<?= $val->sponsors_logo ?>" alt="welcome" style="max-width: 100px">
+                                        <h4><?= $val->company_name ?></h4>
+                                    </div>
+                                </a>
+                            </div>
+                            <?php
+                        }
+                    }?>
+                     </div>
                     <?php
                     if (isset($all_sponsor) && !empty($all_sponsor)) {
                         foreach ($all_sponsor as $val) {
@@ -65,6 +96,11 @@
             success: function (data) {
             }
         });
+
+        var glower = $('.glow');
+        window.setInterval(function() {
+            glower.toggleClass('active');
+        }, 200);
         
     });
 </script>
