@@ -19,10 +19,10 @@ class Common {
     function sendEmail($from, $to, $subject, $message, $name = NULL) {
         $from = "no-reply@yourconference.live";
         $config = Array(
-           'protocol' => 'smtp',
+            'protocol' => 'smtp',
             'smtp_host' => 'yourconference.live',
             'smtp_port' => 25,
-            'smtp_user' => 'no-reply@yourconference.live', 
+            'smtp_user' => 'no-reply@yourconference.live',
             'smtp_pass' => 'yc_email123#',
             'mailtype' => 'html',
             'charset' => 'iso-8859-1',
@@ -210,6 +210,68 @@ class Common {
             return 1;
         } else {
             return 0;
+        }
+    }
+
+    function check_authenticate($cust_id) {
+        $this->_CI->db->where('cust_id', trim($cust_id));
+        $customer_master = $this->_CI->db->get('customer_master');
+        if ($customer_master->num_rows() > 0) {
+            $user_details = $customer_master->row();
+            if ($user_details->user_id != "") {
+                $curl = curl_init();
+                curl_setopt_array($curl, array(
+                    CURLOPT_URL => "https://secure.membershipsoftware.org/tiadasecure/api/GetMemberInfo/?securityKey=4A17DC6DF22F45B7AAF5A0554FD447&memberkey=" . $user_details->user_id,
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => "",
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => "GET"
+                ));
+                $response = curl_exec($curl);
+                curl_close($curl);
+                $xml_1 = simplexml_load_string($response);
+                $json_1 = json_encode($xml_1);
+                $member_array = json_decode($json_1, TRUE);
+                foreach ($member_array as $key => $value) {
+                    if (empty($value)) {
+                        unset($member_array[$key]);
+                    }
+                }
+                if (isset($member_array['EventRegistrations'])) {
+                    if (!empty($member_array['EventRegistrations']['MemberEvent'])) {
+                        foreach ($member_array['EventRegistrations']['MemberEvent'] as $value) {
+                            if (is_string($value)) {
+                                if ($value == "e204") {
+                                    return "access";
+                                } else if ($value == "e205") {
+                                    return "noaccess";
+                                } else if ($value == "e203") {
+                                    return "noaccess";
+                                }
+                            } else {
+                                if (in_array("e204", $value)) {
+                                    return "access";
+                                } else if (in_array("e205", $value)) {
+                                    return "noaccess";
+                                } else if (in_array("e203", $value)) {
+                                    return "noaccess";
+                                }
+                            }
+                        }
+                    } else {
+                        return "access";
+                    }
+                } else {
+                    return "access";
+                }
+            } else {
+                return "access";
+            }
+        } else {
+            return "access";
         }
     }
 

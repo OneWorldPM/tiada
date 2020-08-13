@@ -143,21 +143,26 @@
                                         <li><a href="<?= base_url() ?>home" style="color: #ae0201">MAIN HALL</a></li>
                                         <?php
                                         if ($this->session->userdata('cid') != "") {
+                                            $check_authenticate_result = $this->common->check_authenticate($this->session->userdata("cid"));
                                             $user_detias = $this->common->get_user_details($this->session->userdata("cid"));
-                                            if ($user_detias->customer_type == "Dummy users" || $user_detias->customer_type == "full_conference_no_roundtables") {
-                                                ?>
-                                                <li><a href="<?= base_url() ?>sessions" style="color: #ae0201">SESSIONS</a></li>
-                                                <li><a href="<?= base_url() ?>sponsor" style="color: #ae0201">EXPO</a></li>
-                                                <li><a href="#" style="color: #ae0201">LOUNGE</a></li>
-                                            <?php } else if ($user_detias->customer_type == "expo_only") { ?> 
-                                                <li><a href="<?= base_url() ?>sponsor" style="color: #ae0201">EXPO</a></li>
+                                            if ($check_authenticate_result != "noaccess") {
+                                                if ($user_detias->customer_type == "Dummy users" || $user_detias->customer_type == "full_conference_no_roundtables") {
+                                                    ?>
+                                                    <li><a href="<?= base_url() ?>sessions" style="color: #ae0201">SESSIONS</a></li>
+                                                    <li><a href="<?= base_url() ?>sponsor" style="color: #ae0201">EXPO</a></li>
+                                                    <li><a href="#" style="color: #ae0201">LOUNGE</a></li>
+                                                <?php } else if ($user_detias->customer_type == "expo_only") { ?> 
+                                                    <li><a href="<?= base_url() ?>sponsor" style="color: #ae0201">EXPO</a></li>
+                                                <?php } else { ?>
+                                                    <li><a href="<?= base_url() ?>sessions" style="color: #ae0201">SESSIONS & ROUNDTABLES</a></li>
+                                                    <li><a href="<?= base_url() ?>sponsor" style="color: #ae0201">EXPO</a></li>
+                                                    <li><a href="#" style="color: #ae0201">LOUNGE</a></li>
+                                                <?php } ?>
                                             <?php } else { ?>
-                                                <li><a href="<?= base_url() ?>sessions" style="color: #ae0201">SESSIONS & ROUNDTABLES</a></li>
                                                 <li><a href="<?= base_url() ?>sponsor" style="color: #ae0201">EXPO</a></li>
-                                                <li><a href="#" style="color: #ae0201">LOUNGE</a></li>
-                                                <?php
-                                            }
-                                        } else {
+                                            <?php }
+                                            ?>
+                                        <?php } else {
                                             ?>
                                             <li><a href="<?= base_url() ?>sessions" style="color: #ae0201">SESSIONS & ROUNDTABLES</a></li>
                                             <li><a href="<?= base_url() ?>sponsor" style="color: #ae0201">EXPO</a></li>
@@ -194,7 +199,7 @@
                                                     </li>
                                                     <li>
                                                         <a href="<?= base_url() ?>home/notes">
-                                                            My Swag Bag
+                                                            My Backpack
                                                         </a>
                                                     </li>
                                                     <li>

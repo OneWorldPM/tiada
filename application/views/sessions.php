@@ -169,7 +169,7 @@
                                                             </div>
                                                             <div class="post-description">
                                                                 <p style="margin-bottom: 10px; color: black;"><?= $val->sessions_description ?></p>
-                                                                <a class="button black-light button-3d rounded right" style="margin: 0px 0;"><span>Unregister</span></a>
+                                                                <a class="button black-light button-3d rounded right btn_unregister" style="margin: 0px 0;" data-sessions_id="<?= $val->sessions_id ?>" ><span>Unregister</span></a>
                                                                 <a class="button black-light button-3d rounded right save_to_swag_bag" data-sessions_id="<?= $val->sessions_id ?>" data-swag_bag_btn_status="0"   style="margin: 0px 5px 0px 0px"><?= ($val->status_my_swag_bag == 0) ? "Save to Itinerary" : "Remove from Itinerary" ?> </a>
                                                             </div>
                                                         </div>
@@ -293,6 +293,23 @@
         </div>
     </div>
 </div>
+<!--<div class="modal fade" id="push_notification" tabindex="-1" role="modal" aria-labelledby="modal-label" aria-hidden="true" style="display: none; text-align: left;">
+    <input type="hidden" id="push_notification_id" value="">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row" style="padding-top: 10px; padding-bottom: 20px;">
+                    <div class="col-sm-12">
+                        <div style="color:#ae0201; font-size: 15px; font-weight: 800; " id="push_notification_message"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="close" style="padding: 10px; color: #fff; background-color: #ae0201;" data-dismiss="modal" aria-hidden="true">Close</button>
+            </div>
+        </div>
+    </div>
+</div>-->
 <script type="text/javascript">
     $(document).ready(function () {
 
@@ -320,6 +337,22 @@
             } else {
                 alertify.alert('You have reached your roundtable limitation');
             }
+        });
+
+        $('.btn_unregister').on('click', function () {
+            var sessions_id = $(this).attr("data-sessions_id");
+            alertify.confirm('Are you sure you want to unregister for this roundtable session?', function (e) {
+                if (e) {
+                    $.ajax({
+                        url: "<?= base_url() ?>sessions/unregister_sessions",
+                        type: "post",
+                        data: {'sessions_id': sessions_id},
+                        dataType: "json", success: function (data) {
+                            window.location.reload();
+                        }
+                    });
+                }
+            });
         });
 
         $('.save_to_swag_bag').on('click', function () {
@@ -388,4 +421,5 @@
         });
     });
 </script>
+
 

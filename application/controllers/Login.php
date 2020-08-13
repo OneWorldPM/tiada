@@ -12,9 +12,13 @@ class Login extends CI_Controller {
     }
 
     public function index() {
-        $this->load->view('main_header');
-        $this->load->view('login');
-        $this->load->view('footer');
+        if ($this->session->userdata('cid') != "") {
+            redirect('home');
+        } else {
+            $this->load->view('main_header');
+            $this->load->view('login');
+            $this->load->view('footer');
+        }
     }
 
     public function authentication() {
@@ -99,7 +103,7 @@ class Login extends CI_Controller {
                                     unset($member_array[$key]);
                                 }
                             }
-
+                         
                             if (!empty($member_array)) {
                                 $set_update_array = array(
                                     "user_id" => $array['GetMemberKeyUsingEmailResult'],

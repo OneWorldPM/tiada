@@ -10,7 +10,7 @@ class Sessions extends CI_Controller {
         $this->common->set_timezone();
         $login_type = $this->session->userdata('userType');
         if ($login_type != 'user') {
-            redirect('https://www.txiada.org/login.asp?redirectURL=https://yourconference.live/tiadaannualconference/login/authenticate');
+            redirect('login');
         }
         $this->load->model('user/m_sessions', 'objsessions');
     }
@@ -20,7 +20,7 @@ class Sessions extends CI_Controller {
         if (!empty($data["all_sessions_week"])) {
             $data["all_sessions"] = $this->objsessions->getsessions_data($data["all_sessions_week"][0]->sessions_date);
         }
-        
+
         $data['sessions_tracks'] = $this->objsessions->get_sessions_tracks();
         $this->load->view('header');
         $this->load->view('sessions', $data);
@@ -30,7 +30,7 @@ class Sessions extends CI_Controller {
     public function getsessions_data($date) {
         $data["all_sessions_week"] = $this->objsessions->getSessionsWeekData();
         $data["all_sessions"] = $this->objsessions->getsessions_data($date);
-      
+
         $data['sessions_tracks'] = $this->objsessions->get_sessions_tracks();
         $this->load->view('header');
         $this->load->view('sessions', $data);
@@ -249,6 +249,17 @@ class Sessions extends CI_Controller {
         } else {
             $result_array = array("status" => "error");
         }
+        echo json_encode($result_array);
+    }
+
+    public function unregister_sessions() {
+        $post = $this->input->post();
+        $session_his_arr = array(
+            'sessions_id' => $post['sessions_id'],
+            'cust_id' => $this->session->userdata("cid")
+        );
+        $this->db->delete("sign_up_sessions", $session_his_arr);
+        $result_array = array("status" => "success");
         echo json_encode($result_array);
     }
 

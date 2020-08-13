@@ -108,8 +108,9 @@
                         </a>
                     </div>
                     <?php
+                    $check_authenticate_result = $this->common->check_authenticate($this->session->userdata("cid"));
                     $user_detias = $this->common->get_user_details($this->session->userdata("cid"));
-                    if ($user_detias->customer_type != "Associate - Full Payment" && $user_detias->customer_type != "Associate Branch" && $user_detias->customer_type != "Associate -  Monthly" && $user_detias->customer_type != "expo_only") {
+                    if ($user_detias->customer_type != "Associate - Full Payment" && $user_detias->customer_type != "Associate Branch" && $user_detias->customer_type != "Associate -  Monthly" && $user_detias->customer_type != "expo_only" && $check_authenticate_result != "noaccess") {
                         ?>
                         <div class="col-md-3 col-sm-12">
                             <a class="icon-home" href="<?= base_url() ?>sessions"> 
@@ -117,7 +118,7 @@
                                     <img src="<?= base_url() ?>front_assets/images/Session.png" alt="welcome" class="m-t-40" style="height: 150px; width: 160px;">
                                     <br>
                                     <?php if ($user_detias->customer_type == "Dummy users" || $user_detias->customer_type == "full_conference_no_roundtables") { ?>
-                                    <br>
+                                        <br>
                                         <span>SESSIONS</span>
                                     <?php } else { ?>
                                         <span>SESSIONS & ROUNDTABLES</span>
@@ -171,20 +172,20 @@
         </div>
     </div>
 </div>
-    <div class="chat-popup" id="supportChat">
-        <form action="#" class="form-container">
-            <h3>Support Chat</h3>
+<div class="chat-popup" id="supportChat">
+    <form action="#" class="form-container">
+        <h3>Support Chat</h3>
 
-            <label for="msg"><b>Admin</b></label>
-            <div class="support-chat-body">
-                <ul class="support-chat-list">
-                </ul>
-            </div>
-            <input type="text" class="form-control support-chat-message" placeholder="Enter your message here...">
-            <button id="send-support-message-btn" type="button" class="btn">Send</button>
-            <button id="close-support-request" type="button" class="btn cancel">Close</button>
-        </form>
-    </div>
+        <label for="msg"><b>Admin</b></label>
+        <div class="support-chat-body">
+            <ul class="support-chat-list">
+            </ul>
+        </div>
+        <input type="text" class="form-control support-chat-message" placeholder="Enter your message here...">
+        <button id="send-support-message-btn" type="button" class="btn">Send</button>
+        <button id="close-support-request" type="button" class="btn cancel">Close</button>
+    </form>
+</div>
 </section>
 
 <script>
@@ -208,5 +209,5 @@
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@9.17.0/dist/sweetalert2.all.min.js"></script>
-<link href="<?= base_url() ?>assets/support-chat/support-chat.css?v=<?=rand(1, 100)?>" rel="stylesheet">
-<script src="<?= base_url() ?>assets/support-chat/support-chat.js?v=<?=rand(1, 100)?>"></script>
+<link href="<?= base_url() ?>assets/support-chat/support-chat.css?v=<?= rand(1, 100) ?>" rel="stylesheet">
+<script src="<?= base_url() ?>assets/support-chat/support-chat.js?v=<?= rand(1, 100) ?>"></script>

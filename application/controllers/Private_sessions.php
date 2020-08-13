@@ -11,7 +11,7 @@ class Private_sessions extends CI_Controller {
         $this->common->set_timezone();
         $login_type = $this->session->userdata('userType');
         if ($login_type != 'user') {
-            redirect('https://www.txiada.org/login.asp?redirectURL=https://yourconference.live/tiadaannualconference/login/authenticate');
+            redirect('login');
         }
         $this->load->model('user/m_sessions', 'sessions');
         $this->load->model('user/m_private_sessions', 'psessions');
