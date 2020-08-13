@@ -40,12 +40,19 @@
                                                 <th>Resolution</th>
                                                 <th>Entry Time</th>
                                                 <th>End Time</th>
+                                                <th>Total Time</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
                                             if (isset($booth_tracking) && !empty($booth_tracking)) {
                                                 foreach ($booth_tracking as $val) {
+                                                    if ($val->end_date_time != '')
+                                                    {
+                                                        $totalTime = date('H:i:s', mktime(0, 0, (strtotime($val->end_date_time)- strtotime($val->start_date_time))));
+                                                    }else{
+                                                        $totalTime = "-";
+                                                    }
                                                     ?>
                                                     <tr>
                                                         <td><?= $val->user_id ?></td>
@@ -64,6 +71,7 @@
                                                                 -
                                                             <?php } ?>
                                                         </td>
+                                                        <td><?=$totalTime?></td>
                                                     </tr>
                                                     <?php
                                                 }
