@@ -53,8 +53,7 @@
                             <div class="col-md-3 col-sm-12" style="margin-bottom:40px;">
                                 <a class="icon-home" href="<?= base_url() ?>sponsor/view/<?= $val->sponsors_id ?>">
                                     <div class="col-lg box-home text-center">
-                                        <img src="<?= base_url() ?>uploads/sponsors/<?= $val->sponsors_logo ?>" alt="welcome" style="max-width: 100px">
-                                        <h4><?= $val->company_name ?></h4>
+                                        <img src="<?= base_url() ?>uploads/sponsors/<?= $val->sponsors_logo ?>" alt="welcome" style="max-width: 200px">
                                     </div>
                                 </a>
                             </div>
