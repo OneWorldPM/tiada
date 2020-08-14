@@ -9,7 +9,8 @@ class M_push_notifications extends CI_Model {
     function get_push_notifications() {
         $this->db->select('*');
         $this->db->from('push_notification_sponsor p');
-        $this->db->join('sponsors s','p.sponsors_id=s.sponsors_id');
+        $this->db->join('sponsors s', 'p.sponsors_id=s.sponsors_id');
+        $this->db->where('sponsors_id', $this->session->userdata("sponsors_id"));
         $result = $this->db->get();
         if ($result->num_rows() > 0) {
             return $result->result();
@@ -17,7 +18,7 @@ class M_push_notifications extends CI_Model {
             return '';
         }
     }
-    
+
     function get_sponsor_data() {
         $this->db->select('*');
         $this->db->from('sponsors');
