@@ -1,3 +1,15 @@
+<?php
+if (isset($booth_tracking) && !empty($booth_tracking))
+{
+    $unique_list = [];
+    foreach ($booth_tracking as $val)
+    {
+        $unique_list[] = $val->cust_id;
+    }
+
+    $unique_list = array_unique($unique_list);
+}
+?>
 <style>
     .post-info {
         margin-bottom: 0px; 
@@ -22,7 +34,9 @@
                 <div class="col-md-12">
                     <!-- CONTENT -->
                     <section class="content" style="min-height: 700px;">
-                        <div class="container" style=" background: rgba(250, 250, 250, 0.8); "> 
+                        <div class="container" style=" background: rgba(250, 250, 250, 0.8); ">
+                            <span style="font-size: 20px;font-weight: bold;margin-right: 90px;">Sum of visits: <?=sizeof($booth_tracking)?></span>
+                            <span style="font-size: 20px;font-weight: bold;margin-right: 90px;">Number of unique visitors: <?=sizeof($unique_list)?></span>
                             <!-- Blog post-->
                             <div class="post-content post-single"> 
                                 <!-- Blog image post-->
