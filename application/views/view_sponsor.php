@@ -11,16 +11,6 @@ $sponsor_cover = ($sponsor->sponsor_cover == '') ? 'tiada_default_cover.jpg' : $
 
 <main role="main">
 
-    <?php
-    if ($sponsor->embed_code != '') {
-        ?>
-        <div class="vod-container">
-            <?= $sponsor->embed_code ?>
-        </div>
-        <?php
-    }
-    ?>
-
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron" style="background-image: url(<?= base_url() ?>uploads/sponsors/<?= $sponsor_cover ?>?v=<?= rand(1, 100) ?>);background-size: 1930px;background-repeat: no-repeat;background-position: center;height: 600px;background-color: #272f31;">
     </div>
@@ -42,6 +32,17 @@ $sponsor_cover = ($sponsor->sponsor_cover == '') ? 'tiada_default_cover.jpg' : $
                     echo '</div>';
                 }
                 ?>
+
+                <?php
+                if ($sponsor->embed_code != '') {
+                    ?>
+                    <div class="about-video">
+                        <?= $sponsor->embed_code ?>
+                    </div>
+                    <?php
+                }
+                ?>
+
                 <div class="clearfix m-b-25"></div>
                 <?php
                 if ($sponsor->website != '') {
