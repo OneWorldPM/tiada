@@ -28,21 +28,7 @@
                             <div class="panel-body bg-white" style="border: 1px solid #b2b7bb;">
                                 <div class="row">
                                     <div class="col-md-10 col-md-offset-1">
-                                        <div class="form-group">
-                                            <label>Select Sponsor :</label>
-                                            <select class="form-control" id="sponsors_id" name="sponsors_id">
-                                                <option value="">Select Sponsor</option>
-                                                <?php
-                                                if (isset($sponsor) && !empty($sponsor)) {
-                                                    foreach ($sponsor as $val) {
-                                                        ?>
-                                                        <option value="<?= $val->sponsors_id ?>"><?= $val->company_name ?></option>
-                                                        <?php
-                                                    }
-                                                }
-                                                ?>
-                                            </select>
-                                        </div>
+                                        <input type="hidden" id="sponsors_id" name="sponsors_id" value="<?= $this->session->userdata("sponsors_id") ?>">
                                         <div class="form-group">
                                             <label>Message :</label>
                                             <textarea name="message" id="message" rows="3" class="form-control" placeholder="Enter Message..." style="color: #5b5b60"></textarea>
@@ -73,7 +59,6 @@
                                         <thead>
                                             <tr>
                                                 <th>Date</th>
-                                                <th>Sponsor</th>
                                                 <th>Message</th>
                                                 <th>Action</th>                          
                                             </tr>
@@ -85,7 +70,6 @@
                                                     ?>
                                                     <tr>
                                                         <td><?= date("Y-m-d", strtotime($val->notification_date)) ?></td>
-                                                        <td><?= $val->company_name ?></td>
                                                         <td><?= $val->message ?></td>
                                                         <td> 
                                                             <?php if ($val->status == 0) { ?>
@@ -178,10 +162,7 @@ switch ($msg) {
 <?php endif; ?>
 
         $('#save_btn').click(function () {
-            if ($('#sponsors_id').val() == '') {
-                alertify.error('Please Select Sponsor');
-                return false;
-            } else if ($('#message').val() == '') {
+            if ($('#message').val() == '') {
                 alertify.error('Please Enter Message');
                 return false;
             } else {

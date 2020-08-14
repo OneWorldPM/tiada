@@ -16,7 +16,6 @@ class Home extends CI_Controller {
     }
 
     public function index() {
-        $this->objhome->update_presenter_data();
         $this->load->view('header');
         $this->load->view('home');
         $this->load->view('footer');

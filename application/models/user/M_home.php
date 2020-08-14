@@ -31,21 +31,6 @@ class M_home extends CI_Model {
         }
     }
 
-    function update_presenter_data() {
-        $this->db->select('*');
-        $this->db->from('customer_master');
-        $this->db->where("cust_id", $this->session->userdata("cid"));
-        $result = $this->db->get();
-        if ($result->num_rows() > 0) {
-            $customer_master = $result->row();
-            $presenter_details = $this->db->get_where("presenter", array("email" => $customer_master->email))->row();
-            if (!empty($presenter_details)) {
-                $update_array = array("username" => $customer_master->username, "password" => base64_decode($customer_master->password));
-                $this->db->update("presenter", $update_array, array("presenter_id" => $presenter_details->presenter_id));
-            }
-        } else {
-            return '';
-        }
-    }
+    
 
 }
