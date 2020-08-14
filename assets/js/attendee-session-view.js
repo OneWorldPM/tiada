@@ -24,42 +24,42 @@ function goFullScreen() {
     // var fs = document.getElementById('btnFS');
     // fs.style.marginTop = "1118px";
     if ($(window).width() > 4200) {
-        $('#btnFS').css('margin-left', '-1975px');
+        $('#btnFS').css('margin-left', '2074px');
         $('#btnFS').css('margin-top', '2500px');
         $('#btnFS').css('padding-bottom', '66px');
         $('#btnFS').css('padding-top', '60px');
         $('#btnFS').css('padding-left', '20px');
     }
     else if ($(window).width() < 4200 && $(window).width() > 2500) {
-        $('#btnFS').css('margin-left', '-1125px');
+        $('#btnFS').css('margin-left', '1185px');
         $('#btnFS').css('margin-top', '1480px');
         $('#btnFS').css('padding-bottom', '70px');
         $('#btnFS').css('padding-top', '45px');
         $('#btnFS').css('padding-left', '20px');
     }
     else if ($(window).width() < 2500 && $(window).width() > 1900) {
-        $('#btnFS').css('margin-left', '-805px');
+        $('#btnFS').css('margin-left', '852px');
         $('#btnFS').css('margin-top', '1085px');
         $('#btnFS').css('padding-bottom', '20px');
         $('#btnFS').css('padding-top', '50px');
         $('#btnFS').css('padding-left', '20px');
     }
     else if ($(window).width() < 1900 && $(window).width() > 1600) {
-        $('#btnFS').css('margin-left', '-655px');
+        $('#btnFS').css('margin-left', '698px');
         $('#btnFS').css('margin-top', '905px');
         $('#btnFS').css('padding-bottom', '20px');
         $('#btnFS').css('padding-top', '50px');
         $('#btnFS').css('padding-left', '20px');
     }
     else if ($(window).width() < 1600 && $(window).width() > 1400) {
-        $('#btnFS').css('margin-left', '-550px');
+        $('#btnFS').css('margin-left', '586px');
         $('#btnFS').css('margin-top', '775px');
         $('#btnFS').css('padding-bottom', '20px');
         $('#btnFS').css('padding-top', '50px');
         $('#btnFS').css('padding-left', '20px');
     }
     else{
-        $('#btnFS').css('margin-left', '-485px');
+        $('#btnFS').css('margin-left', '518px');
         $('#btnFS').css('margin-top', '700px');
         $('#btnFS').css('padding-bottom', '20px');
         $('#btnFS').css('padding-top', '50px');
@@ -96,42 +96,42 @@ function exitFullscreen() {
     iframe.setAttribute("width", "1280");
     iframe.setAttribute("height", "720");
     if ($(window).width() > 4200) {
-        $('#btnFS').css('margin-left', '-475px');
+        $('#btnFS').css('margin-left', '535px');
         $('#btnFS').css('margin-top', '668px');
         $('#btnFS').css('padding-bottom', '20px');
         $('#btnFS').css('padding-top', '25px');
         $('#btnFS').css('padding-left', '30px');
     }
     else if ($(window).width() < 4200 && $(window).width() > 2500) {
-        $('#btnFS').css('margin-left', '-475px');
+        $('#btnFS').css('margin-left', '535');
         $('#btnFS').css('margin-top', '645px');
         $('#btnFS').css('padding-bottom', '20px');
         $('#btnFS').css('padding-top', '50px');
         $('#btnFS').css('padding-left', '20px');
     }
     else if ($(window).width() < 2500 && $(window).width() > 1900) {
-        $('#btnFS').css('margin-left', '-480px');
+        $('#btnFS').css('margin-left', '530px');
         $('#btnFS').css('margin-top', '645px');
         $('#btnFS').css('padding-bottom', '20px');
         $('#btnFS').css('padding-top', '50px');
         $('#btnFS').css('padding-left', '20px');
     }
     else if ($(window).width() < 1900 && $(window).width() > 1600) {
-        $('#btnFS').css('margin-left', '-485px');
+        $('#btnFS').css('margin-left', '525px');
         $('#btnFS').css('margin-top', '635px');
         $('#btnFS').css('padding-bottom', '20px');
         $('#btnFS').css('padding-top', '50px');
         $('#btnFS').css('padding-left', '20px');
     }
     else if ($(window).width() < 1600 && $(window).width() > 1400) {
-        $('#btnFS').css('margin-left', '-485px');
+        $('#btnFS').css('margin-left', '523px');
         $('#btnFS').css('margin-top', '640px');
         $('#btnFS').css('padding-bottom', '20px');
         $('#btnFS').css('padding-top', '50px');
         $('#btnFS').css('padding-left', '20px');
     }
     else{
-        $('#btnFS').css('margin-left', '-490px');
+        $('#btnFS').css('margin-left', '520px');
         $('#btnFS').css('margin-top', '645px');
         $('#btnFS').css('padding-bottom', '20px');
         $('#btnFS').css('padding-top', '50px');
