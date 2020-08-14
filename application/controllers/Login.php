@@ -36,7 +36,6 @@ class Login extends CI_Controller {
             $data = $this->objlogin->user_login($arr);
             if ($data) {
                 if ($data['customer_type'] == "Dummy users") {
-                    $this->objlogin->update_presenter_data($username,base64_encode($password));
                     if ($data['email'] != "" && $data['first_name'] != "") {
                         $session = array(
                             'cid' => $data['cust_id'],
@@ -46,6 +45,7 @@ class Login extends CI_Controller {
                             'userType' => 'user'
                         );
                         $this->session->set_userdata($session);
+                         $this->objlogin->update_presenter_data($username,base64_encode($password));
                         redirect('home');
                     } else {
                         $session = array(
@@ -55,10 +55,10 @@ class Login extends CI_Controller {
                             'userType' => 'user'
                         );
                         $this->session->set_userdata($session);
+                        $this->objlogin->update_presenter_data($username,base64_encode($password));
                         redirect('register/user_profile/' . $data['cust_id']);
                     }
                 } else if ($data['customer_type'] == "full_conference_with_roundtables" || $data['customer_type'] == "full_conference_no_roundtables" || $data['customer_type'] == "expo_only") {
-                    $this->objlogin->update_presenter_data($username,base64_encode($password));
                     $curl = curl_init();
                     curl_setopt_array($curl, array(
                         CURLOPT_URL => "https://secure.membershipsoftware.org/tiadasecure/api/GetMemberKeyUsingEmail/?securityKey=4A17DC6DF22F45B7AAF5A0554FD447&emailAddress=" . $data['email'],
@@ -132,6 +132,7 @@ class Login extends CI_Controller {
                                 'userType' => 'user'
                             );
                             $this->session->set_userdata($session);
+                            $this->objlogin->update_presenter_data($username,base64_encode($password));
                             redirect('home');
                         } else {
                             $session = array(
@@ -142,6 +143,7 @@ class Login extends CI_Controller {
                                 'userType' => 'user'
                             );
                             $this->session->set_userdata($session);
+                            $this->objlogin->update_presenter_data($username,base64_encode($password));
                             redirect('home');
                         }
                     } else {
@@ -153,10 +155,11 @@ class Login extends CI_Controller {
                             'userType' => 'user'
                         );
                         $this->session->set_userdata($session);
+                        $this->objlogin->update_presenter_data($username,base64_encode($password));
                         redirect('home');
                     }
                 } else {
-                     $this->objlogin->update_presenter_data($username,base64_encode($password));
+                     
                     $session = array(
                         'cid' => $data['cust_id'],
                         'cname' => $data['first_name'],
@@ -165,6 +168,7 @@ class Login extends CI_Controller {
                         'userType' => 'user'
                     );
                     $this->session->set_userdata($session);
+                    $this->objlogin->update_presenter_data($username,base64_encode($password));
                     redirect('home');
                 }
             } else {
@@ -428,7 +432,7 @@ class Login extends CI_Controller {
             }
             if (!empty($array)) {
                 if ($array['AuthenticateUserResult'] != "") {
-                    $this->objlogin->update_presenter_data($post['tiada_email'],$post['tiada_password']);
+                    
                     $user_details = $this->db->get_where("customer_master", array("user_id" => $array['AuthenticateUserResult']))->row();
 
                     if (!empty($user_details)) {
@@ -484,6 +488,7 @@ class Login extends CI_Controller {
                             'userType' => 'user'
                         );
                         $this->session->set_userdata($session);
+                        $this->objlogin->update_presenter_data($post['tiada_email'],$post['tiada_password']);
                         redirect('home');
                     } else {
                         $curl = curl_init();
@@ -543,6 +548,7 @@ class Login extends CI_Controller {
                                     'userType' => 'user'
                                 );
                                 $this->session->set_userdata($session);
+                                $this->objlogin->update_presenter_data($post['tiada_email'],$post['tiada_password']);
                                 redirect('home');
                             } else {
                                 $this->db->order_by("cust_id", "desc");
@@ -586,6 +592,7 @@ class Login extends CI_Controller {
                                         'userType' => 'user'
                                     );
                                     $this->session->set_userdata($session);
+                                    $this->objlogin->update_presenter_data($post['tiada_email'],$post['tiada_password']);
                                     redirect('home');
                                 }
                             }
