@@ -16,7 +16,17 @@ class Push_notification extends CI_Controller {
     }
 
     public function get_push_notification_admin() {
-        $result_data = $this->objpush_notification->get_poll_vot_section();
+        $result_data = $this->objpush_notification->get_push_notification_admin();
+        if (!empty($result_data)) {
+            $result_array = array("status" => "success", "result" => $result_data);
+        } else {
+            $result_array = array("status" => "error");
+        }
+        echo json_encode($result_array);
+    }
+    
+      public function get_push_notification_sponsor() {
+        $result_data = $this->objpush_notification->get_push_notification_sponsor();
         if (!empty($result_data)) {
             $result_array = array("status" => "success", "result" => $result_data);
         } else {

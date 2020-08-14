@@ -1,12 +1,12 @@
-<link href="<?= base_url() ?>front_assets/sponsor/css/sponsor-home.css?v=<?=rand(1, 100)?>" rel="stylesheet">
+<link href="<?= base_url() ?>front_assets/sponsor/css/sponsor-home.css?v=<?= rand(1, 100) ?>" rel="stylesheet">
 <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.16/jquery.datetimepicker.full.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.16/jquery.datetimepicker.css">
 
 <?php
-$sponsors_logo = ($sponsor->sponsors_logo == '')?'logo_placeholder.png':$sponsor->sponsors_logo;
-$sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$sponsor->sponsor_cover;
+$sponsors_logo = ($sponsor->sponsors_logo == '') ? 'logo_placeholder.png' : $sponsor->sponsors_logo;
+$sponsor_cover = ($sponsor->sponsor_cover == '') ? 'tiada_default_cover.jpg' : $sponsor->sponsor_cover;
 ?>
 
 <main role="main">
@@ -22,21 +22,20 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
     ?>
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron" style="background-image: url(<?= base_url() ?>uploads/sponsors/<?= $sponsor_cover ?>?v=<?=rand(1, 100)?>);background-size: 1930px;background-repeat: no-repeat;background-position: center;height: 600px;background-color: #272f31;">
+    <div class="jumbotron" style="background-image: url(<?= base_url() ?>uploads/sponsors/<?= $sponsor_cover ?>?v=<?= rand(1, 100) ?>);background-size: 1930px;background-repeat: no-repeat;background-position: center;height: 600px;background-color: #272f31;">
     </div>
 
     <div class="container">
         <!-- Example row of columns -->
         <div class="row m-b-30">
-<input type="hidden" id="view_sponsor_history_id" value="">
+            <input type="hidden" id="view_sponsor_history_id" value="">
             <div class="col-md-4">
-                    <img class="sponsor-main-logo" src="<?= base_url() ?>uploads/sponsors/<?=$sponsors_logo?>">
-                    <h1 class="sponsor-name">
-                        <?=$sponsor->company_name?>
-                    </h1>
+                <img class="sponsor-main-logo" src="<?= base_url() ?>uploads/sponsors/<?= $sponsors_logo ?>">
+                <h1 class="sponsor-name">
+                    <?= $sponsor->company_name ?>
+                </h1>
                 <?php
-                if ($sponsor->about != '')
-                {
+                if ($sponsor->about != '') {
                     echo '<div class="about-us-div">';
                     echo '<h3>About Us</h3>';
                     echo $sponsor->about;
@@ -45,26 +44,21 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
                 ?>
                 <div class="clearfix m-b-25"></div>
                 <?php
-                if ($sponsor->website != '')
-                {
-                    echo '<a href="//'.$sponsor->website.'" target="_blank"><i class="fa fa-globe fa-3x" aria-hidden="true" style="color: #417cb0;"></i></a>';
+                if ($sponsor->website != '') {
+                    echo '<a href="//' . $sponsor->website . '" target="_blank"><i class="fa fa-globe fa-3x" aria-hidden="true" style="color: #417cb0;"></i></a>';
                 }
-                if ($sponsor->twitter_id != '')
-                {
-                    echo '<a href="https://twitter.com/'.$sponsor->twitter_id.'" target="_blank"><i class="fa fa-twitter-square fa-3x m-l-10" aria-hidden="true" style="color: #1da1f2;;"></i></a>';
+                if ($sponsor->twitter_id != '') {
+                    echo '<a href="https://twitter.com/' . $sponsor->twitter_id . '" target="_blank"><i class="fa fa-twitter-square fa-3x m-l-10" aria-hidden="true" style="color: #1da1f2;;"></i></a>';
                 }
-                if ($sponsor->facebook_id != '')
-                {
-                    echo '<a href="https://facebook.com/'.$sponsor->facebook_id.'" target="_blank"><i class="fa fa-facebook-square fa-3x m-l-10" aria-hidden="true" style="color: #036ce4;"></i></a>';
+                if ($sponsor->facebook_id != '') {
+                    echo '<a href="https://facebook.com/' . $sponsor->facebook_id . '" target="_blank"><i class="fa fa-facebook-square fa-3x m-l-10" aria-hidden="true" style="color: #036ce4;"></i></a>';
                 }
-                if ($sponsor->linkedin_id != '')
-                {
-                    echo '<a href="https://www.linkedin.com/company/'.$sponsor->linkedin_id.'" target="_blank"><i class="fa fa-linkedin-square fa-3x m-l-10" aria-hidden="true" style="color: #0077b5;"></i></a>';
+                if ($sponsor->linkedin_id != '') {
+                    echo '<a href="https://www.linkedin.com/company/' . $sponsor->linkedin_id . '" target="_blank"><i class="fa fa-linkedin-square fa-3x m-l-10" aria-hidden="true" style="color: #0077b5;"></i></a>';
                 }
-                if ($sponsor->twitter_id != '')
-                {
+                if ($sponsor->twitter_id != '') {
                     echo '<div class="col-md-12 m-t-20" style="height: 420px; overflow: scroll">
-                            <a class="twitter-timeline" href="https://twitter.com/'.$sponsor->twitter_id.'?ref_src=twsrc%5Etfw">Tweets by '.$sponsor->twitter_id.'</a>
+                            <a class="twitter-timeline" href="https://twitter.com/' . $sponsor->twitter_id . '?ref_src=twsrc%5Etfw">Tweets by ' . $sponsor->twitter_id . '</a>
                             <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                           </div>
                     ';
@@ -78,7 +72,7 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-                            Chat with <?=$sponsor->company_name?>
+                            Chat with <?= $sponsor->company_name ?>
                             <span class="schedule-meet-btn small-edit-btn badge badge-primary pull-right">
                                 <i class="fa fa-calendar-check-o" aria-hidden="true"></i> Schedule a meet
                             </span>
@@ -124,7 +118,7 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-                            <?=$sponsor->company_name?> Group Chat
+                            <?= $sponsor->company_name ?> Group Chat
                         </h3>
                     </div>
                     <div id="grp-chat-body" class="panel-body">
@@ -157,7 +151,7 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="videoCallModalLabel">Calling <?=$sponsor->company_name?></h5>
+                    <h5 class="modal-title" id="videoCallModalLabel">Calling <?= $sponsor->company_name ?></h5>
                 </div>
                 <div class="modal-body text-center">
                     <div class="video-call-parent">
@@ -169,7 +163,7 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
                     </div>
                 </div>
                 <div class="modal-footer">
-<!--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+                    <!--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
                 </div>
             </div>
         </div>
@@ -201,7 +195,40 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
             </div>
         </div>
     </div>
-
+    <div class="modal fade" id="push_notification" tabindex="-1" role="modal" aria-labelledby="modal-label" aria-hidden="true" style="display: none; text-align: left; right: unset;">
+        <input type="hidden" id="push_notification_id" value="">
+        <div class="modal-dialog">
+            <div class="modal-content" style="border: 7px solid #ae0201;">
+                <div class="modal-body">
+                    <div class="row" style="padding-top: 10px; padding-bottom: 20px;">
+                        <div class="col-sm-12">
+                            <div style="color:#ae0201; font-size: 16px; font-weight: 800; " id="push_notification_message"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="close" style="padding: 10px; color: #fff; background-color: #ae0201; opacity: 1;" data-dismiss="modal" aria-hidden="true">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="push_notification_sponsor" tabindex="-1" role="modal" aria-labelledby="modal-label" aria-hidden="true" style="display: none; text-align: left; right: unset;">
+        <input type="hidden" id="push_notification_sponsor_id" value="">
+        <div class="modal-dialog">
+            <div class="modal-content" style="border: 7px solid #ae0201;">
+                <div class="modal-body">
+                    <div class="row" style="padding-top: 10px; padding-bottom: 20px;">
+                        <div class="col-sm-12">
+                            <div style="color:#ae0201; font-size: 16px; font-weight: 800; " id="push_notification_message_sponsor"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="close" style="padding: 10px; color: #fff; background-color: #ae0201; opacity: 1;" data-dismiss="modal" aria-hidden="true">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
 <script type="text/javascript">
     var page_link = $(location).attr('href');
@@ -217,7 +244,7 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
     var user_type = "attendee";
 
     $(document).ready(function () {
-        
+
         var url = $(location).attr('href');
         var segments = url.split('/');
         var segments_id = segments[6];
@@ -247,7 +274,7 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
             }
         });
 
-        
+
         $.ajax({
             url: "<?= base_url() ?>home/add_user_activity",
             type: "post",
@@ -258,21 +285,81 @@ $sponsor_cover = ($sponsor->sponsor_cover == '')?'tiada_default_cover.jpg':$spon
         });
 
         $('#mainMenuItems').append('' +
-            '<li>' +
-            '<a href="sponsor-admin/logout" style="color:#A9A9A9; font-size: 18px;">' +
-            '<i class="fa fa-sign-out" style="color:#A9A9A9; font-size: 18px;"></i>' +
-            'Logout' +
-            '</a>' +
-            '</li>');
+                '<li>' +
+                '<a href="sponsor-admin/logout" style="color:#A9A9A9; font-size: 18px;">' +
+                '<i class="fa fa-sign-out" style="color:#A9A9A9; font-size: 18px;"></i>' +
+                'Logout' +
+                '</a>' +
+                '</li>');
     });
 </script>
 <script src="https://meet.yourconference.live/socket.io/socket.io.js"></script>
 <script src="/SSEConnection/RTCMultiConnection.min.js"></script>
 <script src="<?= base_url() ?>front_assets/sponsor/js/SSEConnection.js"></script>
-<script src="<?= base_url() ?>front_assets/sponsor/js/attendee-sponsor-view.js?v=<?=rand(1, 100)?>"></script>
+<script src="<?= base_url() ?>front_assets/sponsor/js/attendee-sponsor-view.js?v=<?= rand(1, 100) ?>"></script>
 <script src="https://blueimp.github.io/JavaScript-MD5/js/md5.js"></script>
-<script src="<?= base_url() ?>front_assets/sponsor/js/group-chat.js?v=<?=rand(1, 100)?>"></script>
-<script src="<?= base_url() ?>front_assets/sponsor/js/one-to-one-chat-attendee.js?v=<?=rand(1, 100)?>"></script>
+<script src="<?= base_url() ?>front_assets/sponsor/js/group-chat.js?v=<?= rand(1, 100) ?>"></script>
+<script src="<?= base_url() ?>front_assets/sponsor/js/one-to-one-chat-attendee.js?v=<?= rand(1, 100) ?>"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@9.17.0/dist/sweetalert2.all.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        push_notification_admin();
+        setInterval(push_notification_admin, 3000);
+
+        push_notification_sponsor();
+        setInterval(push_notification_sponsor, 3000);
+
+        function push_notification_admin()
+        {
+            var push_notification_id = $("#push_notification_id").val();
+
+            $.ajax({
+                url: "<?= base_url() ?>push_notification/get_push_notification_admin",
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    if (data.status == "success") {
+                        if (push_notification_id == "0") {
+                            $("#push_notification_id").val(data.result.push_notification_id);
+                        }
+                        if (push_notification_id != data.result.push_notification_id) {
+                            $("#push_notification_id").val(data.result.push_notification_id);
+                            $('#push_notification').modal('show');
+                            $("#push_notification_message").text(data.result.message);
+                        }
+                    } else {
+                        $('#push_notification').modal('hide');
+                    }
+                }
+            });
+        }
+
+        function push_notification_sponsor()
+        {
+            var push_notification_id = $("#push_notification_sponsor_id").val();
+            var sponsor_id = <?= $sponsor->sponsors_id ?>;
+            $.ajax({
+                url: "<?= base_url() ?>push_notification/get_push_notification_sponsor",
+                type: "post",
+                data: {'sponsor_id': sponsor_id},
+                dataType: "json",
+                success: function (data) {
+                    if (data.status == "success") {
+                        if (push_notification_id == "0") {
+                            $("#push_notification_sponsor_id").val(data.result.push_notification_id);
+                        }
+                        if (push_notification_id != data.result.push_notification_id) {
+                            $("#push_notification_sponsor_id").val(data.result.push_notification_id);
+                            $('#push_notification_sponsor').modal('show');
+                            $("#push_notification_message_sponsor").text(data.result.message);
+                        }
+                    } else {
+                        $('#push_notification_sponsor').modal('hide');
+                    }
+                }
+            });
+        }
+    });
+</script>
 

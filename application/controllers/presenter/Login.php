@@ -22,11 +22,7 @@ class Login extends CI_Controller {
             $this->session->set_flashdata('msg', '<div class="col-md-12 text-red" style="padding: 0 0 10px 0;">Please enter Username or Password</div><br>');
             redirect('presenter/login');
         } else {
-            $arr = array(
-                'email' => $username,
-                'password' => $password
-            );
-            $data = $this->objlogin->user_login($arr);
+            $data = $this->objlogin->user_login($username,$password);
             if ($data) {
                 $session = array(
                     'pid' => $data['presenter_id'],

@@ -162,6 +162,23 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="push_notification" tabindex="-1" role="modal" aria-labelledby="modal-label" aria-hidden="true" style="display: none; text-align: left; right: unset;">
+    <input type="hidden" id="push_notification_id" value="">
+    <div class="modal-dialog">
+        <div class="modal-content" style="border: 7px solid #ae0201;">
+            <div class="modal-body">
+                <div class="row" style="padding-top: 10px; padding-bottom: 20px;">
+                    <div class="col-sm-12">
+                        <div style="color:#ae0201; font-size: 16px; font-weight: 800; " id="push_notification_message"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="close" style="padding: 10px; color: #fff; background-color: #ae0201; opacity: 1;" data-dismiss="modal" aria-hidden="true">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
     $(document).ready(function () {
         setInterval('timer()', 1000);
@@ -202,18 +219,18 @@
         } else {
             var hours_lable = "hour"
         }
-        
-         if (pad(minutes) > 1) {
+
+        if (pad(minutes) > 1) {
             var minutes_lable = "minutes"
         } else {
             var minutes_lable = "minute"
         }
-         if (pad(remainingSeconds) > 1) {
+        if (pad(remainingSeconds) > 1) {
             var remainingSeconds_lable = "seconds"
         } else {
             var remainingSeconds_lable = "second"
         }
-        document.getElementById('id_day_time').innerHTML = pad(days) + " " + days_lable + ", " + pad(hours) + " "+ hours_lable +", " + pad(minutes) + " "+minutes_lable+", " + pad(remainingSeconds) + " "+remainingSeconds_lable;
+        document.getElementById('id_day_time').innerHTML = pad(days) + " " + days_lable + ", " + pad(hours) + " " + hours_lable + ", " + pad(minutes) + " " + minutes_lable + ", " + pad(remainingSeconds) + " " + remainingSeconds_lable;
         if (seconds <= 0) {
             if ($("#sessions_type_status").val() == "Private") {
                 window.location.replace("<?= site_url() ?>private_sessions/view/<?= (isset($sessions) && !empty($sessions)) ? $sessions->sessions_id : "" ?>");
@@ -238,5 +255,35 @@
             success: function (data) {
             }
         });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        push_notification_admin();
+        setInterval(push_notification_admin, 3000);
+        function push_notification_admin()
+        {
+            var push_notification_id = $("#push_notification_id").val();
+
+            $.ajax({
+                url: "<?= base_url() ?>push_notification/get_push_notification_admin",
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    if (data.status == "success") {
+                        if (push_notification_id == "0") {
+                            $("#push_notification_id").val(data.result.push_notification_id);
+                        }
+                        if (push_notification_id != data.result.push_notification_id) {
+                            $("#push_notification_id").val(data.result.push_notification_id);
+                            $('#push_notification').modal('show');
+                            $("#push_notification_message").text(data.result.message);
+                        }
+                    } else {
+                        $('#push_notification').modal('hide');
+                    }
+                }
+            });
+        }
     });
 </script>

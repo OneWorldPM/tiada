@@ -232,7 +232,7 @@ $uri_segment1 = $this->uri->segment(3);
                                     </div>
                                 </a>
                             </li>
-<!--                            <li class="<?= ($uri_segment == 'push_notifications') ? 'active' : ''; ?>" >
+                            <li class="<?= ($uri_segment == 'push_notifications') ? 'active' : ''; ?>" >
                                 <a href="<?= site_url() ?>admin/push_notifications" id="dash">
                                     <div class="item-content">
                                         <div class="item-media">
@@ -243,7 +243,7 @@ $uri_segment1 = $this->uri->segment(3);
                                         </div>
                                     </div>
                                 </a>
-                            </li>-->
+                            </li>
                         </ul>
                     </nav>
                 </div>

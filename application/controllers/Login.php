@@ -12,7 +12,7 @@ class Login extends CI_Controller {
     }
 
     public function index() {
-        if ($this->session->userdata('cid') != "") {
+        if ($this->session->userdata('cid') != "" && $this->session->userdata('userType') == "user") {
             redirect('home');
         } else {
             $this->load->view('main_header');

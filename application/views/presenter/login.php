@@ -83,7 +83,7 @@
                             <h4 class="box-title">Presenters Log in Here</h4>
                             <div class="form-group">
                                 <span class="input-icon">
-                                    <input type="text" class="form-control" id="email" name="email" placeholder="Enter Email Address">
+                                    <input type="text" class="form-control" id="email" name="email" placeholder="Enter Username">
                                     <i class="fa fa-user"></i> 
                                 </span><span id="erroremail" style="color:red"></span>
                             </div>
@@ -129,7 +129,7 @@
             $(document).ready(function () {
                 $("#btn_login").on("click", function () {
                     if ($("#email").val().trim() == "") {
-                        $("#erroremail").text("Please Enter Email").fadeIn('slow').fadeOut(5000);
+                        $("#erroremail").text("Please Enter Username").fadeIn('slow').fadeOut(5000);
 
                         return false;
                     } else if ($("#password").val() == "") {
