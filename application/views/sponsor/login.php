@@ -14,7 +14,7 @@
 <div id="logreg-forms">
     <form action="login/validate" method="post" class="form-signin">
         <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"> Sponsor Login</h1>
-        <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address" required="" autofocus="">
+        <input type="text" id="inputEmail" name="email" class="form-control" placeholder="Email address" required="" autofocus="">
         <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required="">
 
         <button class="btn btn-success btn-block" type="submit">Sign in <i class="fa fa-sign-in" aria-hidden="true"></i></button>
