@@ -9,7 +9,18 @@ $(function() {
 
     $('.support-chat').on('click', function () {
 
-        socket.emit('support-chat-request', {'id': user_id, 'name': user_name});
+        $.get("/tiadaannualconference/home/getSupportChatStatus", function (status) {
+            if (status == 0)
+            {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Sorry!',
+                    text: 'Live Chat is now turned off and  available during show hours only; if this is an emergency, please call (512) 244-6060'
+                });
+            }else{
+                socket.emit('support-chat-request', {'id': user_id, 'name': user_name});
+            }
+        });
 
         socket.on('contacting-support', function() {
             $.get( "/tiadaannualconference/user/SupportChat/getAllChats/"+user_id, function(chats) {

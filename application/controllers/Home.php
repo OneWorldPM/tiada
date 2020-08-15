@@ -13,6 +13,7 @@ class Home extends CI_Controller {
             redirect('login');
         }
         $this->load->model('user/m_home', 'objhome');
+        $this->load->model('madmin/m_support_live_chat', 'support_chat');
     }
 
     public function index() {
@@ -57,6 +58,19 @@ class Home extends CI_Controller {
     function delete_note($sessions_cust_briefcase_id) {
         $this->db->delete("sessions_cust_briefcase", array("sessions_cust_briefcase_id" => $sessions_cust_briefcase_id));
         header('location:' . base_url() . 'home/notes');
+    }
+
+    function getSupportChatStatus()
+    {
+        $this->db->select('live_support_status');
+        $this->db->from('admin');
+        $this->db->where(array("username " => 'admin'));
+        $status = $this->db->get();
+        if ($status->num_rows() > 0) {
+            print_r($status->result()[0]->live_support_status);
+        } else {
+            echo '0';
+        }
     }
 
 }
