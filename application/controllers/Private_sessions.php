@@ -22,9 +22,45 @@ class Private_sessions extends CI_Controller {
         $data["sessions"] = $this->sessions->viewSessionsData($sessions_id);
         $data["session_resource"] = $this->sessions->get_session_resource($sessions_id);
 
-        $this->load->view('header');
-        $this->load->view('private_sessions_view', $data);
-        $this->load->view('footer');
+        $startTime = strtotime($data["sessions"]->sessions_date." ".$data["sessions"]->time_slot);
+        $endTime = strtotime($data["sessions"]->sessions_date." ".$data["sessions"]->end_time);
+
+        if (isset($_GET['testing'])){
+            $this->load->view('header');
+            $this->load->view('private_sessions_view', $data);
+            $this->load->view('footer');
+            //exit;
+        }elseif (time() < $startTime)
+        {
+            $data['error'] = true;
+            $data['message'] = "Session hasn't started yet";
+
+            $this->load->view('header');
+            $this->load->view('private_session_error', $data);
+            $this->load->view('footer');
+        }elseif (time() > $endTime)
+        {
+            $data['error'] = true;
+            $data['message'] = "Session ended";
+
+            $this->load->view('header');
+            $this->load->view('private_session_error', $data);
+            $this->load->view('footer');
+        }elseif (time() > $startTime && time() < $endTime)
+        {
+            $this->load->view('header');
+            $this->load->view('private_sessions_view', $data);
+            $this->load->view('footer');
+        }else{
+            $time = time();
+            echo $data["sessions"]->time_slot."<br>";
+            echo date("H:i:s", time())."<br>";
+            echo $data["sessions"]->end_time."<br>";
+
+            echo "if {$time} < {$startTime} OR {$time} > $endTime";
+            exit;
+            //redirect('sessions');
+        }
     }
 
 }

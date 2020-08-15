@@ -1,12 +1,36 @@
 <link href="<?= base_url() ?>assets/css/private-sessions.css?v=<?=rand(1, 100)?>" rel="stylesheet">
+<script>
+    $(function() {
+
+        $( "#main_menu_top_bar" ).prepend('' +
+            '<li style="margin-top: 30px;margin-right: 45px;">' +
+            '<span style="font-weight: bold;font-size: 30px;">Time Left: <span class="countdown-timer">00:00:00<i><span>' +
+            '</li>');
 
 
-<?php
-//echo "<pre>";
-//print_r($sessions);
-//echo"</pre>";
+        function formatTime(seconds) {
+            var h = Math.floor(seconds / 3600),
+                m = Math.floor(seconds / 60) % 60,
+                s = seconds % 60;
+            if (h < 10) h = "0" + h;
+            if (m < 10) m = "0" + m;
+            if (s < 10) s = "0" + s;
+            return h + ":" + m + ":" + s;
+        }
 
-?>
+        function timer() {
+            count--;
+            if (count < 0){
+                window.location.replace("/tiadaannualconference/sessions/");
+                return;
+            };
+            $('.countdown-timer').html(formatTime(count));
+        }
+
+        var count = <?=strtotime($sessions->end_time)-time()?>;
+        var counter = setInterval(timer, 1000);
+    });
+</script>
 
 <main role="main" class="container text-center">
     <div>
@@ -97,5 +121,15 @@
                 }
             });
         }
+
+        <?php
+        if($sessions->sessions_id == 128)
+        {?>
+
+
+
+        <?php } ?>
+
+
     });
 </script>
