@@ -154,7 +154,12 @@
         <div class="container-fluid container-fullw" style="padding: 6px;">
             <div class="panel panel-primary" id="panel5">
                 <div class="panel-heading">
-                    <h4 class="panel-title text-white"><?= $sessions->session_title ?></h4>
+                    <h4 class="panel-title text-white"><?= $sessions->session_title ?> 
+                        <span style="float: right;">
+                            <a class="btn btn-primary btn-sm" data-timer_status="0" id="btn_set_timer" >Start</a>
+                            <b id="set_timer" style="display: none;">1</b>
+                        </span>
+                    </h4>
                 </div>
                 <div class="panel-body bg-white" style="border: 1px solid #b2b7bb!important; padding: 10px;">
                     <div class="row">
@@ -194,7 +199,7 @@
                             <div class="row">
                                 <fieldset style="margin: 0px 0px 0px 0px; padding: 0px;">
                                     <div>
-                                        <h2 style='margin-bottom: 5px; color: #ffffff; font-weight: 700; font-size: 15px; padding: 5px 5px 5px 10px; background-color: #b2b7bb; text-transform: uppercase;'>Host Chat</h2>
+                                        <h2 style='margin-bottom: 5px; color: #ffffff; font-weight: 700; font-size: 13px; padding: 5px 5px 5px 5px; background-color: #b2b7bb;'>Host Chat (Admin and Presenters only)</h2>
                                     </div>
                                     <div class="col-md-12" id="group_chat_section">
                                         <input type="hidden" id="sessions_group_chat_id" value="">
@@ -236,15 +241,15 @@
                                 </fieldset>
 
                             </div>
-                            <div class="row">
-                                <ul id="myTab1" class="nav nav-tabs" style="background-color: #b2b7bb;">
-                                    <li class="active">
-                                        <a href="#attendee_questions" data-toggle="tab" style="padding: 9px 4px; text-transform: uppercase; font-size: 12px; color: #fff;">
+                            <div class="row" style="margin-top: 30px;">
+                                <ul id="myTab1" class="nav nav-tabs" style="background-color: #D3D3D3;">
+                                    <li style="width: 50%" class="active">
+                                        <a href="#attendee_questions" data-toggle="tab" style="padding: 9px 4px; font-size: 12px; color: #fff;">
                                             Attendee Questions
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="#favorites" data-toggle="tab" style="padding: 9px 4px; text-transform: uppercase; font-size: 12px; color: #fff;">
+                                    <li style="width: 50%">
+                                        <a href="#favorites" data-toggle="tab" style="padding: 9px 4px; font-size: 12px; color: #fff;">
                                             Favorites <i class="fa fa-star-o"></i>
                                         </a>
                                     </li>
@@ -253,13 +258,12 @@
                                     <div class="tab-pane fade in active" id="attendee_questions">
                                         <input type="hidden" name="sessions_id" id="sessions_id" value="<?= $sessions->sessions_id ?>">
                                         <input type="hidden" name="last_sessions_cust_question_id" id="last_sessions_cust_question_id" value="0">
-                                        <div id="question_list" style="overflow-y: auto; height: 80px;"></div>
-
+                                        <div id="question_list" style="overflow-y: auto; height: 200px;"></div>
                                     </div>
                                     <div class="tab-pane fade" id="favorites">
                                         <input type="hidden" name="sessions_id" id="sessions_id" value="<?= $sessions->sessions_id ?>">
                                         <input type="hidden" name="favorite_last_sessions_cust_question_id" id="favorite_last_sessions_cust_question_id" value="0">
-                                        <div id="favorite_question_list" style="overflow-y: auto; height: 80px;"></div>
+                                        <div id="favorite_question_list" style="overflow-y: auto; height: 200px;"></div>
                                     </div>
                                 </div>
                             </div> 
@@ -943,6 +947,22 @@
             }
         });
 
+        $('#btn_set_timer').click(function () {
+            var timer_status = $(this).attr("data-timer_status");
+            if (timer_status == 0) {
+                $(this).attr("data-timer_status", "1");
+                presenter_set_timer(0);
+                setInterval(presenter_set_timer, 1000);
+                $("#set_timer").show();
+                $(this).text("Stop");
+            } else {
+                $("#set_timer").hide();
+                $(this).attr("data-timer_status", "0");
+                $(this).text("Start");
+                location.reload();
+            }
+        });
+
     });
 
     var upgradeTime = 15;
@@ -962,6 +982,14 @@
         } else {
             seconds--;
         }
+    }
+    seconds = 0;
+    function presenter_set_timer(status) {
+        if (status == 0) {
+            seconds = 0;
+        }
+        $("#set_timer").text(seconds);
+        seconds++;
     }
 
     $(function () {

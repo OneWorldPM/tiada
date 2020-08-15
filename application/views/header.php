@@ -146,7 +146,7 @@
                                             $check_authenticate_result = $this->common->check_authenticate($this->session->userdata("cid"));
                                             $user_detias = $this->common->get_user_details($this->session->userdata("cid"));
                                             if ($check_authenticate_result != "noaccess") {
-                                                if ($user_detias->customer_type == "Dummy users" || $user_detias->customer_type == "full_conference_no_roundtables") {
+                                                if ($user_detias->customer_type == "Dummy users" || $user_detias->customer_type == "full_conference_no_roundtables" || $user_detias->customer_type == "Associate - Full Payment" || $user_detias->customer_type == "Associate Branch" || $user_detias->customer_type == "Associate - Monthly") {
                                                     ?>
                                                     <li><a href="<?= base_url() ?>sessions" style="color: #ae0201">SESSIONS</a></li>
                                                     <li><a href="<?= base_url() ?>sponsor" style="color: #ae0201">EXPO</a></li>

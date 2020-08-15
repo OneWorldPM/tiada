@@ -73,6 +73,15 @@
                                         <textarea class="form-control" style="color: #000;" placeholder="Embed HTML Code" name="embed_html_code_presenter" id="embed_html_code_presenter"><?= (isset($sessions_edit) && !empty($sessions_edit) ) ? $sessions_edit->embed_html_code_presenter : "" ?></textarea>
                                     </div>
                                     <div class="row" >
+                                        <label class="col-md-12 text-large">Select Visibility</label>
+                                        <div class="form-group col-md-6" style="color: #000;">
+                                             <input type="radio" class="col-md-1"  name="sessions_visibility"  id="sessions_visibility" <?= (isset($sessions_edit) && !empty($sessions_edit)) ? ($sessions_edit->sessions_visibility == "visible") ? 'checked' : '' : 'checked' ?> value="visible">Visible<br>
+                                         </div>
+                                        <div class="form-group col-md-6" style="color: #000;">
+                                             <input type="radio" class="col-md-1"  name="sessions_visibility"  id="sessions_visibility" <?= (isset($sessions_edit) && !empty($sessions_edit)) ? ($sessions_edit->sessions_visibility == "hidden") ? 'checked' : '' : '' ?>  value="hidden">Hidden<br>
+                                         </div>
+                                    </div>
+                                    <div class="row" >
                                         <label class="col-md-12 text-large">Select Session Type</label>
                                         <?php
                                         if (isset($sessions_type) && !empty($sessions_type)) {
@@ -119,6 +128,19 @@
                                             if ($sessions_edit->sessions_photo != "") {
                                                 ?>
                                                 <img src="<?= base_url() ?>uploads/sessions/<?= $sessions_edit->sessions_photo ?>" style="height: 100px; width: 100px;">
+                                                <?php
+                                            }
+                                        }
+                                        ?>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Choose Sponsor Logo</label>
+                                        <input type="file" class="form-control" name="sponsor_log" id="sponsor_log">
+                                        <?php
+                                        if (isset($sessions_edit)) {
+                                            if ($sessions_edit->sponsor_log != "") {
+                                                ?>
+                                                <img src="<?= base_url() ?>uploads/sponsor_log/<?= $sessions_edit->sponsor_log ?>" style="height: 100px; width: 100px;">
                                                 <?php
                                             }
                                         }

@@ -138,7 +138,6 @@ switch ($msg) {
 
         $('.edit_promo_code').click(function () {
             var cr_id = $(this).attr('data-id');
-
             if (cr_id != '') {
                 $.ajax({
                     url: "<?= base_url() ?>admin/promo_code/getPromoCodeById/" + cr_id,

@@ -110,14 +110,14 @@
                     <?php
                     $check_authenticate_result = $this->common->check_authenticate($this->session->userdata("cid"));
                     $user_detias = $this->common->get_user_details($this->session->userdata("cid"));
-                    if ($user_detias->customer_type != "Associate - Full Payment" && $user_detias->customer_type != "Associate Branch" && $user_detias->customer_type != "Associate -  Monthly" && $user_detias->customer_type != "expo_only" && $check_authenticate_result != "noaccess") {
+                    if ($user_detias->customer_type != "expo_only" && $check_authenticate_result != "noaccess") {
                         ?>
                         <div class="col-md-3 col-sm-12">
                             <a class="icon-home" href="<?= base_url() ?>sessions"> 
                                 <div class="col-lg box-home p-5 text-center">
                                     <img src="<?= base_url() ?>front_assets/images/Session.png" alt="welcome" class="m-t-40" style="height: 150px; width: 160px;">
                                     <br>
-                                    <?php if ($user_detias->customer_type == "Dummy users" || $user_detias->customer_type == "full_conference_no_roundtables") { ?>
+                                    <?php if ($user_detias->customer_type == "Dummy users" || $user_detias->customer_type == "full_conference_no_roundtables" || $user_detias->customer_type == "Associate - Full Payment" || $user_detias->customer_type == "Associate Branch" || $user_detias->customer_type == "Associate - Monthly") { ?>
                                         <br>
                                         <span>SESSIONS</span>
                                     <?php } else { ?>
@@ -158,7 +158,7 @@
                         </a>
                     </div> 
                     <div class="col-md-1  col-sm-12 m-t-100">
-                        <a class="icon-home" href="#"> 
+                        <a class="icon-home" href="https://yourconference.live/support"> 
                             <div class="col-lg box-home_2 p-0 p-b-25 text-center">
                                 <img src="<?= base_url() ?>front_assets/images/settings-gears.png" alt="welcome" class="m-t-20" style="height: 90px; width: 90px;">
                                 <br>

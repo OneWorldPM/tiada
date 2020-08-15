@@ -184,7 +184,7 @@
                                                         <div class="row" style="margin-bottom: 10px; padding-bottom: 5px;">
                                                             <div class="col-md-12"><a href="<?= $val->resource_link ?>" target="_blank"><?= $val->link_published_name ?></a></div>
                                                             <div class="col-md-12"><a href="<?= base_url() ?>uploads/resource_sessions/<?= $val->resource_file ?>" download> <?= $val->upload_published_name ?> </a></div>
-                                                            <a class="button color small resource_save" style="margin: 0px; background-color: #c3c3c3; border-color: #c3c3c3; float: right;" data-session_resource_id="<?= $val->session_resource_id ?>" id="resource_send"><span>Save</span></a>
+                                                            <a class="button color small resource_save" style="margin: 0px; background-color: #c3c3c3; border-color: #c3c3c3; float: right;" data-session_resource_id="<?= $val->session_resource_id ?>" id="resource_send"><span>Add to My Backpack</span></a>
                                                         </div>
                                                         <?php
                                                     }
@@ -533,7 +533,7 @@
                 dataType: "json",
                 success: function (data) {
                     if (data.status == "success") {
-                        $("#success_resource").text("Added Resources Successfully").fadeIn('slow').fadeOut(5000);
+                        $("#success_resource").text("Added My Backpack Successfully").fadeIn('slow').fadeOut(5000);
                     }
                 }
             });

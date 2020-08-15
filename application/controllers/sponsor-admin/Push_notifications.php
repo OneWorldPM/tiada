@@ -42,14 +42,16 @@ class Push_notifications extends CI_Controller {
 
     public function send_notification($pid) {
         $sponsor_id = $this->input->get('sponsor_id');
-        $this->db->update('push_notification_sponsor', array('status' => 0),array("sponsors_id"=>$sponsor_id));
+        $this->db->update('push_notification_sponsor', array('status' => 0), array("sponsors_id" => $sponsor_id));
         $this->db->update('push_notification_sponsor', array('status' => 1), array('push_notification_id' => $pid));
-        header('Location: ' . base_url() . 'sponsor-admin/push_notifications?msg=U');
+        $result_array = array("status" => "success");
+        echo json_encode($result_array);
     }
 
     public function close_notification($pid) {
         $this->db->update('push_notification_sponsor', array('status' => 0), array('push_notification_id' => $pid));
-        header('Location: ' . base_url() . 'sponsor-admin/push_notifications?msg=U');
+        $result_array = array("status" => "success");
+        echo json_encode($result_array);
     }
 
 }

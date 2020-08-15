@@ -35,7 +35,10 @@
                                             <th>Registrants</th>
                                             <th>Presenter</th>
                                             <th>Time Slot</th>
-                                            <th>Action</th>
+                                            <th>Visible</th>
+                                            <th style="border-right: 0px solid #ddd;">Action</th>
+                                            <th style="border-left: 0px solid #ddd; border-right: 0px solid #ddd;"></th>
+                                            <th style="border-left: 0px solid #ddd;"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -89,26 +92,31 @@
                                                     </td>-->
                                                     <td style="white-space: pre; text-align: right;"><?= date("h:i A", strtotime($val->time_slot)) . ' - ' . date("h:i A", strtotime($val->end_time)) ?></td>
                                                     <td>
-                                                        <div class="row">
-                                                            <div class="col-md-3" style="padding-right:2px; padding-left: 2px;">
-                                                                <a href="<?= base_url() ?>admin/sessions/view_session/<?= $val->sessions_id ?>" class="btn btn-info btn-sm" style="margin: 3px;">View Session</a>
-                                                                <a href="<?= base_url() ?>admin/sessions/edit_sessions/<?= $val->sessions_id ?>" class="btn btn-green btn-sm" style="margin: 3px;">Edit</a>
-                                                            </div>
-                                                            <div class="col-md-6" style="border-left:1px solid #b2b7bb; border-right:1px solid #b2b7bb; padding-right:2px; padding-left: 2px;">
-                                                                <a href="<?= base_url() ?>admin/sessions/create_poll/<?= $val->sessions_id ?>" class="btn btn-success btn-sm" style="margin: 3px;">Create Poll</a>
-                                                                <a href="<?= base_url() ?>admin/sessions/view_poll/<?= $val->sessions_id ?>" class="btn btn-info btn-sm" style="margin: 3px;">View Poll</a>
-                                                                <a href="<?= base_url() ?>admin/sessions/view_question_answer/<?= $val->sessions_id ?>" class="btn btn-primary btn-sm" style="margin: 3px;">View Q&A</a>
-                                                                <a href="<?= base_url() ?>admin/sessions/report/<?= $val->sessions_id ?>" class="btn btn-grey btn-sm" style="margin: 3px;">Report</a>
-                                                                <a href="<?= base_url() ?>admin/groupchat/sessions_groupchat/<?= $val->sessions_id ?>" class="btn btn-blue btn-sm" style="margin: 3px;">Create Chat</a>
-                                                                <a href="<?= base_url() ?>admin/sessions/resource/<?= $val->sessions_id ?>" class="btn btn-success btn-sm" style="margin: 3px;">Resources</a>
-                                                            </div>
-                                                            <div class="col-md-3" style="padding-right:2px; padding-left: 2px;">
-                                                                <a href="<?= base_url() ?>admin/sessions/delete_sessions/<?= $val->sessions_id ?>" class="btn btn-danger btn-sm" style="font-size: 10px !important;">Delete Session</a>
-                                                                <?php if ($val->sessions_type_status == "Private") { ?>
-                                                                    <a href="<?= base_url() ?>admin/sessions/user_sign_up/<?= $val->sessions_id ?>" class="btn btn-grey btn-sm" style="margin: 3px;">Registrants</a>
-                                                                <?php } ?>
-                                                            </div>
-                                                        </div>    
+                                                        <?php if ($val->sessions_visibility == "hidden") { ?>
+                                                            <?php if ($val->sessions_type_status == "Private") { ?>
+                                                                <a href="<?= base_url() ?>private_sessions/view/<?= $val->sessions_id ?>" style="margin: 3px;"><?= base_url() ?>private_sessions/view/<?= $val->sessions_id ?></a>
+                                                            <?php } else { ?>
+                                                                <a href="<?= base_url() ?>sessions/view/<?= $val->sessions_id ?>" style="margin: 3px;"><?= base_url() ?>sessions/view/<?= $val->sessions_id ?></a> 
+                                                            <?php } ?>
+                                                        <?php } ?>
+                                                    </td>
+                                                    <td>
+                                                        <a href="<?= base_url() ?>admin/sessions/view_session/<?= $val->sessions_id ?>" class="btn btn-info btn-sm" style="margin: 3px;">View Session</a>
+                                                        <a href="<?= base_url() ?>admin/sessions/edit_sessions/<?= $val->sessions_id ?>" class="btn btn-green btn-sm" style="margin: 3px;">Edit</a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="<?= base_url() ?>admin/sessions/create_poll/<?= $val->sessions_id ?>" class="btn btn-success btn-sm" style="margin: 3px;">Create Poll</a>
+                                                        <a href="<?= base_url() ?>admin/sessions/view_poll/<?= $val->sessions_id ?>" class="btn btn-info btn-sm" style="margin: 3px;">View Poll</a>
+                                                        <a href="<?= base_url() ?>admin/sessions/view_question_answer/<?= $val->sessions_id ?>" class="btn btn-primary btn-sm" style="margin: 3px;">View Q&A</a>
+                                                        <a href="<?= base_url() ?>admin/sessions/report/<?= $val->sessions_id ?>" class="btn btn-grey btn-sm" style="margin: 3px;">Report</a>
+                                                        <a href="<?= base_url() ?>admin/groupchat/sessions_groupchat/<?= $val->sessions_id ?>" class="btn btn-blue btn-sm" style="margin: 3px;">Create Chat</a>
+                                                        <a href="<?= base_url() ?>admin/sessions/resource/<?= $val->sessions_id ?>" class="btn btn-success btn-sm" style="margin: 3px;">Resources</a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="<?= base_url() ?>admin/sessions/delete_sessions/<?= $val->sessions_id ?>" class="btn btn-danger btn-sm" style="font-size: 10px !important;">Delete Session</a>
+                                                        <?php if ($val->sessions_type_status == "Private") { ?>
+                                                            <a href="<?= base_url() ?>admin/sessions/user_sign_up/<?= $val->sessions_id ?>" class="btn btn-grey btn-sm" style="margin: 3px;">Registrants</a>
+                                                        <?php } ?>
                                                     </td>
                                                 </tr>
                                                 <?php

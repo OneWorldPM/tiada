@@ -45,7 +45,7 @@ class Login extends CI_Controller {
                             'userType' => 'user'
                         );
                         $this->session->set_userdata($session);
-                         $this->objlogin->update_presenter_data($username,base64_encode($password));
+                         $this->objlogin->update_presenter_data($username,$password);
                         redirect('home');
                     } else {
                         $session = array(
@@ -55,7 +55,7 @@ class Login extends CI_Controller {
                             'userType' => 'user'
                         );
                         $this->session->set_userdata($session);
-                        $this->objlogin->update_presenter_data($username,base64_encode($password));
+                        $this->objlogin->update_presenter_data($username,$password);
                         redirect('register/user_profile/' . $data['cust_id']);
                     }
                 } else if ($data['customer_type'] == "full_conference_with_roundtables" || $data['customer_type'] == "full_conference_no_roundtables" || $data['customer_type'] == "expo_only") {
@@ -132,7 +132,7 @@ class Login extends CI_Controller {
                                 'userType' => 'user'
                             );
                             $this->session->set_userdata($session);
-                            $this->objlogin->update_presenter_data($username,base64_encode($password));
+                            $this->objlogin->update_presenter_data($username,$password);
                             redirect('home');
                         } else {
                             $session = array(
@@ -143,7 +143,7 @@ class Login extends CI_Controller {
                                 'userType' => 'user'
                             );
                             $this->session->set_userdata($session);
-                            $this->objlogin->update_presenter_data($username,base64_encode($password));
+                            $this->objlogin->update_presenter_data($username,$password);
                             redirect('home');
                         }
                     } else {
@@ -155,7 +155,7 @@ class Login extends CI_Controller {
                             'userType' => 'user'
                         );
                         $this->session->set_userdata($session);
-                        $this->objlogin->update_presenter_data($username,base64_encode($password));
+                        $this->objlogin->update_presenter_data($username,$password);
                         redirect('home');
                     }
                 } else {
@@ -168,7 +168,7 @@ class Login extends CI_Controller {
                         'userType' => 'user'
                     );
                     $this->session->set_userdata($session);
-                    $this->objlogin->update_presenter_data($username,base64_encode($password));
+                    $this->objlogin->update_presenter_data($username,$password);
                     redirect('home');
                 }
             } else {
@@ -228,6 +228,7 @@ class Login extends CI_Controller {
                     unset($array[$key]);
                 }
             }
+          
             if (!empty($array)) {
                 if ($array['ValidateAuthenticationTokenResult'] != "") {
                     $user_details = $this->db->get_where("customer_master", array("user_id" => $array['ValidateAuthenticationTokenResult']))->row();
@@ -425,11 +426,13 @@ class Login extends CI_Controller {
             $xml = simplexml_load_string($response);
             $json = json_encode($xml);
             $array = json_decode($json, TRUE);
+           
             foreach ($array as $key => $value) {
                 if (empty($value)) {
                     unset($array[$key]);
                 }
             }
+               
             if (!empty($array)) {
                 if ($array['AuthenticateUserResult'] != "") {
                     

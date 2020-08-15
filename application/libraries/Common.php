@@ -246,6 +246,8 @@ class Common {
                             if (is_string($value)) {
                                 if ($value == "e204") {
                                     return "access";
+                                } else if ($value == "e202") {
+                                    return "access";
                                 } else if ($value == "e205") {
                                     return "noaccess";
                                 } else if ($value == "e203") {
@@ -253,6 +255,8 @@ class Common {
                                 }
                             } else {
                                 if (in_array("e204", $value)) {
+                                    return "access";
+                                } else if (in_array("e202", $value)) {
                                     return "access";
                                 } else if (in_array("e205", $value)) {
                                     return "noaccess";

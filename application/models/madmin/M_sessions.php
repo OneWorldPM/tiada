@@ -78,6 +78,7 @@ class M_sessions extends CI_Model {
             'sessions_type_id' => $sessions_type_id,
             'sessions_tracks_id' => $sessions_tracks_id,
             'sessions_type_status' => trim($post['sessions_type_status']),
+            'sessions_visibility' => (isset($post['sessions_visibility'])) ? $post['sessions_visibility'] : '',
             "reg_date" => date("Y-m-d h:i")
         );
         $this->db->insert("sessions", $set);
@@ -94,6 +95,19 @@ class M_sessions extends CI_Model {
                 $this->upload->do_upload('sessions_photo');
                 $file_upload_name = $this->upload->data();
                 $this->db->update('sessions', array('sessions_photo' => $file_upload_name['file_name']), array('sessions_id' => $sessions_id));
+            }
+
+            if ($_FILES['sponsor_log']['name'] != "") {
+                $_FILES['sponsor_log']['name'] = $_FILES['sponsor_log']['name'];
+                $_FILES['sponsor_log']['type'] = $_FILES['sponsor_log']['type'];
+                $_FILES['sponsor_log']['tmp_name'] = $_FILES['sponsor_log']['tmp_name'];
+                $_FILES['sponsor_log']['error'] = $_FILES['sponsor_log']['error'];
+                $_FILES['sponsor_log']['size'] = $_FILES['sponsor_log']['size'];
+                $this->load->library('upload');
+                $this->upload->initialize($this->set_upload_options_sponsor());
+                $this->upload->do_upload('sponsor_log');
+                $file_upload_name = $this->upload->data();
+                $this->db->update('sessions', array('sponsor_log' => $file_upload_name['file_name']), array('sessions_id' => $sessions_id));
             }
 
             if (isset($post['select_presenter_id']) && !empty($post['select_presenter_id'])) {
@@ -156,6 +170,17 @@ class M_sessions extends CI_Model {
         $config['file_name'] = "sessions_" . $randname;
         return $config;
     }
+    
+    function set_upload_options_sponsor() {
+        $this->load->helper('string');
+        $randname = random_string('numeric', '8');
+        $config = array();
+        $config['upload_path'] = './uploads/sponsor_log/';
+        $config['allowed_types'] = 'jpg|png';
+        $config['overwrite'] = FALSE;
+        $config['file_name'] = "sponsor_log_" . $randname;
+        return $config;
+    }
 
     function generateRandomString($length = 8) {
         $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -189,7 +214,8 @@ class M_sessions extends CI_Model {
             'embed_html_code_presenter' => trim($post['embed_html_code_presenter']),
             'sessions_type_id' => $sessions_type_id,
             'sessions_tracks_id' => $sessions_tracks_id,
-            'sessions_type_status' => trim($post['sessions_type_status'])
+            'sessions_type_status' => trim($post['sessions_type_status']),
+            'sessions_visibility' => (isset($post['sessions_visibility'])) ? $post['sessions_visibility'] : ''
         );
         $this->db->update("sessions", $set, array("sessions_id" => $post['sessions_id']));
         $sessions_id = $post['sessions_id'];
@@ -205,6 +231,19 @@ class M_sessions extends CI_Model {
                 $this->upload->do_upload('sessions_photo');
                 $file_upload_name = $this->upload->data();
                 $this->db->update('sessions', array('sessions_photo' => $file_upload_name['file_name']), array('sessions_id' => $sessions_id));
+            }
+            
+             if ($_FILES['sponsor_log']['name'] != "") {
+                $_FILES['sponsor_log']['name'] = $_FILES['sponsor_log']['name'];
+                $_FILES['sponsor_log']['type'] = $_FILES['sponsor_log']['type'];
+                $_FILES['sponsor_log']['tmp_name'] = $_FILES['sponsor_log']['tmp_name'];
+                $_FILES['sponsor_log']['error'] = $_FILES['sponsor_log']['error'];
+                $_FILES['sponsor_log']['size'] = $_FILES['sponsor_log']['size'];
+                $this->load->library('upload');
+                $this->upload->initialize($this->set_upload_options_sponsor());
+                $this->upload->do_upload('sponsor_log');
+                $file_upload_name = $this->upload->data();
+                $this->db->update('sessions', array('sponsor_log' => $file_upload_name['file_name']), array('sessions_id' => $sessions_id));
             }
 
             if (isset($post['select_presenter_id']) && !empty($post['select_presenter_id'])) {

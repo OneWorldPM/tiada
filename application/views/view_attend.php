@@ -80,10 +80,11 @@
                                                 <img alt="" src="<?= base_url() ?>front_assets/images/session_avtar.jpg" height="100" width="100">
                                             <?php } ?>   
                                         </div>  
-                                        <div class="col-md-8">
+                                        <div class="col-md-10">
                                             <h2 style="margin-bottom: 0px;"><?= (isset($sessions) && !empty($sessions)) ? $sessions->session_title : "" ?></h2>
                                             <small><i class="fa fa-calendar" aria-hidden="true"></i> <?= date("M-d-Y", strtotime($sessions->sessions_date)) . ' ' . date("H:i", strtotime($sessions->time_slot)) . ' - ' . date("H:i", strtotime($sessions->end_time)) ?></small>
                                             <p class="m-t-20"><?= (isset($sessions) && !empty($sessions)) ? $sessions->sessions_description : "" ?></p>
+                                            <p class="m-t-20" style="border: 1px solid #000; padding: 5px; color: #000;"><b>Q&A During Sessions:</b> We will be monitoring the Q&A window during the session. Please submit questions as they arise, and we will do our best to answer all of those questions during the 15 min Q&A session that follows</p>
                                         </div>    
                                     </div>
                                 </div>
@@ -117,7 +118,18 @@
 
                                 </div>
                                 <div class="col-md-12 m-t-40">
-                                    <div class="col-md-4 col-md-offset-4" style="text-align: center; text-align: center; padding: 10px; background-color: #fff; border: 1px solid;">
+                                    <div class="col-md-3 col-md-offset-1" style="text-align: center;">
+                                        <?php
+                                        if (isset($sessions) && !empty($sessions)) {
+                                            if ($sessions->sponsor_log != "") {
+                                                ?>
+                                        <img src="<?= base_url() ?>uploads/sponsor_log/<?= (isset($sessions) && !empty($sessions)) ? $sessions->sponsor_log : "" ?>" style="width: 100%;">
+                                            <?php
+                                            }
+                                        }
+                                        ?>
+                                    </div>
+                                    <div class="col-md-4" style="text-align: center; text-align: center; padding: 10px; background-color: #fff; border: 1px solid;">
                                         <p><i class="fa fa-info-circle" aria-hidden="true" style="font-size: 20px;"></i></p>
                                         <p>You will automatically enter the session 15 minutes before it is due to begin.</p>
                                         <p>Entry will be enabled in <span id="id_day_time" ></span></p>
@@ -128,7 +140,7 @@
                                         <a class="button black-light button-3d rounded right" style="margin: 0px 0;" href="<?= base_url() ?>private_sessions/view/<?= (isset($sessions) && !empty($sessions)) ? $sessions->sessions_id : "" ?>"><span>Take me there</span></a>
                                     <?php } else { ?>
                                         <a class="button black-light button-3d rounded right" style="margin: 0px 0;" href="<?= base_url() ?>sessions/view/<?= (isset($sessions) && !empty($sessions)) ? $sessions->sessions_id : "" ?>"><span>Take me there</span></a>
-                                    <?php } ?>
+<?php } ?>
                                 </div>
                             </div>
                         </div>
