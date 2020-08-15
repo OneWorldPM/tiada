@@ -383,4 +383,17 @@ class M_sponsors extends CI_Model {
         return $this->db->delete('sponsor_resources', array('id' => $resourceId));
     }
 
+    function getAllExtraAdmins($sponsor)
+    {
+        $this->db->select('*');
+        $this->db->from('sponsor_extra_admin');
+        $this->db->where('sponsor_id', $sponsor);
+        $resources = $this->db->get();
+        if ($resources->num_rows() > 0) {
+            return $resources->result_array();
+        } else {
+            return array();
+        }
+    }
+
 }

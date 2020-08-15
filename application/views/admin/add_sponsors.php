@@ -18,11 +18,11 @@
         <!-- start: DYNAMIC TABLE -->
         <div class="container-fluid container-fullw">
             <div class="row">
-                <div class="col-md-6 col-md-offset-3">
+                <div class="col-md-6">
                     <div class="panel panel-primary" id="panel5">
                         <div class="panel-heading">
                             <h4 class="panel-title text-white pull-left">Add New Sponsors</h4>
-                            <button class="add-new-admin-btn btn btn-info pull-right"><i class="fa fa-user-plus" aria-hidden="true"></i> Add New Admin</button>
+                            <button class="add-new-admin-btn btn btn-info pull-right" <?= (isset($sponsors_edit))?"": "disabled" ?>><i class="fa fa-user-plus" aria-hidden="true"></i> Add New Admin</button>
                         </div>
                         <div class="panel-body bg-white" style="border: 1px solid #b2b7bb!important;">
                             <div class="col-md-12">
@@ -118,6 +118,45 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="col-md-6">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">Additional Admins</h4>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Username</th>
+                                    <th scope="col">Password</th>
+                                    <th scope="col">Delete</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                if (isset($extra_admins) && $extra_admins != '')
+                                {
+                                    foreach ($extra_admins as $admin)
+                                    {
+                                        echo "
+                                        <tr>
+                                         <th>{$admin['id']}</th>
+                                         <td>{$admin['name']}</td>
+                                         <td>{$admin['email']}</td>
+                                         <td>{$admin['password']}</td>
+                                         <td><button class='btn btn-danger btn-small delete-admin-btn' admin-id='{$admin['id']}'>Delete</button></td>
+                                        </tr>
+                                        ";
+                                    }
+                                }
+                                ?>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -204,6 +243,7 @@
                             if (data == true){
                                 $('#addNewAdminModal').modal('hide');
                                 alertify.success("New admin added!");
+                                location.reload();
                             }else{
                                 alertify.error("Network problem!");
                             }
@@ -215,6 +255,27 @@
             }else{
                 alertify.error("All the fields are mandatory!");
             }
+        });
+
+
+        $('.delete-admin-btn').on('click', function () {
+            var adminId = $(this).attr('admin-id');
+
+            $.post("/tiadaannualconference/admin/Sponsors/deleteSponsorAdminUser",
+                {
+                    'adminId': adminId
+                },
+                function(data, status){
+                    if(status == 'success')
+                    {
+                        alertify.success("Admin deleted!");
+                        location.reload();
+
+                    }else{
+                        alertify.error("Network problem!");
+                    }
+                });
+
         });
 
     });

@@ -40,7 +40,9 @@ class Sponsors extends CI_Controller {
 
     public function edit_sponsors($sponsors_id) {
         $data['sponsors_edit'] = $this->msponsors->edit_sponsors($sponsors_id);
-         $data['sponsors_category'] = $this->msponsors->get_sponsors_category();
+        $data['sponsors_category'] = $this->msponsors->get_sponsors_category();
+        $data['extra_admins'] = $this->msponsors->getAllExtraAdmins($sponsors_id);
+
         $this->load->view('admin/header');
         $this->load->view('admin/add_sponsors', $data);
         $this->load->view('admin/footer');
@@ -75,6 +77,16 @@ class Sponsors extends CI_Controller {
     {
         echo $this->msponsors->addNewSponsorAdminUser();
         return;
+    }
+
+    public function deleteSponsorAdminUser()
+    {
+        $adminId = $this->input->post()['adminId'];
+        $this->db->where('id', $adminId);
+        $this->db->delete('sponsor_extra_admin');
+
+        return;
+
     }
 
 
