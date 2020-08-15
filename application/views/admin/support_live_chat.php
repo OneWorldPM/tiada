@@ -1,9 +1,9 @@
 <?php
 if (isset($status) && $status == 1){
-    $statusFixer = 'true';
+    $statusFixer = 'checked="checked"';
     $statusText = 'Support is enabled';
 }else{
-    $statusFixer = 'false';
+    $statusFixer = '';
     $statusText = 'Support is disabled';
 }
 ?>
@@ -22,7 +22,7 @@ if (isset($status) && $status == 1){
                             <div class="panel-body bg-white" style="border: 1px solid #b2b7bb;">
                                 <div class="row">
                                     <label>
-                                        <input id="status-btn" type="checkbox" data-toggle="toggle" data-on="Enabled" data-off="Disabled" checked="<?=$statusFixer?>">
+                                        <input id="status-btn" type="checkbox" data-toggle="toggle" data-on="Enabled" data-off="Disabled" <?=$statusFixer?>">
                                         <span class="status-text"><?=$statusText?></span>
                                     </label>
                                 </div>
@@ -44,6 +44,19 @@ if (isset($status) && $status == 1){
 
 <script>
     $(function() {
+
+        $.get("/tiadaannualconference/home/getSupportChatStatus", function (status) {
+            if (status == 0)
+            {
+                $('#status-btn').bootstrapToggle('off');
+                $('.status-text').html('Support is disabled');
+
+            }else{
+                $('#status-btn').bootstrapToggle('on');
+                $('.status-text').html('Support is enabled');
+            }
+
+        });
 
         $('#status-btn').change(function() {
             var status = $(this).prop('checked');
