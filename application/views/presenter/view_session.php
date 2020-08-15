@@ -988,7 +988,17 @@
         if (status == 0) {
             seconds = 0;
         }
-        $("#set_timer").text(seconds);
+        var days = Math.floor(seconds / 24 / 60 / 60);
+        var hoursLeft = Math.floor((seconds) - (days * 86400));
+        var hours = Math.floor(hoursLeft / 3600);
+        var minutesLeft = Math.floor((hoursLeft) - (hours * 3600));
+        var minutes = Math.floor(minutesLeft / 60);
+        var remainingSeconds = seconds % 60;
+        function pad(n) {
+            return (n < 10 ? "0" + n : n);
+        }
+        document.getElementById('set_timer').innerHTML = pad(hours) + " : " + pad(minutes) + " : " + pad(remainingSeconds);
+       // $("#set_timer").text(seconds);
         seconds++;
     }
 
