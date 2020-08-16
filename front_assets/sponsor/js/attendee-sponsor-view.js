@@ -114,6 +114,13 @@ $(function() {
 
         // once remote stream arrives, show it in the remote video element
         rtcPeerConn.ontrack = function (evt) {
+            var resolution = screen.width + "x " + screen.height + "y";
+            $.post("/tiadaannualconference/sponsor/add_viewsessions_history_open",
+                {
+                    sponsor_id: sponsor_id,
+                    resolution: resolution,
+                    action: 'vcall started',
+                });
             displaySignalMessage("going to add their stream...");
             theirVideoArea.srcObject = evt.streams[0];
         };
@@ -200,6 +207,15 @@ $(function() {
 
     $(".video-call-btn").on( "click", function() {
 
+        var resolution = screen.width + "x " + screen.height + "y";
+        var addnl_info = 'vcall attempt';
+        $.post("/tiadaannualconference/sponsor/add_viewsessions_history_open",
+            {
+                sponsor_id: sponsor_id,
+                resolution: resolution,
+                action: 'vcall attempt'
+            });
+
         $.post("/tiadaannualconference/sponsor-admin/VideoChatApi/sponsorVideoEngageStatus",
             {
                 roomId: SIGNAL_ROOM,
@@ -215,6 +231,15 @@ $(function() {
                     });
                     $('#videoCallModal').modal('show');
                 }else{
+                    var resolution = screen.width + "x " + screen.height + "y";
+                    var addnl_info = 'sponsor was engaged';
+                    $.post("/tiadaannualconference/sponsor/add_viewsessions_history_open",
+                        {
+                            sponsor_id: sponsor_id,
+                            resolution: resolution,
+                            action: 'vcall fail',
+                            addnl_info: addnl_info
+                        });
                     Swal.fire({
                         icon: 'warning',
                         title: company_name_orig+' is on another call!',
@@ -223,8 +248,6 @@ $(function() {
                     });
                 }
             });
-
-        toastr["warning"]("Feature is still under development!")
     });
 
     $(".video-call-hangup").on( "click", function() {

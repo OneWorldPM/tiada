@@ -48,16 +48,16 @@ class Sponsor extends CI_Controller {
     public function add_viewsessions_history_open() {
         $post = $this->input->post();
 
-        if ($post['action'] == ''){
-            $action = 'visit';
-        }else{
+        if (isset($post['action']) &&  $post['action'] != ''){
             $action = $post['action'];
+        }else{
+            $action = 'visit';
         }
 
-        if ($post['addnl_info'] == ''){
-            $addnl_info = NULL;
-        }else{
+        if (isset($post['addnl_info']) && $post['addnl_info'] != ''){
             $addnl_info = $post['addnl_info'];
+        }else{
+            $addnl_info = NULL;
         }
 
         $this->load->library('user_agent');

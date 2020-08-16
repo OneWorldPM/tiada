@@ -1,6 +1,4 @@
 <?php
-if (!defined('BASEPATH'))
-    exit('No direct script access allowed');
 
 class VideoChatApi extends CI_Controller
 {

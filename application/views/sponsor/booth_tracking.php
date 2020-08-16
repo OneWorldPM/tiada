@@ -41,6 +41,10 @@ if (isset($booth_tracking) && !empty($booth_tracking))
         min-height: 100%;
         border-radius: 0;
     }
+
+    #tracking-info-table_info{
+        font-weight: bold;
+    }
 </style>
 <section class="parallax" style="background-image: url(<?= base_url() ?>front_assets/images/bubble_bg_1920.jpg); top: 0; padding-top: 0px;">
 <!--<section class="parallax" style="background-image: url(<?= base_url() ?>front_assets/images/Sessions_BG_screened.jpg); top: 0; padding-top: 0px;">-->
@@ -147,6 +151,7 @@ if (isset($booth_tracking) && !empty($booth_tracking))
         } );
         var trackingTable = $('#tracking-info-table').DataTable({
             "order": [[ 6, "desc" ]],
+            "dom": '<"top"i>rt<"bottom"flp><"clear">',
             initComplete: function () {
                 // Apply the search
                 this.api().columns().every( function () {

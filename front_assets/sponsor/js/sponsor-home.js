@@ -43,7 +43,7 @@ $(function() {
     socket.on('signaling_message', function(data) {
         displaySignalMessage("Signal received: " + data.type);
 
-        $.post("sponsor-admin/VideoChatApi/sponsorVideoEngageStatus",
+        $.post("/tiadaannualconference/sponsor-admin/VideoChatApi/sponsorVideoEngageStatus",
             {
                 roomId: SIGNAL_ROOM,
                 sponsorId: sponsor_id
@@ -98,7 +98,7 @@ $(function() {
         }).then((result) => {
             if (result.value) {
 
-                $.post("sponsor-admin/VideoChatApi/sponsorVideoEngageStatus",
+                $.post("/tiadaannualconference/sponsor-admin/VideoChatApi/sponsorVideoEngageStatus",
                     {
                         roomId: SIGNAL_ROOM,
                         sponsorId: sponsor_id
@@ -136,7 +136,7 @@ $(function() {
                                 displaySignalMessage("going to add their stream...");
                                 theirVideoArea.srcObject = evt.streams[0];
 
-                                $.post("sponsor-admin/VideoChatApi/engageSponsor",
+                                $.post("/tiadaannualconference/sponsor-admin/VideoChatApi/engageSponsor",
                                     {
                                         roomId: SIGNAL_ROOM,
                                         sponsorId: sponsor_id
@@ -146,7 +146,7 @@ $(function() {
                             rtcPeerConn.oniceconnectionstatechange = function() {
                                 if(rtcPeerConn.iceConnectionState == 'disconnected') {
                                     //Releasing previous connections on reload!
-                                    $.post("sponsor-admin/VideoChatApi/releaseSponsor",
+                                    $.post("/tiadaannualconference/sponsor-admin/VideoChatApi/releaseSponsor",
                                         {
                                             roomId: SIGNAL_ROOM,
                                             sponsorId: sponsor_id
@@ -217,7 +217,7 @@ $(function() {
     });
 
     $('#videoCallModal').on('hidden.bs.modal', function () {
-        $.post("sponsor-admin/VideoChatApi/releaseSponsor",
+        $.post("/tiadaannualconference/sponsor-admin/VideoChatApi/releaseSponsor",
             {
                 roomId: SIGNAL_ROOM,
                 sponsorId: sponsor_id
@@ -284,7 +284,7 @@ $(function() {
     $(".edit-about-btn").on( "click", function() {
 
         var about = $('.sponsor-about').val();
-        $.post("sponsor-admin/profile/updateAbout",
+        $.post("/tiadaannualconference/sponsor-admin/profile/updateAbout",
             {
                 about: about
             },
@@ -302,7 +302,7 @@ $(function() {
     $(".save-website").on( "click", function() {
 
         var website = $('#website').val();
-        $.post("sponsor-admin/profile/updateWebsite",
+        $.post("/tiadaannualconference/sponsor-admin/profile/updateWebsite",
             {
                 website: website
             },
@@ -320,7 +320,7 @@ $(function() {
     $(".save-twitter").on( "click", function() {
 
         var twitter = $('#twitterHandle').val();
-        $.post("sponsor-admin/profile/updateTwitter",
+        $.post("/tiadaannualconference/sponsor-admin/profile/updateTwitter",
             {
                 twitter: twitter
             },
@@ -338,7 +338,7 @@ $(function() {
     $(".save-facebook").on( "click", function() {
 
         var facebook = $('#facebookHandle').val();
-        $.post("sponsor-admin/profile/updateFacebook",
+        $.post("/tiadaannualconference/sponsor-admin/profile/updateFacebook",
             {
                 facebook: facebook
             },
@@ -356,7 +356,7 @@ $(function() {
     $(".save-linkedin").on( "click", function() {
 
         var linkedin = $('#linkedinHandle').val();
-        $.post("sponsor-admin/profile/updateLinkedin",
+        $.post("/tiadaannualconference/sponsor-admin/profile/updateLinkedin",
             {
                 linkedin: linkedin
             },
@@ -408,7 +408,7 @@ $(function() {
         {
             var name = $('.company-name').text();
 
-            $.post("sponsor-admin/profile/updateName",
+            $.post("/tiadaannualconference/sponsor-admin/profile/updateName",
                 {
                     name: name
                 },
