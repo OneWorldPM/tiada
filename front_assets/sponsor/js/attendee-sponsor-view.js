@@ -398,6 +398,23 @@ $(function() {
         })
     });
 
+    $('.fishbowl').on('click', function () {
+        $.post("/tiadaannualconference/sponsor/cardToFishbowl",
+            {
+                'sponsor_id': sponsor_id,
+                'attendee_id': user_id
+            },
+            function (data, status)
+            {
+                if (status == 'success')
+                {
+                    toastr["success"]("Card added to fishbowl!");
+                }else{
+                    toastr["error"]("Network problem!");
+                }
+            });
+    });
+
 });
 
 function fillResources() {

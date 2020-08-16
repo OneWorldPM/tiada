@@ -98,4 +98,15 @@ class Sponsor extends CI_Controller {
         echo json_encode(array("status" => "success"));
     }
 
+    public function cardToFishbowl()
+    {
+        $card = array(
+            'sponsor_id' => $this->input->post()['sponsor_id'],
+            'attendee_id' => $this->input->post()['attendee_id'],
+            'datetime' => date('Y-m-d H:i:s')
+        );
+        $this->db->insert('fishbowl', $card);
+        return;
+    }
+
 }
