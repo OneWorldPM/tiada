@@ -63,6 +63,7 @@ socket.on('newSupportText', function(data) {
             '<li class="support-chat-item left clearfix">\n' +
             '  <span class="support-chat-name">'+data.attendee_name+'</span> '+data.message+'\n' +
             '</li>');
+        $('#chat_box_'+data.attendee.id).css('display', 'inline-block');
     }
     $('.support-chat-body').scrollTop($('.support-chat-body')[0].scrollHeight);
 });
