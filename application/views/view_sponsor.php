@@ -143,7 +143,12 @@ $sponsor_cover = ($sponsor->sponsor_cover == '') ? 'tiada_default_cover.jpg' : $
             </div>
 
         </div>
-        <a target="_blank" href="<?= base_url() ?>sponsor-admin/VchatRoom/join/<?=$sponsor->sponsors_id?>"><img src="<?= base_url() ?>front_assets/sponsor/images/tx_flag_75.png"></a>
+        <?php $meeting_room_allowed_sposors = array('22', '15', '36', '9', '7');
+        if (in_array($sponsor->sponsors_id, $meeting_room_allowed_sposors))
+        {
+            echo '<a target="_blank" href="'.base_url().'sponsor-admin/VchatRoom/join/'.$sponsor->sponsors_id.'"><img src="'.base_url().'front_assets/sponsor/images/tx_flag_75.png"></a>';
+        }
+        ?>
         <hr>
 
     </div> <!-- /container -->
