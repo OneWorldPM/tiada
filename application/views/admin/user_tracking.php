@@ -54,7 +54,7 @@ if (isset($booth_tracking) && !empty($booth_tracking))
         <section id="page-title">
             <div class="row">
                 <div class="col-sm-8">
-                    <h1 class="mainTitle">User Tracking</h1>
+                    <h1 class="mainTitle">Sponsor Tracking</h1>
                 </div>
             </div>
         </section>

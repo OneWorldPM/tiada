@@ -203,7 +203,7 @@ $uri_segment1 = $this->uri->segment(3);
                                             <i class="fa fa-tv"></i>
                                         </div>
                                         <div class="item-inner">
-                                            <span class="title">User Tracking</span>
+                                            <span class="title">Sponsor Tracking</span>
                                         </div>
                                     </div>
                                 </a>
