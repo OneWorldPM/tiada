@@ -114,15 +114,19 @@ $(function() {
 
         // once remote stream arrives, show it in the remote video element
         rtcPeerConn.ontrack = function (evt) {
-            var resolution = screen.width + "x " + screen.height + "y";
-            $.post("/tiadaannualconference/sponsor/add_viewsessions_history_open",
-                {
-                    sponsor_id: sponsor_id,
-                    resolution: resolution,
-                    action: 'vcall started',
-                });
             displaySignalMessage("going to add their stream...");
             theirVideoArea.srcObject = evt.streams[0];
+
+            if(evt.track.kind == 'video')
+            {
+                var resolution = screen.width + "x " + screen.height + "y";
+                $.post("/tiadaannualconference/sponsor/add_viewsessions_history_open",
+                    {
+                        sponsor_id: sponsor_id,
+                        resolution: resolution,
+                        action: 'vcall started',
+                    });
+            }
         };
 
         rtcPeerConn.oniceconnectionstatechange = function() {

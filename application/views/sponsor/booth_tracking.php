@@ -65,7 +65,6 @@ if (isset($booth_tracking) && !empty($booth_tracking))
                                     <table id="tracking-info-table" class="table table-bordered table-striped text-center ">
                                         <thead class="th_center">
                                             <tr>
-                                                <th>User ID</th>
                                                 <th>Action</th>
                                                 <th>Addnl Info</th>
                                                 <th>Full Name</th>
@@ -88,7 +87,6 @@ if (isset($booth_tracking) && !empty($booth_tracking))
                                                     }
                                                     ?>
                                                     <tr>
-                                                        <td><?= ($val->user_id != '')?$val->user_id:'Unavailable' ?></td>
                                                         <td><?= $val->action ?></td>
                                                         <td><?= $val->addnl_info ?></td>
                                                         <td><?= $val->first_name . ' ' . $val->last_name ?></td>
@@ -150,7 +148,7 @@ if (isset($booth_tracking) && !empty($booth_tracking))
             $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
         } );
         var trackingTable = $('#tracking-info-table').DataTable({
-            "order": [[ 6, "desc" ]],
+            "order": [[ 5, "desc" ]],
             "dom": '<"top"i>rt<"bottom"flp><"clear">',
             initComplete: function () {
                 // Apply the search
