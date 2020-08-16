@@ -47,7 +47,7 @@ $(function() {
         // get a local stream, show it in our video tag and add it to be sent
         navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
         navigator.getUserMedia({
-            'audio': true,
+            'audio': false,
             'video': true
         }, function (stream) {
             myVideoArea.srcObject = stream;

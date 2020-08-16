@@ -178,11 +178,20 @@ $(function() {
                             // get a local stream, show it in our video tag and add it to be sent
                             navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
                             navigator.getUserMedia({
-                                'audio': true,
+                                'audio': false,
                                 'video': true
                             }, function (stream) {
                                 displaySignalMessage("going to display my stream...");
                                 myVideoArea.srcObject = stream;
+                            }, logError);
+
+                            // get a local stream, show it in our video tag and add it to be sent
+                            navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+                            navigator.getUserMedia({
+                                'audio': true,
+                                'video': true
+                            }, function (stream) {
+                                displaySignalMessage("going to display my stream...");
                                 rtcPeerConn.addStream(stream);
                             }, logError);
                         }else{
