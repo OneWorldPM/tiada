@@ -19,7 +19,7 @@
     }
 
 </style>
-<a href="<?= base_url() ?>sponsor/other_sponsor" style="text-align: center; color: #fffef0; font-weight: 900;position: absolute;margin-left:37.2%;margin-top: 30%;z-index: 10; font-size: 31px;">Check out the exhibits!</a>
+<a href="<?= base_url() ?>sponsor/filter_search" style="text-align: center; color: #fffef0; font-weight: 900;position: absolute;margin-left:37.2%;margin-top: 30%;z-index: 10; font-size: 31px;">Check out the exhibits!</a>
 <div style="background-image: url(<?= base_url() ?>front_assets/images/tiada_new_platinum_cover.png); background-attachment: fixed; background-size: cover !important; background-position: center center !important; height: 4000px">
     <section class="parallax" style="position: fixed !important;">
         <div class="container container-fullscreen">
@@ -113,7 +113,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         push_notification_admin();
-        setInterval(push_notification_admin, 3000);
+        setInterval(push_notification_admin, 43000000);
         function push_notification_admin()
         {
             var push_notification_id = $("#push_notification_id").val();

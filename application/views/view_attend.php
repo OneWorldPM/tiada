@@ -295,7 +295,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         push_notification_admin();
-        setInterval(push_notification_admin, 3000);
+        setInterval(push_notification_admin, 43000000);
         function push_notification_admin()
         {
             var push_notification_id = $("#push_notification_id").val();

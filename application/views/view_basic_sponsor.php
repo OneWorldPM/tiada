@@ -192,10 +192,10 @@ $sponsor_cover = ($sponsor->sponsor_cover == '') ? 'tiada_default_cover.jpg' : $
 <script type="text/javascript">
     $(document).ready(function () {
         push_notification_admin();
-        setInterval(push_notification_admin, 3000);
+        setInterval(push_notification_admin, 43000000);
 
         push_notification_sponsor();
-        setInterval(push_notification_sponsor, 3000);
+        setInterval(push_notification_sponsor, 43000000);
 
         function push_notification_admin()
         {
