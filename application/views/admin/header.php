@@ -196,6 +196,18 @@ $uri_segment1 = $this->uri->segment(3);
                                     </div>
                                 </a>
                             </li>
+                            <li class="<?= ($uri_segment == 'UserTracking') ? 'active' : ''; ?>">
+                                <a href="<?= site_url() ?>admin/UserTracking" id="dash">
+                                    <div class="item-content">
+                                        <div class="item-media">
+                                            <i class="fa fa-tv"></i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <span class="title">User Tracking</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
                             <li class="<?= ($uri_segment == 'sessions_configurations') ? 'active' : ''; ?>" >
                                 <a href="<?= site_url() ?>admin/sessions_configurations" id="dash">
                                     <div class="item-content">
