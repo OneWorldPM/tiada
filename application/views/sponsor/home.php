@@ -465,7 +465,7 @@ $sponsors_cover = ($sponsor_cover == '') ? 'sponsor-cover-default.jpg' : $sponso
 
             $('.attendeeProfileModal-name').html(
                     '<img src="' + userAvatarSrc + '" alt="User Avatar" onerror=this.src="' + userAvatarAlt + '" class="img-circle"> ' +
-                    fullname
+                    fullname + '<a target="_blank" href="/tiadaannualconference/admin/exportvcard/'+profile.cust_id+'"> <button class="btn btn-info btn-xs">vCard</button></a>'
                     );
 
             $('.attendeeProfileModalSMIcons').html('');

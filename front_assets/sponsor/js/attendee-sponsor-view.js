@@ -409,7 +409,7 @@ function fillResources() {
                 '<li class="list-group-item">\n' +
                 '   '+resource.item_name+'\n' +
                 '  <a file-name="'+resource.item_name+'" class="open-resource-badge badge" href="/tiadaannualconference/front_assets/sponsor/resources/'+resource.file_name+'" target="_blank">Open</a>\n' +
-                '  <span class="profile-badge badge">Add to SwagBag</span>\n' +
+                '  <span class="profile-badge badge">Add To Backpack</span>\n' +
                 '</li>');
         });
 
