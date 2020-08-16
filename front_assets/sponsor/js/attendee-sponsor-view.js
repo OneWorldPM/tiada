@@ -381,9 +381,21 @@ function fillResources() {
             $('.resources-list').append('' +
                 '<li class="list-group-item">\n' +
                 '   '+resource.item_name+'\n' +
-                '  <a class="open-resource-badge badge" href="/tiadaannualconference/front_assets/sponsor/resources/'+resource.file_name+'" target="_blank">Open</a>\n' +
+                '  <a file-name="'+resource.item_name+'" class="open-resource-badge badge" href="/tiadaannualconference/front_assets/sponsor/resources/'+resource.file_name+'" target="_blank">Open</a>\n' +
                 '  <span class="profile-badge badge">Add to SwagBag</span>\n' +
                 '</li>');
+        });
+
+        $('.open-resource-badge').on('click', function () {
+            var resolution = screen.width + "x " + screen.height + "y";
+            var addnl_info = $(this).attr('file-name');
+            $.post("/tiadaannualconference/sponsor/add_viewsessions_history_open",
+                {
+                    sponsor_id: sponsor_id,
+                    resolution: resolution,
+                    action: 'resource download',
+                    addnl_info: addnl_info
+                });
         });
     });
 

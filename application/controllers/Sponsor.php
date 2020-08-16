@@ -47,11 +47,26 @@ class Sponsor extends CI_Controller {
     
     public function add_viewsessions_history_open() {
         $post = $this->input->post();
+
+        if ($post['action'] == ''){
+            $action = 'visit';
+        }else{
+            $action = $post['action'];
+        }
+
+        if ($post['addnl_info'] == ''){
+            $addnl_info = NULL;
+        }else{
+            $addnl_info = $post['addnl_info'];
+        }
+
         $this->load->library('user_agent');
         $user_agent = $this->input->ip_address();
         $session_his_arr = array(
             'sponsor_id' => $post['sponsor_id'],
             'cust_id' => $this->session->userdata("cid"),
+            'action' => $action,
+            'addnl_info' => $addnl_info,
             'operating_system' => $this->agent->platform(),
             'computer_type' => $this->agent->browser(),
             'ip_address' => $this->input->ip_address(),
