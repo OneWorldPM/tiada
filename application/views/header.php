@@ -170,7 +170,7 @@
                                         <?php } ?>        
                                     </ul>
                                     <ul id="mainMenuItems" class="main-menu nav nav-pills navbar-left">
-                                        <li><a href="https://yourconference.live/support" style="color:#A9A9A9; font-size: 18px;" target="_blank"><i class="fa fa-question-circle" style="color:#A9A9A9; font-size: 18px;"></i>HELP DESK</a></li>
+
                                     </ul>
                                     <?php
                                     if ($this->session->userdata('cid') != "") {
