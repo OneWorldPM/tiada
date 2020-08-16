@@ -17,8 +17,9 @@ class Home extends CI_Controller {
     }
 
     public function index() {
+        $data = array('liveSupportStatus' => $this->supportChatStatus());
         $this->load->view('header');
-        $this->load->view('home');
+        $this->load->view('home', $data);
         $this->load->view('footer');
     }
 
@@ -70,6 +71,19 @@ class Home extends CI_Controller {
             print_r($status->result()[0]->live_support_status);
         } else {
             echo '0';
+        }
+    }
+
+    function supportChatStatus()
+    {
+        $this->db->select('live_support_status');
+        $this->db->from('admin');
+        $this->db->where(array("username " => 'admin'));
+        $status = $this->db->get();
+        if ($status->num_rows() > 0) {
+            return ($status->result()[0]->live_support_status);
+        } else {
+            return 0;
         }
     }
 
