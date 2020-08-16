@@ -41,26 +41,42 @@
             <div class="row m-t-30">
                 <div class="row">
                     <form action="<?= base_url() ?>sponsor/filter_search" method="post" id="frm_search_data" name="frm_search_data">
-                        <div class="col-md-4" style="margin-top:10px;">
+                        <div class="col-md-2" style="margin-top:10px;">
                             <div class="input-groug">
                                 <select id="sponsors_category" name="sponsors_category" class="form-control">
                                     <option value="">Filter By Category</option>
                                     <?php
                                     if (isset($sponsors_category) && !empty($sponsors_category)) {
                                         foreach ($sponsors_category as $val) {
-                                            ?>
-                                            <option value="<?= $val->sponsors_category_id ?>"><?= $val->category_name ?></option>
-                                            <?php
+                                            if ($val->sponsors_category_id != 2 && $val->sponsors_category_id != 5 && $val->sponsors_category_id != 11 && $val->sponsors_category_id != 12 && $val->sponsors_category_id != 14 && $val->sponsors_category_id != 16 && $val->sponsors_category_id != 21 && $val->sponsors_category_id != 22) {
+                                                ?>
+                                                <option value="<?= $val->sponsors_category_id ?>"><?= $val->category_name ?></option>
+                                                <?php
+                                            }
                                         }
                                     }
                                     ?>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-4" style="margin-top:10px;">
+                        <div class="col-md-2" style="margin-top:10px;">
+                            <div class="input-groug">
+                                <select id="sponsors_type" name="sponsors_type" class="form-control">
+                                    <option value="">Filter By Type</option>
+                                    <option value="platinum">Platinum</option>
+                                    <option value="gold">Gold</option>
+                                    <option value="silver">Silver</option>
+                                    <option value="bronze">Bronze</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3" style="margin-top:10px;">
                             <div class="input-groug">
                                 <input type="text" name="searchbox" id="searchbox" class="form-control" value="" placeholder="Search Box">
                             </div>
+                        </div>
+                        <div class="col-md-3" style="margin-top:10px;">
+                            <button type="submit" id="btn_search" class="btn btn-primary">Search</button>
                         </div>
                     </form>
                 </div>
@@ -141,13 +157,13 @@
             }
         });
 
-        $('#sponsors_category').on('change', function () {
-            $("#frm_search_data").submit();
-        });
-
-        $('#searchbox').on('blur', function () {
-            $("#frm_search_data").submit();
-        });
+//        $('#sponsors_category').on('change', function () {
+//            $("#frm_search_data").submit();
+//        });
+//
+//        $('#searchbox').on('blur', function () {
+//            $("#frm_search_data").submit();
+//        });
 
         var glower = $('.glow');
         window.setInterval(function () {

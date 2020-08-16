@@ -13,7 +13,6 @@ $sponsor_cover = ($sponsor->sponsor_cover == '') ? 'tiada_default_cover.jpg' : $
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron" style="background-image: url(<?= base_url() ?>uploads/sponsors/<?= $sponsor_cover ?>?v=<?= rand(1, 100) ?>);background-size: 1930px;background-repeat: no-repeat;background-position: center;height: 600px;background-color: #272f31;">
-        <span class="pull-right fishbowl" style="cursor: pointer;"><img src="https://yourconference.live/tiadaannualconference/front_assets/sponsor/images/fishbowl.png" style="width: 165px;margin-top: 30px;"><br><span style="color: white;font-size: 15px;">click to leave your card</span></span>
     </div>
 
     <div class="container">

@@ -22,7 +22,7 @@
                     <div class="panel panel-primary" id="panel5">
                         <div class="panel-heading">
                             <h4 class="panel-title text-white pull-left">Add New Sponsors</h4>
-                            <button class="add-new-admin-btn btn btn-info pull-right" <?= (isset($sponsors_edit))?"": "disabled" ?>><i class="fa fa-user-plus" aria-hidden="true"></i> Add New Admin</button>
+                            <button class="add-new-admin-btn btn btn-info pull-right" <?= (isset($sponsors_edit)) ? "" : "disabled" ?>><i class="fa fa-user-plus" aria-hidden="true"></i> Add New Admin</button>
                         </div>
                         <div class="panel-body bg-white" style="border: 1px solid #b2b7bb!important;">
                             <div class="col-md-12">
@@ -36,8 +36,17 @@
                                     </div>
                                     <div class="row">
                                         <label class="col-md-12 text-large">Sponsors Type</label>
-                                        <div class="form-group" style="color: #000;">
-                                            <input type="radio" style="margin: 5px 0 0" class="col-md-1"  name="sponsors_type" <?= (isset($sponsors_edit) && !empty($sponsors_edit)) ? ($sponsors_edit->sponsors_type == "platinum") ? 'checked' : '' : '' ?> id="sponsors_type" value="platinum"><label class="text-large">Platinum</label><br>
+                                        <div class="form-group col-md-3" style="color: #000;">
+                                            <input type="radio" style="margin: 5px 0 0" class="col-md-3"  name="sponsors_type" <?= (isset($sponsors_edit) && !empty($sponsors_edit)) ? ($sponsors_edit->sponsors_type == "platinum") ? 'checked' : '' : '' ?> id="sponsors_type" value="platinum"><label class="text-large">Platinum</label>
+                                        </div>
+                                        <div class="form-group col-md-3" style="color: #000;">
+                                            <input type="radio" style="margin: 5px 0 0" class="col-md-3"  name="sponsors_type" <?= (isset($sponsors_edit) && !empty($sponsors_edit)) ? ($sponsors_edit->sponsors_type == "gold") ? 'checked' : '' : '' ?> id="sponsors_type" value="gold"><label class="text-large">Gold</label>
+                                        </div>
+                                        <div class="form-group col-md-3" style="color: #000;">
+                                            <input type="radio" style="margin: 5px 0 0" class="col-md-3"  name="sponsors_type" <?= (isset($sponsors_edit) && !empty($sponsors_edit)) ? ($sponsors_edit->sponsors_type == "silver") ? 'checked' : '' : '' ?> id="sponsors_type" value="silver"><label class="text-large">Silver</label>
+                                        </div>
+                                        <div class="form-group col-md-3" style="color: #000;">
+                                            <input type="radio" style="margin: 5px 0 0" class="col-md-3"  name="sponsors_type" <?= (isset($sponsors_edit) && !empty($sponsors_edit)) ? ($sponsors_edit->sponsors_type == "bronze") ? 'checked' : '' : '' ?> id="sponsors_type" value="bronze"><label class="text-large">Bronze</label>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -101,11 +110,13 @@
                                         <?php
                                         if (isset($sponsors_category) && !empty($sponsors_category)) {
                                             foreach ($sponsors_category as $val) {
-                                                ?>
-                                                <div class="form-group col-md-6" style="color: #000;">
-                                                    <input type="checkbox" class="col-md-1"  name="sponsors_category[]" <?= (isset($sponsors_edit) && !empty($sponsors_edit)) ? in_array($val->sponsors_category_id, explode(",", $sponsors_edit->sponsors_category_id)) ? 'checked' : '' : '' ?> id="sponsors_category" value="<?= $val->sponsors_category_id ?>"> <?= $val->category_name ?><br>
-                                                </div>
-                                                <?php
+                                                if ($val->sponsors_category_id != 2 && $val->sponsors_category_id != 5 && $val->sponsors_category_id != 11 && $val->sponsors_category_id != 12 && $val->sponsors_category_id != 14 && $val->sponsors_category_id != 16 && $val->sponsors_category_id != 21 && $val->sponsors_category_id != 22) {
+                                                    ?>
+                                                    <div class="form-group col-md-6" style="color: #000;">
+                                                        <input type="checkbox" class="col-md-1"  name="sponsors_category[]" <?= (isset($sponsors_edit) && !empty($sponsors_edit)) ? in_array($val->sponsors_category_id, explode(",", $sponsors_edit->sponsors_category_id)) ? 'checked' : '' : '' ?> id="sponsors_category" value="<?= $val->sponsors_category_id ?>"> <?= $val->category_name ?><br>
+                                                    </div>
+                                                    <?php
+                                                }
                                             }
                                         }
                                         ?>
@@ -127,21 +138,19 @@
                         <div class="panel-body">
                             <table class="table">
                                 <thead>
-                                <tr>
-                                    <th scope="col">Id</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Username</th>
-                                    <th scope="col">Password</th>
-                                    <th scope="col">Delete</th>
-                                </tr>
+                                    <tr>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Username</th>
+                                        <th scope="col">Password</th>
+                                        <th scope="col">Delete</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                <?php
-                                if (isset($extra_admins) && $extra_admins != '')
-                                {
-                                    foreach ($extra_admins as $admin)
-                                    {
-                                        echo "
+                                    <?php
+                                    if (isset($extra_admins) && $extra_admins != '') {
+                                        foreach ($extra_admins as $admin) {
+                                            echo "
                                         <tr>
                                          <th>{$admin['id']}</th>
                                          <td>{$admin['name']}</td>
@@ -150,9 +159,9 @@
                                          <td><button class='btn btn-danger btn-small delete-admin-btn' admin-id='{$admin['id']}'>Delete</button></td>
                                         </tr>
                                         ";
+                                        }
                                     }
-                                }
-                                ?>
+                                    ?>
                             </table>
                         </div>
                     </div>
@@ -231,28 +240,28 @@
             if (email != '' || password != '' || name != '')
             {
                 $.post("/tiadaannualconference/admin/Sponsors/addNewSponsorAdminUser",
-                    {
-                        'name': name,
-                        'email': email,
-                        'password': password,
-                        'sponsor_id': sponsor_id
-                    },
-                    function(data, status){
-                        if(status == 'success')
                         {
-                            if (data == true){
-                                $('#addNewAdminModal').modal('hide');
-                                alertify.success("New admin added!");
-                                location.reload();
-                            }else{
-                                alertify.error("Network problem!");
-                            }
-
-                        }else{
+                            'name': name,
+                            'email': email,
+                            'password': password,
+                            'sponsor_id': sponsor_id
+                        },
+                function (data, status) {
+                    if (status == 'success')
+                    {
+                        if (data == true) {
+                            $('#addNewAdminModal').modal('hide');
+                            alertify.success("New admin added!");
+                            location.reload();
+                        } else {
                             alertify.error("Network problem!");
                         }
-                    });
-            }else{
+
+                    } else {
+                        alertify.error("Network problem!");
+                    }
+                });
+            } else {
                 alertify.error("All the fields are mandatory!");
             }
         });
@@ -262,19 +271,19 @@
             var adminId = $(this).attr('admin-id');
 
             $.post("/tiadaannualconference/admin/Sponsors/deleteSponsorAdminUser",
-                {
-                    'adminId': adminId
-                },
-                function(data, status){
-                    if(status == 'success')
                     {
-                        alertify.success("Admin deleted!");
-                        location.reload();
+                        'adminId': adminId
+                    },
+            function (data, status) {
+                if (status == 'success')
+                {
+                    alertify.success("Admin deleted!");
+                    location.reload();
 
-                    }else{
-                        alertify.error("Network problem!");
-                    }
-                });
+                } else {
+                    alertify.error("Network problem!");
+                }
+            });
 
         });
 

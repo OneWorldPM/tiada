@@ -104,7 +104,6 @@
                                 <img src="<?= base_url() ?>front_assets/images/info.png" alt="welcome" class="m-t-30" style="height: 80px; width: 80px;">
                                 <br>
                                 <span style="font-size: 12px;">INFORMATION</span>
-                                <?=($liveSupportStatus == 1)?'<span style="font-size: 15px;color: #009100;">Available</span>': '<span style="font-size: 15px;color: #9a000d;">Unavailable</span>' ?>
                             </div>
                         </a>
                     </div>

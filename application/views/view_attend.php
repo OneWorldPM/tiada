@@ -85,16 +85,16 @@
                                 <div class="col-md-12" style="background-color: #B2B7BB; margin-bottom: 10px;">
                                     <h3 style="margin-bottom: 5px; color: #fff; font-weight: 700; text-transform: uppercase;"><?= isset($sessions) ? $sessions->session_title : "" ?></h3>
                                 </div>    
-                                <div class="col-md-7 m-t-20" style="border-right: 1px solid;">
+                                <div class="col-md-9 m-t-20" style="border-right: 1px solid;">
                                     <div class="row">
-                                        <div class="col-md-2">
+                                        <div class="col-md-3">
                                             <?php if ($sessions->sessions_photo != "") { ?>
-                                                <img alt="" src="<?= base_url() ?>uploads/sessions/<?= (isset($sessions) && !empty($sessions)) ? $sessions->sessions_photo : "" ?>" height="100" width="100">
+                                            <img alt="" src="<?= base_url() ?>uploads/sessions/<?= (isset($sessions) && !empty($sessions)) ? $sessions->sessions_photo : "" ?>" width="100%">
                                             <?php } else { ?>
-                                                <img alt="" src="<?= base_url() ?>front_assets/images/session_avtar.jpg" height="100" width="100">
+                                                <img alt="" src="<?= base_url() ?>front_assets/images/session_avtar.jpg" width="100%">
                                             <?php } ?>   
                                         </div>  
-                                        <div class="col-md-10">
+                                        <div class="col-md-9">
                                             <h2 style="margin-bottom: 0px;"><?= (isset($sessions) && !empty($sessions)) ? $sessions->session_title : "" ?></h2>
                                             <small><i class="fa fa-calendar" aria-hidden="true"></i> <?= date("M-d-Y", strtotime($sessions->sessions_date)) . ' ' . date("H:i", strtotime($sessions->time_slot)) . ' - ' . date("H:i", strtotime($sessions->end_time)) ?></small>
                                             <p class="m-t-20"><?= (isset($sessions) && !empty($sessions)) ? $sessions->sessions_description : "" ?></p>
@@ -106,7 +106,7 @@
                                         </div>    
                                     </div>
                                 </div>
-                                <div class="col-md-5" style="text-align: center">
+                                <div class="col-md-3" style="text-align: center">
                                     <?php
                                     $size = 0;
                                     if (isset($sessions->presenter) && !empty($sessions->presenter)) {
@@ -136,7 +136,7 @@
 
                                 </div>
                                 <div class="col-md-12 m-t-40">
-                                    <div class="col-md-3 col-md-offset-1" style="text-align: center;">
+                                    <div class="col-md-3 col-md-offset-2" style="text-align: center;">
                                         <?php
                                         if (isset($sessions) && !empty($sessions)) {
                                             if ($sessions->sponsor_log != "") {

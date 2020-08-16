@@ -21,7 +21,7 @@ class Sponsor extends CI_Controller {
         $this->load->view('platinum_sponsor', $data);
         $this->load->view('footer');
     }
-    
+
     public function other_sponsor() {
         $data["platinum_sponsors"] = $this->objsponsor->getPlatinumSponsorData();
         $data["all_sponsor"] = $this->objsponsor->getSponsorData();
@@ -30,8 +30,9 @@ class Sponsor extends CI_Controller {
         $this->load->view('sponsor', $data);
         $this->load->view('footer');
     }
-    
-    public function filter_search(){
+
+    public function filter_search() {
+        header("Cache-Control: no cache");
         $data["platinum_sponsors"] = $this->objsponsor->getPlatinumSponsorDataFilter_search();
         $data["all_sponsor"] = $this->objsponsor->getSponsorDataFilter_search();
         $data["sponsors_category"] = $this->objsponsor->getSponsorsCategoryData();
@@ -54,19 +55,18 @@ class Sponsor extends CI_Controller {
         $this->load->view('footer');
     }
 
-    
     public function add_viewsessions_history_open() {
         $post = $this->input->post();
 
-        if (isset($post['action']) &&  $post['action'] != ''){
+        if (isset($post['action']) && $post['action'] != '') {
             $action = $post['action'];
-        }else{
+        } else {
             $action = 'visit';
         }
 
-        if (isset($post['addnl_info']) && $post['addnl_info'] != ''){
+        if (isset($post['addnl_info']) && $post['addnl_info'] != '') {
             $addnl_info = $post['addnl_info'];
-        }else{
+        } else {
             $addnl_info = NULL;
         }
 
@@ -98,8 +98,7 @@ class Sponsor extends CI_Controller {
         echo json_encode(array("status" => "success"));
     }
 
-    public function cardToFishbowl()
-    {
+    public function cardToFishbowl() {
         $card = array(
             'sponsor_id' => $this->input->post()['sponsor_id'],
             'attendee_id' => $this->input->post()['attendee_id'],

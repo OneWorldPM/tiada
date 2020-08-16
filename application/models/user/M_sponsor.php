@@ -19,15 +19,21 @@ class M_sponsor extends CI_Model {
     }
 
     function getPlatinumSponsorDataFilter_search() {
-        $post = $this->input->post();
+
         $this->db->select('*');
         $this->db->from('sponsors');
         $this->db->where('sponsors_type', "platinum");
-        if ($post['sponsors_category'] != "") {
-            $this->db->where("sponsors_category_id", $post['sponsors_category']);
-        }
-        if ($post['searchbox'] != "") {
-            $this->db->like("company_name", $post['searchbox']);
+        if (!empty($_POST)) {
+            $post = $this->input->post();
+            if ($post['sponsors_category'] != "") {
+                $this->db->where("sponsors_category_id", $post['sponsors_category']);
+            }
+            if ($post['sponsors_type'] != "") {
+                $this->db->where("sponsors_type", $post['sponsors_type']);
+            }
+            if ($post['searchbox'] != "") {
+                $this->db->like("company_name", $post['searchbox']);
+            }
         }
         $sponsors = $this->db->get();
         if ($sponsors->num_rows() > 0) {
@@ -51,15 +57,20 @@ class M_sponsor extends CI_Model {
     }
 
     function getSponsorDataFilter_search() {
-        $post = $this->input->post();
         $this->db->select('*');
         $this->db->from('sponsors');
         $this->db->where('sponsors_type !=', "platinum");
-        if ($post['sponsors_category'] != "") {
-            $this->db->where("sponsors_category_id", $post['sponsors_category']);
-        }
-        if ($post['searchbox'] != "") {
-            $this->db->like("company_name", $post['searchbox']);
+        $post = $this->input->post();
+        if (!empty($_POST)) {
+            if ($post['sponsors_category'] != "") {
+                $this->db->where("sponsors_category_id", $post['sponsors_category']);
+            }
+            if ($post['sponsors_type'] != "") {
+                $this->db->where("sponsors_type", $post['sponsors_type']);
+            }
+            if ($post['searchbox'] != "") {
+                $this->db->like("company_name", $post['searchbox']);
+            }
         }
         $sponsors = $this->db->get();
         if ($sponsors->num_rows() > 0) {
