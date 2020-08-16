@@ -38,6 +38,33 @@
 <section class="parallax" style="background-image: url(<?= base_url() ?>front_assets/images/Other_Expo_Background.jpg); top: 0; padding-top: 0px;">
     <div class="container container-fullscreen">
         <div class="text-middle">
+            <div class="row m-t-30">
+                <div class="row">
+                    <form action="<?= base_url() ?>sponsor/filter_search" method="post" id="frm_search_data" name="frm_search_data">
+                        <div class="col-md-4" style="margin-top:10px;">
+                            <div class="input-groug">
+                                <select id="sponsors_category" name="sponsors_category" class="form-control">
+                                    <option value="">Filter By Category</option>
+                                    <?php
+                                    if (isset($sponsors_category) && !empty($sponsors_category)) {
+                                        foreach ($sponsors_category as $val) {
+                                            ?>
+                                            <option value="<?= $val->sponsors_category_id ?>"><?= $val->category_name ?></option>
+                                            <?php
+                                        }
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4" style="margin-top:10px;">
+                            <div class="input-groug">
+                                <input type="text" name="searchbox" id="searchbox" class="form-control" value="" placeholder="Search Box">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
             <div class="row">
                 <!--                <div class="col-md-12">
                                     <div class="text-center m-t-0">
@@ -112,6 +139,14 @@
             dataType: "json",
             success: function (data) {
             }
+        });
+
+        $('#sponsors_category').on('change', function () {
+            $("#frm_search_data").submit();
+        });
+
+        $('#searchbox').on('blur', function () {
+            $("#frm_search_data").submit();
         });
 
         var glower = $('.glow');

@@ -27,6 +27,28 @@ class M_sessions extends CI_Model {
             return '';
         }
     }
+    
+    function getModeratorSessionsAll() {
+        $this->db->select('*');
+        $this->db->from('sessions s');
+        $this->db->like('s.moderator_id', $this->session->userdata("pid"));
+        $this->db->order_by("s.sessions_date", "asc");
+        $this->db->order_by("s.time_slot", "asc");
+        $sessions = $this->db->get();
+        if ($sessions->num_rows() > 0) {
+            $return_array = array();
+            foreach ($sessions->result() as $val) {
+                $val->presenter = $this->common->get_presenter($val->presenter_id, $val->sessions_id);
+                $val->session_type_details = $this->common->get_session_type($val->sessions_type_id);
+                $val->total_sign_up_sessions = $this->common->get_total_sign_up_sessions($val->sessions_id);
+                $val->sissions_limit = $this->common->get_roundtable_setting()->roundtable;
+                $return_array[] = $val;
+            }
+            return $return_array;
+        } else {
+            return '';
+        }
+    }
 
     function edit_sessions($sessions_id) {
         $this->db->select('*');

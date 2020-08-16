@@ -66,8 +66,17 @@ class M_sessions extends CI_Model {
         } else {
             $sessions_tracks_id = "";
         }
+ 
+        if (!empty($post['moderator_id'])) {
+            $moderator_id = implode(",", $post['moderator_id']);
+        } else {
+            $moderator_id = "";
+        }
+       
+
         $set = array(
             'presenter_id' => (isset($post['select_presenter_id'])) ? implode(",", $post['select_presenter_id']) : '',
+            'moderator_id' => $moderator_id,
             'session_title' => trim($post['session_title']),
             'sessions_description' => trim($post['sessions_description']),
             'sessions_date' => date("Y-m-d", strtotime($post['sessions_date'])),
@@ -170,7 +179,7 @@ class M_sessions extends CI_Model {
         $config['file_name'] = "sessions_" . $randname;
         return $config;
     }
-    
+
     function set_upload_options_sponsor() {
         $this->load->helper('string');
         $randname = random_string('numeric', '8');
@@ -203,8 +212,16 @@ class M_sessions extends CI_Model {
         } else {
             $sessions_tracks_id = "";
         }
+
+        if (!empty($post['moderator_id'])) {
+            $moderator_id = implode(",", $post['moderator_id']);
+        } else {
+            $moderator_id = "";
+        }
+
         $set = array(
             'presenter_id' => (isset($post['select_presenter_id'])) ? implode(",", $post['select_presenter_id']) : '',
+            'moderator_id' => $moderator_id,
             'session_title' => trim($post['session_title']),
             'sessions_description' => trim($post['sessions_description']),
             'sessions_date' => date("Y-m-d", strtotime($post['sessions_date'])),
@@ -232,8 +249,8 @@ class M_sessions extends CI_Model {
                 $file_upload_name = $this->upload->data();
                 $this->db->update('sessions', array('sessions_photo' => $file_upload_name['file_name']), array('sessions_id' => $sessions_id));
             }
-            
-             if ($_FILES['sponsor_log']['name'] != "") {
+
+            if ($_FILES['sponsor_log']['name'] != "") {
                 $_FILES['sponsor_log']['name'] = $_FILES['sponsor_log']['name'];
                 $_FILES['sponsor_log']['type'] = $_FILES['sponsor_log']['type'];
                 $_FILES['sponsor_log']['tmp_name'] = $_FILES['sponsor_log']['tmp_name'];

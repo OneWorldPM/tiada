@@ -92,12 +92,10 @@
                                                     </td>-->
                                                     <td style="white-space: pre; text-align: right;"><?= date("h:i A", strtotime($val->time_slot)) . ' - ' . date("h:i A", strtotime($val->end_time)) ?></td>
                                                     <td>
-                                                        <?php if ($val->sessions_visibility == "hidden") { ?>
-                                                            <?php if ($val->sessions_type_status == "Private") { ?>
-                                                                <a href="<?= base_url() ?>private_sessions/view/<?= $val->sessions_id ?>" style="margin: 3px;"><?= base_url() ?>private_sessions/view/<?= $val->sessions_id ?></a>
-                                                            <?php } else { ?>
-                                                                <a href="<?= base_url() ?>sessions/view/<?= $val->sessions_id ?>" style="margin: 3px;"><?= base_url() ?>sessions/view/<?= $val->sessions_id ?></a> 
-                                                            <?php } ?>
+                                                        <?php if ($val->sessions_type_status == "Private") { ?>
+                                                            <a href="<?= base_url() ?>private_sessions/view/<?= $val->sessions_id ?>" style="margin: 3px;"><?= base_url() ?>private_sessions/view/<?= $val->sessions_id ?></a>
+                                                        <?php } else { ?>
+                                                            <a href="<?= base_url() ?>sessions/view/<?= $val->sessions_id ?>" style="margin: 3px;"><?= base_url() ?>sessions/view/<?= $val->sessions_id ?></a> 
                                                         <?php } ?>
                                                     </td>
                                                     <td>

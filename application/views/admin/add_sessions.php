@@ -31,21 +31,23 @@
                                         <label class="text-large">Sessions Description:</label>
                                         <textarea class="form-control" style="color: #000;" name="sessions_description" id="sessions_description"><?= (isset($sessions_edit) && !empty($sessions_edit) ) ? $sessions_edit->sessions_description : "" ?></textarea>
                                     </div>
-<!--                                    <div class="form-group">
-                                        <label class="text-large">Presenter:</label>
-                                        <select class="form-control" id="presenter_id" name="presenter_id">
-                                            <option selected="" value="">Select Presenter</option> 
+                                   <div class="form-group">
+                                        <label class="text-large">Moderator:</label>
+                                        <select class="form-control" id="moderator_id" name="moderator_id[]" multiple>
+                                            <?php if(!isset($sessions_edit)){ ?>
+                                            <option selected="" value="">Select Moderator</option> 
+                                            <?php } ?>
                                             <?php
                                             if (isset($presenter) && !empty($presenter)) {
                                                 foreach ($presenter as $val) {
                                                     ?>
-                                                    <option value="<?= $val->presenter_id ?>" <?= (isset($sessions_edit) && !empty($sessions_edit) ) ? ($sessions_edit->presenter_id == $val->presenter_id) ? "selected" : "" : "" ?>><?= $val->presenter_name ?></option> 
+                                                    <option value="<?= $val->presenter_id ?>" <?= (isset($sessions_edit) && !empty($sessions_edit) ) ? in_array($val->presenter_id, explode(",", $sessions_edit->moderator_id)) ? "selected" : "" : "" ?>><?= $val->presenter_name ?></option> 
                                                     <?php
                                                 }
                                             }
                                             ?>
                                         </select>
-                                    </div>-->
+                                    </div>
                                     <div class="form-group">
                                         <label class="text-large">Session Date:</label>
                                         <input class="form-control datepicker" name="sessions_date" id="sessions_date" type="text" value="<?= (isset($sessions_edit) && !empty($sessions_edit)) ? date('m/d/Y', strtotime($sessions_edit->sessions_date)) : "" ?>">

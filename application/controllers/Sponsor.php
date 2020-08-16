@@ -25,6 +25,16 @@ class Sponsor extends CI_Controller {
     public function other_sponsor() {
         $data["platinum_sponsors"] = $this->objsponsor->getPlatinumSponsorData();
         $data["all_sponsor"] = $this->objsponsor->getSponsorData();
+        $data["sponsors_category"] = $this->objsponsor->getSponsorsCategoryData();
+        $this->load->view('header');
+        $this->load->view('sponsor', $data);
+        $this->load->view('footer');
+    }
+    
+    public function filter_search(){
+        $data["platinum_sponsors"] = $this->objsponsor->getPlatinumSponsorDataFilter_search();
+        $data["all_sponsor"] = $this->objsponsor->getSponsorDataFilter_search();
+        $data["sponsors_category"] = $this->objsponsor->getSponsorsCategoryData();
         $this->load->view('header');
         $this->load->view('sponsor', $data);
         $this->load->view('footer');

@@ -96,6 +96,88 @@
         </div>
     </div>
 </section>
+<?php
+$msg = $this->input->get('msg');
+switch ($msg) {
+    case "S":
+        $m = "Message Added Successfully...!!!";
+        $t = "success";
+        break;
+    case "U":
+        $m = "Message Updated Successfully...!!!";
+        $t = "success";
+        break;
+    case "D":
+        $m = "Message Delete Successfully...!!!";
+        $t = "success";
+        break;
+    case "E":
+        $m = "Something went wrong, Please try again!!!";
+        $t = "error";
+        break;
+    default:
+        $m = 0;
+        break;
+}
+?>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+<?php if ($msg): ?>
+            alertify.<?= $t ?>("<?= $m ?>");
+<?php endif; ?>
+
+        $('#save_btn').click(function () {
+            if ($('#message').val() == '') {
+                alertify.error('Please Enter Message');
+                return false;
+            } else {
+                $('#frm_credit').attr('action', '<?= base_url() ?>sponsor-admin/push_notifications/add_push_notifications');
+                $('#frm_credit').submit();
+                return true;
+            }
+        });
+
+        $('.send_notification').click(function () {
+            var send_notification_id = $(this).attr('data-id');
+            var sponsor_id = $(this).attr('data-sponsor_id');
+            $(this).hide();
+            $this = $(this);
+            if (send_notification_id != '') {
+                $.ajax({
+                    url: "<?= base_url() ?>sponsor-admin/push_notifications/send_notification/" + send_notification_id + "/?sponsor_id=" + sponsor_id,
+                    type: "post",
+                    dataType: "json",
+                    success: function (response) {
+                        cr_data = response;
+                        console.log(cr_data);
+                        if (cr_data.status == "success")
+                        {
+                            var delayInMilliseconds = 6000; //1 second
+                            setTimeout(function () {
+                                $.ajax({
+                                    url: "<?= base_url() ?>sponsor-admin/push_notifications/close_notification/" + send_notification_id,
+                                    type: "post",
+                                    dataType: "json",
+                                    success: function (response) {
+                                        cr_data = response;
+                                        console.log(cr_data);
+                                        if (cr_data.status == "success")
+                                        {
+                                            $this.show();
+                                        }
+                                    }
+                                });
+                            }, delayInMilliseconds);
+                        }
+                    }
+                });
+            } else {
+                alertify.error('Something went wrong, Please try again!');
+            }
+        });
+    });
+</script>
 
 <script type="text/javascript">
     var page_link = $(location).attr('href');
@@ -122,88 +204,6 @@
                 'Logout' +
                 '</a>' +
                 '</li>');
-    });
-</script>
-<?php
-$msg = $this->input->get('msg');
-switch ($msg) {
-    case "S":
-        $m = "Message Added Successfully...!!!";
-        $t = "success";
-        break;
-    case "U":
-        $m = "Message Updated Successfully...!!!";
-        $t = "success";
-        break;
-    case "D":
-        $m = "Message Delete Successfully...!!!";
-        $t = "success";
-        break;
-    case "E":
-        $m = "Something went wrong, Please try again!!!";
-        $t = "error";
-        break;
-    default:
-        $m = 0;
-        break;
-}
-?>
-
-<script>
-    $(document).ready(function () {
-<?php if ($msg): ?>
-            alertify.<?= $t ?>("<?= $m ?>");
-<?php endif; ?>
-
-        $('#save_btn').click(function () {
-            if ($('#message').val() == '') {
-                alertify.error('Please Enter Message');
-                return false;
-            } else {
-                $('#frm_credit').attr('action', '<?= base_url() ?>sponsor-admin/push_notifications/add_push_notifications');
-                $('#frm_credit').submit();
-                return true;
-            }
-        });
-
-        $('.send_notification').click(function () {
-            var send_notification_id = $(this).attr('data-id');
-            var sponsor_id = $(this).attr('data-sponsor_id');
-            $(this).hide();
-            $this = $(this);
-            if (send_notification_id != '') {
-                $.ajax({
-                    url: "<?= base_url() ?>admin/push_notifications/send_notification/" + send_notification_id + "?sponsor_id=" + sponsor_id,
-                    type: "post",
-                    dataType: "json",
-                    success: function (response) {
-                        cr_data = response;
-                        console.log(cr_data);
-                        if (cr_data.status == "success")
-                        {
-                            var delayInMilliseconds = 6000; //1 second
-                            setTimeout(function () {
-                                $.ajax({
-                                    url: "<?= base_url() ?>admin/push_notifications/close_notification/" + send_notification_id,
-                                    type: "post",
-                                    dataType: "json",
-                                    success: function (response) {
-                                        cr_data = response;
-                                        console.log(cr_data);
-                                        if (cr_data.status == "success")
-                                        {
-                                            $this.show();
-                                        }
-                                    }
-                                });
-                            }, delayInMilliseconds);
-                        }
-                    }
-                });
-            } else {
-                alertify.error('Something went wrong, Please try again!');
-            }
-        });
     });
 </script>
 

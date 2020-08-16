@@ -17,6 +17,7 @@ class Sessions extends CI_Controller {
 
     public function index() {
         $data['sessions'] = $this->msessions->getSessionsAll();
+        $data['moderator_sessions'] = $this->msessions->getModeratorSessionsAll();
         $this->load->view('presenter/header');
         $this->load->view('presenter/sessions', $data);
         $this->load->view('presenter/footer');
@@ -199,11 +200,7 @@ class Sessions extends CI_Controller {
         $post = $this->input->post();
         if ($post['tbl_favorite_question_id'] != '') {
             $this->db->update('tbl_favorite_question', array('hide_status' => 1), array('tbl_favorite_question_id' => $post['tbl_favorite_question_id']));
-            if ($this->db->affected_rows()) {
-                $result_array = array("status" => "success");
-            } else {
-                $result_array = array("status" => "error");
-            }
+            $result_array = array("status" => "success");
         } else {
             $result_array = array("status" => "error");
         }
@@ -300,7 +297,7 @@ class Sessions extends CI_Controller {
             header('location:' . base_url() . 'presenter/sessions?msg=E');
         }
     }
-    
+
     function user_sign_up($sessions_id) {
         $data['user'] = $this->msessions->get_user_sign_up($sessions_id);
         $this->load->view('presenter/header');

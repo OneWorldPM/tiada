@@ -1,4 +1,4 @@
-<link href="<?= base_url() ?>front_assets/sponsor/css/sponsor-home.css?v=<?=rand(1, 100)?>" rel="stylesheet">
+<link href="<?= base_url() ?>front_assets/sponsor/css/sponsor-home.css?v=<?= rand(1, 100) ?>" rel="stylesheet">
 <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -9,9 +9,8 @@
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.2.0/main.min.js'></script>
 
 <?php
-$sponsors_logo = ($sponsors_logo == '')?'logo_placeholder.png':$sponsors_logo;
-$sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_cover;
-
+$sponsors_logo = ($sponsors_logo == '') ? 'logo_placeholder.png' : $sponsors_logo;
+$sponsors_cover = ($sponsor_cover == '') ? 'sponsor-cover-default.jpg' : $sponsor_cover;
 ?>
 
 <main role="main">
@@ -27,7 +26,7 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
     ?>
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron" id="sponsorCover" style="background-image: url(<?= base_url() ?>uploads/sponsors/<?= $sponsor_cover ?>?v=<?=rand(1, 100)?>);background-size: 1930px;background-repeat: no-repeat;background-position: center;height: 600px;background-color: #272f31;">
+    <div class="jumbotron" id="sponsorCover" style="background-image: url(<?= base_url() ?>uploads/sponsors/<?= $sponsor_cover ?>?v=<?= rand(1, 100) ?>);background-size: 1930px;background-repeat: no-repeat;background-position: center;height: 600px;background-color: #272f31;">
         <input type="file" id="coverupload" accept=".jpg,.jpeg,.png" style="display:none"/>
         <span class="cover-upload-btn small-edit-btn  badge badge-primary pull-right">
             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> edit cover
@@ -41,13 +40,13 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
             <div class="col-md-4">
 
                 <div class="container" style="height: 220px;">
-                    <img class="sponsor-main-logo" src="<?= base_url() ?>uploads/sponsors/<?=$sponsors_logo?>">
+                    <img class="sponsor-main-logo" src="<?= base_url() ?>uploads/sponsors/<?= $sponsors_logo ?>">
                     <input type="file" id="logoupload" accept=".jpg,.jpeg,.png" style="display:none"/>
                     <span class="logo-upload-btn small-edit-btn badge badge-primary">
-                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> edit logo
-                        </span>
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> edit logo
+                    </span>
                     <h1 class="sponsor-name">
-                        <span class="company-name"><?=$company_name?></span>
+                        <span class="company-name"><?= $company_name ?></span>
                         <span class="name-edit-btn small-edit-btn badge badge-primary">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> edit name
                         </span>
@@ -58,7 +57,7 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
 
             <div class="col-md-4">
                 <h3>About Us</h3>
-                <textarea class="sponsor-about form-control" rows="7"><?=$about?></textarea>
+                <textarea class="sponsor-about form-control" rows="7"><?= $about ?></textarea>
                 <span class="edit-about-btn badge badge-primary pull-right">
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i> save
                 </span>
@@ -72,7 +71,7 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
                         <div class="input-group-addon">
                             <i class="fa fa-globe fa-2x" style="color: #417cb0;" aria-hidden="true"></i>
                         </div>
-                        <input type="text" class="form-control" id="website" placeholder="Website" value="<?=$website?>">
+                        <input type="text" class="form-control" id="website" placeholder="Website" value="<?= $website ?>">
                         <div class="save-website input-group-addon btn" type="button">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> save
                         </div>
@@ -85,7 +84,7 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
                         <div class="input-group-addon">
                             <i class="fa fa-twitter-square fa-2x" style="color: #1da1f2;" aria-hidden="true"></i>
                         </div>
-                        <input type="text" class="form-control" id="twitterHandle" placeholder="Twitter handle" value="<?=$twitter_id?>">
+                        <input type="text" class="form-control" id="twitterHandle" placeholder="Twitter handle" value="<?= $twitter_id ?>">
                         <div class="save-twitter input-group-addon btn" type="button">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> save
                         </div>
@@ -98,7 +97,7 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
                         <div class="input-group-addon">
                             <i class="fa fa-facebook-square fa-2x" style="color: #036ce4;" aria-hidden="true"></i>
                         </div>
-                        <input type="text" class="form-control" id="facebookHandle" placeholder="Facebook handle" value="<?=$facebook_id?>">
+                        <input type="text" class="form-control" id="facebookHandle" placeholder="Facebook handle" value="<?= $facebook_id ?>">
                         <div class="save-facebook input-group-addon btn" type="button">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> save
                         </div>
@@ -111,7 +110,7 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
                         <div class="input-group-addon">
                             <i class="fa fa-linkedin-square fa-2x" style="color: #0077b5;" aria-hidden="true"></i>
                         </div>
-                        <input type="text" class="form-control" id="linkedinHandle" placeholder="Twitter handle" value="<?=$linkedin_id?>">
+                        <input type="text" class="form-control" id="linkedinHandle" placeholder="Twitter handle" value="<?= $linkedin_id ?>">
                         <div class="save-linkedin input-group-addon btn" type="button">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> save
                         </div>
@@ -341,9 +340,9 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="videoCallModalLabel">Attendee online</h5>
-<!--                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-<!--                        <span aria-hidden="true">&times;</span>-->
-<!--                    </button>-->
+                    <!--                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+                    <!--                        <span aria-hidden="true">&times;</span>-->
+                    <!--                    </button>-->
                 </div>
                 <div class="modal-body text-center">
                     <div class="video-call-parent">
@@ -370,7 +369,10 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
                         <span class="attendeeProfileModal-name"></span>
                         <span class="attendeeProfileModalSMIcons pull-right"></span><br>
                         <small class="attendeeProfileModalEmail pull-right"></small><br>
-                        <small class="attendeeProfileModalPhone pull-right"></small>
+                        <small class="attendeeProfileModalPhone pull-right"></small><br>
+                        <small class="attendeeProfileModalCompany pull-right"></small><br>
+                        <small class="attendeeProfileModalCity pull-right"></small><br>
+                        <small class="attendeeProfileModalState pull-right"></small><br>
                     </h4>
                 </div>
                 <div class="modal-body">
@@ -411,19 +413,19 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
 
 
         $('#mainMenuItems').append('' +
-            '<li>' +
-            '<a href="sponsor-admin/logout" style="color:#A9A9A9; font-size: 18px;">' +
-            '<i class="fa fa-sign-out" style="color:#A9A9A9; font-size: 18px;"></i>' +
-            'Logout' +
-            '</a>' +
-            '</li>');
+                '<li>' +
+                '<a href="sponsor-admin/logout" style="color:#A9A9A9; font-size: 18px;">' +
+                '<i class="fa fa-sign-out" style="color:#A9A9A9; font-size: 18px;"></i>' +
+                'Logout' +
+                '</a>' +
+                '</li>');
 
-        $('.agent-list').append('<li person="'+company_name+'" class="agent-list-item"><a href="javascript:void(0);">'+user_name+'</a></li>');
-        $('.booking-agent-list').append('<li person="'+company_name+'" class="agent-list-item"><a href="javascript:void(0);">'+user_name+'</a></li>');
+        $('.agent-list').append('<li person="' + company_name + '" class="agent-list-item"><a href="javascript:void(0);">' + user_name + '</a></li>');
+        $('.booking-agent-list').append('<li person="' + company_name + '" class="agent-list-item"><a href="javascript:void(0);">' + user_name + '</a></li>');
         $('.current-booking-person-name').text(user_name);
 
 
-        $.get( "/tiadaannualconference/sponsor-admin/Schedules/getAllScheduledMeetings/"+sponsor_id+"/"+company_name, function(events){
+        $.get("/tiadaannualconference/sponsor-admin/Schedules/getAllScheduledMeetings/" + sponsor_id + "/" + company_name, function (events) {
             events = JSON.parse(events);
 
             var calendarEl = document.getElementById('calendar');
@@ -434,7 +436,7 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
                     center: 'title',
                     right: 'dayGridMonth,timeGridWeek,timeGridDay'
                 },
-                eventClick: function(info) {
+                eventClick: function (info) {
                     userProfileModal(info.event.extendedProps.attendeeId);
                 },
                 events: events
@@ -446,50 +448,67 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
     });
 
     function userProfileModal(userId) {
-        $.get( "/tiadaannualconference/sponsor-admin/UserDetails/userDataById/"+userId, function(profile) {
+        $.get("/tiadaannualconference/sponsor-admin/UserDetails/userDataById/" + userId, function (profile) {
 
             profile = JSON.parse(profile);
 
-            var fullname = profile.first_name+' '+profile.last_name;
+            var fullname = profile.first_name + ' ' + profile.last_name;
             if (fullname == ' ')
             {
                 var fullname = 'Name Unavailable';
             }
             var nameAcronym = fullname.match(/\b(\w)/g).join('');
-            var color = md5(nameAcronym+profile.cust_id).slice(0, 6);
-            var userAvatarSrc = (profile.profile != '' && profile.profile != null)?'/tiadaannualconference/uploads/customer_profile/'+profile.profile:'https://placehold.it/50/'+color+'/fff&amp;text='+nameAcronym;
-            var userAvatarAlt = 'https://placehold.it/50/'+color+'/fff&amp;text='+nameAcronym;
+            var color = md5(nameAcronym + profile.cust_id).slice(0, 6);
+            var userAvatarSrc = (profile.profile != '' && profile.profile != null) ? '/tiadaannualconference/uploads/customer_profile/' + profile.profile : 'https://placehold.it/50/' + color + '/fff&amp;text=' + nameAcronym;
+            var userAvatarAlt = 'https://placehold.it/50/' + color + '/fff&amp;text=' + nameAcronym;
 
 
             $('.attendeeProfileModal-name').html(
-                '<img src="'+userAvatarSrc+'" alt="User Avatar" onerror=this.src="'+userAvatarAlt+'" class="img-circle"> ' +
-                fullname
-            );
+                    '<img src="' + userAvatarSrc + '" alt="User Avatar" onerror=this.src="' + userAvatarAlt + '" class="img-circle"> ' +
+                    fullname
+                    );
 
             $('.attendeeProfileModalSMIcons').html('');
             if (profile.facebook_id != '' && profile.facebook_id != null)
             {
-                $('.attendeeProfileModalSMIcons').append('<a href="https://facebook.com/'+profile.facebook_id+'" target="_blank"><i class="fa fa-facebook fa-2x m-l-10" aria-hidden="true" style="color: #036ce4;"></i></a>');
+                $('.attendeeProfileModalSMIcons').append('<a href="https://facebook.com/' + profile.facebook_id + '" target="_blank"><i class="fa fa-facebook fa-2x m-l-10" aria-hidden="true" style="color: #036ce4;"></i></a>');
             }
             if (profile.instagram_id != '' && profile.instagram_id != null)
             {
-                $('.attendeeProfileModalSMIcons').append('<a href="https://instagram.com/'+profile.instagram_id+'" target="_blank"><i class="fa fa-instagram fa-2x m-l-10" aria-hidden="true" style="color: #c414a0;"></i></a>');
+                $('.attendeeProfileModalSMIcons').append('<a href="https://instagram.com/' + profile.instagram_id + '" target="_blank"><i class="fa fa-instagram fa-2x m-l-10" aria-hidden="true" style="color: #c414a0;"></i></a>');
             }
             if (profile.twitter_id != '' && profile.twitter_id != null)
             {
-                $('.attendeeProfileModalSMIcons').append('<a href="https://instagram.com/'+profile.twitter_id+'" target="_blank"><i class="fa fa-twitter fa-2x m-l-10" aria-hidden="true" style="color: #1da1f2;"></i></a>');
+                $('.attendeeProfileModalSMIcons').append('<a href="https://instagram.com/' + profile.twitter_id + '" target="_blank"><i class="fa fa-twitter fa-2x m-l-10" aria-hidden="true" style="color: #1da1f2;"></i></a>');
             }
 
             $('.attendeeProfileModalEmail').html('');
-            if(profile.email != '' && profile.email != null)
+            if (profile.email != '' && profile.email != null)
             {
-                $('.attendeeProfileModalEmail').html('<i class="fa fa-envelope" aria-hidden="true"></i> '+profile.email);
+                $('.attendeeProfileModalEmail').html('<i class="fa fa-envelope" aria-hidden="true"></i> ' + profile.email);
             }
 
             $('.attendeeProfileModalPhone').html('');
-            if(profile.phone != '' && profile.phone != null){
-                $('.attendeeProfileModalPhone').html('<i class="fa fa-phone-square" aria-hidden="true"></i> '+profile.phone);
+            if (profile.phone != '' && profile.phone != null) {
+                $('.attendeeProfileModalPhone').html('<i class="fa fa-phone-square" aria-hidden="true"></i> ' + profile.phone);
             }
+
+            $('.attendeeProfileModalCompany').html('');
+            if (profile.phone != '' && profile.phone != null) {
+                $('.attendeeProfileModalCompany').html('<i class="fa fa-industry" aria-hidden="true"></i> ' + profile.company_name);
+            }
+
+            $('.attendeeProfileModalCity').html('');
+            if (profile.phone != '' && profile.phone != null) {
+                $('.attendeeProfileModalCity').html('<i class="fa fa-map-marker" aria-hidden="true"></i> ' + profile.city);
+            }
+
+            $('.attendeeProfileModalState').html('');
+            if (profile.phone != '' && profile.phone != null) {
+                $('.attendeeProfileModalState').html('<i class="fa fa-map-marker" aria-hidden="true"></i> ' + profile.state);
+            }
+
+
 
             $('.modal-profile-contents').text(' ');
             $('#attendeeProfileModal').modal('show');
@@ -499,10 +518,10 @@ $sponsors_cover = ($sponsor_cover == '')?'sponsor-cover-default.jpg':$sponsor_co
 <script src="https://meet.yourconference.live/socket.io/socket.io.js"></script>
 <script src="/SSEConnection/RTCMultiConnection.min.js"></script>
 <script src="<?= base_url() ?>front_assets/sponsor/js/SSEConnection.js"></script>
-<script src="<?= base_url() ?>front_assets/sponsor/js/sponsor-home.js?v=<?=rand(1, 100)?>"></script>
+<script src="<?= base_url() ?>front_assets/sponsor/js/sponsor-home.js?v=<?= rand(1, 100) ?>"></script>
 <script src="https://blueimp.github.io/JavaScript-MD5/js/md5.js"></script>
-<script src="<?= base_url() ?>front_assets/sponsor/js/group-chat.js?v=<?=rand(1, 100)?>"></script>
-<script src="<?= base_url() ?>front_assets/sponsor/js/one-to-one-chat.js?v=<?=rand(1, 100)?>"></script>
+<script src="<?= base_url() ?>front_assets/sponsor/js/group-chat.js?v=<?= rand(1, 100) ?>"></script>
+<script src="<?= base_url() ?>front_assets/sponsor/js/one-to-one-chat.js?v=<?= rand(1, 100) ?>"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@9.17.0/dist/sweetalert2.all.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 

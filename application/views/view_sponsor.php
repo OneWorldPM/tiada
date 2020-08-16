@@ -339,7 +339,6 @@ $sponsor_cover = ($sponsor->sponsor_cover == '') ? 'tiada_default_cover.jpg' : $
         function push_notification_sponsor()
         {
             var push_notification_id = $("#push_notification_sponsor_id").val();
-            var sponsor_id = <?= $sponsor->sponsors_id ?>;
             $.ajax({
                 url: "<?= base_url() ?>push_notification/get_push_notification_sponsor",
                 type: "post",
