@@ -78,6 +78,10 @@ $(function() {
 
     function startSignaling() {
 
+        var ringer = new Audio('/tiadaannualconference/front_assets/sponsor/ringer.mp3');
+        ringer.loop = true;
+        ringer.play();
+
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: 'btn btn-success',
@@ -96,6 +100,7 @@ $(function() {
             reverseButtons: true,
             allowOutsideClick: false
         }).then((result) => {
+            ringer.stop();
             if (result.value) {
 
                 $.post("/tiadaannualconference/sponsor-admin/VideoChatApi/sponsorVideoEngageStatus",
