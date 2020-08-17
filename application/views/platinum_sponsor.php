@@ -115,7 +115,7 @@
 
         $('#btn_expo_hrs').on('click', function () {
             var ttl = '<h3>Expo Hours</h3>';
-            var expo_hrs = '<p>SUNDAY: 6:30 p.m. - 9:00 p.m.</br>MONDAY: 8:00 a.m. - 4:30 p.m.</br>TUESDAY: 8:00 a.m. – 3:00 p.m.</br>WEDNESDAY: 8:00 a.m. – 3:00 p.m.</p>';
+            var expo_hrs = '<p>SUNDAY: 6:30 p.m. - 9:00 p.m.</br>MONDAY: 12:00 p.m. - 2:00 p.m.</br>TUESDAY: 12:00 p.m. - 2:00 p.m.</br>WEDNESDAY: 12:00 p.m. - 2:00 p.m.</p>';
             alertify.alert(ttl+expo_hrs);
         });
 		
