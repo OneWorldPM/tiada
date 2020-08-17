@@ -426,8 +426,30 @@ function fillResources() {
                 '<li class="list-group-item">\n' +
                 '   '+resource.item_name+'\n' +
                 '  <a file-name="'+resource.item_name+'" class="open-resource-badge badge" href="/tiadaannualconference/front_assets/sponsor/resources/'+resource.file_name+'" target="_blank">Open</a>\n' +
-                '  <span class="profile-badge badge">Add To Backpack</span>\n' +
+                '  <span item-id="'+resource.id+'" item-name="'+resource.item_name+'" file-name="'+resource.file_name+'"  class="add-to-backpack-badge badge">Add To Backpack</span>\n' +
                 '</li>');
+        });
+
+        $('.add-to-backpack-badge').on('click', function () {
+            var session_resource_id = $(this).attr('item-id');
+            var item_name = $(this).attr('item-name');
+            var file_name = $(this).attr('file-name');
+
+            $.post("/tiadaannualconference/Home/addSponsorResourceBriefcase",
+                {
+                    'itemId': session_resource_id,
+                    'itemName': item_name,
+                    'fileName': file_name
+                },
+                function (data, status)
+                {
+                    if (status == 'success')
+                    {
+                        toastr["success"]("Resource added to backpack!");
+                    }else{
+                        toastr["error"]("Network problem!");
+                    }
+                });
         });
 
         $('.open-resource-badge').on('click', function () {
