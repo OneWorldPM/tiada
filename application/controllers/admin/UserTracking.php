@@ -36,4 +36,57 @@ class UserTracking extends CI_Controller
         }
     }
 
+    function getPointsList()
+    {
+        $query = $this->db->query("SELECT DISTINCT vsh.cust_id, vsh.sponsor_id, vsh.start_date_time as datetime, CONCAT(cm.first_name, ' ', cm.last_name) AS name, s.company_name, s.sponsors_type   
+                            FROM  `view_sponsor_history` AS vsh
+                            JOIN `customer_master` AS cm ON cm.cust_id = vsh.cust_id
+                            JOIN `sponsors` AS s ON s.sponsors_id = vsh.sponsor_id
+                            WHERE vsh.action = 'visit' AND vsh.start_date_time LIKE '%2020-08-17%'
+                            GROUP BY vsh.cust_id, vsh.sponsor_id");
+        if ($query->num_rows() > 0) {
+
+            $points_list = array();
+            foreach($query->result() as $item){
+                if ($item->sponsors_type == 'platinum'){
+                    $pointNumber = 500;
+                }elseif($item->sponsors_type == 'gold'){
+                    $pointNumber = 150;
+                }elseif($item->sponsors_type == 'silver'){
+                    $pointNumber = 25;
+                }elseif($item->sponsors_type == 'bronze'){
+                    $pointNumber = 10;
+                }else{
+                    $pointNumber = 0;
+                }
+
+                if (array_key_exists($item->cust_id, $points_list))
+                {
+                    $point = $points_list[$item->cust_id]['point']+$pointNumber;
+
+                    $points_list[$item->cust_id] = array(
+                        'name' => $item->name,
+                        'point' => $point
+                    );
+                }else{
+                    $point = $pointNumber;
+
+                    $points_list[$item->cust_id] = array(
+                        'name' => $item->name,
+                        'point' => $point
+                    );
+                }
+            }
+            $pointsSort = array();
+            foreach ($points_list as $key => $row)
+            {
+                $pointsSort[$key] = $row['point'];
+            }
+            array_multisort($pointsSort, SORT_DESC, $points_list);
+            echo"<pre>"; print_r($points_list);echo"</pre>";
+        } else {
+            return '';
+        }
+    }
+
 }
