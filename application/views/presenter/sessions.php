@@ -66,7 +66,7 @@
                                                         <a href="<?= base_url() ?>presenter/sessions/view_question_answer/<?= $val->sessions_id ?>" class="btn btn-primary btn-sm" style="margin: 3px;">View Q&A</a>
                                                         <a href="<?= base_url() ?>presenter/sessions/create_poll/<?= $val->sessions_id ?>" class="btn btn-success btn-sm" style="margin: 3px;">Create Poll</a>
                                                         <a href="<?= base_url() ?>presenter/sessions/view_poll/<?= $val->sessions_id ?>" class="btn btn-info btn-sm" style="margin: 3px;">View Poll</a>
-                                                        <a href="<?= base_url() ?>presenter/sessions/view_session/<?= $val->sessions_id ?>" class="btn btn-green btn-sm" style="margin: 3px;">View Session</a>
+                                                        <a href="<?= base_url() ?>presenter/sessions/view_session/<?= $val->sessions_id ?>?status=1" class="btn btn-green btn-sm" style="margin: 3px;">View Session</a>
                                                         <a href="<?= base_url() ?>presenter/groupchat/sessions_groupchat/<?= $val->sessions_id ?>" class="btn btn-blue btn-sm" style="margin: 3px;">Create Chat</a>
                                                         <?php if ($val->sessions_type_status == "Private") { ?>
                                                             <a href="<?= base_url() ?>presenter/sessions/user_sign_up/<?= $val->sessions_id ?>" class="btn btn-grey btn-sm" style="margin: 3px;">Registrants</a>
@@ -149,7 +149,7 @@
                                                         <a href="<?= base_url() ?>presenter/sessions/view_question_answer/<?= $val->sessions_id ?>" class="btn btn-primary btn-sm" style="margin: 3px;">View Q&A</a>
                                                         <a href="<?= base_url() ?>presenter/sessions/create_poll/<?= $val->sessions_id ?>" class="btn btn-success btn-sm" style="margin: 3px;">Create Poll</a>
                                                         <a href="<?= base_url() ?>presenter/sessions/view_poll/<?= $val->sessions_id ?>" class="btn btn-info btn-sm" style="margin: 3px;">View Poll</a>
-                                                        <a href="<?= base_url() ?>presenter/sessions/view_session/<?= $val->sessions_id ?>" class="btn btn-green btn-sm" style="margin: 3px;">View Session</a>
+                                                        <a href="<?= base_url() ?>presenter/sessions/view_session/<?= $val->sessions_id ?>?status=2" class="btn btn-green btn-sm" style="margin: 3px;">View Session</a>
                                                         <a href="<?= base_url() ?>presenter/groupchat/sessions_groupchat/<?= $val->sessions_id ?>" class="btn btn-blue btn-sm" style="margin: 3px;">Create Chat</a>
                                                         <?php if ($val->sessions_type_status == "Private") { ?>
                                                             <a href="<?= base_url() ?>presenter/sessions/user_sign_up/<?= $val->sessions_id ?>" class="btn btn-grey btn-sm" style="margin: 3px;">Registrants</a>

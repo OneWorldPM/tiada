@@ -135,5 +135,19 @@ class M_groupchat extends CI_Model {
             return "";
         }
     }
+	
+	function get_group_chat_section_status_moderator() {
+        $post = $this->input->post();
+        $this->db->select('*');
+        $this->db->from('sessions_group_chat');
+        $this->db->like('moderator_id', $this->session->userdata("pid"));
+        $this->db->where(array("sessions_id" => $post['sessions_id'], "status" => 1));
+        $sessions = $this->db->get();
+        if ($sessions->num_rows() > 0) {
+            return $sessions->row();
+        } else {
+            return "";
+        }
+    }
 
 }

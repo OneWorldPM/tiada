@@ -107,5 +107,15 @@ class Groupchat extends CI_Controller {
         }
         echo json_encode($result_array);
     }
+	
+	public function get_group_chat_section_status_moderator() {
+        $result_data = $this->objgroupchat->get_group_chat_section_status_moderator();
+        if (!empty($result_data)) {
+            $result_array = array("status" => "success", "result" => $result_data);
+        } else {
+            $result_array = array("status" => "error");
+        }
+        echo json_encode($result_array);
+    }
 
 }

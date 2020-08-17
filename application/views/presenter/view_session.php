@@ -904,20 +904,38 @@
 
         function get_group_chat_section_status() {
             var sessions_id = $("#sessions_id").val();
-            $.ajax({
-                url: "<?= base_url() ?>presenter/groupchat/get_group_chat_section_status",
-                type: "POST",
-                data: {'sessions_id': sessions_id},
-                dataType: "json",
-                success: function (resultdata, textStatus, jqXHR) {
-                    if (resultdata.status == 'success') {
-                        $("#group_chat_section").show();
-                        $("#sessions_group_chat_id").val(resultdata.result.sessions_group_chat_id);
-                    } else {
-                        $("#group_chat_section").hide();
+            var viewer_status = $("#viewer_status").val();
+            if (viewer_status == 1) {
+                $.ajax({
+                    url: "<?= base_url() ?>presenter/groupchat/get_group_chat_section_status",
+                    type: "POST",
+                    data: {'sessions_id': sessions_id},
+                    dataType: "json",
+                    success: function (resultdata, textStatus, jqXHR) {
+                        if (resultdata.status == 'success') {
+                            $("#group_chat_section").show();
+                            $("#sessions_group_chat_id").val(resultdata.result.sessions_group_chat_id);
+                        } else {
+                            $("#group_chat_section").hide();
+                        }
                     }
-                }
-            });
+                });
+            } else {
+                $.ajax({
+                    url: "<?= base_url() ?>presenter/groupchat/get_group_chat_section_status_moderator",
+                    type: "POST",
+                    data: {'sessions_id': sessions_id},
+                    dataType: "json",
+                    success: function (resultdata, textStatus, jqXHR) {
+                        if (resultdata.status == 'success') {
+                            $("#group_chat_section").show();
+                            $("#sessions_group_chat_id").val(resultdata.result.sessions_group_chat_id);
+                        } else {
+                            $("#group_chat_section").hide();
+                        }
+                    }
+                });
+            }
         }
 
         $('#send').click(function () {

@@ -228,6 +228,7 @@ class Sessions extends CI_Controller {
     }
 
     public function view_session($sessions_id) {
+		  $data['viewer_status'] = $this->input->get('status');
         $data['poll_data'] = $this->msessions->get_poll_details($sessions_id);
         $data["sessions"] = $this->msessions->view_session($sessions_id);
         $data["session_resource"] = $this->msessions->get_session_resource($sessions_id);
