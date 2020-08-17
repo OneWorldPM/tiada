@@ -175,7 +175,7 @@
         </div>
     </div>
 </section>
-<div class="modal fade" id="push_notification" tabindex="-1" role="modal" aria-labelledby="modal-label" aria-hidden="true" style="display: none; text-align: left; right: unset;">
+<!--<div class="modal fade" id="push_notification" tabindex="-1" role="modal" aria-labelledby="modal-label" aria-hidden="true" style="display: none; text-align: left; right: unset;">
     <input type="hidden" id="push_notification_id" value="">
     <div class="modal-dialog">
         <div class="modal-content" style="border: 1px solid #ae0201;">
@@ -191,7 +191,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
 <script type="text/javascript">
     $(document).ready(function () {
         var page_link = $(location).attr('href');
@@ -219,35 +219,5 @@
             glower.toggleClass('active');
         }, 200);
 
-    });
-</script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        push_notification_admin();
-        setInterval(push_notification_admin, 3000);
-        function push_notification_admin()
-        {
-            var push_notification_id = $("#push_notification_id").val();
-
-            $.ajax({
-                url: "<?= base_url() ?>push_notification/get_push_notification_admin",
-                type: "post",
-                dataType: "json",
-                success: function (data) {
-                    if (data.status == "success") {
-                        if (push_notification_id == "0") {
-                            $("#push_notification_id").val(data.result.push_notification_id);
-                        }
-                        if (push_notification_id != data.result.push_notification_id) {
-                            $("#push_notification_id").val(data.result.push_notification_id);
-                            $('#push_notification').modal('show');
-                            $("#push_notification_message").text(data.result.message);
-                        }
-                    } else {
-                        $('#push_notification').modal('hide');
-                    }
-                }
-            });
-        }
     });
 </script>

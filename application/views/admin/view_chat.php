@@ -140,7 +140,7 @@
         });
 
         getMessage();
-        setInterval(getMessage, 1000);
+        setInterval(getMessage, 2000);
         setTimeout(function () {
             $(".wrap-messages").css('max-height', '300px');
         }, 300);

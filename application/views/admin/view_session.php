@@ -589,7 +589,6 @@
         setTimeout(function () {
             $('.app-navbar-fixed').addClass('app-sidebar-closed')
         }, 3000);
-
     });
 
     function get_question_list()
@@ -843,13 +842,13 @@
 <script type="text/javascript">
     $(document).ready(function () {
         getMessage();
-        setInterval(getMessage, 1000);
+        setInterval(getMessage, 2000);
         setTimeout(function () {
             $(".wrap-messages").css('max-height', '340px');
         }, 300);
 
         get_group_chat_section_status();
-        setInterval(get_group_chat_section_status, 10000);
+        setInterval(get_group_chat_section_status, 20000);
 
         function getMessage() {
             $.ajax({

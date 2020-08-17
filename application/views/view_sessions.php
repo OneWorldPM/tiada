@@ -1,4 +1,4 @@
-<link href="<?= base_url() ?>assets/css/attendee-session-view.css?v=<?=rand(1, 100)?>" rel="stylesheet">
+<link href="<?= base_url() ?>assets/css/attendee-session-view.css?v=<?= rand(1, 100) ?>" rel="stylesheet">
 <style>
     .progress-bar {
         height: 100%;
@@ -243,7 +243,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="close" style="padding: 10px; color: #fff; background-color: #ae0201; opacity: 1;" data-dismiss="modal" aria-hidden="true">Close</button>
+                    <button type="button" class="close push_notification_close" style="padding: 10px; color: #fff; background-color: #ae0201; opacity: 1;" data-dismiss="modal" aria-hidden="true">Close</button>
                 </div>
             </div>
         </div>
@@ -433,10 +433,10 @@
 //        });
         $("#resource_display_status").show();
         getMessage;
-        setInterval(getMessage, 1000);
+        setInterval(getMessage, 3000);
 
         get_group_chat_section_status();
-        setInterval(get_group_chat_section_status, 10000);
+        setInterval(get_group_chat_section_status, 20000);
 
         $(document).on("click", "#resource_show", function () {
             var resource_show_status = $("#resource_show").attr("data-resource_show_status");
@@ -523,7 +523,6 @@
         });
 
         $(document).on("click", ".resource_save", function () {
-            console.log("click");
             var session_resource_id = $(this).attr("data-session_resource_id");
             var sessions_id = $("#sessions_id").val();
             $.ajax({
@@ -878,15 +877,28 @@
         }
     }
 </script>
-<script src="<?= base_url() ?>assets/js/attendee-session-view.js?v=<?=rand(1, 100)?>"></script>
+<script src="<?= base_url() ?>assets/js/attendee-session-view.js?v=<?= rand(1, 100) ?>"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         push_notification_admin();
-        setInterval(push_notification_admin, 3000);
+        setInterval(push_notification_admin, 4000);
+
+        $('.push_notification_close').on('click', function () {
+            var push_notification_id = $("#push_notification_id").val();
+            $.ajax({
+                url: "<?= base_url() ?>push_notification/push_notification_close",
+                type: "post",
+                data: {'push_notification_id': push_notification_id},
+                dataType: "json",
+                success: function (data) {
+                }
+            });
+        });
+
         function push_notification_admin()
         {
             var push_notification_id = $("#push_notification_id").val();
-          
+
             $.ajax({
                 url: "<?= base_url() ?>push_notification/get_push_notification_admin",
                 type: "post",
@@ -897,9 +909,19 @@
                             $("#push_notification_id").val(data.result.push_notification_id);
                         }
                         if (push_notification_id != data.result.push_notification_id) {
-                            $("#push_notification_id").val(data.result.push_notification_id);
-                            $('#push_notification').modal('show');
-                            $("#push_notification_message").text(data.result.message);
+                            $.ajax({
+                                url: "<?= base_url() ?>push_notification/get_push_notification_admin_check_status",
+                                type: "post",
+                                data: {'push_notification_id': data.result.push_notification_id},
+                                dataType: "json",
+                                success: function (dt) {
+                                    if (dt.status == "success") {
+                                        $("#push_notification_id").val(data.result.push_notification_id);
+                                        $('#push_notification').modal('show');
+                                        $("#push_notification_message").text(data.result.message);
+                                    }
+                                }
+                            });
                         }
                     } else {
                         $('#push_notification').modal('hide');

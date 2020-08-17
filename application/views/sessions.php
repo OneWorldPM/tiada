@@ -319,7 +319,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="close" style="padding: 10px; color: #fff; background-color: #ae0201; opacity: 1;" data-dismiss="modal" aria-hidden="true">Close</button>
+                <button type="button" class="close push_notification_close" style="padding: 10px; color: #fff; background-color: #ae0201; opacity: 1;" data-dismiss="modal" aria-hidden="true">Close</button>
             </div>
         </div>
     </div>
@@ -438,7 +438,20 @@
 <script type="text/javascript">
     $(document).ready(function () {
         push_notification_admin();
-        setInterval(push_notification_admin, 3000);
+        setInterval(push_notification_admin, 4000);
+
+        $('.push_notification_close').on('click', function () {
+            var push_notification_id = $("#push_notification_id").val();
+            $.ajax({
+                url: "<?= base_url() ?>push_notification/push_notification_close",
+                type: "post",
+                data: {'push_notification_id': push_notification_id},
+                dataType: "json",
+                success: function (data) {
+                }
+            });
+        });
+
         function push_notification_admin()
         {
             var push_notification_id = $("#push_notification_id").val();
@@ -453,9 +466,19 @@
                             $("#push_notification_id").val(data.result.push_notification_id);
                         }
                         if (push_notification_id != data.result.push_notification_id) {
-                            $("#push_notification_id").val(data.result.push_notification_id);
-                            $('#push_notification').modal('show');
-                            $("#push_notification_message").text(data.result.message);
+                            $.ajax({
+                                url: "<?= base_url() ?>push_notification/get_push_notification_admin_check_status",
+                                type: "post",
+                                data: {'push_notification_id': data.result.push_notification_id},
+                                dataType: "json",
+                                success: function (dt) {
+                                    if (dt.status == "success") {
+                                        $("#push_notification_id").val(data.result.push_notification_id);
+                                        $('#push_notification').modal('show');
+                                        $("#push_notification_message").text(data.result.message);
+                                    }
+                                }
+                            });
                         }
                     } else {
                         $('#push_notification').modal('hide');
@@ -465,5 +488,6 @@
         }
     });
 </script>
+
 
 

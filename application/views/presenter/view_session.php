@@ -159,8 +159,8 @@
                 <div class="panel-body bg-white" style="border: 1px solid #b2b7bb!important; padding: 10px;">
                     <div class="row">
                         <div class="col-md-2" style="padding-right: 0; padding-left: 8px;">
-						    <input type="hidden" id="viewer_status" value="<?= $viewer_status ?>">
-						    <input type="hidden" id="time_second" value="3600">
+                            <input type="hidden" id="time_second" value="3600">
+                            <input type="hidden" id="viewer_status" value="<?= $viewer_status ?>">
                             <input type="hidden" id="poll_vot_section_id_status" value="0">
                             <input type="hidden" id="poll_vot_section_last_status" value="0">
                             <div class="col-md-12" id="poll_vot_section" style="padding: 0px 0px 0px 0px; margin-top: 0px; background-color: #fff; border-radius: 5px;">
@@ -267,21 +267,21 @@
                         </div>
                         <div class="col-md-12" style="padding-top: 20px">
                             <div class="row">
-							<div class="col-md-12" style="margin-bottom: 15px;">
-                                            <div class="row">
-                                                <div class="col-md-12" style="text-align: center;">
-                                                    <p class="col-md-2" id="id_day_time_clock" style="border: 3px solid #000; background-color: #d9d900; color: #000; font-weight: 900; padding: 7px 7px 7px 7px; font-size: 30px; border-radius:20px;"></p>  
-                                                </div>
+                                <div class="col-md-12" style="margin-bottom: 15px;">
+                                    <div class="row">
+                                        <div class="col-md-12" style="text-align: center;">
+                                            <p class="col-md-2" id="id_day_time_clock" style="border: 3px solid #000; background-color: #d9d900; color: #000; font-weight: 900; padding: 7px 7px 7px 7px; font-size: 30px; border-radius:20px;"></p>  
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-2" style="text-align: center;">
+                                                <a id="btn_timer_start" class="btn btn-grey btn-sm">START</a>
+                                                <a id="btn_timer_stop" class="btn btn-grey btn-sm">STOP</a>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="col-md-2" style="text-align: center;">
-                                                        <a id="btn_timer_start" class="btn btn-grey btn-sm">START</a>
-                                                        <a id="btn_timer_stop" class="btn btn-grey btn-sm">STOP</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                 </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-12">
@@ -366,10 +366,10 @@
 
         $(".visible-md").click();
         get_question_list();
-        setInterval(get_question_list, 4000);
+        setInterval(get_question_list, 8000);
 
         get_favorite_question_list();
-        setInterval(get_favorite_question_list, 5000);
+        setInterval(get_favorite_question_list, 9000);
 
         get_poll_vot_section();
         setInterval(get_poll_vot_section, 1000);
@@ -884,13 +884,13 @@
 <script type="text/javascript">
     $(document).ready(function () {
         getMessage();
-        setInterval(getMessage, 1000);
+        setInterval(getMessage, 2000);
         setTimeout(function () {
             $(".wrap-messages").css('max-height', '340px');
         }, 300);
 
         get_group_chat_section_status();
-        setInterval(get_group_chat_section_status, 10000);
+        setInterval(get_group_chat_section_status, 20000);
 
         function getMessage() {
             $.ajax({

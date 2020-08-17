@@ -148,7 +148,7 @@
                         </a>
                     </div> 
                     <div class="col-md-3  col-sm-12">
-                        <a class="icon-home" href="<?= base_url() ?>lounge" id="btn_lounge">
+                        <a class="icon-home" href="#" id="btn_lounge"> 
                             <div class="col-lg box-home p-5 text-center">
                                 <img src="<?= base_url() ?>front_assets/images/lounge.png" alt="welcome" class="m-t-20" style="height: 170px; width: 170px;">
                                 <br>
@@ -186,6 +186,23 @@
         <button id="close-support-request" type="button" class="btn cancel">Close</button>
     </form>
 </div>
+<div class="modal fade" id="push_notification" tabindex="-1" role="modal" aria-labelledby="modal-label" aria-hidden="true" style="display: none; text-align: left; right: unset;">
+    <input type="hidden" id="push_notification_id" value="">
+    <div class="modal-dialog">
+        <div class="modal-content" style="border: 1px solid #ae0201;">
+            <div class="modal-body">
+                <div class="row" style="padding-top: 10px; padding-bottom: 20px;">
+                    <div class="col-sm-12">
+                        <div style="color:#ae0201; font-size: 16px; font-weight: 800; " id="push_notification_message"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="close push_notification_close" style="padding: 10px; color: #fff; background-color: #ae0201; opacity: 1;" data-dismiss="modal" aria-hidden="true">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 </section>
 
 <script>
@@ -206,9 +223,67 @@
             }
         });
 
+
+        $('#btn_lounge').on('click', function () {
+            alertify.alert('Opening Soon!');
+        });
+
     });
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@9.17.0/dist/sweetalert2.all.min.js"></script>
 <link href="<?= base_url() ?>assets/support-chat/support-chat.css?v=<?= rand(1, 100) ?>" rel="stylesheet">
 <script src="<?= base_url() ?>assets/support-chat/support-chat.js?v=<?= rand(1, 100) ?>"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        push_notification_admin();
+        setInterval(push_notification_admin, 4000);
+
+        $('.push_notification_close').on('click', function () {
+            var push_notification_id = $("#push_notification_id").val();
+            $.ajax({
+                url: "<?= base_url() ?>push_notification/push_notification_close",
+                type: "post",
+                data: {'push_notification_id': push_notification_id},
+                dataType: "json",
+                success: function (data) {
+                }
+            });
+        });
+
+        function push_notification_admin()
+        {
+            var push_notification_id = $("#push_notification_id").val();
+
+            $.ajax({
+                url: "<?= base_url() ?>push_notification/get_push_notification_admin",
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    if (data.status == "success") {
+                        if (push_notification_id == "0") {
+                            $("#push_notification_id").val(data.result.push_notification_id);
+                        }
+                        if (push_notification_id != data.result.push_notification_id) {
+                            $.ajax({
+                                url: "<?= base_url() ?>push_notification/get_push_notification_admin_check_status",
+                                type: "post",
+                                data: {'push_notification_id': data.result.push_notification_id},
+                                dataType: "json",
+                                success: function (dt) {
+                                    if (dt.status == "success") {
+                                        $("#push_notification_id").val(data.result.push_notification_id);
+                                        $('#push_notification').modal('show');
+                                        $("#push_notification_message").text(data.result.message);
+                                    }
+                                }
+                            });
+                        }
+                    } else {
+                        $('#push_notification').modal('hide');
+                    }
+                }
+            });
+        }
+    });
+</script>

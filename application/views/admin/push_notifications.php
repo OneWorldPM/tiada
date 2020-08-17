@@ -41,6 +41,7 @@
                                             <tr>
                                                 <th>Date</th>
                                                 <th>Message</th>
+                                                <th>Status</th>
                                                 <th>Action</th>                          
                                             </tr>
                                         </thead>
@@ -52,12 +53,17 @@
                                                     <tr>
                                                         <td><?= date("Y-m-d", strtotime($val->notification_date)) ?></td>
                                                         <td><?= $val->message ?></td>
+                                                        <td>
+                                                            <?php if ($val->status == 1) { ?>
+                                                                <label class="label label-primary">Send</label>
+                                                            <?php } ?>
+                                                        </td>
                                                         <td> 
-
-                                                            <a class="btn btn-success btn-sm send_notification" data-id="<?= $val->push_notification_id ?>" href="#">
-                                                                <i class="fa fa-send"></i> Send Notification
-                                                            </a>
-
+                                                            <?php if ($val->status == 0) { ?>
+                                                                <a class="btn btn-success btn-sm send_notification" data-id="<?= $val->push_notification_id ?>" href="#">
+                                                                    <i class="fa fa-send"></i> Send Notification
+                                                                </a>
+                                                            <?php } ?>
                                                             <a class="btn btn-danger btn-sm delete_promo_code" href="<?= base_url() . 'admin/push_notifications/delete_push_notifications/' . $val->push_notification_id ?>">
                                                                 <i class="fa fa-trash-o"></i> Delete
                                                             </a>
@@ -142,22 +148,23 @@ switch ($msg) {
                         console.log(cr_data);
                         if (cr_data.status == "success")
                         {
-                            var delayInMilliseconds = 6000; //1 second
-                            setTimeout(function () {
-                                $.ajax({
-                                    url: "<?= base_url() ?>admin/push_notifications/close_notification/" + send_notification_id,
-                                    type: "post",
-                                    dataType: "json",
-                                    success: function (response) {
-                                        cr_data = response;
-                                        console.log(cr_data);
-                                        if (cr_data.status == "success")
-                                        {
-                                            $this.show();
-                                        }
-                                    }
-                                });
-                            }, delayInMilliseconds);
+                            location.reload();
+//                            var delayInMilliseconds = 6000; //1 second
+//                            setTimeout(function () {
+//                                $.ajax({
+//                                    url: "<?= base_url() ?>admin/push_notifications/close_notification/" + send_notification_id,
+//                                    type: "post",
+//                                    dataType: "json",
+//                                    success: function (response) {
+//                                        cr_data = response;
+//                                        console.log(cr_data);
+//                                        if (cr_data.status == "success")
+//                                        {
+//                                            $this.show();
+//                                        }
+//                                    }
+//                                });
+//                            }, delayInMilliseconds);
                         }
                     }
                 });

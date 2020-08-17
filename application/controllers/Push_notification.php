@@ -24,14 +24,30 @@ class Push_notification extends CI_Controller {
         }
         echo json_encode($result_array);
     }
-    
-      public function get_push_notification_sponsor() {
+
+    public function get_push_notification_admin_check_status() {
+        $result_data = $this->objpush_notification->get_push_notification_admin_check_status();
+        if (!empty($result_data)) {
+            $result_array = array("status" => "success");
+        } else {
+            $result_array = array("status" => "error");
+        }
+        echo json_encode($result_array);
+    }
+
+    public function get_push_notification_sponsor() {
         $result_data = $this->objpush_notification->get_push_notification_sponsor();
         if (!empty($result_data)) {
             $result_array = array("status" => "success", "result" => $result_data);
         } else {
             $result_array = array("status" => "error");
         }
+        echo json_encode($result_array);
+    }
+
+    public function push_notification_close() {
+        $result_data = $this->objpush_notification->push_notification_close();
+        $result_array = array("status" => "success");
         echo json_encode($result_array);
     }
 
