@@ -216,7 +216,7 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
-        setInterval('timer()', 1000);
+        //setInterval('timer()', 1000);
         $(".presenter_open_modul").click(function () {
             var presenter_photo = $(this).attr("data-presenter_photo");
             var presenter_name = $(this).attr("data-presenter_name");
