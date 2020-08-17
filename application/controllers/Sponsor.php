@@ -24,6 +24,9 @@ class Sponsor extends CI_Controller {
 
     public function other_sponsor() {
         $data["platinum_sponsors"] = $this->objsponsor->getPlatinumSponsorData();
+		$data["gold_sponsors"] = $this->objsponsor->getGoldSponsorData();
+        $data["silver_sponsors"] = $this->objsponsor->getSilverSponsorData();
+        $data["bronze_sponsors"] = $this->objsponsor->getBronzeSponsorData();
         $data["all_sponsor"] = $this->objsponsor->getSponsorData();
         $data["sponsors_category"] = $this->objsponsor->getSponsorsCategoryData();
         $this->load->view('header');
@@ -34,6 +37,9 @@ class Sponsor extends CI_Controller {
     public function filter_search() {
         header("Cache-Control: no cache");
         $data["platinum_sponsors"] = $this->objsponsor->getPlatinumSponsorDataFilter_search();
+		$data["gold_sponsors"] = $this->objsponsor->getGoldSponsorDataFilter_search();
+        $data["silver_sponsors"] = $this->objsponsor->getSilverSponsorDataFilter_search();
+        $data["bronze_sponsors"] = $this->objsponsor->getBronzeSponsorDataFilter_search();
         $data["all_sponsor"] = $this->objsponsor->getSponsorDataFilter_search();
         $data["sponsors_category"] = $this->objsponsor->getSponsorsCategoryData();
         $this->load->view('header');

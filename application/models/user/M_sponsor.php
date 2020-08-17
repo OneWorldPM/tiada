@@ -17,12 +17,123 @@ class M_sponsor extends CI_Model {
             return '';
         }
     }
+	
+	function getGoldSponsorData() {
+        $this->db->select('*');
+        $this->db->from('sponsors');
+        $this->db->where('sponsors_type', "gold");
+        $sponsors = $this->db->get();
+        if ($sponsors->num_rows() > 0) {
+            return $sponsors->result();
+        } else {
+            return '';
+        }
+    }
+
+    function getSilverSponsorData() {
+        $this->db->select('*');
+        $this->db->from('sponsors');
+        $this->db->where('sponsors_type', "silver");
+        $sponsors = $this->db->get();
+        if ($sponsors->num_rows() > 0) {
+            return $sponsors->result();
+        } else {
+            return '';
+        }
+    }
+
+    function getBronzeSponsorData() {
+        $this->db->select('*');
+        $this->db->from('sponsors');
+        $this->db->where('sponsors_type', "bronze");
+        $sponsors = $this->db->get();
+        if ($sponsors->num_rows() > 0) {
+            return $sponsors->result();
+        } else {
+            return '';
+        }
+    }
 
     function getPlatinumSponsorDataFilter_search() {
 
         $this->db->select('*');
         $this->db->from('sponsors');
         $this->db->where('sponsors_type', "platinum");
+        if (!empty($_POST)) {
+            $post = $this->input->post();
+            if ($post['sponsors_category'] != "") {
+                $this->db->where("sponsors_category_id", $post['sponsors_category']);
+            }
+            if ($post['sponsors_type'] != "") {
+                $this->db->where("sponsors_type", $post['sponsors_type']);
+            }
+            if ($post['searchbox'] != "") {
+                $this->db->like("company_name", $post['searchbox']);
+            }
+        }
+        $sponsors = $this->db->get();
+        if ($sponsors->num_rows() > 0) {
+            return $sponsors->result();
+        } else {
+            return '';
+        }
+    }
+	
+	function getGoldSponsorDataFilter_search() {
+
+        $this->db->select('*');
+        $this->db->from('sponsors');
+        $this->db->where('sponsors_type', "gold");
+        if (!empty($_POST)) {
+            $post = $this->input->post();
+            if ($post['sponsors_category'] != "") {
+                $this->db->where("sponsors_category_id", $post['sponsors_category']);
+            }
+            if ($post['sponsors_type'] != "") {
+                $this->db->where("sponsors_type", $post['sponsors_type']);
+            }
+            if ($post['searchbox'] != "") {
+                $this->db->like("company_name", $post['searchbox']);
+            }
+        }
+        $sponsors = $this->db->get();
+        if ($sponsors->num_rows() > 0) {
+            return $sponsors->result();
+        } else {
+            return '';
+        }
+    }
+
+    function getSilverSponsorDataFilter_search() {
+
+        $this->db->select('*');
+        $this->db->from('sponsors');
+        $this->db->where('sponsors_type', "silver");
+        if (!empty($_POST)) {
+            $post = $this->input->post();
+            if ($post['sponsors_category'] != "") {
+                $this->db->where("sponsors_category_id", $post['sponsors_category']);
+            }
+            if ($post['sponsors_type'] != "") {
+                $this->db->where("sponsors_type", $post['sponsors_type']);
+            }
+            if ($post['searchbox'] != "") {
+                $this->db->like("company_name", $post['searchbox']);
+            }
+        }
+        $sponsors = $this->db->get();
+        if ($sponsors->num_rows() > 0) {
+            return $sponsors->result();
+        } else {
+            return '';
+        }
+    }
+
+    function getBronzeSponsorDataFilter_search() {
+
+        $this->db->select('*');
+        $this->db->from('sponsors');
+        $this->db->where('sponsors_type', "bronze");
         if (!empty($_POST)) {
             $post = $this->input->post();
             if ($post['sponsors_category'] != "") {

@@ -62,7 +62,8 @@
                         <div class="col-md-2" style="margin-top:10px;">
                             <div class="input-groug">
                                 <select id="sponsors_type" name="sponsors_type" class="form-control">
-                                    <option value="">Filter By Type</option>
+                                    <option value="">Filter By Level</option>
+									<option value="">All</option>
                                     <option value="platinum">Platinum</option>
                                     <option value="gold">Gold</option>
                                     <option value="silver">Silver</option>
@@ -105,9 +106,9 @@
                         }
                         ?>
                     </div>
-                    <?php
-                    if (isset($all_sponsor) && !empty($all_sponsor)) {
-                        foreach ($all_sponsor as $val) {
+					<?php
+                    if (isset($gold_sponsors) && !empty($gold_sponsors)) {
+                        foreach ($gold_sponsors as $val) {
                             ?>
                             <div class="col-md-3 col-sm-12" style="margin-bottom:40px;">
                                 <a class="icon-home" href="<?= base_url() ?>sponsor/view/<?= $val->sponsors_id ?>"> 
@@ -120,6 +121,54 @@
                             <?php
                         }
                     }
+                    ?>
+                    <?php
+                    if (isset($silver_sponsors) && !empty($silver_sponsors)) {
+                        foreach ($silver_sponsors as $val) {
+                            ?>
+                            <div class="col-md-3 col-sm-12" style="margin-bottom:40px;">
+                                <a class="icon-home" href="<?= base_url() ?>sponsor/view/<?= $val->sponsors_id ?>"> 
+                                    <div class="col-lg box-home text-center">
+                                        <img src="<?= base_url() ?>uploads/sponsors/<?= $val->sponsors_logo ?>" alt="welcome" style="max-width: 100px">
+                                        <h4><?= $val->company_name ?></h4>
+                                    </div>
+                                </a>
+                            </div>
+                            <?php
+                        }
+                    }
+                    ?>
+                    <?php
+                    if (isset($bronze_sponsors) && !empty($bronze_sponsors)) {
+                        foreach ($bronze_sponsors as $val) {
+                            ?>
+                            <div class="col-md-3 col-sm-12" style="margin-bottom:40px;">
+                                <a class="icon-home" href="<?= base_url() ?>sponsor/view/<?= $val->sponsors_id ?>"> 
+                                    <div class="col-lg box-home text-center">
+                                        <img src="<?= base_url() ?>uploads/sponsors/<?= $val->sponsors_logo ?>" alt="welcome" style="max-width: 100px">
+                                        <h4><?= $val->company_name ?></h4>
+                                    </div>
+                                </a>
+                            </div>
+                            <?php
+                        }
+                    }
+                    ?>
+                    <?php
+                    /*if (isset($all_sponsor) && !empty($all_sponsor)) {
+                        foreach ($all_sponsor as $val) {
+                            ?>
+                            <div class="col-md-3 col-sm-12" style="margin-bottom:40px;">
+                                <a class="icon-home" href="<?= base_url() ?>sponsor/view/<?= $val->sponsors_id ?>"> 
+                                    <div class="col-lg box-home text-center">
+                                        <img src="<?= base_url() ?>uploads/sponsors/<?= $val->sponsors_logo ?>" alt="welcome" style="max-width: 100px">
+                                        <h4><?= $val->company_name ?></h4>
+                                    </div>
+                                </a>
+                            </div>
+                            <?php
+                        }
+                    }*/
                     ?>
                 </div> 
             </div>
