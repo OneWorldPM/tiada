@@ -144,7 +144,7 @@
                                 <nav id="mainMenu" class="main-menu mega-menu">
                                     <?php if ($this->session->userdata('sponsors_id') != "") { ?>
                                         <ul class="main-menu nav nav-pills navbar-left" id="main_menu_top_bar" style="margin-right: 50px;">
-                                            <li><a href="<?= base_url() ?>sponsor-admin/VchatRoom/join/<?=$this->session->userdata('sponsors_id')?>" style="color: #ae0201">Video Room</a></li>
+                                            <li><a target="_blank" href="<?= base_url() ?>sponsor-admin/VchatRoom/join/<?=$this->session->userdata('sponsors_id')?>" style="color: #ae0201">Video Room</a></li>
                                             <li><a href="<?= base_url() ?>sponsor-admin/booth_tracking" style="color: #ae0201">BOOTH TRACKING</a></li>
                                             <li><a href="<?= base_url() ?>sponsor-admin/push_notifications" style="color: #ae0201">Push Notifications</a></li>
                                         </ul>
