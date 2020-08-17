@@ -148,7 +148,7 @@
                         </a>
                     </div> 
                     <div class="col-md-3  col-sm-12">
-                        <a class="icon-home" href="#" id="btn_lounge"> 
+                        <a class="icon-home" href="<?= base_url() ?>lounge" id="btn_lounge">
                             <div class="col-lg box-home p-5 text-center">
                                 <img src="<?= base_url() ?>front_assets/images/lounge.png" alt="welcome" class="m-t-20" style="height: 170px; width: 170px;">
                                 <br>
@@ -204,11 +204,6 @@
             dataType: "json",
             success: function (data) {
             }
-        });
-
-
-        $('#btn_lounge').on('click', function () {
-            alertify.alert('Opening Soon!');
         });
 
     });
