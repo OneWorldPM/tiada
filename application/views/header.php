@@ -151,13 +151,13 @@
                                                     ?>
                                                     <li><a href="<?= base_url() ?>sessions" style="color: #ae0201">SESSIONS</a></li>
                                                     <li><a href="<?= base_url() ?>sponsor" style="color: #ae0201">EXPO</a></li>
-                                                    <li><a href="#" style="color: #ae0201">LOUNGE</a></li>
+<!--                                                    <li><a href="--><?//= base_url() ?><!--lounge" style="color: #ae0201">LOUNGE</a></li>-->
                                                 <?php } else if ($user_detias->customer_type == "expo_only") { ?> 
                                                     <li><a href="<?= base_url() ?>sponsor" style="color: #ae0201">EXPO</a></li>
                                                 <?php } else { ?>
                                                     <li><a href="<?= base_url() ?>sessions" style="color: #ae0201">SESSIONS & ROUNDTABLES</a></li>
                                                     <li><a href="<?= base_url() ?>sponsor" style="color: #ae0201">EXPO</a></li>
-                                                    <li><a href="#" style="color: #ae0201">LOUNGE</a></li>
+<!--                                                    <li><a href="--><?//= base_url() ?><!--lounge" style="color: #ae0201">LOUNGE</a></li>-->
                                                 <?php } ?>
                                             <?php } else { ?>
                                                 <li><a href="<?= base_url() ?>sponsor" style="color: #ae0201">EXPO</a></li>
@@ -167,7 +167,7 @@
                                             ?>
                                             <li><a href="<?= base_url() ?>sessions" style="color: #ae0201">SESSIONS & ROUNDTABLES</a></li>
                                             <li><a href="<?= base_url() ?>sponsor" style="color: #ae0201">EXPO</a></li>
-                                            <li><a href="#" style="color: #ae0201">LOUNGE</a></li>
+<!--                                            <li><a href="--><?//= base_url() ?><!--lounge" style="color: #ae0201">LOUNGE</a></li>-->
                                         <?php } ?>        
                                     </ul>
                                     <ul id="mainMenuItems" class="main-menu nav nav-pills navbar-left">
