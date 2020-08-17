@@ -7,7 +7,19 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="col-md-1 form-group">
-                                    <img src="<?= base_url() ?>assets/images/Avatar.png" width="100%">
+                                    <?php
+                                        if(isset($myprofile) && !empty($myprofile)){
+                                            if($myprofile->profile != ""){
+                                                ?>
+                                                    <img src="<?= base_url() ?>uploads/customer_profile/<?= $myprofile->profile ?>" width="100%">
+                                                <?php
+                                            }else{
+                                                ?>
+                                                    <img src="<?= base_url() ?>assets/images/Avatar.png" width="100%">
+                                                <?php
+                                            }
+                                        }
+                                    ?>
                                 </div>
                                 <div class="col-md-3 form-group" style="margin-top: 15px;">
                                     <label><?= (isset($myprofile)) ? $myprofile->first_name : ''; ?> <?= (isset($myprofile)) ? $myprofile->last_name : ''; ?> </label>
@@ -331,9 +343,9 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                     <input type="file" id="profile" name="profile" class="form-control">
-                                    <small class="form-text text-muted">Add a photo to personalize your account</small>
+                                    <small class="form-text text-muted">To replace your image, please upload another file here.</small>
                                     <span id="errorprofile" style="color:red"></span>
                                 </div>
                             </div>
@@ -343,7 +355,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                     <input type="file" id="upload_vcard" name="upload_vcard" class="form-control">
                                 </div>
                             </div>
