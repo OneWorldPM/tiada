@@ -18,8 +18,13 @@
         cursor: pointer;
     }
 
+    #alertify{
+        padding: 30px 0;
+    }
+
 </style>
 <a href="<?= base_url() ?>sponsor/filter_search" style="text-align: center; color: #fffef0; font-weight: 900;position: absolute;margin-left:37.2%;margin-top: 30%;z-index: 10; font-size: 31px;">Check out the exhibits!</a>
+<a href="javascript:void(0)" id="btn_expo_hrs" style="text-align: center; color: #fffef0; position: absolute;margin-top: 33%;z-index: 10; font-size: 16px;left: 0;right: 0;"><u>Expo Hours</u></a>
 <div style="background-image: url(<?= base_url() ?>front_assets/images/tiada_new_platinum_cover.png); background-attachment: fixed; background-size: cover !important; background-position: center center !important; height: 4000px">
     <section class="parallax" style="position: fixed !important;">
         <div class="container container-fullscreen">
@@ -108,6 +113,12 @@
             }
         });
 
+        $('#btn_expo_hrs').on('click', function () {
+            var ttl = '<h3>Expo Hours</h3>';
+            var expo_hrs = '<p>SUNDAY: 6:30 p.m. - 9:00 p.m.</br>MONDAY: 8:00 a.m. - 4:30 p.m.</br>TUESDAY: 8:00 a.m. – 3:00 p.m.</br>WEDNESDAY: 8:00 a.m. – 3:00 p.m.</p>';
+            alertify.alert(ttl+expo_hrs);
+        });
+		
     });
 </script>
 <script type="text/javascript">
