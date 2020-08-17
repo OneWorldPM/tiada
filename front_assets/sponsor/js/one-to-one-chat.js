@@ -27,9 +27,9 @@ $(function() {
             var userAvatarAlt = 'https://placehold.it/50/'+color+'/fff&amp;text='+nameAcronym;
 
             $('.attendees-chat-list').append(
-                '<li class="attendees-chat-list-item list-group-item" userName="'+fullname+'" userId="'+user.cust_id+'" status="offline">\n' +
+                '<li class="attendees-chat-list-item list-group-item" userName="'+fullname+'" userId="'+user.cust_id+'" status="offline" new-text="0">\n' +
                 '<img src="'+userAvatarSrc+'" alt="User Avatar" onerror=this.src="'+userAvatarAlt+'" class="img-circle"> \n' +
-                '<span class="oto-chat-user-list-name" style="font-weight: bold;"> '+fullname+' </span> \n' +
+                '<span class="oto-chat-user-list-name" style="font-weight: bold;"> '+fullname+' <span class="badge new-text" style="background-color: #ff0a0a; display: none;">new</span> </span> \n' +
                 '<i class="active-icon fa fa-circle" style="color: #454543;" aria-hidden="true" userId="'+user.cust_id+'"></i> \n' +
                 '<h5 class="attendee-profile-btn pull-right" userId="'+user.cust_id+'" onclick="userProfileModal('+user.cust_id+')">\n' +
                 '   <span class="label label-info">\n' +
@@ -41,6 +41,9 @@ $(function() {
         });
 
         $('.attendees-chat-list-item').on("click", function () {
+
+            $(this).children('.oto-chat-user-list-name').children('.new-text').hide();
+            $(this).attr('new-text', '0');
 
             $(".attendees-chat-list>li.selected").removeClass("selected");
             $(this).addClass('selected');
@@ -232,6 +235,17 @@ $(function() {
                     '</li>'
                 );
                 $('.oto-chat-body').scrollTop($('.oto-chat-body')[0].scrollHeight);
+            }
+        }else{
+            $('.attendees-chat-list > li[userid="'+data.user_id+'"] > .oto-chat-user-list-name > .new-text').show();
+            $('.attendees-chat-list > li[userid="'+data.user_id+'"]').attr('new-text', '1');
+
+            $(".attendees-chat-list li").sort(dec_sort).appendTo('.attendees-chat-list');
+            function asc_sort(a, b){
+                return ($(b).attr('new-text')) < ($(a).attr('new-text')) ? 1 : -1;
+            }
+            function dec_sort(a, b){
+                return ($(b).attr('new-text')) > ($(a).attr('new-text')) ? 1 : -1;
             }
         }
     });
