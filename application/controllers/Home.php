@@ -26,6 +26,7 @@ class Home extends CI_Controller {
     public function notes() {
         $data["briefcase_list"] = $this->getNote();
         $data["all_sessions"] = $this->objhome->getsessions_data();
+        $data["sponsor_resources"] =  $this->getSponsorResources();
         $this->load->view('header');
         $this->load->view('notes', $data);
         $this->load->view('footer');
@@ -35,7 +36,20 @@ class Home extends CI_Controller {
         $this->db->select('*');
         $this->db->from('sessions_cust_briefcase b');
         $this->db->join('sessions s', 's.sessions_id=b.sessions_id');
-        $this->db->where(array("cust_id" => $this->session->userdata("cid")));
+        $this->db->where(array("cust_id" => $this->session->userdata("cid"), 'resource_type'=>'note'));
+        $sessions_cust_briefcase = $this->db->get();
+        if ($sessions_cust_briefcase->num_rows() > 0) {
+            return $sessions_cust_briefcase->result();
+        } else {
+            return '';
+        }
+    }
+
+    function getSponsorResources() {
+        $this->db->select('*');
+        $this->db->from('sessions_cust_briefcase b');
+        //$this->db->join('sessions s', 's.sessions_id=b.sessions_id');
+        $this->db->where(array("cust_id" => $this->session->userdata("cid"), 'resource_type'=>'file'));
         $sessions_cust_briefcase = $this->db->get();
         if ($sessions_cust_briefcase->num_rows() > 0) {
             return $sessions_cust_briefcase->result();
@@ -85,6 +99,29 @@ class Home extends CI_Controller {
         } else {
             return 0;
         }
+    }
+
+    function addSponsorResourceBriefcase() {
+        $post = $this->input->post();
+        $resource_type = 'file';
+        $insert_array = array(
+            'cust_id' => $this->session->userdata("cid"),
+            'sessions_id' => 0,
+            'note' => '',
+            'resource_type' => $resource_type,
+            'session_resource_id' => $post['itemId'],
+            'item_name' => $post['itemName'],
+            'file_name' => $post['fileName'],
+            'reg_briefcase_date' => date("Y-m-d")
+        );
+        $this->db->insert("sessions_cust_briefcase", $insert_array);
+//        $result_data = $this->db->get_where("sessions_cust_briefcase", array("cust_id" => $this->session->userdata("cid"), 'sessions_id' => $post['sessions_id']))->row();
+//        if (empty($result_data)) {
+//            $this->db->insert("sessions_cust_briefcase", $insert_array);
+//        } else {
+//            $this->db->update("sessions_cust_briefcase", $insert_array, array("sessions_cust_briefcase_id" => $result_data->sessions_cust_briefcase_id));
+//        }
+        return;
     }
 
 }

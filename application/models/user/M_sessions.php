@@ -310,10 +310,12 @@ class M_sessions extends CI_Model {
 
     function addBriefcase() {
         $post = $this->input->post();
+        $resource_type = (isset($post['type']))?$post['type']:'note';
         $insert_array = array(
             'cust_id' => $this->session->userdata("cid"),
             'sessions_id' => $post['sessions_id'],
             'note' => $post['briefcase'],
+            'resource_type' => $resource_type,
             'reg_briefcase_date' => date("Y-m-d")
         );
         $result_data = $this->db->get_where("sessions_cust_briefcase", array("cust_id" => $this->session->userdata("cid"), 'sessions_id' => $post['sessions_id']))->row();

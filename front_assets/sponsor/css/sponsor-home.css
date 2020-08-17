@@ -188,6 +188,11 @@
     background-color: #0086d7;
 }
 
+.add-to-backpack-badge{
+    background-color: #0086d7;
+    cursor: pointer;
+}
+
 
 /* sign in FORM */
 #logreg-forms{

@@ -18,6 +18,28 @@
 <!--<section class="parallax" style="background-image: url(<?= base_url() ?>front_assets/images/Sessions_BG_screened.jpg); top: 0; padding-top: 0px;">-->
     <div class="container container-fullscreen" >
         <div class="text-middle">
+
+            <?php if (isset($sponsor_resources) && !empty($sponsor_resources)){?>
+
+            <div class="row">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Resource files from booths</div>
+                    <div class="panel-body">
+                        <ul class="list-group resources-list">
+                            <?php foreach ($sponsor_resources as $item) { ?>
+                            <div class="col-md-6 m-b-10 resource-item-div" resource-id="<?=$item->session_resource_id?>">
+                                <li class="list-group-item">
+                                    <h3><i class="fa fa-file-pdf-o " aria-hidden="true"></i><?=$item->item_name?></h3>
+                                    <a class="btn btn-sm btn-success" href="/tiadaannualconference/front_assets/sponsor/resources/<?=$item->file_name?>" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> Open</a>
+                                </li>
+                            </div>
+                            <?php } ?>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <?php } ?>
+
             <div class="row">
                 <div class="col-md-12">
                     <!-- CONTENT -->
@@ -65,6 +87,7 @@
                                             ?>
                                         </tbody>
                                     </table>
+
                                 </div>
                                 <!-- END: Blog post--> 
                             </div>
