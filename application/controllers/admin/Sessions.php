@@ -17,11 +17,20 @@ class Sessions extends CI_Controller {
 
     public function index() {
         $data['sessions'] = $this->msessions->getSessionsAll();
+		$data['session_types'] = $this->msessions->getSessionTypes();
         $this->load->view('admin/header');
         $this->load->view('admin/sessions', $data);
         $this->load->view('admin/footer');
     }
-
+	
+	public function filter(){
+        $data['sessions'] = $this->msessions->getSessionsFilter();
+        $data['session_types'] = $this->msessions->getSessionTypes();
+        $this->load->view('admin/header');
+        $this->load->view('admin/sessions', $data);
+        $this->load->view('admin/footer');
+    }
+	
     public function add_sessions() {
         $data['presenter'] = $this->msessions->getPresenterDetails();
         $data['sessions_type'] = $this->msessions->getSessionTypes();
