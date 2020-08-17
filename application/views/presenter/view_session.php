@@ -154,16 +154,12 @@
         <div class="container-fluid container-fullw" style="padding: 6px;">
             <div class="panel panel-primary" id="panel5">
                 <div class="panel-heading">
-                    <h4 class="panel-title text-white"><?= $sessions->session_title ?> 
-                        <span style="float: right;">
-                            <a class="btn btn-primary btn-sm" data-timer_status="0" id="btn_set_timer" >Start</a>
-                            <b id="set_timer" style="display: none;">1</b>
-                        </span>
-                    </h4>
+                    <h4 class="panel-title text-white"><?= $sessions->session_title ?></h4>
                 </div>
                 <div class="panel-body bg-white" style="border: 1px solid #b2b7bb!important; padding: 10px;">
                     <div class="row">
                         <div class="col-md-2" style="padding-right: 0; padding-left: 8px;">
+						    <input type="hidden" id="time_second" value="3600">
                             <input type="hidden" id="poll_vot_section_id_status" value="0">
                             <input type="hidden" id="poll_vot_section_last_status" value="0">
                             <div class="col-md-12" id="poll_vot_section" style="padding: 0px 0px 0px 0px; margin-top: 0px; background-color: #fff; border-radius: 5px;">
@@ -270,6 +266,21 @@
                         </div>
                         <div class="col-md-12" style="padding-top: 20px">
                             <div class="row">
+							<div class="col-md-12" style="margin-bottom: 15px;">
+                                            <div class="row">
+                                                <div class="col-md-12" style="text-align: center;">
+                                                    <p class="col-md-2" id="id_day_time_clock" style="border: 3px solid #000; background-color: #d9d900; color: #000; font-weight: 900; padding: 7px 7px 7px 7px; font-size: 30px; border-radius:20px;"></p>  
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="col-md-2" style="text-align: center;">
+                                                        <a id="btn_timer_start" class="btn btn-grey btn-sm">START</a>
+                                                        <a id="btn_timer_stop" class="btn btn-grey btn-sm">STOP</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                 </div>
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-12">
@@ -947,47 +958,34 @@
             }
         });
 
-        $('#btn_set_timer').click(function () {
-            var timer_status = $(this).attr("data-timer_status");
-            if (timer_status == 0) {
-                $(this).attr("data-timer_status", "1");
-                presenter_set_timer(0);
-                setInterval(presenter_set_timer, 1000);
-                $("#set_timer").show();
-                $(this).text("Stop");
-            } else {
-                $("#set_timer").hide();
-                $(this).attr("data-timer_status", "0");
-                $(this).text("Start");
-                location.reload();
-            }
-        });
 
     });
 
-    var upgradeTime = 15;
+
+    $(function () {
+        if (sessionStorage.reloadAfterPageLoad == "1") {
+            $("#view_poll_table").show();
+            sessionStorage.reloadAfterPageLoad = "0";
+        }
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        document.getElementById('id_day_time_clock').innerHTML = 00 + " : " + 00;
+        $(document).on("click", "#btn_timer_start", function () {
+            $('#btn_timer_start').prop('disabled', true);
+            setInterval('timer()', 1000);
+        });
+        $(document).on("click", "#btn_timer_stop", function () {
+            document.getElementById('id_day_time_clock').innerHTML = 00 + " : " + 00;
+            location.reload();
+        });
+    });
+
+    // console.log($("#time_second").val())
+    var upgradeTime = $("#time_second").val();
     var seconds = upgradeTime;
-    function timer(status) {
-        if (status == 0) {
-            seconds = 15;
-        }
-        var remainingSeconds = seconds % 60;
-        function pad(n) {
-            return (n < 10 ? "0" + n : n);
-        }
-        document.getElementById('id_day_time').innerHTML = pad(remainingSeconds);
-        if (seconds <= 0) {
-            $("#btn_vote").hide();
-            $("#id_day_time").css("color", "red");
-        } else {
-            seconds--;
-        }
-    }
-    seconds = 0;
-    function presenter_set_timer(status) {
-        if (status == 0) {
-            seconds = 0;
-        }
+    function timer() {
         var days = Math.floor(seconds / 24 / 60 / 60);
         var hoursLeft = Math.floor((seconds) - (days * 86400));
         var hours = Math.floor(hoursLeft / 3600);
@@ -997,15 +995,13 @@
         function pad(n) {
             return (n < 10 ? "0" + n : n);
         }
-        document.getElementById('set_timer').innerHTML = pad(hours) + " : " + pad(minutes) + " : " + pad(remainingSeconds);
-       // $("#set_timer").text(seconds);
-        seconds++;
-    }
+        console.log(pad(minutes));
+        console.log(pad(remainingSeconds));
+        document.getElementById('id_day_time_clock').innerHTML = pad(minutes) + " : " + pad(remainingSeconds);
+        if (seconds <= 0) {
 
-    $(function () {
-        if (sessionStorage.reloadAfterPageLoad == "1") {
-            $("#view_poll_table").show();
-            sessionStorage.reloadAfterPageLoad = "0";
+        } else {
+            seconds--;
         }
-    });
+    }
 </script>
