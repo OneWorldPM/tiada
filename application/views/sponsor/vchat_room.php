@@ -1,3 +1,11 @@
+<script>
+    var password = prompt("Please enter the password:", "*********");
+    if (password != "TIADA2020") {
+        alert("Incorrect password!");
+        location.reload();
+    }
+</script>
+
 
 <link href="<?= base_url() ?>assets/css/private-sessions.css?v=<?=rand(1, 100)?>" rel="stylesheet">
 
