@@ -158,7 +158,7 @@
                         </a>
                     </div> 
                     <div class="col-md-1  col-sm-12 m-t-100">
-                        <a class="icon-home" href="https://yourconference.live/support"> 
+                        <a class="icon-home" target="_blank" href="https://yourconference.live/support"> 
                             <div class="col-lg box-home_2 p-0 p-b-25 text-center">
                                 <img src="<?= base_url() ?>front_assets/images/settings-gears.png" alt="welcome" class="m-t-20" style="height: 90px; width: 90px;">
                                 <br>

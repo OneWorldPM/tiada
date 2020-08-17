@@ -140,7 +140,8 @@
                             <div class="container">
                                 <nav id="mainMenu" class="main-menu mega-menu">
                                     <ul class="main-menu nav nav-pills navbar-left" id="main_menu_top_bar" style="margin-right: 50px;">
-                                        <li><a href="<?= base_url() ?>home" style="color: #ae0201">MAIN HALL</a></li>
+                                        <li><a href="https://tiadaannualconference.com/agenda/" target="_blank" style="color: #ae0201">AGENDA</a></li>
+										<li><a href="<?= base_url() ?>home" style="color: #ae0201">MAIN HALL</a></li>
                                         <?php
                                         if ($this->session->userdata('cid') != "") {
                                             $check_authenticate_result = $this->common->check_authenticate($this->session->userdata("cid"));
