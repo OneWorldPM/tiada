@@ -159,6 +159,7 @@
                 <div class="panel-body bg-white" style="border: 1px solid #b2b7bb!important; padding: 10px;">
                     <div class="row">
                         <div class="col-md-2" style="padding-right: 0; padding-left: 8px;">
+						    <input type="hidden" id="viewer_status" value="<?= $viewer_status ?>">
 						    <input type="hidden" id="time_second" value="3600">
                             <input type="hidden" id="poll_vot_section_id_status" value="0">
                             <input type="hidden" id="poll_vot_section_last_status" value="0">

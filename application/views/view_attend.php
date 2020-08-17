@@ -89,7 +89,7 @@
                                     <div class="row">
                                         <div class="col-md-3">
                                             <?php if ($sessions->sessions_photo != "") { ?>
-                                            <img alt="" src="<?= base_url() ?>uploads/sessions/<?= (isset($sessions) && !empty($sessions)) ? $sessions->sessions_photo : "" ?>" width="100%">
+                                                <img alt="" src="<?= base_url() ?>uploads/sessions/<?= (isset($sessions) && !empty($sessions)) ? $sessions->sessions_photo : "" ?>" width="100%">
                                             <?php } else { ?>
                                                 <img alt="" src="<?= base_url() ?>front_assets/images/session_avtar.jpg" width="100%">
                                             <?php } ?>   
@@ -98,10 +98,10 @@
                                             <h2 style="margin-bottom: 0px;"><?= (isset($sessions) && !empty($sessions)) ? $sessions->session_title : "" ?></h2>
                                             <small><i class="fa fa-calendar" aria-hidden="true"></i> <?= date("M-d-Y", strtotime($sessions->sessions_date)) . ' ' . date("H:i", strtotime($sessions->time_slot)) . ' - ' . date("H:i", strtotime($sessions->end_time)) ?></small>
                                             <p class="m-t-20"><?= (isset($sessions) && !empty($sessions)) ? $sessions->sessions_description : "" ?></p>
-                                            <?php  if ($sessions->sessions_type_status == "Private") { ?>
-                                            <p class="m-t-20" style="border: 1px solid #000; padding: 5px; color: #000;"><b>Q&A During Sessions:</b> We will be monitoring the Q&A window during the session. Please submit questions as they arise, and we will do our best to answer all of those questions during the 5 min Q&A session that follows</p>
-                                            <?php }else { ?>
-                                            <p class="m-t-20" style="border: 1px solid #000; padding: 5px; color: #000;"><b>Q&A During Sessions:</b> We will be monitoring the Q&A window during the session. Please submit questions as they arise, and we will do our best to answer all of those questions during the 15 min Q&A session that follows</p>
+                                            <?php if ($sessions->sessions_type_status == "Private") { ?>
+                                                <p class="m-t-20" style="border: 1px solid #000; padding: 5px; color: #000;"><b>Q&A During Sessions:</b> We will be monitoring the Q&A window during the session. Please submit questions as they arise, and we will do our best to answer all of those questions during the 5 min Q&A session that follows</p>
+                                            <?php } else { ?>
+                                                <p class="m-t-20" style="border: 1px solid #000; padding: 5px; color: #000;"><b>Q&A During Sessions:</b> We will be monitoring the Q&A window during the session. Please submit questions as they arise, and we will do our best to answer all of those questions during the 15 min Q&A session that follows</p>
                                             <?php } ?>
                                         </div>    
                                     </div>
@@ -160,9 +160,9 @@
                                 </div>
                                 <div class="col-md-12">
                                     <?php if ($sessions->sessions_type_status == "Private") { ?>
-                                                                <a class="button black-light button-3d rounded right" style="margin: 0px 0;" href="<?= base_url() ?>private_sessions/view/<?= (isset($sessions) && !empty($sessions)) ? $sessions->sessions_id : "" ?>"><span>Take me there</span></a>
+                                                                    <!--<a class="button black-light button-3d rounded right" style="margin: 0px 0;" href="<?= base_url() ?>private_sessions/view/<?= (isset($sessions) && !empty($sessions)) ? $sessions->sessions_id : "" ?>"><span>Take me there</span></a>-->
                                     <?php } else { ?>
-                                                                <a class="button black-light button-3d rounded right" style="margin: 0px 0;" href="<?= base_url() ?>sessions/view/<?= (isset($sessions) && !empty($sessions)) ? $sessions->sessions_id : "" ?>"><span>Take me there</span></a>
+                                                                    <!--<a class="button black-light button-3d rounded right" style="margin: 0px 0;" href="<?= base_url() ?>sessions/view/<?= (isset($sessions) && !empty($sessions)) ? $sessions->sessions_id : "" ?>"><span>Take me there</span></a>-->
                                     <?php } ?>
                                 </div>
                             </div>
@@ -216,7 +216,8 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
-        //setInterval('timer()', 1000);
+        setInterval('timer()', 1000);
+
         $(".presenter_open_modul").click(function () {
             var presenter_photo = $(this).attr("data-presenter_photo");
             var presenter_name = $(this).attr("data-presenter_name");
@@ -233,7 +234,9 @@
     // console.log($("#time_second").val())
     var upgradeTime = $("#time_second").val();
     var seconds = upgradeTime;
+
     function timer() {
+
         var days = Math.floor(seconds / 24 / 60 / 60);
         var hoursLeft = Math.floor((seconds) - (days * 86400));
         var hours = Math.floor(hoursLeft / 3600);
@@ -267,10 +270,12 @@
         }
         document.getElementById('id_day_time').innerHTML = pad(days) + " " + days_lable + ", " + pad(hours) + " " + hours_lable + ", " + pad(minutes) + " " + minutes_lable + ", " + pad(remainingSeconds) + " " + remainingSeconds_lable;
         if (seconds <= 0) {
+
             if ($("#sessions_type_status").val() == "Private") {
-                window.location.replace("<?= site_url() ?>private_sessions/view/<?= (isset($sessions) && !empty($sessions)) ? $sessions->sessions_id : "" ?>");
+                console.log('Private');
+                window.location = "<?= site_url() ?>private_sessions/view/<?= (isset($sessions) && !empty($sessions)) ? $sessions->sessions_id : "" ?>";
                             } else {
-                                window.location.replace("<?= site_url() ?>sessions/view/<?= (isset($sessions) && !empty($sessions)) ? $sessions->sessions_id : "" ?>");
+                                window.location = "<?= site_url() ?>sessions/view/<?= (isset($sessions) && !empty($sessions)) ? $sessions->sessions_id : "" ?>";
                                             }
                                         } else {
                                             seconds--;
