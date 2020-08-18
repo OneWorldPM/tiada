@@ -87,7 +87,10 @@
                                 </div>
                                 <div id="embededVideo" class="col-md-12" style="text-align: center;">
                                     <div class="row"><i id="btnFS" class="fa fa-arrows-alt" aria-hidden="true"></i></div>
-                                    <div id="iframeDiv" class="row" style="width: 102%; height: 97%;"><?= isset($sessions) ? $sessions->embed_html_code : "" ?></div>
+                                    <div id="iframeDiv" class="row" style="width: 112%; height: 97%;">
+                                        <?= isset($sessions) ? $sessions->embed_html_code : "" ?>
+                                    </div>
+                                    <img alt="" src="<?= base_url() ?>front_assets/images/hovermouse.png" style="float: left; width: 10%; margin-top: -80px; margin-left: -10px;">
                                     <div class="modal fade" id="modal" tabindex="-1" role="modal" aria-labelledby="modal-label" aria-hidden="true" style="display: none; text-align: left;">
                                         <div class="modal-dialog">
                                             <div class="modal-content">

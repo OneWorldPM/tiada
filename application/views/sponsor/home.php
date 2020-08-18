@@ -369,7 +369,7 @@ $sponsors_cover = ($sponsor_cover == '') ? 'sponsor-cover-default.jpg' : $sponso
                         <span class="attendeeProfileModal-name"></span>
                         <span class="attendeeProfileModalSMIcons pull-right"></span><br>
                         <small class="attendeeProfileModalEmail pull-right"></small><br>
-                        <small class="attendeeProfileModalPhone pull-right"></small><br>
+<!--                        <small class="attendeeProfileModalPhone pull-right"></small><br>-->
                         <small class="attendeeProfileModalCompany pull-right"></small><br>
                         <small class="attendeeProfileModalCity pull-right"></small><br>
                         <small class="attendeeProfileModalState pull-right"></small><br>

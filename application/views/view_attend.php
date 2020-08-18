@@ -136,7 +136,7 @@
 
                                 </div>
                                 <div class="col-md-12 m-t-40">
-                                    <div class="col-md-3 col-md-offset-2" style="text-align: center;">
+                                    <div class="col-md-3" style="text-align: center;">
                                         <?php
                                         if (isset($sessions) && !empty($sessions)) {
                                             if ($sessions->sponsor_log != "") {
@@ -146,6 +146,11 @@
                                             }
                                         }
                                         ?>
+                                    </div>
+                                    <div class="col-md-3" style="text-align: center; text-align: center; padding: 10px; border: 1px solid; margin-right: 10px;">
+                                        <p><i class="fa fa-volume-up" aria-hidden="true" style="font-size: 20px;"></i></p>
+                                        <p style="color: #ae0201; margin-bottom: 0px;">SESSION AUDIO</p>
+                                        <p style="color: #ae0201; text-align: left;">You may need to tun the audio on the session recording. Hover your mouse over the bottom left hand corner of the next page, and click on the audio icon.</p>
                                     </div>
                                     <div class="col-md-4" style="text-align: center; text-align: center; padding: 10px; background-color: #fff; border: 1px solid;">
                                         <p><i class="fa fa-info-circle" aria-hidden="true" style="font-size: 20px;"></i></p>
@@ -160,9 +165,9 @@
                                 </div>
                                 <div class="col-md-12">
                                     <?php if ($sessions->sessions_type_status == "Private") { ?>
-                                                                                                                    <!--<a class="button black-light button-3d rounded right" style="margin: 0px 0;" href="<?= base_url() ?>private_sessions/view/<?= (isset($sessions) && !empty($sessions)) ? $sessions->sessions_id : "" ?>"><span>Take me there</span></a>-->
+                                                                                                                        <!--<a class="button black-light button-3d rounded right" style="margin: 0px 0;" href="<?= base_url() ?>private_sessions/view/<?= (isset($sessions) && !empty($sessions)) ? $sessions->sessions_id : "" ?>"><span>Take me there</span></a>-->
                                     <?php } else { ?>
-                                                                                                                    <!--<a class="button black-light button-3d rounded right" style="margin: 0px 0;" href="<?= base_url() ?>sessions/view/<?= (isset($sessions) && !empty($sessions)) ? $sessions->sessions_id : "" ?>"><span>Take me there</span></a>-->
+                                                                                                                        <!--<a class="button black-light button-3d rounded right" style="margin: 0px 0;" href="<?= base_url() ?>sessions/view/<?= (isset($sessions) && !empty($sessions)) ? $sessions->sessions_id : "" ?>"><span>Take me there</span></a>-->
                                     <?php } ?>
                                 </div>
                             </div>
