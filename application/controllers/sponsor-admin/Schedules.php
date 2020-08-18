@@ -47,9 +47,9 @@ class Schedules extends CI_Controller
         return;
     }
 
-    public function getAvailableDatesOf($sponsor_id, $contact_person)
+    public function getAvailableDatesOf()
     {
-        $dates = $this->schedules->getAvailableDatesOf($sponsor_id, $contact_person);
+        $dates = $this->schedules->getAvailableDatesOf();
 
         if ($dates == false){
             echo json_encode(array());
@@ -76,9 +76,13 @@ class Schedules extends CI_Controller
         return;
     }
 
-    public function getTimeSlotByDateOf($sponsor_id, $contact_person, $date)
+    public function getTimeSlotByDateOf()
     {
-        $dates = $this->schedules->getTimeSlotByDateOf($sponsor_id, $contact_person, $date);
+        $sponsor_id = $this->input->post()['sponsor_id'];
+        $contact_person = $this->input->post()['contact_person'];
+        $date = $this->input->post()['date'];
+
+        $dates = $this->schedules->getTimeSlotByDateOf();
 
         if ($dates == false){
             echo json_encode(array());

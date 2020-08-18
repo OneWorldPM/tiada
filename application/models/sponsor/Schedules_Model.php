@@ -99,8 +99,10 @@ class Schedules_Model extends CI_Model
         }
     }
 
-    function getAvailableDatesOf($sponsor_id, $contact_person)
+    function getAvailableDatesOf()
     {
+        $sponsor_id = $this->input->post()['sponsor_id'];
+        $contact_person = $this->input->post()['contact_person'];
         $query = $this->db->query("SELECT 
                                     DATE(`available_from`) from_date, DATE(`available_to`) to_date
                                     FROM `sponsor_meeting_availability` 
@@ -116,8 +118,11 @@ class Schedules_Model extends CI_Model
         }
     }
 
-    function getTimeSlotByDateOf($sponsor_id, $contact_person, $date)
+    function getTimeSlotByDateOf()
     {
+        $sponsor_id = $this->input->post()['sponsor_id'];
+        $contact_person = $this->input->post()['contact_person'];
+        $date = $this->input->post()['date'];
         $query = $this->db->query("SELECT 
                                     (`available_from`) from_time, (`available_to`) to_time
                                     FROM `sponsor_meeting_availability` 

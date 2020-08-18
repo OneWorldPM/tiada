@@ -282,7 +282,12 @@ $(function() {
 
     $('.schedule-meet-btn').on('click', function () {
 
-        $.get( "/tiadaannualconference/sponsor-admin/schedules/getAvailableDatesOf/"+sponsor_id+"/"+company_name, function(dates){
+        $.post( "/tiadaannualconference/sponsor-admin/schedules/getAvailableDatesOf",
+            {
+                'sponsor_id': sponsor_id,
+                'contact_person': company_name
+            },
+            function(dates){
             var enableDays = JSON.parse(dates);
             $('#scheduleModal').modal('show');
 
@@ -293,7 +298,13 @@ $(function() {
             }
             $(".datetimepicker").prop('disabled', false);
 
-            $.get( "/tiadaannualconference/sponsor-admin/schedules/getTimeSlotByDateOf/"+sponsor_id+"/"+company_name+"/"+enableDays[0], function(times){
+            $.post( "/tiadaannualconference/sponsor-admin/schedules/getTimeSlotByDateOf",
+                {
+                    'sponsor_id': sponsor_id,
+                    'contact_person': company_name,
+                    'date': enableDays[0]
+                },
+                function(times){
 
                 var enableTimes = JSON.parse(times);
 
@@ -317,7 +328,13 @@ $(function() {
                         let d = new Date(Date.parse(date));
                         var sdate = (d.getFullYear() + '-' + ('0' + (d.getMonth()+1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2));
 
-                        $.get( "/tiadaannualconference/sponsor-admin/schedules/getTimeSlotByDateOf/"+sponsor_id+"/"+company_name+"/"+sdate, function(times){
+                        $.post( "/tiadaannualconference/sponsor-admin/schedules/getTimeSlotByDateOf",
+                            {
+                                'sponsor_id': sponsor_id,
+                                'contact_person': company_name,
+                                'date': enableDays[0]
+                            },
+                            function(times){
                             var enableTimes = JSON.parse(times);
                             console.log(enableTimes);
                             $('.datetimepicker').datetimepicker('setOptions', {allowTimes:enableTimes});
