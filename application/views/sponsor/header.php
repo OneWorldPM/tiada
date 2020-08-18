@@ -148,6 +148,7 @@
 											<li><a target="_blank" href="<?= base_url() ?>sponsor-admin/VchatRoom/join/<?=$this->session->userdata('sponsors_id')?>" style="color: #ae0201">Video Room</a></li>
                                             <li><a href="<?= base_url() ?>sponsor-admin/booth_tracking" style="color: #ae0201">BOOTH TRACKING</a></li>
                                             <li><a href="<?= base_url() ?>sponsor-admin/push_notifications" style="color: #ae0201">Push Notifications</a></li>
+                                            <li><a href="<?= base_url() ?>sponsor-admin/fishbowl" style="color: #ae0201">Fishbowl</a></li>
                                         </ul>
                                     <?php } ?>
                                     <ul id="mainMenuItems" class="main-menu nav nav-pills navbar-left">
