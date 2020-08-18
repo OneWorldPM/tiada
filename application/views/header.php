@@ -255,7 +255,10 @@
 
                         $.each(messages, function( number, message ) {
                             $('.unread-msgs-list').append('' +
-                                '<a target="_blank" class="dropdown-item waves-effect waves-light" href="<?= base_url() ?>sponsor/view/'+message.sponsor_id+'">Message from '+message.company_name+'</a>');
+                                '<a target="_blank" class="dropdown-item waves-effect waves-light" href="<?= base_url() ?>sponsor/view/'+message.sponsor_id+'"><strong>Message from '+message.company_name+'</strong></a>' +
+                                '<a href="<?= base_url() ?>sponsor/view/'+message.sponsor_id+'" target="_blank">'+message.text+'</a>');
+
+
                         });
                     });
                 }
