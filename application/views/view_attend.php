@@ -150,7 +150,7 @@
                                     <div class="col-md-3" style="text-align: center; text-align: center; padding: 10px; border: 1px solid; margin-right: 10px;">
                                         <p><i class="fa fa-volume-up" aria-hidden="true" style="font-size: 20px;"></i></p>
                                         <p style="color: #ae0201; margin-bottom: 0px;">SESSION AUDIO</p>
-                                        <p style="color: #ae0201; text-align: left;">You may need to tun the audio on the session recording. Hover your mouse over the bottom left hand corner of the next page, and click on the audio icon.</p>
+                                        <p style="color: #ae0201; text-align: left;">You may need to turn the audio on the session recording.  Hover your mouse over the bottom left hand corner of the  video in the next page and adjust the audio.</p>
                                     </div>
                                     <div class="col-md-4" style="text-align: center; text-align: center; padding: 10px; background-color: #fff; border: 1px solid;">
                                         <p><i class="fa fa-info-circle" aria-hidden="true" style="font-size: 20px;"></i></p>
