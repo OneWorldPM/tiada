@@ -84,7 +84,16 @@ $(function() {
         }else{
 
             socket.emit('otoTyping', {"room":OTO_CHAT_ROOM, "someone":user_name, "from":user_id, "typingTo":sponsor_id});
+            $.get("/tiadaannualconference/user/UnreadMessages/markAllAsRead/"+sponsor_id, function () {
+                fillUnreadMessages();
+            });
         }
+    });
+
+    $( "#one-to-one-ChatText" ).focus(function() {
+        $.get("/tiadaannualconference/user/UnreadMessages/markAllAsRead/"+sponsor_id, function () {
+            fillUnreadMessages();
+        });
     });
 
     $(".send-oto-chat-btn").on( "click", function() {
@@ -149,6 +158,8 @@ $(function() {
                 '</li>'
             );
             $('#chat-body').scrollTop($('#chat-body')[0].scrollHeight);
+
+            fillUnreadMessages();
         }else{
             var nameAcronym = data.name.match(/\b(\w)/g).join('');
             var color = md5(nameAcronym+data.from_id).slice(0, 6);

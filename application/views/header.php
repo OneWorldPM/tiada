@@ -168,10 +168,28 @@
                                             <li><a href="<?= base_url() ?>sessions" style="color: #ae0201">SESSIONS & ROUNDTABLES</a></li>
                                             <li><a href="<?= base_url() ?>sponsor" style="color: #ae0201">EXPO</a></li>
 <!--                                            <li><a href="--><?//= base_url() ?><!--lounge" style="color: #ae0201">LOUNGE</a></li>-->
-                                        <?php } ?>        
+                                        <?php } ?>
+                                        <li class="nav-item avatar dropdown">
+                                            <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                <span class="unread-msg-count badge badge-notify" style="font-size:10px;">0</span>
+                                                <i class="fa fa-envelope" style="color:#8286C5;font-size: 25px;"></i>
+                                            </a>
+                                            <div class="unread-msgs-list dropdown-menu dropdown-menu-lg-right dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5" style="overflow: hidden;"><a target="_blank" class="dropdown-item waves-effect waves-light" href="#">Message from TIADA</a>
+                                            </div>
+                                        </li>
                                     </ul>
-                                    <ul id="mainMenuItems" class="main-menu nav nav-pills navbar-left">
 
+                                    <style>
+                                        .badge-notify{
+                                            background:#EA0909;
+                                            position:relative;
+                                            top: 7px;
+                                            left: 52px;
+                                        }
+                                    </style>
+
+
+                                    <ul id="mainMenuItems" class="main-menu nav nav-pills navbar-left">
                                     </ul>
                                     <?php
                                     if ($this->session->userdata('cid') != "") {
@@ -222,10 +240,38 @@
                 </div>
             </header>
             <!-- END: HEADER -->
+            <script src="https://meet.yourconference.live/socket.io/socket.io.js"></script>
+            <script>
+
+                function fillUnreadMessages() {
+                    $('.unread-msg-count').html('0');
+                    $('.unread-msgs-list').html('');
+                    $.get("<?= base_url() ?>user/UnreadMessages/getUnreadMessages", function (messages) {
+                        messages = JSON.parse(messages);
+                        console.log(messages);
+
+                        var count = Object.keys(messages).length;
+                        $('.unread-msg-count').html(count);
+
+                        $.each(messages, function( number, message ) {
+                            $('.unread-msgs-list').append('' +
+                                '<a target="_blank" class="dropdown-item waves-effect waves-light" href="<?= base_url() ?>sponsor/view/'+message.sponsor_id+'">Message from '+message.company_name+'</a>');
+                        });
+                    });
+                }
 
 
+                $(function () {
+                    fillUnreadMessages();
 
+                    var socketServer = "https://socket.yourconference.live:443";
+                    let socket = io(socketServer);
 
+                    socket.on('unreadMessage', function() {
+                        fillUnreadMessages();
+                    });
+                });
+            </script>
 
 
 
