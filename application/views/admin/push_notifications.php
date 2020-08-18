@@ -134,7 +134,8 @@ switch ($msg) {
             }
         });
 
-        $('.send_notification').click(function () {
+
+	    $(document).on("click", ".send_notification", function () {
             var send_notification_id = $(this).attr('data-id');
             $(this).hide();
             $this = $(this);
