@@ -24,7 +24,7 @@
 
 </style>
 <a href="<?= base_url() ?>sponsor/other_sponsor" style="text-align: center; color: #fffef0; font-weight: 900;position: absolute;margin-left:37.2%;margin-top: 30%;z-index: 10; font-size: 31px;">Check out the exhibits!</a>
-<a href="javascript:void(0)" id="btn_expo_hrs" style="text-align: center; color: #fffef0; position: absolute;margin-top: 33%;z-index: 10; font-size: 16px;left: 0;right: 0;"><u>Expo Hours</u></a>
+<a href="javascript:void(0)" id="btn_expo_hrs" style="text-align: center; color: #fffef0; position: absolute;margin-top: 33%;z-index: 10; font-size: 16px;left: 0;right: 0;"><u>Live Expo Hours</u></a>
 <div style="background-image: url(<?= base_url() ?>front_assets/images/tiada_new_platinum_cover.png); background-attachment: fixed; background-size: cover !important; background-position: center center !important; height: 4000px">
     <section class="parallax" style="position: fixed !important;">
         <div class="container container-fullscreen">
@@ -114,7 +114,7 @@
         });
 
         $('#btn_expo_hrs').on('click', function () {
-            var ttl = '<h3>Expo Hours</h3>';
+            var ttl = '<h3>Live Expo Hours</h3>';
             var expo_hrs = '<p>Sunday, August 16th  6:30pm - 9:00pm</br>Monday, August 17th  12:00pm - 2:00pm</br>Tuesday, August 18th  12:00pm - 2:00pm</br>Wednesday, August 19th  12:00pm - 2:00pm</p>';
             alertify.alert(ttl+expo_hrs);
         });
