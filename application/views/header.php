@@ -243,6 +243,9 @@
             <script src="https://meet.yourconference.live/socket.io/socket.io.js"></script>
             <script>
 
+                var user_name = "<?= $this->session->userdata('fullname') ?>";
+                var user_id = <?= $this->session->userdata("cid") ?>;
+
                 function fillUnreadMessages() {
                     $('.unread-msg-count').html('0');
                     $('.unread-msgs-list').html('');
@@ -276,6 +279,20 @@
                     socket.on('unreadMessage', function() {
                         fillUnreadMessages();
                     });
+
+                    // If theres no activity for 30 seconds set inactive
+                    var activityTimeout = setTimeout(inActive, 30 * 1000);
+                    function resetActive(){
+                        socket.emit('userActiveChange', {"name":user_name, "userId":user_id, "status":true});
+                        clearTimeout(activityTimeout);
+                        activityTimeout = setTimeout(inActive, 30 * 1000);
+                    }
+                    // No activity let everyone know
+                    function inActive(){
+                        socket.emit('userActiveChange', {"name":user_name, "userId":user_id, "status":false});
+                    }
+                    // Check for mousemove, could add other events here such as checking for key presses ect.
+                    $(document).bind('mousemove', function(){resetActive()});
                 });
             </script>
 
