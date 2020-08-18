@@ -55,6 +55,7 @@ class M_sponsors extends CI_Model {
             'linkedin_id' => trim($post['linkedin_id']),
             'company_name' => trim($post['company_name']),
             'embed_code' => trim($post['embed_code']),
+            'video_position' => trim($post['video_position']),
             "create_date" => date("Y-m-d h:i")
         );
         $this->db->insert("sponsors", $set);
@@ -134,7 +135,8 @@ class M_sponsors extends CI_Model {
             'sponsors_category_id' => $sponsors_category_id,
             'twitter_id' => trim($post['twitter_id']),
             'company_name' => trim($post['company_name']),
-            'embed_code' => trim($post['embed_code'])
+            'embed_code' => trim($post['embed_code']),
+            'video_position' => trim($post['video_position'])
         );
         $this->db->update("sponsors", $set, array("sponsors_id" => $post['sponsors_id']));
         $sponsors_id = $post['sponsors_id'];

@@ -1,3 +1,5 @@
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 <style>
     .red-star{
         color: #ff3c2d;
@@ -60,6 +62,11 @@
                                     <div class="form-group">
                                         <label class="text-large">Embed HTML Code</label>
                                         <textarea class="form-control" style="color: #000;" name="embed_code" id="embed_code"><?= (isset($sponsors_edit) && !empty($sponsors_edit) ) ? $sponsors_edit->embed_code : "" ?></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="text-large">Video Position</label>
+                                        <input class="form-control toggle-video-pos" type="checkbox" data-toggle="toggle" data-onstyle="warning" data-offstyle="info" data-on="left" data-off="cover" <?= (isset($sponsors_edit) && !empty($sponsors_edit) ) ? ($sponsors_edit->video_position == '0')?'checked':'' : "" ?>>
+                                        <input type="hidden" class="video_position" name="video_position" value="<?= (isset($sponsors_edit) && !empty($sponsors_edit) ) ? $sponsors_edit->video_position : "0" ?>">
                                     </div>
                                     <div class="form-group">
                                         <label class="text-large">Website</label>
@@ -208,6 +215,12 @@
 <script type="text/javascript">
     $(document).ready(function ()
     {
+        $('.toggle-video-pos').change(function() {
+            var val = ($(this).prop('checked') == true)?0:1;
+            $('.video_position').val(val);
+        })
+
+
         $("#btn_sponsors").on("click", function ()
         {
             if ($("#company_name").val() == "")

@@ -100,7 +100,7 @@ $(function() {
             reverseButtons: true,
             allowOutsideClick: false
         }).then((result) => {
-            ringer.stop();
+            ringer.pause();
             if (result.value) {
 
                 $.post("/tiadaannualconference/sponsor-admin/VideoChatApi/sponsorVideoEngageStatus",
