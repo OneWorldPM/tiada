@@ -1,33 +1,37 @@
-<link href="<?= base_url() ?>assets/css/private-sessions.css?v=<?=rand(1, 100)?>" rel="stylesheet">
+<link href="<?= base_url() ?>assets/css/private-sessions.css?v=<?= rand(1, 100) ?>" rel="stylesheet">
 <script>
-    $(function() {
+    $(function () {
 
-        $( "#main_menu_top_bar" ).prepend('' +
-            '<li style="margin-top: 30px;margin-right: 45px;">' +
-            '<span style="font-weight: bold;font-size: 30px;">Time Left: <span class="countdown-timer">00:00:00<i><span>' +
-            '</li>');
+        $("#main_menu_top_bar").prepend('' +
+                '<li style="margin-top: 30px;margin-right: 45px;">' +
+                '<span style="font-weight: bold;font-size: 30px;">Time Left: <span class="countdown-timer">00:00:00<i><span>' +
+                '</li>');
 
 
         function formatTime(seconds) {
             var h = Math.floor(seconds / 3600),
-                m = Math.floor(seconds / 60) % 60,
-                s = seconds % 60;
-            if (h < 10) h = "0" + h;
-            if (m < 10) m = "0" + m;
-            if (s < 10) s = "0" + s;
+                    m = Math.floor(seconds / 60) % 60,
+                    s = seconds % 60;
+            if (h < 10)
+                h = "0" + h;
+            if (m < 10)
+                m = "0" + m;
+            if (s < 10)
+                s = "0" + s;
             return h + ":" + m + ":" + s;
         }
 
         function timer() {
             count--;
-            if (count < 0){
+            if (count < 0) {
                 window.location.replace("/tiadaannualconference/sessions/");
                 return;
-            };
+            }
+            ;
             $('.countdown-timer').html(formatTime(count));
         }
 
-        var count = <?=strtotime($sessions->end_time)-time()?>;
+        var count = <?= strtotime($sessions->end_time) - time() ?>;
         var counter = setInterval(timer, 1000);
     });
 </script>
@@ -35,9 +39,9 @@
 <main role="main" class="container text-center">
     <div>
         <h1>
-            <?=$sessions->session_title?>
+            <?= $sessions->session_title ?>
         </h1>
-        <small class="lead"><?=$sessions->sessions_description?></small>
+        <small class="lead"><?= $sessions->sessions_description ?></small>
     </div>
 </main>
 
@@ -51,28 +55,28 @@
          <!-- <div class="soundbar"><span class="currentVolume"></span></div> -->
     </div>
 
-<!--    <div class="col-md-12">-->
-<!--        <div class="feed-control-icons m-t-15 m-b-15">-->
-<!--            <div class="mute-mic-btn m-b-20">-->
-<!--                <i class="fa fa-microphone-slash fa-3x mute-mic-btn-icon" aria-hidden="true" style="color:#ff422b;"></i>-->
-<!--                <small>Mute</small>-->
-<!--            </div>-->
-<!--            <div class="share-screen-btn">-->
-<!--                <i class="fa fa-desktop fa-3x share-screen-btn-icon" aria-hidden="true" style="color:#6f8de3;"></i>-->
-<!--                <small>Share Screen</small>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
+    <!--    <div class="col-md-12">-->
+    <!--        <div class="feed-control-icons m-t-15 m-b-15">-->
+    <!--            <div class="mute-mic-btn m-b-20">-->
+    <!--                <i class="fa fa-microphone-slash fa-3x mute-mic-btn-icon" aria-hidden="true" style="color:#ff422b;"></i>-->
+    <!--                <small>Mute</small>-->
+    <!--            </div>-->
+    <!--            <div class="share-screen-btn">-->
+    <!--                <i class="fa fa-desktop fa-3x share-screen-btn-icon" aria-hidden="true" style="color:#6f8de3;"></i>-->
+    <!--                <small>Share Screen</small>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
 </div>
 
 
 <script>
-    var round_table_id = <?=$sessions->sessions_id?>;
+    var round_table_id = <?= $sessions->sessions_id ?>;
     var atttendee_name = "<?= $this->session->userdata('fullname') ?>";
     var attendee_id = "<?= $this->session->userdata('cid') ?>";
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
-<script src="<?= base_url() ?>assets/js/private-sessions.js?v=<?=rand(1, 100)?>"></script>
+<script src="<?= base_url() ?>assets/js/private-sessions.js?v=<?= rand(1, 100) ?>"></script>
 <script type="text/javascript">
     pageReady();
 </script>
@@ -88,7 +92,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="close" style="padding: 10px; color: #fff; background-color: #ae0201; opacity: 1;" data-dismiss="modal" aria-hidden="true">Close</button>
+                <button type="button" class="close push_notification_close" style="padding: 10px; color: #fff; background-color: #ae0201; opacity: 1;" data-dismiss="modal" aria-hidden="true">Close</button>
             </div>
         </div>
     </div>
@@ -96,7 +100,20 @@
 <script type="text/javascript">
     $(document).ready(function () {
         push_notification_admin();
-        setInterval(push_notification_admin, 3000);
+        setInterval(push_notification_admin, 4000);
+
+        $('.push_notification_close').on('click', function () {
+            var push_notification_id = $("#push_notification_id").val();
+            $.ajax({
+                url: "<?= base_url() ?>push_notification/push_notification_close",
+                type: "post",
+                data: {'push_notification_id': push_notification_id},
+                dataType: "json",
+                success: function (data) {
+                }
+            });
+        });
+
         function push_notification_admin()
         {
             var push_notification_id = $("#push_notification_id").val();
@@ -111,9 +128,19 @@
                             $("#push_notification_id").val(data.result.push_notification_id);
                         }
                         if (push_notification_id != data.result.push_notification_id) {
-                            $("#push_notification_id").val(data.result.push_notification_id);
-                            $('#push_notification').modal('show');
-                            $("#push_notification_message").text(data.result.message);
+                            $.ajax({
+                                url: "<?= base_url() ?>push_notification/get_push_notification_admin_check_status",
+                                type: "post",
+                                data: {'push_notification_id': data.result.push_notification_id},
+                                dataType: "json",
+                                success: function (dt) {
+                                    if (dt.status == "success") {
+                                        $("#push_notification_id").val(data.result.push_notification_id);
+                                        $('#push_notification').modal('show');
+                                        $("#push_notification_message").text(data.result.message);
+                                    }
+                                }
+                            });
                         }
                     } else {
                         $('#push_notification').modal('hide');
@@ -121,14 +148,18 @@
                 }
             });
         }
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
 
-        <?php
-        if($sessions->sessions_id == 128)
-        {?>
+<?php
+if ($sessions->sessions_id == 128) {
+    ?>
 
 
 
-        <?php } ?>
+<?php } ?>
 
 
     });
