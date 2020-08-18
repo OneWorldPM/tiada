@@ -612,6 +612,11 @@
     overflow: hidden;
 }
 
+#monitorscreen > iframe{
+    height: 318px !important;
+    width:100% !important;
+}
+
 
 @media all and (min-width: 960px) {
     #monitor {
