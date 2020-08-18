@@ -181,7 +181,7 @@
 
                                     <style>
                                         .badge-notify{
-                                            background:#EA0909;
+                                            background:#727272;
                                             position:relative;
                                             top: 7px;
                                             left: 52px;
@@ -248,9 +248,12 @@
                     $('.unread-msgs-list').html('');
                     $.get("<?= base_url() ?>user/UnreadMessages/getUnreadMessages", function (messages) {
                         messages = JSON.parse(messages);
-                        console.log(messages);
-
                         var count = Object.keys(messages).length;
+                        if (count > 0){
+                            $('.badge-notify').css('background', '#f11');
+                        }else{
+                            $('.badge-notify').css('background', '#727272');
+                        }
                         $('.unread-msg-count').html(count);
 
                         $.each(messages, function( number, message ) {
