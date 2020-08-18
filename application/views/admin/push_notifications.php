@@ -55,7 +55,7 @@
                                                         <td><?= $val->message ?></td>
                                                         <td>
                                                             <?php if ($val->status == 1) { ?>
-                                                                <label class="label label-primary">Send</label>
+                                                                <label class="label label-primary">Sent</label>
                                                             <?php } ?>
                                                         </td>
                                                         <td> 
