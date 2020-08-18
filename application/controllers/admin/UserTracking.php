@@ -42,7 +42,7 @@ class UserTracking extends CI_Controller
                             FROM  `view_sponsor_history` AS vsh
                             JOIN `customer_master` AS cm ON cm.cust_id = vsh.cust_id
                             JOIN `sponsors` AS s ON s.sponsors_id = vsh.sponsor_id
-                            WHERE vsh.action = 'visit' AND vsh.start_date_time LIKE '%2020-08-17%'
+                            WHERE vsh.action = 'visit' AND vsh.start_date_time LIKE '%2020-08-18%'
                             GROUP BY vsh.cust_id, vsh.sponsor_id");
         if ($query->num_rows() > 0) {
 
