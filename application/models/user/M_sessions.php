@@ -28,7 +28,8 @@ class M_sessions extends CI_Model {
     function getSessionsWeekData() {
         $this->db->select("s.sessions_date,DAYNAME(s.sessions_date) as dayname");
         $this->db->from("sessions s");
-        $this->db->where('DATE_FORMAT(s.sessions_date, "%Y-%m-%d") >=', date('Y-m-d'));
+        //   $this->db->where('DATE_FORMAT(s.sessions_date, "%Y-%m-%d") >=', date('Y-m-d'));
+        $this->db->where('DATE_FORMAT(s.sessions_date, "%Y-%m-%d") >=', date('Y-m-d',strtotime("-5 days")));
         $this->db->where('DATE_FORMAT(s.sessions_date, "%Y-%m-%d") <=', date('Y-m-d', strtotime("+1 month")));
         $this->db->group_by('dayname');
         $this->db->order_by("s.sessions_date", "asc");
