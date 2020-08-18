@@ -68,6 +68,7 @@ if (isset($booth_tracking) && !empty($booth_tracking))
                                                 <th>Action</th>
                                                 <th>Addnl Info</th>
                                                 <th>Full Name</th>
+                                                <th>Company</th>
                                                 <th>Phone No.</th>
                                                 <th>Email</th>
                                                 <th>Entry Time</th>
@@ -90,6 +91,7 @@ if (isset($booth_tracking) && !empty($booth_tracking))
                                                         <td><?= $val->action ?></td>
                                                         <td><?= $val->addnl_info ?></td>
                                                         <td><?= $val->first_name . ' ' . $val->last_name ?></td>
+                                                        <td><?= $val->company_name ?></td>
                                                         <td><?= $val->phone ?></td>
                                                         <td><?= $val->email ?></td>
                                                         <td><?= date("Y-m-d h:i:s", strtotime($val->start_date_time)) ?></td>
