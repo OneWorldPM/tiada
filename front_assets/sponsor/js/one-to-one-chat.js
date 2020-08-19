@@ -104,6 +104,9 @@ $(function() {
                                 );
                                 $('.oto-chat-body').scrollTop($('.oto-chat-body')[0].scrollHeight);
                             }else{
+                                if(!text.from_name){
+                                    text.from_name = 'Name Unavailable';
+                                }
                                 var nameAcronym = text.from_name.match(/\b(\w)/g).join('');
                                 var color = md5(nameAcronym+text.from_id).slice(0, 6);
 
