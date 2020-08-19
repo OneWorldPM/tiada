@@ -61,7 +61,7 @@
                                                         }
                                                         ?>
                                                     </td>
-                                                    <td style="white-space: pre; text-align: right;"><?= date("h:i A", strtotime($val->time_slot)) . ' - ' . date("h:i A", strtotime($val->end_time)) ?></td>
+                                                    <td style="white-space: pre; text-align: right;"><?= date("m-d-Y", strtotime($val->sessions_date)) ?> <?= date("h:i A", strtotime($val->time_slot)) . ' - ' . date("h:i A", strtotime($val->end_time)) ?></td>
                                                     <td>
                                                         <a href="<?= base_url() ?>presenter/sessions/view_question_answer/<?= $val->sessions_id ?>" class="btn btn-primary btn-sm" style="margin: 3px;">View Q&A</a>
                                                         <a href="<?= base_url() ?>presenter/sessions/create_poll/<?= $val->sessions_id ?>" class="btn btn-success btn-sm" style="margin: 3px;">Create Poll</a>
@@ -144,7 +144,7 @@
                                                         }
                                                         ?>
                                                     </td>
-                                                    <td style="white-space: pre; text-align: right;"><?= date("h:i A", strtotime($val->time_slot)) . ' - ' . date("h:i A", strtotime($val->end_time)) ?></td>
+                                                    <td style="white-space: pre; text-align: right;"><?= date("m-d-Y", strtotime($val->sessions_date)) ?>  <?= date("h:i A", strtotime($val->time_slot)) . ' - ' . date("h:i A", strtotime($val->end_time)) ?></td>
                                                     <td>
                                                         <a href="<?= base_url() ?>presenter/sessions/view_question_answer/<?= $val->sessions_id ?>" class="btn btn-primary btn-sm" style="margin: 3px;">View Q&A</a>
                                                         <a href="<?= base_url() ?>presenter/sessions/create_poll/<?= $val->sessions_id ?>" class="btn btn-success btn-sm" style="margin: 3px;">Create Poll</a>
