@@ -17,8 +17,11 @@ class Lounge extends CI_Controller
 
     public function index()
     {
+        $profile_data = $this->common->get_user_details($this->session->userdata('cid'));
+        $data = array('profile_data' => $profile_data);
+
         $this->load->view('header');
-        $this->load->view('lounge');
+        $this->load->view('lounge', $data);
         $this->load->view('footer');
     }
 }

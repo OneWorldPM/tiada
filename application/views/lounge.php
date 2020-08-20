@@ -88,39 +88,103 @@
         }
     }
 </style>
-<section class="parallax" style="background-image: url(<?= base_url() ?>front_assets/images/Other_Expo_Background.jpg); top: 0; padding-top: 20px;">
+<section class="parallax" style="background-image: url(<?= base_url() ?>front_assets/images/lounge-bg.jpg); top: 0; padding-top: 20px;">
     <div class="container container-fullscreen" id="home_first_section">
-        <div class="text-bottom">
             <div class="row">
                 <div class="col-md-12" style="text-align: -webkit-center; text-align: -moz-center; margin-left: 45px;">
+                    <div class="col-md-4">
+                        <div class="grpchat-margin"></div>
+                        <div class="panel panel-danger">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    Lounge Group Chat
+                                </h3>
+                            </div>
+                            <div id="grp-chat-body" class="panel-body">
+                                <ul class="group-chat">
 
+                                </ul>
+                            </div>
+                            <div class="panel-footer">
+                                <span class="is-typing"></span><br>
+                                <div class="input-group">
+                                    <input type="text" id="groupChatText" class="form-control" placeholder="Can press enter to send">
+                                    <span class="input-group-btn">
+                                <button class="btn btn-blue send-grp-chat-btn" type="button">
+                                    <i class="fa fa-paper-plane" aria-hidden="true"></i> Send
+                                </button>
+                            </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="grpchat-margin"></div>
+                        <div class="panel panel-danger">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    Attendees
+                                </h3>
+                            </div>
+                            <div class="one-to-one-chat-body panel-body">
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" class="oto-attendee-search form-control" placeholder="Search by name" aria-describedby="search-icon">
+                                        <span class="input-group-addon" id="search-icon">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </span>
+                                    </div>
+                                    <div class="chat-users-list">
+                                        <ul class="attendees-chat-list list-group list-group-flush">
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="one-to-one-chat-panel panel panel-danger">
+                                        <div class="one-to-one-chat-heading panel-heading text-left">
+                                            <span class="selected-user-name-area" style="font-weight: bold;"></span>
+                                            <!--<h3 class="attendee-profile-btn pull-right">
+                                                <span class="label label-info">
+                                                    <i class="fa fa-user" aria-hidden="true"></i> Profile
+                                                </span>
+                                            </h3>-->
+                                        </div>
+                                        <div class="oto-chat-body panel-body">
+                                            <ul class="oto-messages">
+
+                                            </ul>
+                                        </div>
+                                        <div class="panel-footer">
+                                            <span class="oto-typing"></span><br>
+                                            <div class="input-group">
+                                                <input type="text" id="one-to-one-ChatText" class="form-control" placeholder="Can press enter to send">
+                                                <span class="input-group-btn">
+                                            <button class="btn btn-blue send-oto-chat-btn" type="button">
+                                                <i class="fa fa-paper-plane" aria-hidden="true"></i> Send
+                                            </button>
+                                        </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-            </div> 
-        </div>
+            </div>
     </div>
-</div>
-<div class="chat-popup" id="supportChat">
-    <form action="#" class="form-container">
-        <h3>Support Chat</h3>
-
-        <label for="msg"><b>Admin</b></label>
-        <div class="support-chat-body">
-            <ul class="support-chat-list">
-            </ul>
-        </div>
-        <input type="text" class="form-control support-chat-message" placeholder="Enter your message here...">
-        <button id="send-support-message-btn" type="button" class="btn">Send</button>
-        <button id="close-support-request" type="button" class="btn cancel">Close</button>
-    </form>
-</div>
-</section>
+</section>>
 
 <script>
     var page_link = $(location).attr('href');
     var user_id = <?= $this->session->userdata("cid") ?>;
-    var page_name = "User Dashboard";
+    var page_name = "Lounge";
+    var base_url = "<?= base_url() ?>";
     var user_name = "<?= $this->session->userdata('fullname') ?>";
+    var user_type = "attendee";
+    var user_logo = "<?= $profile_data->profile ?>";
 </script>
 
 <script type="text/javascript">
@@ -135,13 +199,10 @@
         });
 
 
-        $('#btn_lounge').on('click', function () {
-            alertify.alert('Opening Soon!');
-        });
-
     });
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@9.17.0/dist/sweetalert2.all.min.js"></script>
-<link href="<?= base_url() ?>assets/support-chat/support-chat.css?v=<?= rand(1, 100) ?>" rel="stylesheet">
-<script src="<?= base_url() ?>assets/support-chat/support-chat.js?v=<?= rand(1, 100) ?>"></script>
+<script src="https://blueimp.github.io/JavaScript-MD5/js/md5.js"></script>
+<link href="<?= base_url() ?>assets/lounge/lounge.css?v=<?= rand(1, 100) ?>" rel="stylesheet">
+<script src="<?= base_url() ?>assets/lounge/lounge.js?v=<?= rand(1, 100) ?>"></script>
