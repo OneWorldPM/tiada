@@ -131,32 +131,32 @@
                                                                             <div id="poll_vot_section" style="padding: 0px 0px 0px 0px; margin-top: 10px; background-color: #fff; border-radius: 5px;">
                                                                             </div>
                                                                         </div>-->
-                                    <div class="col-md-3">
-                                        <div id="ask_questions_section" style="padding: 0px 0px 0px 0px; margin-top: 10px; background-color: #fff; border-radius: 5px;">
-                                            <div>
-                                                <h2 style='margin-bottom: 0px; color: #ffffff; font-weight: 700;font-size: 15px; padding: 5px 5px 5px 10px; background-color: #b2b7bb; text-transform: uppercase;'><i class="fa fa-question-circle" style="font-size: 18px; color: #ee5d26;"></i> Questions</h2>
-                                            </div>
-                                            <div style="padding: 15px 15px 15px 15px;">
-                                                <div style="text-align: center; display: flex; " id="questions_section">
-                                                    <div class="col-md-12 input-group">
-                                                        <span class="input-group-addon" style="padding: 5px 6px"><img src="<?= base_url() ?>front_assets/images/emoji/happy.png"  id="questions_emjis_section_show" title="Check to Show Emoji" data-questions_emjis_section_show_status="0" style="width: 20px; height: 20px;" alt=""/></span>
-                                                        <input type="text" id="questions" class="form-control" placeholder="Enter Question" value="">
-                                                    </div>
-                                                    <a class="button color" style="margin: 0px; padding: 15px 7px; background-color: #c3c3c3; border-color: #c3c3c3;" id="ask_questions_send"><span>Send</span></a>
-                                                </div>
-                                                <div style="text-align: left; padding-left: 10px; display: flex;" id="questions_emojis_section">
-                                                    <img src="<?= base_url() ?>front_assets/images/emoji/happy.png" title="Happy" id="questions_happy" data-title_name="&#128578;" style="width: 40px; height: 40px; padding: 5px;" alt=""/>
-                                                    <img src="<?= base_url() ?>front_assets/images/emoji/sad.png" title="Sad" id="questions_sad" data-title_name="&#128543" style="width: 40px; height: 40px; padding: 5px;" alt=""/>
-                                                    <img src="<?= base_url() ?>front_assets/images/emoji/laughing.png" title="Laughing" id="questions_laughing"  data-title_name="😁" style="width: 40px; height: 40px; padding: 5px;" alt=""/>
-                                                    <img src="<?= base_url() ?>front_assets/images/emoji/thumbs_up.png" title="Thumbs Up" id="questions_thumbs_up" data-title_name="&#128077;" style="width: 40px; height: 40px; padding: 5px;" alt=""/>
-                                                    <img src="<?= base_url() ?>front_assets/images/emoji/thumbs_down.png" title="Thumbs Down" id="questions_thumbs_down" data-title_name="&#128078" style="width: 40px; height: 40px; padding: 5px;" alt=""/>
-                                                    <img src="<?= base_url() ?>front_assets/images/emoji/clapping.png" title="Clapping" id="questions_clapping" data-title_name="&#128079;" style="width: 40px; height: 40px; padding: 5px;" alt=""/>
-                                                </div>
-                                                <span id='error_questions' style='color:red;'></span>
-                                                <span id='success_questions' style='color:green;'></span>
-                                            </div>
-                                        </div>
-                                    </div>
+<!--                                    <div class="col-md-3">-->
+<!--                                        <div id="ask_questions_section" style="padding: 0px 0px 0px 0px; margin-top: 10px; background-color: #fff; border-radius: 5px;">-->
+<!--                                            <div>-->
+<!--                                                <h2 style='margin-bottom: 0px; color: #ffffff; font-weight: 700;font-size: 15px; padding: 5px 5px 5px 10px; background-color: #b2b7bb; text-transform: uppercase;'><i class="fa fa-question-circle" style="font-size: 18px; color: #ee5d26;"></i> Questions</h2>-->
+<!--                                            </div>-->
+<!--                                            <div style="padding: 15px 15px 15px 15px;">-->
+<!--                                                <div style="text-align: center; display: flex; " id="questions_section">-->
+<!--                                                    <div class="col-md-12 input-group">-->
+<!--                                                        <span class="input-group-addon" style="padding: 5px 6px"><img src="--><?//= base_url() ?><!--front_assets/images/emoji/happy.png"  id="questions_emjis_section_show" title="Check to Show Emoji" data-questions_emjis_section_show_status="0" style="width: 20px; height: 20px;" alt=""/></span>-->
+<!--                                                        <input type="text" id="questions" class="form-control" placeholder="Enter Question" value="">-->
+<!--                                                    </div>-->
+<!--                                                    <a class="button color" style="margin: 0px; padding: 15px 7px; background-color: #c3c3c3; border-color: #c3c3c3;" id="ask_questions_send"><span>Send</span></a>-->
+<!--                                                </div>-->
+<!--                                                <div style="text-align: left; padding-left: 10px; display: flex;" id="questions_emojis_section">-->
+<!--                                                    <img src="--><?//= base_url() ?><!--front_assets/images/emoji/happy.png" title="Happy" id="questions_happy" data-title_name="&#128578;" style="width: 40px; height: 40px; padding: 5px;" alt=""/>-->
+<!--                                                    <img src="--><?//= base_url() ?><!--front_assets/images/emoji/sad.png" title="Sad" id="questions_sad" data-title_name="&#128543" style="width: 40px; height: 40px; padding: 5px;" alt=""/>-->
+<!--                                                    <img src="--><?//= base_url() ?><!--front_assets/images/emoji/laughing.png" title="Laughing" id="questions_laughing"  data-title_name="😁" style="width: 40px; height: 40px; padding: 5px;" alt=""/>-->
+<!--                                                    <img src="--><?//= base_url() ?><!--front_assets/images/emoji/thumbs_up.png" title="Thumbs Up" id="questions_thumbs_up" data-title_name="&#128077;" style="width: 40px; height: 40px; padding: 5px;" alt=""/>-->
+<!--                                                    <img src="--><?//= base_url() ?><!--front_assets/images/emoji/thumbs_down.png" title="Thumbs Down" id="questions_thumbs_down" data-title_name="&#128078" style="width: 40px; height: 40px; padding: 5px;" alt=""/>-->
+<!--                                                    <img src="--><?//= base_url() ?><!--front_assets/images/emoji/clapping.png" title="Clapping" id="questions_clapping" data-title_name="&#128079;" style="width: 40px; height: 40px; padding: 5px;" alt=""/>-->
+<!--                                                </div>-->
+<!--                                                <span id='error_questions' style='color:red;'></span>-->
+<!--                                                <span id='success_questions' style='color:green;'></span>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
                                     <div class="col-md-3">
                                         <div id="briefcase_section" style="padding: 0px 0px 0px 0px; margin-top: 10px; background-color: #fff; border-radius: 5px;">
                                             <div>
