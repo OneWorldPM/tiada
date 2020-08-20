@@ -141,7 +141,7 @@
                                 <nav id="mainMenu" class="main-menu mega-menu">
                                     <ul class="main-menu nav nav-pills navbar-left" id="main_menu_top_bar" style="margin-right: 50px;">
                                         <li><a href="https://tiadaannualconference.com/agenda/" target="_blank" style="color: #ae0201">AGENDA</a></li>
-										<li><a href="<?= base_url() ?>home" style="color: #ae0201">MAIN HALL</a></li>
+                                        <li><a href="<?= base_url() ?>home" style="color: #ae0201">MAIN HALL</a></li>
                                         <?php
                                         if ($this->session->userdata('cid') != "") {
                                             $check_authenticate_result = $this->common->check_authenticate($this->session->userdata("cid"));
@@ -149,25 +149,33 @@
                                             if ($check_authenticate_result != "noaccess") {
                                                 if ($user_detias->customer_type == "Dummy users" || $user_detias->customer_type == "full_conference_no_roundtables" || $user_detias->customer_type == "Associate - Full Payment" || $user_detias->customer_type == "Associate Branch" || $user_detias->customer_type == "Associate - Monthly") {
                                                     ?>
-                                                    <li><a href="<?= base_url() ?>sessions" style="color: #ae0201">SESSIONS</a></li>
-                                                    <li><a href="<?= base_url() ?>sponsor" style="color: #ae0201">EXPO</a></li>
-<!--                                                    <li><a href="--><?//= base_url() ?><!--lounge" style="color: #ae0201">LOUNGE</a></li>-->
+                                                                                                                                                                                                                                                                        <!--                                                    <li><a href="<?= base_url() ?>sessions" style="color: #ae0201">SESSIONS</a></li>
+                                                                                                                                                                                                                                                                                                                            <li><a href="<?= base_url() ?>sponsor" style="color: #ae0201">EXPO</a></li>-->
+                                                    <li><a href="#" style="color: #ae0201">Sessions on Demand Coming Soon!</a></li>
+                                                    <li><a href="#" style="color: #ae0201">EXPO now closed</a></li>
+                                                    <!--                                                    <li><a href="--><?//= base_url() ?><!--lounge" style="color: #ae0201">LOUNGE</a></li>-->
                                                 <?php } else if ($user_detias->customer_type == "expo_only") { ?> 
-                                                    <li><a href="<?= base_url() ?>sponsor" style="color: #ae0201">EXPO</a></li>
+                                                    <!--<li><a href="<?= base_url() ?>sponsor" style="color: #ae0201">EXPO</a></li>-->
+                                                    <li><a href="#" style="color: #ae0201">EXPO now closed</a></li>
                                                 <?php } else { ?>
-                                                    <li><a href="<?= base_url() ?>sessions" style="color: #ae0201">SESSIONS & ROUNDTABLES</a></li>
-                                                    <li><a href="<?= base_url() ?>sponsor" style="color: #ae0201">EXPO</a></li>
-<!--                                                    <li><a href="--><?//= base_url() ?><!--lounge" style="color: #ae0201">LOUNGE</a></li>-->
+            <!--                                                    <li><a href="<?= base_url() ?>sessions" style="color: #ae0201">SESSIONS & ROUNDTABLES</a></li>
+                                                 <li><a href="<?= base_url() ?>sponsor" style="color: #ae0201">EXPO</a></li>-->
+                                                    <li><a href="#" style="color: #ae0201">Sessions on Demand Coming Soon!</a></li>
+                                                    <li><a href="#" style="color: #ae0201">EXPO now closed</a></li>
+                                                    <!--                                                    <li><a href="--><?//= base_url() ?><!--lounge" style="color: #ae0201">LOUNGE</a></li>-->
                                                 <?php } ?>
                                             <?php } else { ?>
-                                                <li><a href="<?= base_url() ?>sponsor" style="color: #ae0201">EXPO</a></li>
+        <!--<li><a href="<?= base_url() ?>sponsor" style="color: #ae0201">EXPO</a></li>-->
+                                                <li><a href="#" style="color: #ae0201">EXPO now closed</a></li>
                                             <?php }
                                             ?>
                                         <?php } else {
                                             ?>
-                                            <li><a href="<?= base_url() ?>sessions" style="color: #ae0201">SESSIONS & ROUNDTABLES</a></li>
-                                            <li><a href="<?= base_url() ?>sponsor" style="color: #ae0201">EXPO</a></li>
-<!--                                            <li><a href="--><?//= base_url() ?><!--lounge" style="color: #ae0201">LOUNGE</a></li>-->
+    <!--                                            <li><a href="<?= base_url() ?>sessions" style="color: #ae0201">SESSIONS & ROUNDTABLES</a></li>
+    <li><a href="<?= base_url() ?>sponsor" style="color: #ae0201">EXPO</a></li>-->
+                                            <li><a href="#" style="color: #ae0201">Sessions on Demand Coming Soon!</a></li>
+                                            <li><a href="#" style="color: #ae0201">EXPO now closed</a></li>
+                                            <!--                                            <li><a href="--><?//= base_url() ?><!--lounge" style="color: #ae0201">LOUNGE</a></li>-->
                                         <?php } ?>
                                         <li class="nav-item avatar dropdown">
                                             <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">

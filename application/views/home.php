@@ -113,15 +113,15 @@
                     if ($user_detias->customer_type != "expo_only" && $check_authenticate_result != "noaccess") {
                         ?>
                         <div class="col-md-3 col-sm-12">
-                            <a class="icon-home" href="<?= base_url() ?>sessions"> 
+                            <a class="icon-home" href="#"> 
                                 <div class="col-lg box-home p-5 text-center">
                                     <img src="<?= base_url() ?>front_assets/images/Session.png" alt="welcome" class="m-t-40" style="height: 150px; width: 160px;">
                                     <br>
                                     <?php if ($user_detias->customer_type == "Dummy users" || $user_detias->customer_type == "full_conference_no_roundtables" || $user_detias->customer_type == "Associate - Full Payment" || $user_detias->customer_type == "Associate Branch" || $user_detias->customer_type == "Associate - Monthly") { ?>
                                         <br>
-                                        <span>SESSIONS</span>
+                                        <span>Sessions on Demand Coming Soon!</span>
                                     <?php } else { ?>
-                                        <span>SESSIONS & ROUNDTABLES</span>
+                                        <span>Sessions on Demand Coming Soon!</span>
                                     <?php } ?>
                                 </div>
                             </a>
@@ -132,18 +132,18 @@
                                 <div class="col-lg box-home p-5 text-center">
                                     <img src="<?= base_url() ?>front_assets/images/Session.png" alt="welcome" class="m-t-40" style="height: 150px; width: 160px;">
                                     <br>
-                                    <span>You are not authorized to view this</span>
+                                    <span>Sessions on Demand Coming Soon!</span>
                                 </div>
                             </a>
                         </div>
                     <?php } ?>
                     <div class="col-md-3  col-sm-12">
-                        <a class="icon-home" href="<?= base_url() ?>sponsor"> 
+                        <a class="icon-home" href="#"> 
                             <div class="col-lg box-home ml-5 mr-5 p-5 text-center">
                                 <img src="<?= base_url() ?>front_assets/images/sponsor.png" alt="welcome" class="m-t-40" style="height: 150px; width: 160px;">
                                 <br>
                                 <br>
-                                <span>EXPO</span>
+                                <span>EXPO now closed</span>
                             </div>
                         </a>
                     </div> 
