@@ -85,7 +85,7 @@
                                 <div class="col-md-12" style="background-color: #B2B7BB; margin-bottom: 10px;">
                                     <h3 style="margin-bottom: 5px; color: #fff; font-weight: 700; text-transform: uppercase;"><?= isset($sessions) ? $sessions->session_title : "" ?></h3>
                                 </div>
-                                <div id="embededVideo" class="col-md-12" style="text-align: center;">
+                                <div id="embededVideo" class="col-md-12" style="text-align: center; width: 80% !important;">
                                     <div class="row"><i id="btnFS" class="fa fa-arrows-alt" aria-hidden="true"></i></div>
                                     <div id="iframeDiv" class="row" style="width: 112%; height: 97%;">
                                         <?= isset($sessions) ? $sessions->embed_html_code : "" ?>
