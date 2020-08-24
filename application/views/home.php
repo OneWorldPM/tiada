@@ -113,15 +113,15 @@
                     if ($user_detias->customer_type != "expo_only" && $check_authenticate_result != "noaccess") {
                         ?>
                         <div class="col-md-3 col-sm-12">
-                            <a class="icon-home" href="#"> 
+                            <a class="icon-home" href="<?= base_url()?>sessions">
                                 <div class="col-lg box-home p-5 text-center">
                                     <img src="<?= base_url() ?>front_assets/images/Session.png" alt="welcome" class="m-t-40" style="height: 150px; width: 160px;">
                                     <br>
                                     <?php if ($user_detias->customer_type == "Dummy users" || $user_detias->customer_type == "full_conference_no_roundtables" || $user_detias->customer_type == "Associate - Full Payment" || $user_detias->customer_type == "Associate Branch" || $user_detias->customer_type == "Associate - Monthly") { ?>
                                         <br>
-                                        <span>Sessions on Demand Coming Soon!</span>
+                                        <span>Sessions On Demand</span>
                                     <?php } else { ?>
-                                        <span>Sessions on Demand Coming Soon!</span>
+                                        <span>Sessions On Demand</span>
                                     <?php } ?>
                                 </div>
                             </a>
