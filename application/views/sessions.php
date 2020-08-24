@@ -242,7 +242,7 @@
                                                     <div class="post-description">
                                                         <p style="margin-bottom: 10px; color: black;"><?= $val->sessions_description ?></p>
                                                         <a class="button black-light button-3d rounded right" style="margin: 0px 0;" href="<?= base_url() ?>sessions/attend/<?= $val->sessions_id ?>"><span>View</span></a>
-<!--                                                        <a class="button black-light button-3d rounded right save_to_swag_bag" data-sessions_id="--><?//= $val->sessions_id ?><!--" data-swag_bag_btn_status="0"   style="margin: 0px 5px 0px 0px">--><?//= ($val->status_my_swag_bag == 0) ? "Save to Itinerary" : "Remove from Itinerary" ?><!-- </a>-->
+<!--                                                        <a class="button black-light button-3d rounded right save_to_swag_bag" data-sessions_id=" //= $val->sessions_id ?> " data-swag_bag_btn_status="0"   style="margin: 0px 5px 0px 0px"> //= ($val->status_my_swag_bag == 0) ? "Save to Itinerary" : "Remove from Itinerary" ?> </a>-->
                                                     </div>
                                                 </div>
                                             </div>
