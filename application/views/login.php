@@ -1,9 +1,28 @@
+<style>
+    @media (min-width: 300px) and (max-width: 768px)  {
+        #tiada_members{
+            margin-left: 0px;
+        }
+        #tiada_non_members{
+            margin-left: 0px;  
+        }
+    }
+
+    @media (min-width: 768px) and (max-width: 100000px)  {
+        #tiada_members{
+            margin-left: 327px;
+        }
+        #tiada_non_members{
+            margin-left: 28px;  
+        }
+    }
+</style>
 <!-- SECTION -->
 <section class="parallax fullscreen" style="background-image: url(<?= base_url() ?>front_assets/images/tiada_new.jpeg); top: 0; padding-top: 0px;">
     <div class="container container-fullscreen" style="margin-top: 205px;">
         <div class="text-middle">
             <div class="row">
-                <div class="col-md-3 col-md-offset-2 p-40 background-white" style="border-radius: 10px; margin-top: 60px; margin-left: 327px;">
+                <div class="col-md-3 col-md-offset-2 p-40 background-white" id="tiada_members" style="border-radius: 10px; margin-top: 60px; ">
                     <div class="row">
                         <div class="col-md-12"> 
                             <h4>TIADA Members</h4>
@@ -18,7 +37,7 @@
                                     <input type="password" id="tiada_password" name="tiada_password" class="form-control" placeholder="Password">
                                     <span id="errortiada_password" style="color:red"></span>
                                 </div>
-                                 <div class="form-group form-inline text-left ">
+                                <div class="form-group form-inline text-left ">
                                     <a target="_blank" href="https://www.txiada.org/assoc_forgot.asp" class="right"><small>Forgot Password?</small></a>
                                 </div>
                                 <div class="text-left form-group">
@@ -28,7 +47,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3  p-40 background-white" style="border-radius: 10px; margin-top: 60px; margin-left: 28px;">
+                <div class="col-md-3  p-40 background-white" id="tiada_non_members" style="border-radius: 10px; margin-top: 60px; ">
                     <div class="row">
                         <div class="col-md-12"> 
                             <h4>Non Members</h4>

@@ -88,6 +88,21 @@
         }
     }
 </style>
+<style>
+    @media (min-width: 300px) and (max-width: 768px)  {
+        .col-sm-12{
+            margin-bottom: 20px;
+        }
+        #TECHNICAL_HELP{
+            margin-top: 0px;
+        }
+    }
+    @media (min-width: 768px) and (max-width: 100000px)  {
+        #TECHNICAL_HELP{
+            margin-top: 100px;
+        }
+    }
+</style>
 <section class="parallax" style="background-image: url(<?= base_url() ?>front_assets/images/tiada_new.jpeg); top: 0; padding-top: 20px;">
     <div class="container container-fullscreen" id="home_first_section">
         <div class="text-bottom">
@@ -113,7 +128,7 @@
                     if ($user_detias->customer_type != "expo_only" && $check_authenticate_result != "noaccess") {
                         ?>
                         <div class="col-md-3 col-sm-12">
-                            <a class="icon-home" href="<?= base_url()?>sessions">
+                            <a class="icon-home" href="<?= base_url() ?>sessions">
                                 <div class="col-lg box-home p-5 text-center">
                                     <img src="<?= base_url() ?>front_assets/images/Session.png" alt="welcome" class="m-t-40" style="height: 150px; width: 160px;">
                                     <br>
@@ -147,17 +162,17 @@
                             </div>
                         </a>
                     </div> 
-<!--                    <div class="col-md-3  col-sm-12">-->
-<!--                        <a class="icon-home" href="--><?//= base_url() ?><!--lounge" id="btn_lounge">-->
-<!--                            <div class="col-lg box-home p-5 text-center">-->
-<!--                                <img src="--><?//= base_url() ?><!--front_assets/images/lounge.png" alt="welcome" class="m-t-20" style="height: 170px; width: 170px;">-->
-<!--                                <br>-->
-<!--                                <br>-->
-<!--                                <span>LOUNGE</span>-->
-<!--                            </div>-->
-<!--                        </a>-->
-<!--                    </div> -->
-                    <div class="col-md-1  col-sm-12 m-t-100">
+                    <!--                    <div class="col-md-3  col-sm-12">-->
+                    <!--                        <a class="icon-home" href="--><?//= base_url() ?><!--lounge" id="btn_lounge">-->
+                    <!--                            <div class="col-lg box-home p-5 text-center">-->
+                    <!--                                <img src="--><?//= base_url() ?><!--front_assets/images/lounge.png" alt="welcome" class="m-t-20" style="height: 170px; width: 170px;">-->
+                    <!--                                <br>-->
+                    <!--                                <br>-->
+                    <!--                                <span>LOUNGE</span>-->
+                    <!--                            </div>-->
+                    <!--                        </a>-->
+                    <!--                    </div> -->
+                    <div class="col-md-1  col-sm-12" id="TECHNICAL_HELP">
                         <a class="icon-home" target="_blank" href="https://yourconference.live/support"> 
                             <div class="col-lg box-home_2 p-0 p-b-25 text-center">
                                 <img src="<?= base_url() ?>front_assets/images/settings-gears.png" alt="welcome" class="m-t-20" style="height: 90px; width: 90px;">
