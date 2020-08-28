@@ -12,6 +12,10 @@ class Home extends CI_Controller {
         if ($login_type != 'user') {
             redirect('login');
         }
+        $get_user_token_details = $this->common->get_user_details($this->session->userdata('cid'));
+        if($this->session->userdata('token') != $get_user_token_details->token){
+           redirect('login');   
+        }
         $this->load->model('user/m_home', 'objhome');
         $this->load->model('madmin/m_support_live_chat', 'support_chat');
     }

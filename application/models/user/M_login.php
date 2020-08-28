@@ -23,8 +23,8 @@ class M_login extends CI_Model {
             return '';
         }
     }
-    
-    function update_presenter_data($username,$password) {
+
+    function update_presenter_data($username, $password) {
         $this->db->select('*');
         $this->db->from('customer_master');
         $this->db->where("cust_id", $this->session->userdata("cid"));
@@ -39,6 +39,21 @@ class M_login extends CI_Model {
         } else {
             return '';
         }
+    }
+
+    public function update_user_token($cust_id) {
+        $token = $this->generateRandomString();
+        $this->db->update("customer_master", array("token" => $token), array("cust_id" =>$cust_id));
+        return $token;
+    }
+
+    function generateRandomString($length = 8) {
+        $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, strlen($characters) - 1)];
+        }
+        return $randomString;
     }
 
 }

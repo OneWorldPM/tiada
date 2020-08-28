@@ -12,7 +12,8 @@ class Login extends CI_Controller {
     }
 
     public function index() {
-        if ($this->session->userdata('cid') != "" && $this->session->userdata('userType') == "user") {
+        $get_user_token_details = $this->common->get_user_details($this->session->userdata('cid'));
+        if ($this->session->userdata('cid') != "" && $this->session->userdata('userType') == "user" && $this->session->userdata('token') == $get_user_token_details->token) {
             redirect('home');
         } else {
             $this->load->view('main_header');
@@ -37,25 +38,29 @@ class Login extends CI_Controller {
             if ($data) {
                 if ($data['customer_type'] == "Dummy users") {
                     if ($data['email'] != "" && $data['first_name'] != "") {
+                        $token = $this->objlogin->update_user_token($data['cust_id']);
                         $session = array(
                             'cid' => $data['cust_id'],
                             'cname' => $data['first_name'],
                             'fullname' => $data['first_name'] . " " . $data['last_name'],
                             'email' => $data['email'],
+                            'token' => $token,
                             'userType' => 'user'
                         );
                         $this->session->set_userdata($session);
-                         $this->objlogin->update_presenter_data($username,$password);
+                        $this->objlogin->update_presenter_data($username, $password);
                         redirect('home');
                     } else {
+                        $token = $this->objlogin->update_user_token($data['cust_id']);
                         $session = array(
                             'cid' => $data['cust_id'],
                             'cname' => $data['first_name'],
                             'email' => $data['email'],
+                            'token' => $token,
                             'userType' => 'user'
                         );
                         $this->session->set_userdata($session);
-                        $this->objlogin->update_presenter_data($username,$password);
+                        $this->objlogin->update_presenter_data($username, $password);
                         redirect('register/user_profile/' . $data['cust_id']);
                     }
                 } else if ($data['customer_type'] == "full_conference_with_roundtables" || $data['customer_type'] == "full_conference_no_roundtables" || $data['customer_type'] == "expo_only") {
@@ -105,7 +110,7 @@ class Login extends CI_Controller {
                                     unset($member_array[$key]);
                                 }
                             }
-                         
+
                             if (!empty($member_array)) {
                                 $set_update_array = array(
                                     "user_id" => $array['GetMemberKeyUsingEmailResult'],
@@ -124,51 +129,58 @@ class Login extends CI_Controller {
                                 );
                                 $this->db->update("customer_master", $set_update_array, array("cust_id" => $data['cust_id']));
                             }
+                            $token = $this->objlogin->update_user_token($data['cust_id']);
                             $session = array(
                                 'cid' => $data['cust_id'],
                                 'cname' => $data['first_name'],
                                 'fullname' => $data['first_name'] . " " . $data['last_name'],
                                 'email' => $data['email'],
+                                'token' => $token,
                                 'userType' => 'user'
                             );
                             $this->session->set_userdata($session);
-                            $this->objlogin->update_presenter_data($username,$password);
+                            $this->objlogin->update_presenter_data($username, $password);
                             redirect('home');
                         } else {
+                            $token = $this->objlogin->update_user_token($data['cust_id']);
                             $session = array(
                                 'cid' => $data['cust_id'],
                                 'cname' => $data['first_name'],
                                 'fullname' => $data['first_name'] . " " . $data['last_name'],
                                 'email' => $data['email'],
+                                'token' => $token,
                                 'userType' => 'user'
                             );
                             $this->session->set_userdata($session);
-                            $this->objlogin->update_presenter_data($username,$password);
+                            $this->objlogin->update_presenter_data($username, $password);
                             redirect('home');
                         }
                     } else {
+                        $token = $this->objlogin->update_user_token($data['cust_id']);
                         $session = array(
                             'cid' => $data['cust_id'],
                             'cname' => $data['first_name'],
                             'fullname' => $data['first_name'] . " " . $data['last_name'],
                             'email' => $data['email'],
+                            'token' => $token,
                             'userType' => 'user'
                         );
                         $this->session->set_userdata($session);
-                        $this->objlogin->update_presenter_data($username,$password);
+                        $this->objlogin->update_presenter_data($username, $password);
                         redirect('home');
                     }
                 } else {
-                     
+                    $token = $this->objlogin->update_user_token($data['cust_id']);
                     $session = array(
                         'cid' => $data['cust_id'],
                         'cname' => $data['first_name'],
                         'fullname' => $data['first_name'] . " " . $data['last_name'],
                         'email' => $data['email'],
+                        'token' => $token,
                         'userType' => 'user'
                     );
                     $this->session->set_userdata($session);
-                    $this->objlogin->update_presenter_data($username,$password);
+                    $this->objlogin->update_presenter_data($username, $password);
                     redirect('home');
                 }
             } else {
@@ -181,11 +193,13 @@ class Login extends CI_Controller {
     function register_login($cust_id) {
         $data = $this->objlogin->register_login($cust_id);
         if ($data) {
+            $token = $this->objlogin->update_user_token($data['cust_id']);
             $session = array(
                 'cid' => $data['cust_id'],
                 'cname' => $data['first_name'],
                 'fullname' => $data['first_name'] . " " . $data['last_name'],
                 'email' => $data['email'],
+                'token' => $token,
                 'userType' => 'user'
             );
             $this->session->set_userdata($session);
@@ -200,6 +214,7 @@ class Login extends CI_Controller {
         $this->session->unset_userdata('cname');
         $this->session->unset_userdata('fullname');
         $this->session->unset_userdata('email');
+        $this->session->unset_userdata('token');
         $this->session->unset_userdata('userType');
         header('location:' . base_url() . 'login');
     }
@@ -228,7 +243,7 @@ class Login extends CI_Controller {
                     unset($array[$key]);
                 }
             }
-          
+
             if (!empty($array)) {
                 if ($array['ValidateAuthenticationTokenResult'] != "") {
                     $user_details = $this->db->get_where("customer_master", array("user_id" => $array['ValidateAuthenticationTokenResult']))->row();
@@ -278,11 +293,13 @@ class Login extends CI_Controller {
                             );
                             $this->db->update("customer_master", $set_update_array, array("cust_id" => $user_details->cust_id));
                         }
+                        $token = $this->objlogin->update_user_token($user_details->cust_id);
                         $session = array(
                             'cid' => $user_details->cust_id,
                             'cname' => $user_details->first_name,
                             'fullname' => $user_details->first_name . " " . $user_details->last_name,
                             'email' => $user_details->email,
+                            'token' => $token,
                             'userType' => 'user'
                         );
                         $this->session->set_userdata($session);
@@ -336,12 +353,13 @@ class Login extends CI_Controller {
                                     'company_name' => isset($member_array['OrganizationName']) ? $member_array['OrganizationName'] : ''
                                 );
                                 $this->db->update("customer_master", $set_update_array, array("cust_id" => $user_details->cust_id));
-
+                                $token = $this->objlogin->update_user_token($user_details->cust_id);
                                 $session = array(
                                     'cid' => $user_details->cust_id,
                                     'cname' => $user_details->first_name,
                                     'fullname' => $user_details->first_name . " " . $user_details->last_name,
                                     'email' => $user_details->email,
+                                    'token' => $token,
                                     'userType' => 'user'
                                 );
                                 $this->session->set_userdata($session);
@@ -380,11 +398,13 @@ class Login extends CI_Controller {
                                 $cust_id = $this->db->insert_id();
                                 $user_details = $this->db->get_where("customer_master", array("cust_id" => $cust_id))->row();
                                 if (!empty($user_details)) {
+                                    $token = $this->objlogin->update_user_token($user_details->cust_id);
                                     $session = array(
                                         'cid' => $user_details->cust_id,
                                         'cname' => $user_details->first_name,
                                         'fullname' => $user_details->first_name . " " . $user_details->last_name,
                                         'email' => $user_details->email,
+                                        'token' => $token,
                                         'userType' => 'user'
                                     );
                                     $this->session->set_userdata($session);
@@ -408,7 +428,7 @@ class Login extends CI_Controller {
 
     function tiada_authentication() {
         $post = $this->input->post();
-        
+
         if (!empty($post)) {
             $curl = curl_init();
             curl_setopt_array($curl, array(
@@ -426,16 +446,16 @@ class Login extends CI_Controller {
             $xml = simplexml_load_string($response);
             $json = json_encode($xml);
             $array = json_decode($json, TRUE);
-           
+
             foreach ($array as $key => $value) {
                 if (empty($value)) {
                     unset($array[$key]);
                 }
             }
-               
+
             if (!empty($array)) {
                 if ($array['AuthenticateUserResult'] != "") {
-                    
+
                     $user_details = $this->db->get_where("customer_master", array("user_id" => $array['AuthenticateUserResult']))->row();
 
                     if (!empty($user_details)) {
@@ -483,15 +503,17 @@ class Login extends CI_Controller {
                             );
                             $this->db->update("customer_master", $set_update_array, array("cust_id" => $user_details->cust_id));
                         }
+                        $token = $this->objlogin->update_user_token($user_details->cust_id);
                         $session = array(
                             'cid' => $user_details->cust_id,
                             'cname' => $user_details->first_name,
                             'fullname' => $user_details->first_name . " " . $user_details->last_name,
                             'email' => $user_details->email,
+                            'token' => $token,
                             'userType' => 'user'
                         );
                         $this->session->set_userdata($session);
-                        $this->objlogin->update_presenter_data($post['tiada_email'],$post['tiada_password']);
+                        $this->objlogin->update_presenter_data($post['tiada_email'], $post['tiada_password']);
                         redirect('home');
                     } else {
                         $curl = curl_init();
@@ -542,16 +564,17 @@ class Login extends CI_Controller {
                                     'member_status' => "Tiada-Member"
                                 );
                                 $this->db->update("customer_master", $set_update_array, array("cust_id" => $user_details->cust_id));
-
+                                $token = $this->objlogin->update_user_token($user_details->cust_id);
                                 $session = array(
                                     'cid' => $user_details->cust_id,
                                     'cname' => $user_details->first_name,
                                     'fullname' => $user_details->first_name . " " . $user_details->last_name,
                                     'email' => $user_details->email,
+                                    'token' => $token,
                                     'userType' => 'user'
                                 );
                                 $this->session->set_userdata($session);
-                                $this->objlogin->update_presenter_data($post['tiada_email'],$post['tiada_password']);
+                                $this->objlogin->update_presenter_data($post['tiada_email'], $post['tiada_password']);
                                 redirect('home');
                             } else {
                                 $this->db->order_by("cust_id", "desc");
@@ -587,15 +610,17 @@ class Login extends CI_Controller {
                                 $cust_id = $this->db->insert_id();
                                 $user_details = $this->db->get_where("customer_master", array("cust_id" => $cust_id))->row();
                                 if (!empty($user_details)) {
+                                    $token = $this->objlogin->update_user_token($user_details->cust_id);
                                     $session = array(
                                         'cid' => $user_details->cust_id,
                                         'cname' => $user_details->first_name,
                                         'fullname' => $user_details->first_name . " " . $user_details->last_name,
                                         'email' => $user_details->email,
+                                        'token' => $token,
                                         'userType' => 'user'
                                     );
                                     $this->session->set_userdata($session);
-                                    $this->objlogin->update_presenter_data($post['tiada_email'],$post['tiada_password']);
+                                    $this->objlogin->update_presenter_data($post['tiada_email'], $post['tiada_password']);
                                     redirect('home');
                                 }
                             }
