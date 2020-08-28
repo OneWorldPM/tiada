@@ -155,7 +155,7 @@
                                                   
                                                     <li><a href="#" style="color: #ae0201">EXPO now closed</a></li>
                                                 <?php } else { ?>  
-                                                    <li><a href="<?= base_url()?>sessions" style="color: #ae0201">Sessions On Demand</a></li>>
+                                                    <li><a href="<?= base_url()?>sessions" style="color: #ae0201">Sessions On Demand</a></li>
                                                     <li><a href="#" style="color: #ae0201">EXPO now closed</a></li>
                                                 <?php } ?>
                                             <?php } else { ?>
