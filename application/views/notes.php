@@ -18,9 +18,13 @@
 </style>
 <section class="parallax" style="background-image: url(<?= base_url() ?>front_assets/images/bubble_bg_1920.jpg); top: 0; padding-top: 0px;">
 <!--<section class="parallax" style="background-image: url(<?= base_url() ?>front_assets/images/Sessions_BG_screened.jpg); top: 0; padding-top: 0px;">-->
-    <div class="container container-fullscreen" >
+    <div class="container container-fullscreen">
         <div class="text-middle">
-
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 style="font-weight: 600; font-size: 22px; padding-left: 30px; color: #ae0201;">My Swag Bag</h3>
+                </div>
+            </div>
             <?php if (isset($sponsor_resources) && !empty($sponsor_resources)) { ?>
 
                 <div class="row">
@@ -43,7 +47,9 @@
             <?php } ?>
 
             <div class="row">
+
                 <div class="col-md-12">
+
                     <!-- CONTENT -->
                     <section class="content" style="padding: 0px 0;">
                         <div class="container" style=" background: rgba(250, 250, 250, 0.8); "> 
@@ -54,7 +60,7 @@
                                     <table class="table table-bordered table-striped text-center ">
                                         <thead class="th_center">
                                             <tr>
-                                                <th>Sessions to attend</th>
+                                                <th><b>Sessions to attend</b></th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -71,10 +77,10 @@
                                                 <tr>
                                                     <td>
                                                         <div class="post-item">
-                                                            <div class="post-image col-md-3 m-t-20"> 
-                                                                <h6 style="font-weight: 600; font-size: 15px;"><?= $val->sessions_date . ' ' . date("h:i A", strtotime($val->time_slot)) . ' - ' . date("h:i A", strtotime($val->end_time)) ?></h6>
+                                                            <div class="post-image col-md-4 m-t-20"> 
+                                                                <h6 style="font-weight: 600; font-size: 13px;"><?= $val->sessions_date . ' ' . date("h:i A", strtotime($val->time_slot)) . ' - ' . date("h:i A", strtotime($val->end_time)) ?></h6>
                                                             </div>
-                                                            <div class="post-content-details col-md-9 m-t-10" style="text-align: left;">
+                                                            <div class="post-content-details col-md-8 m-t-10" style="text-align: left;">
 
                                                                 <div class="post-title">
                                                                     <h3><a href="<?= base_url() ?>sessions/attend/<?= $val->sessions_id ?>" style="color: #ae0201; font-weight: 900;"><?= $val->session_title ?></a> </h3>
@@ -96,7 +102,7 @@
                                                     <td>
                                                         <div class="post-description col-md-12">
                                                             <a class="button black-light button-3d rounded right" style="margin: 0px 0; padding: 7px;" href="<?= base_url() ?>sessions/attend/<?= $val->sessions_id ?>"><span>Attend</span></a>
-                                                            <a class="button black-light button-3d rounded right save_to_swag_bag" data-sessions_id="<?= $val->sessions_id ?>" data-swag_bag_btn_status="0"   style="margin: 5px 5px 0px 0px; padding: 7px;"><?= ($val->status_my_swag_bag == 0) ? "Save to Itinerary" : "Remove from Itinerary" ?> </a>
+                                                            <a class="button black-light button-3d rounded right save_to_swag_bag" data-sessions_id="<?= $val->sessions_id ?>" data-swag_bag_btn_status="0"   style="margin: 0px 5px 0px 0px; padding: 7px;"><?= ($val->status_my_swag_bag == 0) ? "Save to Itinerary" : "Remove from Itinerary" ?> </a>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -114,8 +120,6 @@
                     <!-- END: SECTION --> 
                 </div>
             </div>
-                
-
             <div class="row">
                 <div class="col-md-12">
                     <!-- CONTENT -->
@@ -128,7 +132,7 @@
                                     <table class="table table-bordered table-striped text-center ">
                                         <thead class="th_center">
                                             <tr>
-                                                 <th colspan="2">Notes </th>
+                                                <th colspan="2"><b>Notes</b></th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -139,7 +143,7 @@
                                                     ?>
                                                     <tr>
                                                         <td><?= $val->session_title ?> </td>
-                                                         <td> <?= $val->note ?></td>
+                                                        <td> <?= $val->note ?></td>
                                                         <td> <a class="button black-light small" style="margin: 0px 0;" href="<?= base_url() ?>home/delete_note/<?= $val->sessions_cust_briefcase_id ?>"><span>Delete</span></a></td>
                                                     </tr>
                                                     <?php
@@ -156,7 +160,7 @@
                     <!-- END: SECTION --> 
                 </div>
             </div>
-                <div class="row">
+            <div class="row">
                 <div class="col-md-12">
                     <!-- CONTENT -->
                     <section class="content" style="padding: 0px 0;">
@@ -168,7 +172,7 @@
                                     <table class="table table-bordered table-striped text-center ">
                                         <thead class="th_center">
                                             <tr>
-                                                <th colspan="2">Resource </th>
+                                                <th colspan="2"><b>Resource</b></th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -208,7 +212,7 @@
                     <!-- END: SECTION --> 
                 </div>
             </div>
-                
+
         </div>
     </div>
     <!--    <div class="modal fade" id="push_notification" tabindex="-1" role="modal" aria-labelledby="modal-label" aria-hidden="true" style="display: none; text-align: left; right: unset;">
@@ -332,6 +336,3 @@
         });
     });
 </script>
-
-
-
